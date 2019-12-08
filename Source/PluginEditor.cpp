@@ -2,27 +2,26 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-RipchordAudioProcessorEditor::RipchordAudioProcessorEditor (RipchordAudioProcessor& p)
-:   AudioProcessorEditor (&p),
-    processor (p)
+RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordPluginProcessor)
+:   AudioProcessorEditor (&inRipchordPluginProcessor),
+    mPluginProcessor (inRipchordPluginProcessor)
 {
     setSize (400, 300);
 }
 
-RipchordAudioProcessorEditor::~RipchordAudioProcessorEditor()
+RipchordPluginEditor::~RipchordPluginEditor()
 {
 }
 
 //==============================================================================
-void RipchordAudioProcessorEditor::paint (Graphics& g)
+void RipchordPluginEditor::paint (Graphics& inGraphics)
 {
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+    inGraphics.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    inGraphics.setColour (Colours::white);
+    inGraphics.setFont (15.0f);
+    inGraphics.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
-void RipchordAudioProcessorEditor::resized()
+void RipchordPluginEditor::resized()
 {
-
 }

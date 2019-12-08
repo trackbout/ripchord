@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 //==============================================================================
-class RipchordAudioProcessor  : public AudioProcessor
+class RipchordPluginProcessor : public AudioProcessor
 {
 public:
     //==============================================================================
-    RipchordAudioProcessor();
-    ~RipchordAudioProcessor();
+    RipchordPluginProcessor();
+    ~RipchordPluginProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -37,13 +37,13 @@ public:
     int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
     const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    void changeProgramName (int index, const String& name) override;
 
     //==============================================================================
-    void getStateInformation (MemoryBlock& destData) override;
+    void getStateInformation (MemoryBlock& memory) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RipchordAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RipchordPluginProcessor)
 };

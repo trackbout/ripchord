@@ -2,7 +2,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-RipchordAudioProcessor::RipchordAudioProcessor()
+RipchordPluginProcessor::RipchordPluginProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
 : AudioProcessor (BusesProperties()
     #if ! JucePlugin_IsMidiEffect
@@ -16,17 +16,17 @@ RipchordAudioProcessor::RipchordAudioProcessor()
 {
 }
 
-RipchordAudioProcessor::~RipchordAudioProcessor()
+RipchordPluginProcessor::~RipchordPluginProcessor()
 {
 }
 
 //==============================================================================
-const String RipchordAudioProcessor::getName() const
+const String RipchordPluginProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool RipchordAudioProcessor::acceptsMidi() const
+bool RipchordPluginProcessor::acceptsMidi() const
 {
     #if JucePlugin_WantsMidiInput
         return true;
@@ -35,7 +35,7 @@ bool RipchordAudioProcessor::acceptsMidi() const
     #endif
 }
 
-bool RipchordAudioProcessor::producesMidi() const
+bool RipchordPluginProcessor::producesMidi() const
 {
     #if JucePlugin_ProducesMidiOutput
         return true;
@@ -44,7 +44,7 @@ bool RipchordAudioProcessor::producesMidi() const
     #endif
 }
 
-bool RipchordAudioProcessor::isMidiEffect() const
+bool RipchordPluginProcessor::isMidiEffect() const
 {
     #if JucePlugin_IsMidiEffect
         return true;
@@ -53,55 +53,55 @@ bool RipchordAudioProcessor::isMidiEffect() const
     #endif
 }
 
-double RipchordAudioProcessor::getTailLengthSeconds() const
+double RipchordPluginProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int RipchordAudioProcessor::getNumPrograms()
+int RipchordPluginProcessor::getNumPrograms()
 {
     return 1;
 }
 
-int RipchordAudioProcessor::getCurrentProgram()
+int RipchordPluginProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void RipchordAudioProcessor::setCurrentProgram (int index)
+void RipchordPluginProcessor::setCurrentProgram (int inIndex)
 {
 }
 
-const String RipchordAudioProcessor::getProgramName (int index)
+const String RipchordPluginProcessor::getProgramName (int inIndex)
 {
     return {};
 }
 
-void RipchordAudioProcessor::changeProgramName (int index, const String& newName)
+void RipchordPluginProcessor::changeProgramName (int inIndex, const String& inName)
 {
 }
 
 //==============================================================================
-void RipchordAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void RipchordPluginProcessor::prepareToPlay (double inSampleRate, int inSamplesPerBlock)
 {
 }
 
-void RipchordAudioProcessor::releaseResources()
+void RipchordPluginProcessor::releaseResources()
 {
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool RipchordAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool RipchordPluginProcessor::isBusesLayoutSupported (const BusesLayout& inLayouts) const
 {
     #if JucePlugin_IsMidiEffect
-        ignoreUnused (layouts);
+        ignoreUnused (inLayouts);
         return true;
     #else
-        if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+        if (inLayouts.getMainOutputChannelSet() != AudioChannelSet::mono()
+        && inLayouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
     #if ! JucePlugin_IsSynth
-        if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
+        if (inLayouts.getMainOutputChannelSet() != inLayouts.getMainInputChannelSet())
         return false;
     #endif
         return true;
@@ -109,10 +109,10 @@ bool RipchordAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 }
 #endif
 
-void RipchordAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, MidiBuffer& inMidiBuffer)
 {
     ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
+    auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
     // In case we have more outputs than inputs, this code clears any output
@@ -121,9 +121,9 @@ void RipchordAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    for (auto index = totalNumInputChannels; index < totalNumOutputChannels; ++index)
     {
-        buffer.clear (i, 0, buffer.getNumSamples());
+        inAudioBuffer.clear (index, 0, inAudioBuffer.getNumSamples());
     }
 
     // This is the place where you'd normally do the guts of your plugin's
@@ -140,25 +140,25 @@ void RipchordAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
 }
 
 //==============================================================================
-bool RipchordAudioProcessor::hasEditor() const
+bool RipchordPluginProcessor::hasEditor() const
 {
     return true;
 }
 
-AudioProcessorEditor* RipchordAudioProcessor::createEditor()
+AudioProcessorEditor* RipchordPluginProcessor::createEditor()
 {
-    return new RipchordAudioProcessorEditor (*this);
+    return new RipchordPluginEditor (*this);
 }
 
 //==============================================================================
-void RipchordAudioProcessor::getStateInformation (MemoryBlock& destData)
+void RipchordPluginProcessor::getStateInformation (MemoryBlock& inMemory)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void RipchordAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void RipchordPluginProcessor::setStateInformation (const void* inData, int inSizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -167,5 +167,5 @@ void RipchordAudioProcessor::setStateInformation (const void* data, int sizeInBy
 //==============================================================================
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new RipchordAudioProcessor();
+    return new RipchordPluginProcessor();
 }
