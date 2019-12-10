@@ -38,6 +38,14 @@
         <FILE id="aMqYp3" name="MainComponent.cpp" compile="1" resource="0"
               file="Source/Components/MainComponent.cpp"/>
         <FILE id="ViRR0T" name="MainComponent.h" compile="0" resource="0" file="Source/Components/MainComponent.h"/>
+        <FILE id="JWLzcX" name="KeyboardViewComponent.cpp" compile="1" resource="0"
+              file="Source/Components/KeyboardViewComponent.cpp"/>
+        <FILE id="FVJTpd" name="KeyboardViewComponent.h" compile="0" resource="0"
+              file="Source/Components/KeyboardViewComponent.h"/>
+        <FILE id="aktIq3" name="KeyboardComponent.cpp" compile="1" resource="0"
+              file="Source/Components/KeyboardComponent.cpp"/>
+        <FILE id="YDr76D" name="KeyboardComponent.h" compile="0" resource="0"
+              file="Source/Components/KeyboardComponent.h"/>
       </GROUP>
       <GROUP id="{236D2A67-71F8-D9E9-5652-7A1EEB731DFC}" name="Messaging">
         <FILE id="AmzX4d" name="DataMessage.cpp" compile="1" resource="0" file="Source/Messaging/DataMessage.cpp"/>
