@@ -4,9 +4,19 @@
 //==============================================================================
 RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordPluginProcessor)
 :   AudioProcessorEditor (&inRipchordPluginProcessor),
-    mPluginProcessor (inRipchordPluginProcessor)
+    mPluginProcessor (inRipchordPluginProcessor),
+    mMainComponent()
 {
-    setSize (400, 300);
+    addAndMakeVisible (mMainComponent);
+
+    if (auto* boundsConstrainer = getConstrainer())
+    {
+        boundsConstrainer->setFixedAspectRatio (EDITOR_WIDTH / (float) EDITOR_HEIGHT);
+    }
+
+    setResizable (true, true);
+    setResizeLimits(EDITOR_WIDTH * 0.5f, EDITOR_HEIGHT * 0.5f, EDITOR_WIDTH * 1.5f, EDITOR_HEIGHT * 1.5f);
+    setSize (mPluginProcessor.getLastEditorWidth (EDITOR_WIDTH), mPluginProcessor.getLastEditorHeight (EDITOR_HEIGHT));
 }
 
 RipchordPluginEditor::~RipchordPluginEditor()
@@ -16,12 +26,15 @@ RipchordPluginEditor::~RipchordPluginEditor()
 //==============================================================================
 void RipchordPluginEditor::paint (Graphics& inGraphics)
 {
-    inGraphics.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    inGraphics.setColour (Colours::white);
-    inGraphics.setFont (15.0f);
-    inGraphics.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
 void RipchordPluginEditor::resized()
 {
+    auto area = getLocalBounds();
+    mMainComponent.setBounds (area);
+
+    if (isMouseButtonDownAnywhere()) {
+        mPluginProcessor.setLastEditorWidth (getWidth());
+        mPluginProcessor.setLastEditorHeight (getHeight());
+    }
 }

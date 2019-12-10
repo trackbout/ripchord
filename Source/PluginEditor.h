@@ -2,6 +2,8 @@
 
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
+#include "MainComponent.h"
+#include "Widgets.h"
 
 //==============================================================================
 class RipchordPluginEditor : public AudioProcessorEditor
@@ -15,11 +17,19 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    //==============================================================================
+    struct DefaultLookAndFeel : public Widgets
+    {
+        DefaultLookAndFeel() { LookAndFeel::setDefaultLookAndFeel (this); }
+        ~DefaultLookAndFeel() { LookAndFeel::setDefaultLookAndFeel (nullptr); }
+    };
+
+    SharedResourcePointer<DefaultLookAndFeel> lookAndFeel;
+
 private:
     //==============================================================================
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
     RipchordPluginProcessor& mPluginProcessor;
+    MainComponent mMainComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RipchordPluginEditor)
 };

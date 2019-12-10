@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "Constants.h"
+#include "Interface.h"
 
 //==============================================================================
 class MainComponent : public Component

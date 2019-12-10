@@ -140,14 +140,44 @@ void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, M
 }
 
 //==============================================================================
+AudioProcessorEditor* RipchordPluginProcessor::createEditor()
+{
+    return new RipchordPluginEditor (*this);
+}
+
 bool RipchordPluginProcessor::hasEditor() const
 {
     return true;
 }
 
-AudioProcessorEditor* RipchordPluginProcessor::createEditor()
+void RipchordPluginProcessor::setLastEditorWidth (int inWidth)
 {
-    return new RipchordPluginEditor (*this);
+    mLastEditorWidth = inWidth;
+}
+
+void RipchordPluginProcessor::setLastEditorHeight (int inHeight)
+{
+    mLastEditorHeight = inHeight;
+}
+
+int RipchordPluginProcessor::getLastEditorWidth (int inDefaultWidth) const
+{
+    if (mLastEditorWidth > 0)
+    {
+        return mLastEditorWidth;
+    }
+
+    return inDefaultWidth;
+}
+
+int RipchordPluginProcessor::getLastEditorHeight (int inDefaultHeight) const
+{
+    if (mLastEditorHeight > 0)
+    {
+        return mLastEditorHeight;
+    }
+
+    return inDefaultHeight;
 }
 
 //==============================================================================

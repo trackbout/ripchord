@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Utilities.h"
+#include "System.h"
 
 //==============================================================================
 // A util class to load the images/icons used in this plugin as Drawables.
@@ -81,7 +81,7 @@ private:
         {
             jassert (inFilename.endsWithIgnoreCase (".svg"));
 
-            auto appDataPath = Utilities::getDefaultUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
+            auto appDataPath = System::getDefaultUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
             auto imagesPath = appDataPath.getChildFile ("Images");
 
             std::unique_ptr<Drawable> drawable = Drawable::createFromSVGFile (imagesPath.getChildFile (inFilename));
