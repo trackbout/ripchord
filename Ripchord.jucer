@@ -57,6 +57,10 @@
         <FILE id="ycNWc8" name="DataMessageManager.h" compile="0" resource="0"
               file="Source/Messaging/DataMessageManager.h"/>
       </GROUP>
+      <GROUP id="{C521147D-4A15-1CE4-CEE7-69E5A6393259}" name="Process">
+        <FILE id="dX0oVw" name="MainProcess.cpp" compile="1" resource="0" file="Source/Process/MainProcess.cpp"/>
+        <FILE id="o9qHn5" name="MainProcess.h" compile="0" resource="0" file="Source/Process/MainProcess.h"/>
+      </GROUP>
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
         <FILE id="wPhM5I" name="Images.h" compile="0" resource="0" file="Source/Utils/Images.h"/>
