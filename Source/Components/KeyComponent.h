@@ -1,31 +1,31 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "KeyComponent.h"
+#include "Constants.h"
+#include "Interface.h"
 
 //==============================================================================
-class KeyboardComponent : public Component
+class KeyComponent : public Component
 {
 public:
     //==============================================================================
-    KeyboardComponent();
-    ~KeyboardComponent();
+    KeyComponent(int midiNoteNumber);
+    ~KeyComponent();
 
     //==============================================================================
-    void resized() override;
+    void paint (Graphics& graphics) override;
+
+    //==============================================================================
+    int getMidiNoteNumber();
+
+protected:
+    //==============================================================================
+    Colour getDefaultColor();
 
 private:
     //==============================================================================
-    void initKeyboard();
-    void bringBlackKeysToFront();
-    juce::Rectangle<int> getKeyBounds (int& x, int midiNoteNumber);
+    int mMidiNoteNumber;
 
     //==============================================================================
-    const int mFirstKey = 21;
-    const int mLastKey = 108;
-    const int mWhiteKeyCount = 52;
-    OwnedArray<KeyComponent> mKeyComponents;
-
-    //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyComponent)
 };
