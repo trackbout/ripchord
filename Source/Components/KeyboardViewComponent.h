@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "Constants.h"
 #include "Interface.h"
+#include "Images.h"
 #include "KeyboardComponent.h"
 
 //==============================================================================
@@ -24,6 +25,9 @@ private:
 
     KeyboardComponent mOutputKeyboard;
     KeyboardComponent mInputKeyboard;
+
+    Images mImages;
+    DrawableButton mModeButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

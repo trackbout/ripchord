@@ -20,8 +20,8 @@
         <FILE id="YGlnp3" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
         <FILE id="JDGwXL" name="Import.svg" compile="0" resource="1" file="Source/Assets/Import.svg"/>
         <FILE id="EHeoFM" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="f7IOzM" name="Mode.svg" compile="0" resource="1" file="Source/Assets/Mode.svg"/>
-        <FILE id="sBKOde" name="ModeON.svg" compile="0" resource="1" file="Source/Assets/ModeON.svg"/>
+        <FILE id="f7IOzM" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
+        <FILE id="sBKOde" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
         <FILE id="Y9HbRE" name="New.svg" compile="0" resource="1" file="Source/Assets/New.svg"/>
         <FILE id="ZjL5So" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="nBHwff" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
@@ -30,8 +30,6 @@
         <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
         <FILE id="GQnmAg" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
         <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
-        <FILE id="KfKDYf" name="Through.svg" compile="0" resource="1" file="Source/Assets/Through.svg"/>
-        <FILE id="shWgvy" name="ThroughON.svg" compile="0" resource="1" file="Source/Assets/ThroughON.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">

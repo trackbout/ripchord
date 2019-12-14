@@ -13,6 +13,13 @@ KeyboardViewComponent::KeyboardViewComponent()
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
+
+    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg", "", "", "", "ModeEDIT.svg", "", "", "");
+
+    mModeButton.setTriggeredOnMouseDown (true);
+    mModeButton.onClick = [this]() { DBG("YOLO"); };
+
+    addAndMakeVisible (mModeButton);
 }
 
 KeyboardViewComponent::~KeyboardViewComponent()
@@ -53,6 +60,8 @@ void KeyboardViewComponent::resized()
     float scaleFactor = (float) getWidth() / EDITOR_WIDTH;
     mOutputKeyboard.setTransform (AffineTransform::scale(scaleFactor));
     mInputKeyboard.setTransform (AffineTransform::scale(scaleFactor));
+
+    mModeButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
 }
 
 //==============================================================================
