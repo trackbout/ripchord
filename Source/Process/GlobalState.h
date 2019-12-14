@@ -3,16 +3,16 @@
 #include "JuceHeader.h"
 
 //==============================================================================
-class MainProcess
+class GlobalState
 {
 public:
     //==============================================================================
-    MainProcess();
-    ~MainProcess();
+    GlobalState();
+    ~GlobalState();
 
 private:
     //==============================================================================
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainProcess)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GlobalState)
 };

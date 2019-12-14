@@ -7,7 +7,7 @@ RipchordPluginProcessor::RipchordPluginProcessor()
 : AudioProcessor (BusesProperties()
     #if ! JucePlugin_IsMidiEffect
         #if ! JucePlugin_IsSynth
-            .withInput  ("Input",  AudioChannelSet::stereo(), true)
+            .withInput ("Input", AudioChannelSet::stereo(), true)
         #endif
         .withOutput ("Output", AudioChannelSet::stereo(), true)
     #endif
