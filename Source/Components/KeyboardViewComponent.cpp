@@ -19,7 +19,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg", "", "", "", "ModeEDIT.svg", "", "", "");
 
     mModeButton.setTriggeredOnMouseDown (true);
-    mModeButton.onClick = [this]() { DBG("YOLO"); };
+    mModeButton.onClick = [this]() { mGlobalState.toggleMode(); };
 
     addAndMakeVisible (mModeButton);
 }
