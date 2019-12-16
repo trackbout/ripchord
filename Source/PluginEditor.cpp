@@ -5,7 +5,7 @@
 RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordPluginProcessor)
 :   AudioProcessorEditor (&inRipchordPluginProcessor),
     mPluginProcessor (inRipchordPluginProcessor),
-    mMainComponent()
+    mMainComponent { mPluginProcessor.getMainProcess() }
 {
     addAndMakeVisible (mMainComponent);
 

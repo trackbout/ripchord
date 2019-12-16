@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "Constants.h"
 #include "Interface.h"
+#include "MainProcess.h"
 #include "KeyboardViewComponent.h"
 
 //==============================================================================
@@ -10,7 +11,7 @@ class MainComponent : public Component
 {
 public:
     //==============================================================================
-    MainComponent();
+    MainComponent (MainProcess&);
     ~MainComponent();
 
     //==============================================================================
@@ -19,6 +20,8 @@ public:
 
 private:
     //==============================================================================
+    MainProcess& mMainProcess;
+
     Label mTitleLabel { "", "ripchord" };
     KeyboardViewComponent mKeyboardViewComponent;
 

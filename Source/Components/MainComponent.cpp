@@ -1,7 +1,8 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent()
+MainComponent::MainComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess)
 {
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
