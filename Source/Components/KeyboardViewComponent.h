@@ -22,6 +22,7 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+    GlobalState& mGlobalState;
 
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };

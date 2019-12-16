@@ -2,7 +2,8 @@
 
 //==============================================================================
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
-:   mMainProcess (inMainProcess)
+:   mMainProcess (inMainProcess),
+    mGlobalState (mMainProcess.getGlobalState())
 {
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     addAndMakeVisible (mOutputKeyboardLabel);
