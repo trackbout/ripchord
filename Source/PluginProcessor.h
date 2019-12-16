@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "MainProcess.h"
 
 //==============================================================================
 class RipchordPluginProcessor : public AudioProcessor
@@ -46,8 +47,12 @@ public:
     void getStateInformation (MemoryBlock& memory) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    MainProcess& getMainProcess() { return mMainProcess; }
+
 private:
     //==============================================================================
+    MainProcess mMainProcess;
     int mLastEditorWidth = -1;
     int mLastEditorHeight = -1;
 
