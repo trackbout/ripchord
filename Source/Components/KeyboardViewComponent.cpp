@@ -1,7 +1,8 @@
 #include "KeyboardViewComponent.h"
 
 //==============================================================================
-KeyboardViewComponent::KeyboardViewComponent()
+KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess)
 {
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     addAndMakeVisible (mOutputKeyboardLabel);

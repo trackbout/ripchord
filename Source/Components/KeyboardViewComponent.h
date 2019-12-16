@@ -4,14 +4,15 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
+#include "MainProcess.h"
 #include "KeyboardComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component
 {
 public:
-    //==============================================================================
-    KeyboardViewComponent();
+    //=============================================================================
+    KeyboardViewComponent (MainProcess&);
     ~KeyboardViewComponent();
 
     //==============================================================================
@@ -20,6 +21,8 @@ public:
 
 private:
     //==============================================================================
+    MainProcess& mMainProcess;
+
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };
 

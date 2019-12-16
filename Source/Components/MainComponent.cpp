@@ -2,7 +2,8 @@
 
 //==============================================================================
 MainComponent::MainComponent (MainProcess& inMainProcess)
-:   mMainProcess (inMainProcess)
+:   mMainProcess (inMainProcess),
+    mKeyboardViewComponent (inMainProcess)
 {
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
