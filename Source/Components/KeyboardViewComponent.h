@@ -23,6 +23,7 @@ public:
 
     //==============================================================================
     void messageReceived (const DataMessage* inMessage) override;
+    void handleModeUpdated();
 
 private:
     //==============================================================================

@@ -75,10 +75,14 @@ void KeyboardViewComponent::messageReceived (const DataMessage* inMessage)
     {
         case (DataMessageCode::kModeUpdated):
         {
-            String data0 = inMessage->messageData0;
-            DBG(data0);
+            handleModeUpdated();
         } break;
 
         default: {} break;
     };
+}
+
+void KeyboardViewComponent::handleModeUpdated()
+{
+    mModeButton.setToggleState (mGlobalState.isInEditMode(), dontSendNotification);
 }

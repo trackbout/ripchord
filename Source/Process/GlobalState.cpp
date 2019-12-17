@@ -16,7 +16,6 @@ void GlobalState::toggleMode()
 
     DataMessage* message = new DataMessage();
     message->messageCode = DataMessageCode::kModeUpdated;
-    message->messageData0 = "WOOT";
     sendMessage (message, kListenerType_Sync);
 }
 
