@@ -38,6 +38,7 @@ private:
 
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
+    DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

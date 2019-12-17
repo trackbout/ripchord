@@ -6,6 +6,7 @@ enum DataMessageCode
     
     // Messages from global state
     kModeUpdated,
+    kViewUpdated,
 
     // Messages from mouse clicks on the UI
     kMidiNoteOnInternal,
