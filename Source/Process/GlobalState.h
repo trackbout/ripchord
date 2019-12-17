@@ -1,9 +1,11 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "DataMessage.h"
+#include "DataMessageBroadcaster.h"
 
 //==============================================================================
-class GlobalState
+class GlobalState : public DataMessageBroadcaster
 {
 public:
     //==============================================================================

@@ -4,11 +4,13 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
+#include "DataMessage.h"
 #include "MainProcess.h"
 #include "KeyboardComponent.h"
+#include "DataMessageListener.h"
 
 //==============================================================================
-class KeyboardViewComponent : public Component
+class KeyboardViewComponent : public Component, public DataMessageListener
 {
 public:
     //=============================================================================
@@ -18,6 +20,9 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+
+    //==============================================================================
+    void messageReceived (const DataMessage* inMessage) override;
 
 private:
     //==============================================================================

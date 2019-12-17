@@ -20,6 +20,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     mModeButton.setTriggeredOnMouseDown (true);
     mModeButton.onClick = [this]() { mGlobalState.toggleMode(); };
+    mGlobalState.DataMessageBroadcaster::addListener (this, kListenerType_Sync);
 
     addAndMakeVisible (mModeButton);
 }
@@ -67,3 +68,17 @@ void KeyboardViewComponent::resized()
 }
 
 //==============================================================================
+void KeyboardViewComponent::messageReceived (const DataMessage* inMessage)
+{
+
+    switch (inMessage->messageCode)
+    {
+        case (DataMessageCode::kModeUpdated):
+        {
+            String data0 = inMessage->messageData0;
+            DBG(data0);
+        } break;
+
+        default: {} break;
+    };
+}
