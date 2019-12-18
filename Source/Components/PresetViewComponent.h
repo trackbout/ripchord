@@ -4,6 +4,7 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
+#include "MainProcess.h"
 #include "PresetListComponent.h"
 
 //==============================================================================
@@ -11,7 +12,7 @@ class PresetViewComponent : public Component
 {
 public:
     //==============================================================================
-    PresetViewComponent();
+    PresetViewComponent (MainProcess&);
     ~PresetViewComponent();
 
     //==============================================================================
@@ -20,6 +21,9 @@ public:
 
 private:
     //==============================================================================
+    MainProcess& mMainProcess;
+    GlobalState& mGlobalState;
+
     Images mImages;
     Viewport mPresetViewport;
     TextEditor mPresetFilterInput;

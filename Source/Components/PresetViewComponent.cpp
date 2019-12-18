@@ -1,7 +1,9 @@
 #include "PresetViewComponent.h"
 
 //==============================================================================
-PresetViewComponent::PresetViewComponent()
+PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess),
+    mGlobalState (mMainProcess.getGlobalState())
 {
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
     mPresetFilterInput.setColour (TextEditor::outlineColourId, COLOR_GREY_LIGHTER);
@@ -11,7 +13,10 @@ PresetViewComponent::PresetViewComponent()
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
+    mFavoritesButton.onClick = [this]() { DBG("FAVORITES BUTTON"); };
+
     mKeyboardsButton.setTriggeredOnMouseDown (true);
+    mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
     mPresetViewport.setViewedComponent (&mPresetListComponent, false);
     mPresetViewport.setScrollBarsShown (true, false);
@@ -53,6 +58,7 @@ void PresetViewComponent::resized()
 
     int inputHeight = mPresetFilterInput.getHeight();
     float inputFontHeight = inputHeight * TEXT_INPUT_FONT_HEIGHT_RATIO;
+
     mPresetFilterInput.applyFontToAllText (Font (inputFontHeight));
     mPresetFilterInput.setIndents ((inputHeight * 0.4f), int ((inputHeight - inputFontHeight) * 0.5f));
 
