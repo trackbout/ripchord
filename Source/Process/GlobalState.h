@@ -15,6 +15,7 @@ public:
     //==============================================================================
     enum Mode { Play, Edit };
     enum View { Keyboard, Preset };
+    enum Menu { Hidden, Visible };
 
     //==============================================================================
     void toggleMode();
@@ -26,10 +27,16 @@ public:
     bool isKeyboardView();
     bool isPresetView();
 
+    //==============================================================================
+    void toggleMenu();
+    bool isMenuHidden();
+    bool isMenuVisible();
+
 private:
     //==============================================================================
     Mode mMode = Mode::Play;
     View mView = View::Keyboard;
+    Menu mMenu = Menu::Hidden;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GlobalState)

@@ -48,3 +48,23 @@ bool GlobalState::isPresetView()
 {
     return mView == View::Preset;
 }
+
+//==============================================================================
+void GlobalState::toggleMenu()
+{
+    mMenu = isMenuHidden() ? Menu::Hidden : Menu::Visible;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = DataMessageCode::kMenuUpdated;
+    sendMessage (message, kListenerType_Sync);
+}
+
+bool GlobalState::isMenuHidden()
+{
+    return mMenu == Menu::Hidden;
+}
+
+bool GlobalState::isMenuVisible()
+{
+    return mMenu == Menu::Visible;
+}
