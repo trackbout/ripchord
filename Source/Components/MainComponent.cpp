@@ -16,12 +16,14 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mMenuButton, "Gear.svg");
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
+    mMenuComponent.handleBackgroundClick = [this]() { mGlobalState.toggleMenu(); };
 
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mKeyboardViewComponent);
     addChildComponent (mPresetViewComponent);
 
     addAndMakeVisible (mMenuButton);
+    addChildComponent (mMenuComponent);
 }
 
 MainComponent::~MainComponent()
@@ -40,6 +42,7 @@ void MainComponent::resized()
     auto mainArea = getLocalBounds();
     mKeyboardViewComponent.setBounds (mainArea);
     mPresetViewComponent.setBounds (mainArea);
+    mMenuComponent.setBounds (mainArea);
 
     auto titleArea = Interface::getRelativeBounds (mainArea, SPACE - 4, HEADER_Y, BUTTON_WIDTH + 10, ITEM_HEIGHT - 2);
     mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
@@ -54,12 +57,9 @@ void MainComponent::messageReceived (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (DataMessageCode::kViewUpdated):
-        {
-            handleViewUpdated();
-        } break;
-
-        default: {} break;
+        case (DataMessageCode::kViewUpdated): { handleViewUpdated(); } break;
+        case (DataMessageCode::kMenuUpdated): { handleMenuUpdated(); } break;
+        default: { } break;
     };
 }
 
@@ -67,4 +67,9 @@ void MainComponent::handleViewUpdated()
 {
     mKeyboardViewComponent.setVisible (!mGlobalState.isPresetView());
     mPresetViewComponent.setVisible (mGlobalState.isPresetView());
+}
+
+void MainComponent::handleMenuUpdated()
+{
+    mMenuComponent.setVisible (mGlobalState.isMenuVisible());
 }

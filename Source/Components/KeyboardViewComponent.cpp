@@ -79,12 +79,8 @@ void KeyboardViewComponent::messageReceived (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (DataMessageCode::kModeUpdated):
-        {
-            handleModeUpdated();
-        } break;
-
-        default: {} break;
+        case (DataMessageCode::kModeUpdated): { handleModeUpdated(); } break;
+        default: { } break;
     };
 }
 

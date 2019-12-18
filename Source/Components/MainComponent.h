@@ -4,11 +4,12 @@
 #include "Images.h"
 #include "Constants.h"
 #include "Interface.h"
-#include "DataMessage.h"
 #include "MainProcess.h"
+#include "DataMessage.h"
+#include "DataMessageListener.h"
 #include "KeyboardViewComponent.h"
 #include "PresetViewComponent.h"
-#include "DataMessageListener.h"
+#include "MenuComponent.h"
 
 //==============================================================================
 class MainComponent : public Component, public DataMessageListener
@@ -25,6 +26,7 @@ public:
     //==============================================================================
     void messageReceived (const DataMessage* message) override;
     void handleViewUpdated();
+    void handleMenuUpdated();
 
 private:
     //==============================================================================
@@ -33,6 +35,7 @@ private:
 
     KeyboardViewComponent mKeyboardViewComponent;
     PresetViewComponent mPresetViewComponent;
+    MenuComponent mMenuComponent;
 
     Images mImages;
     Label mTitleLabel { "", "ripchord" };
