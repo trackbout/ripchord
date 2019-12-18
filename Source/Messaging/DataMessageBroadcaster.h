@@ -13,12 +13,11 @@ public:
     DataMessageBroadcaster();
     ~DataMessageBroadcaster();
 
-    // Allows us to add a message listener to this Broadcaster.
-    // Listener types are -> 0: async, 1: sync
-    void addListener (DataMessageListener* inListener, int inListenerType);
+    // Allows us to add a message listener. Types are -> 0: async, 1: sync
+    void addListener (DataMessageListener* listener, int listenerType);
 
     // Allows us to send messages to corresponding message listeners.
-    void sendMessage (DataMessage* inMessage, int inListenerType);
+    void sendMessage (DataMessage* message, int listenerType);
 
 private:
     //==============================================================================

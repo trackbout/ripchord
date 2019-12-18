@@ -14,5 +14,5 @@ enum DataMessageCode
 
     // Messages from external midi keyboards
     kMidiNoteOnExternal,
-    kMidiNoteOffExternal,
+    kMidiNoteOffExternal
 };

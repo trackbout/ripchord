@@ -11,7 +11,7 @@ enum
 {
     kListenerType_Sync = 0,
     kListenerType_Async,
-    kListenerType_SyncAsync,
+    kListenerType_SyncAsync
 };
 
 //==============================================================================

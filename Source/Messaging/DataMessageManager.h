@@ -15,11 +15,9 @@ public:
     ~DataMessageManager();
 
     // Allows us to connect a message listener to a message broadcaster, for a given "listener type"
-    void addListener (DataMessageListener* inListener, DataMessageBroadcaster* inBroadcaster, int inListenerType);
-
-    void removeListener (DataMessageListener* inListener);
-
-    void sendMessageToListeners (DataMessageBroadcaster* inBroadcaster, DataMessage* inMessage, int inListenerType);
+    void addListener (DataMessageListener* listener, DataMessageBroadcaster* broadcaster, int listenerType);
+    void removeListener (DataMessageListener* listener);
+    void sendMessageToListeners (DataMessageBroadcaster* broadcaster, DataMessage* message, int listenerType);
 
     // Second arg of "false" allows the instance to be recreated if needed
     juce_DeclareSingleton (DataMessageManager, false);
@@ -28,13 +26,10 @@ private:
     //==============================================================================
 
     // Internal
-    void updateSyncListeners (DataMessageBroadcaster* inBroadcaster, DataMessage* inMessage);
-
-    // Internal
-    void updateAsyncListeners (DataMessageBroadcaster* inBroadcaster, DataMessage* inMessage);
+    void updateSyncListeners (DataMessageBroadcaster* broadcaster, DataMessage* message);
+    void updateAsyncListeners (DataMessageBroadcaster* broadcaster, DataMessage* message);
 
     std::multimap<DataMessageBroadcaster*, DataMessageListener*> mSyncListeners;
-
     std::multimap<DataMessageBroadcaster*, DataMessageListener*> mAsyncListeners;
 
     CriticalSection mListenerLock;

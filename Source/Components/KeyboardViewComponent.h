@@ -22,7 +22,7 @@ public:
     void resized() override;
 
     //==============================================================================
-    void messageReceived (const DataMessage* inMessage) override;
+    void messageReceived (const DataMessage* message) override;
     void handleModeUpdated();
 
 private:

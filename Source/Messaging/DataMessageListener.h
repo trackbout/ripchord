@@ -10,10 +10,9 @@ class DataMessageListener
 public:
     //==============================================================================
     DataMessageListener();
-
     virtual ~DataMessageListener();
 
-    virtual void messageReceived (const DataMessage* inMessage) = 0;
+    virtual void messageReceived (const DataMessage* message) = 0;
 
 private:
     //==============================================================================
