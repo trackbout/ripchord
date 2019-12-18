@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Images.h"
 #include "Constants.h"
 #include "Interface.h"
 #include "DataMessage.h"
@@ -30,9 +31,12 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
 
-    Label mTitleLabel { "", "ripchord" };
     KeyboardViewComponent mKeyboardViewComponent;
     PresetViewComponent mPresetViewComponent;
+
+    Images mImages;
+    Label mTitleLabel { "", "ripchord" };
+    DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
