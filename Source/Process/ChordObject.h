@@ -3,16 +3,16 @@
 #include "JuceHeader.h"
 
 //==============================================================================
-class OutputKeyboardState
+class ChordObject
 {
 public:
     //==============================================================================
-    OutputKeyboardState();
-    ~OutputKeyboardState();
+    ChordObject();
+    ~ChordObject();
 
 private:
     //==============================================================================
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OutputKeyboardState)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChordObject)
 };

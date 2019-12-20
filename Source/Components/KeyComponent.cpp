@@ -1,11 +1,10 @@
 #include "KeyComponent.h"
-#include "DataMessage.h"
-#include "DataMessageCodes.h"
 
 //==============================================================================
 KeyComponent::KeyComponent (MainProcess& inMainProcess, int inMidiNoteNumber)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mCurrentPresetState (mMainProcess.getCurrentPresetState()),
     mMidiNoteNumber (inMidiNoteNumber)
 {
 }

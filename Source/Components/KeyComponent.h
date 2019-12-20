@@ -27,6 +27,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    CurrentPresetState& mCurrentPresetState;
 
     //==============================================================================
     int mMidiNoteNumber;

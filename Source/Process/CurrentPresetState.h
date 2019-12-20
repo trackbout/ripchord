@@ -3,16 +3,16 @@
 #include "JuceHeader.h"
 
 //==============================================================================
-class OutputKeyboardState
+class CurrentPresetState
 {
 public:
     //==============================================================================
-    OutputKeyboardState();
-    ~OutputKeyboardState();
+    CurrentPresetState();
+    ~CurrentPresetState();
 
 private:
     //==============================================================================
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OutputKeyboardState)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CurrentPresetState)
 };
