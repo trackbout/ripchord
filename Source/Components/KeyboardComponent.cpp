@@ -1,7 +1,9 @@
 #include "KeyboardComponent.h"
 
 //==============================================================================
-KeyboardComponent::KeyboardComponent()
+KeyboardComponent::KeyboardComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess),
+    mGlobalState (mMainProcess.getGlobalState())
 {
 }
 
