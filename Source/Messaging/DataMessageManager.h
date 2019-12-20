@@ -24,8 +24,6 @@ public:
 
 private:
     //==============================================================================
-
-    // Internal
     void updateSyncListeners (DataMessageBroadcaster* broadcaster, DataMessage* message);
     void updateAsyncListeners (DataMessageBroadcaster* broadcaster, DataMessage* message);
 
@@ -34,5 +32,6 @@ private:
 
     CriticalSection mListenerLock;
 
+    //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessageManager);
 };

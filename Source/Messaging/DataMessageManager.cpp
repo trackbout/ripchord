@@ -25,12 +25,12 @@ void DataMessageManager::addListener (DataMessageListener* inListener,
 
     switch (inListenerType)
     {
-        case (kListenerType_Sync):
+        case (ListenerType::kSync):
         {
             mSyncListeners.insert (listener_pair);
         } break;
 
-        case (kListenerType_Async):
+        case (ListenerType::kAsync):
         {
             mAsyncListeners.insert (listener_pair);
         } break;
@@ -84,17 +84,17 @@ void DataMessageManager::sendMessageToListeners (DataMessageBroadcaster* inBroad
 
     switch (inListenerType)
     {
-        case (kListenerType_Sync):
+        case (ListenerType::kSync):
         {
             updateSyncListeners (inBroadcaster, inMessage);
         } break;
 
-        case (kListenerType_Async):
+        case (ListenerType::kAsync):
         {
             updateAsyncListeners (inBroadcaster, inMessage);
         } break;
 
-        case (kListenerType_SyncAsync):
+        case (ListenerType::kSyncAsync):
         {
             updateSyncListeners (inBroadcaster, inMessage);
             updateAsyncListeners (inBroadcaster, inMessage);

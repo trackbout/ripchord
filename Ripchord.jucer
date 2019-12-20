@@ -72,22 +72,20 @@
         <FILE id="IpVUvC" name="MenuComponent.h" compile="0" resource="0" file="Source/Components/MenuComponent.h"/>
       </GROUP>
       <GROUP id="{236D2A67-71F8-D9E9-5652-7A1EEB731DFC}" name="Messaging">
-        <FILE id="AmzX4d" name="DataMessage.cpp" compile="1" resource="0" file="Source/Messaging/DataMessage.cpp"/>
-        <FILE id="T8mOZl" name="DataMessage.h" compile="0" resource="0" file="Source/Messaging/DataMessage.h"/>
-        <FILE id="C4Cxek" name="DataMessageBroadcaster.cpp" compile="1" resource="0"
-              file="Source/Messaging/DataMessageBroadcaster.cpp"/>
-        <FILE id="om4DYP" name="DataMessageBroadcaster.h" compile="0" resource="0"
-              file="Source/Messaging/DataMessageBroadcaster.h"/>
-        <FILE id="bobjWl" name="DataMessageCodes.h" compile="0" resource="0"
-              file="Source/Messaging/DataMessageCodes.h"/>
-        <FILE id="Rzu8Zq" name="DataMessageListener.cpp" compile="1" resource="0"
-              file="Source/Messaging/DataMessageListener.cpp"/>
-        <FILE id="A7L67q" name="DataMessageListener.h" compile="0" resource="0"
-              file="Source/Messaging/DataMessageListener.h"/>
         <FILE id="dupQlV" name="DataMessageManager.cpp" compile="1" resource="0"
               file="Source/Messaging/DataMessageManager.cpp"/>
         <FILE id="ycNWc8" name="DataMessageManager.h" compile="0" resource="0"
               file="Source/Messaging/DataMessageManager.h"/>
+        <FILE id="C4Cxek" name="DataMessageBroadcaster.cpp" compile="1" resource="0"
+              file="Source/Messaging/DataMessageBroadcaster.cpp"/>
+        <FILE id="om4DYP" name="DataMessageBroadcaster.h" compile="0" resource="0"
+              file="Source/Messaging/DataMessageBroadcaster.h"/>
+        <FILE id="Rzu8Zq" name="DataMessageListener.cpp" compile="1" resource="0"
+              file="Source/Messaging/DataMessageListener.cpp"/>
+        <FILE id="A7L67q" name="DataMessageListener.h" compile="0" resource="0"
+              file="Source/Messaging/DataMessageListener.h"/>
+        <FILE id="AmzX4d" name="DataMessage.cpp" compile="1" resource="0" file="Source/Messaging/DataMessage.cpp"/>
+        <FILE id="T8mOZl" name="DataMessage.h" compile="0" resource="0" file="Source/Messaging/DataMessage.h"/>
       </GROUP>
       <GROUP id="{C521147D-4A15-1CE4-CEE7-69E5A6393259}" name="Process">
         <FILE id="dX0oVw" name="MainProcess.cpp" compile="1" resource="0" file="Source/Process/MainProcess.cpp"/>

@@ -12,9 +12,12 @@ public:
     DataMessageListener();
     virtual ~DataMessageListener();
 
+    //==============================================================================
     virtual void messageReceived (const DataMessage* message) = 0;
 
 private:
+    //==============================================================================
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessageListener);
 };

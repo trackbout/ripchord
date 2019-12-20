@@ -16,7 +16,7 @@ void GlobalState::toggleMode()
 
     DataMessage* message = new DataMessage();
     message->messageCode = DataMessageCode::kModeUpdated;
-    sendMessage (message, kListenerType_Sync);
+    sendMessage (message, ListenerType::kSync);
 }
 
 bool GlobalState::isPlayMode()
@@ -36,7 +36,7 @@ void GlobalState::toggleView()
 
     DataMessage* message = new DataMessage();
     message->messageCode = DataMessageCode::kViewUpdated;
-    sendMessage (message, kListenerType_Sync);
+    sendMessage (message, ListenerType::kSync);
 }
 
 bool GlobalState::isKeyboardView()
@@ -56,7 +56,7 @@ void GlobalState::toggleMenu()
 
     DataMessage* message = new DataMessage();
     message->messageCode = DataMessageCode::kMenuUpdated;
-    sendMessage (message, kListenerType_Sync);
+    sendMessage (message, ListenerType::kSync);
 }
 
 bool GlobalState::isMenuHidden()

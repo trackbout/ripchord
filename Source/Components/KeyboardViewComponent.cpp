@@ -7,7 +7,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess)
 {
-    mGlobalState.DataMessageBroadcaster::addListener (this, kListenerType_Sync);
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     addAndMakeVisible (mOutputKeyboardLabel);

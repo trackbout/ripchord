@@ -14,7 +14,7 @@ DataMessageBroadcaster::~DataMessageBroadcaster()
 //==============================================================================
 void DataMessageBroadcaster::addListener (DataMessageListener* inListener, int inListenerType)
 {
-    if (inListenerType == kListenerType_SyncAsync)
+    if (inListenerType == ListenerType::kSyncAsync)
     {
         // A Broadcaster can be "syncAsync".
         // A Listener can only be either "sync", or "async".

@@ -7,7 +7,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mKeyboardViewComponent (inMainProcess),
     mPresetViewComponent (inMainProcess)
 {
-    mGlobalState.DataMessageBroadcaster::addListener (this, kListenerType_Sync);
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
