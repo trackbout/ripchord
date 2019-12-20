@@ -12,10 +12,12 @@ public:
     ~MainProcess();
 
     //==============================================================================
+    void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
     GlobalState& getGlobalState() { return mGlobalState; }
 
 private:
     //==============================================================================
+    MidiBuffer mMidiBuffer;
     GlobalState mGlobalState;
 
     //==============================================================================
