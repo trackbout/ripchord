@@ -3,8 +3,10 @@
 #include "DataMessageCodes.h"
 
 //==============================================================================
-KeyComponent::KeyComponent (int inMidiNoteNumber)
-:   mMidiNoteNumber (inMidiNoteNumber)
+KeyComponent::KeyComponent (MainProcess& inMainProcess, int inMidiNoteNumber)
+:   mMainProcess (inMainProcess),
+    mGlobalState (mMainProcess.getGlobalState()),
+    mMidiNoteNumber (inMidiNoteNumber)
 {
 }
 
@@ -21,7 +23,7 @@ void KeyComponent::paint (Graphics& inGraphics)
     Colour defaultColor = getDefaultColor();
 
     const int markerHeight = 4;
-    auto keyArea = getLocalBounds().reduced(1);
+    auto keyArea = getLocalBounds().reduced (1);
     auto noteHeight = keyArea.getHeight() - markerHeight;
 
     inGraphics.setColour (defaultColor);

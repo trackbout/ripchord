@@ -27,7 +27,7 @@ void KeyboardComponent::initKeyboard()
     for (int midiNoteNumber = mFirstKey; midiNoteNumber <= mLastKey; midiNoteNumber++)
     {
         auto keyBounds = getKeyBounds (x, midiNoteNumber);
-        KeyComponent* keyComponent = new KeyComponent (midiNoteNumber);
+        KeyComponent* keyComponent = new KeyComponent (mMainProcess, midiNoteNumber);
 
         keyComponent->setBounds (keyBounds);
         mKeyComponents.add (keyComponent);
