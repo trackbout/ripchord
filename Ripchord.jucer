@@ -104,8 +104,6 @@
               file="Source/Process/CurrentPresetState.cpp"/>
         <FILE id="QpZVtC" name="CurrentPresetState.h" compile="0" resource="0"
               file="Source/Process/CurrentPresetState.h"/>
-        <FILE id="P1pV4S" name="ChordObject.cpp" compile="1" resource="0" file="Source/Process/ChordObject.cpp"/>
-        <FILE id="iF3cDd" name="ChordObject.h" compile="0" resource="0" file="Source/Process/ChordObject.h"/>
       </GROUP>
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
