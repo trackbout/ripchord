@@ -13,11 +13,11 @@ public:
     ~MainProcess();
 
     //==============================================================================
-    GlobalState& getGlobalState() { return mGlobalState; }
-    CurrentPresetState& getCurrentPresetState() { return mCurrentPresetState; }
+    void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
 
     //==============================================================================
-    void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
+    GlobalState& getGlobalState() { return mGlobalState; }
+    CurrentPresetState& getCurrentPresetState() { return mCurrentPresetState; }
 
 private:
     //==============================================================================
