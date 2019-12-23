@@ -38,6 +38,29 @@ int KeyComponent::getMidiNoteNumber()
 }
 
 //==============================================================================
+void KeyComponent::mouseUp (const MouseEvent& inEvent)
+{
+    if (mGlobalState.isPlayMode()) {
+        DBG("UP IN PLAY");
+    }
+
+    if (mGlobalState.isEditMode()) {
+        DBG("UP IN EDIT");
+    }
+}
+
+void KeyComponent::mouseDown (const MouseEvent& inEvent)
+{
+    if (mGlobalState.isPlayMode()) {
+        DBG("DOWN IN PLAY");
+    }
+
+    if (mGlobalState.isEditMode()) {
+        DBG("DOWN IN EDIT");
+    }
+}
+
+//==============================================================================
 Colour KeyComponent::getDefaultColor()
 {
     const bool isBlackKey = Interface::isBlackKey (mMidiNoteNumber);

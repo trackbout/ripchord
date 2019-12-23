@@ -19,6 +19,10 @@ public:
     //==============================================================================
     int getMidiNoteNumber();
 
+    //==============================================================================
+    void mouseUp (const MouseEvent& event) override;
+    void mouseDown (const MouseEvent& event) override;
+
 protected:
     //==============================================================================
     Colour getDefaultColor();
