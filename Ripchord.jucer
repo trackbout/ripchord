@@ -40,6 +40,14 @@
               file="Source/Components/KeyboardViewComponent.cpp"/>
         <FILE id="FVJTpd" name="KeyboardViewComponent.h" compile="0" resource="0"
               file="Source/Components/KeyboardViewComponent.h"/>
+        <FILE id="yq76Mz" name="OutputKeyboardComponent.cpp" compile="1" resource="0"
+              file="Source/Components/OutputKeyboardComponent.cpp"/>
+        <FILE id="B4Zw7y" name="OutputKeyboardComponent.h" compile="0" resource="0"
+              file="Source/Components/OutputKeyboardComponent.h"/>
+        <FILE id="HC8Qqq" name="InputKeyboardComponent.cpp" compile="1" resource="0"
+              file="Source/Components/InputKeyboardComponent.cpp"/>
+        <FILE id="s67xmg" name="InputKeyboardComponent.h" compile="0" resource="0"
+              file="Source/Components/InputKeyboardComponent.h"/>
         <FILE id="aktIq3" name="KeyboardComponent.cpp" compile="1" resource="0"
               file="Source/Components/KeyboardComponent.cpp"/>
         <FILE id="YDr76D" name="KeyboardComponent.h" compile="0" resource="0"
