@@ -22,6 +22,10 @@ public:
     void mouseUp (const MouseEvent& event) override;
     void mouseDown (const MouseEvent& event) override;
 
+    //==============================================================================
+    std::function<void (const int noteNumber)> onMouseUp;
+    std::function<void (const int noteNumber)> onMouseDown;
+
 protected:
     //==============================================================================
     Colour getDefaultColor();

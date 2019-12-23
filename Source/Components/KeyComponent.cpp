@@ -37,12 +37,12 @@ const int KeyComponent::getNoteNumber()
 //==============================================================================
 void KeyComponent::mouseUp (const MouseEvent& inEvent)
 {
-    DBG("MOUSE UP");
+    if (onMouseUp) { onMouseUp (mNoteNumber); }
 }
 
 void KeyComponent::mouseDown (const MouseEvent& inEvent)
 {
-    DBG("MOUSE DOWN");
+    if (onMouseDown) { onMouseDown (mNoteNumber); }
 }
 
 //==============================================================================
