@@ -18,7 +18,7 @@ private:
     //==============================================================================
     void initKeyboard();
     void bringBlackKeysToFront();
-    juce::Rectangle<int> getKeyBounds (int& x, int midiNoteNumber);
+    juce::Rectangle<int> getKeyBounds (int& x, const int noteNumber);
 
     //==============================================================================
     const int mFirstKey = 21;

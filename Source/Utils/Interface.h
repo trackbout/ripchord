@@ -20,9 +20,9 @@ namespace Interface
     }
 
     //==============================================================================
-    static inline bool isBlackKey (int inMidiNoteNumber)
+    static inline bool isBlackKey (const int inNoteNumber)
     {
-        div_t keyDiv = div (inMidiNoteNumber, 12);
+        div_t keyDiv = div (inNoteNumber, 12);
         int keyInOctave = keyDiv.rem;
 
         if ((keyInOctave == 1) ||

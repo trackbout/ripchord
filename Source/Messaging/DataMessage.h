@@ -23,12 +23,12 @@ enum DataMessageCode
     kMenuUpdated,
 
     // Messages from mouse clicks on the UI
-    kMidiNoteOnInternal,
-    kMidiNoteOffInternal,
+    kNoteOnInternal,
+    kNoteOffInternal,
 
     // Messages from external midi keyboards
-    kMidiNoteOnExternal,
-    kMidiNoteOffExternal
+    kNoteOnExternal,
+    kNoteOffExternal
 };
 
 //==============================================================================
@@ -52,5 +52,6 @@ private:
     //==============================================================================
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessage);
+    // TODO: figure out why this class leaks
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessage);
 };

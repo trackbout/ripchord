@@ -9,14 +9,14 @@ class KeyComponent : public Component
 {
 public:
     //==============================================================================
-    KeyComponent (int midiNoteNumber);
+    KeyComponent (const int noteNumber);
     ~KeyComponent();
 
     //==============================================================================
     void paint (Graphics& graphics) override;
 
     //==============================================================================
-    int getMidiNoteNumber();
+    const int getNoteNumber();
 
     //==============================================================================
     void mouseUp (const MouseEvent& event) override;
@@ -28,7 +28,7 @@ protected:
 
 private:
     //==============================================================================
-    int mMidiNoteNumber;
+    const int mNoteNumber;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyComponent)

@@ -1,8 +1,8 @@
 #include "KeyComponent.h"
 
 //==============================================================================
-KeyComponent::KeyComponent (int inMidiNoteNumber)
-:   mMidiNoteNumber (inMidiNoteNumber)
+KeyComponent::KeyComponent (const int inNoteNumber)
+:   mNoteNumber (inNoteNumber)
 {
 }
 
@@ -29,9 +29,9 @@ void KeyComponent::paint (Graphics& inGraphics)
 }
 
 //==============================================================================
-int KeyComponent::getMidiNoteNumber()
+const int KeyComponent::getNoteNumber()
 {
-    return mMidiNoteNumber;
+    return mNoteNumber;
 }
 
 //==============================================================================
@@ -48,7 +48,7 @@ void KeyComponent::mouseDown (const MouseEvent& inEvent)
 //==============================================================================
 Colour KeyComponent::getDefaultColor()
 {
-    const bool isBlackKey = Interface::isBlackKey (mMidiNoteNumber);
+    const bool isBlackKey = Interface::isBlackKey (mNoteNumber);
     if (isBlackKey) { return COLOR_GREY_DARK; }
     return COLOR_WHITE;
 }
