@@ -3,9 +3,7 @@
 //==============================================================================
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState()),
-    mOutputKeyboard (inMainProcess),
-    mInputKeyboard (inMainProcess)
+    mGlobalState (mMainProcess.getGlobalState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 

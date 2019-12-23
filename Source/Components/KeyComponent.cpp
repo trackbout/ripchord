@@ -1,11 +1,8 @@
 #include "KeyComponent.h"
 
 //==============================================================================
-KeyComponent::KeyComponent (MainProcess& inMainProcess, int inMidiNoteNumber)
-:   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState()),
-    mCurrentPresetState (mMainProcess.getCurrentPresetState()),
-    mMidiNoteNumber (inMidiNoteNumber)
+KeyComponent::KeyComponent (int inMidiNoteNumber)
+:   mMidiNoteNumber (inMidiNoteNumber)
 {
 }
 
@@ -40,24 +37,12 @@ int KeyComponent::getMidiNoteNumber()
 //==============================================================================
 void KeyComponent::mouseUp (const MouseEvent& inEvent)
 {
-    if (mGlobalState.isPlayMode()) {
-        DBG("UP IN PLAY");
-    }
-
-    if (mGlobalState.isEditMode()) {
-        DBG("UP IN EDIT");
-    }
+    DBG("MOUSE UP");
 }
 
 void KeyComponent::mouseDown (const MouseEvent& inEvent)
 {
-    if (mGlobalState.isPlayMode()) {
-        DBG("DOWN IN PLAY");
-    }
-
-    if (mGlobalState.isEditMode()) {
-        DBG("DOWN IN EDIT");
-    }
+    DBG("MOUSE DOWN");
 }
 
 //==============================================================================

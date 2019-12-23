@@ -3,14 +3,13 @@
 #include "JuceHeader.h"
 #include "Constants.h"
 #include "Interface.h"
-#include "MainProcess.h"
 
 //==============================================================================
 class KeyComponent : public Component
 {
 public:
     //==============================================================================
-    KeyComponent (MainProcess&, int midiNoteNumber);
+    KeyComponent (int midiNoteNumber);
     ~KeyComponent();
 
     //==============================================================================
@@ -28,11 +27,6 @@ protected:
     Colour getDefaultColor();
 
 private:
-    //==============================================================================
-    MainProcess& mMainProcess;
-    GlobalState& mGlobalState;
-    CurrentPresetState& mCurrentPresetState;
-
     //==============================================================================
     int mMidiNoteNumber;
 

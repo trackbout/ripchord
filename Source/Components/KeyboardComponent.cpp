@@ -1,9 +1,7 @@
 #include "KeyboardComponent.h"
 
 //==============================================================================
-KeyboardComponent::KeyboardComponent (MainProcess& inMainProcess)
-:   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState())
+KeyboardComponent::KeyboardComponent()
 {
 }
 
@@ -27,7 +25,7 @@ void KeyboardComponent::initKeyboard()
     for (int midiNoteNumber = mFirstKey; midiNoteNumber <= mLastKey; midiNoteNumber++)
     {
         auto keyBounds = getKeyBounds (x, midiNoteNumber);
-        KeyComponent* keyComponent = new KeyComponent (mMainProcess, midiNoteNumber);
+        KeyComponent* keyComponent = new KeyComponent (midiNoteNumber);
 
         keyComponent->setBounds (keyBounds);
         mKeyComponents.add (keyComponent);

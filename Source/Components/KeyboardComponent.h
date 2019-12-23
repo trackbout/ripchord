@@ -1,7 +1,6 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "MainProcess.h"
 #include "KeyComponent.h"
 
 //==============================================================================
@@ -9,17 +8,13 @@ class KeyboardComponent : public Component
 {
 public:
     //==============================================================================
-    KeyboardComponent (MainProcess&);
+    KeyboardComponent();
     ~KeyboardComponent();
 
     //==============================================================================
     void resized() override;
 
 private:
-    //==============================================================================
-    MainProcess& mMainProcess;
-    GlobalState& mGlobalState;
-
     //==============================================================================
     void initKeyboard();
     void bringBlackKeysToFront();
