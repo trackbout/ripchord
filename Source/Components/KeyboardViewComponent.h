@@ -4,10 +4,11 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
-#include "DataMessage.h"
 #include "MainProcess.h"
-#include "KeyboardComponent.h"
+#include "DataMessage.h"
 #include "DataMessageListener.h"
+#include "OutputKeyboardComponent.h"
+#include "InputKeyboardComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component, public DataMessageListener
@@ -30,11 +31,11 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
 
+    OutputKeyboardComponent mOutputKeyboard;
+    InputKeyboardComponent mInputKeyboard;
+
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };
-
-    KeyboardComponent mOutputKeyboard;
-    KeyboardComponent mInputKeyboard;
 
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };

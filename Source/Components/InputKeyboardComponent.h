@@ -2,10 +2,10 @@
 
 #include "JuceHeader.h"
 #include "MainProcess.h"
-#include "KeyComponent.h"
+#include "KeyboardComponent.h"
 
 //==============================================================================
-class InputKeyboardComponent : public Component
+class InputKeyboardComponent : public KeyboardComponent
 {
 public:
     //==============================================================================

@@ -3,20 +3,17 @@
 //==============================================================================
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState())
+    mGlobalState (mMainProcess.getGlobalState()),
+    mOutputKeyboard (inMainProcess),
+    mInputKeyboard (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
-    addAndMakeVisible (mOutputKeyboardLabel);
-    addAndMakeVisible (mOutputKeyboard);
-
-    mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
-    addAndMakeVisible (mInputKeyboardLabel);
-    addAndMakeVisible (mInputKeyboard);
-
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
+
+    mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
+    mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
     mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg", "", "", "", "ModeEDIT.svg", "", "", "");
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
@@ -27,6 +24,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
+    addAndMakeVisible (mOutputKeyboard);
+    addAndMakeVisible (mInputKeyboard);
+    addAndMakeVisible (mOutputKeyboardLabel);
+    addAndMakeVisible (mInputKeyboardLabel);
     addAndMakeVisible (mModeButton);
     addAndMakeVisible (mPresetsButton);
 }
