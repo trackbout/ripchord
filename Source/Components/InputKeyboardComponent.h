@@ -12,6 +12,9 @@ public:
     InputKeyboardComponent (MainProcess&);
     ~InputKeyboardComponent();
 
+    //==============================================================================
+    void resized() override;
+
 private:
     //==============================================================================
     MainProcess& mMainProcess;

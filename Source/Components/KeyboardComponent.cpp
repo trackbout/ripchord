@@ -10,23 +10,6 @@ KeyboardComponent::~KeyboardComponent()
 }
 
 //==============================================================================
-void KeyboardComponent::resized()
-{
-    initKeyboard();
-}
-
-//==============================================================================
-void KeyboardComponent::handleMouseUp (const int inNoteNumber)
-{
-    DBG("UP NOTE: " << inNoteNumber);
-}
-
-void KeyboardComponent::handleMouseDown (const int inNoteNumber)
-{
-    DBG("DOWN NOTE: " << inNoteNumber);
-}
-
-//==============================================================================
 void KeyboardComponent::initKeyboard()
 {
     mKeyComponents.clear();
@@ -38,8 +21,6 @@ void KeyboardComponent::initKeyboard()
         auto keyBounds = getKeyBounds (x, noteNumber);
         KeyComponent* keyComponent = new KeyComponent (noteNumber);
 
-        keyComponent->onMouseUp = [this](const int inNoteNumber) { handleMouseUp (inNoteNumber); };
-        keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
         keyComponent->setBounds (keyBounds);
         mKeyComponents.add (keyComponent);
         addAndMakeVisible (keyComponent);
@@ -48,6 +29,7 @@ void KeyboardComponent::initKeyboard()
     bringBlackKeysToFront();
 }
 
+//==============================================================================
 juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNoteNumber)
 {
     int currentX = inX;

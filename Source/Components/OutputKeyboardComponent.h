@@ -12,6 +12,9 @@ public:
     OutputKeyboardComponent (MainProcess&);
     ~OutputKeyboardComponent();
 
+    //==============================================================================
+    void resized() override;
+
 private:
     //==============================================================================
     MainProcess& mMainProcess;

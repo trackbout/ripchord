@@ -10,3 +10,9 @@ OutputKeyboardComponent::OutputKeyboardComponent (MainProcess& inMainProcess)
 OutputKeyboardComponent::~OutputKeyboardComponent()
 {
 }
+
+//==============================================================================
+void OutputKeyboardComponent::resized()
+{
+    initKeyboard();
+}

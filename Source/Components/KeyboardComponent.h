@@ -12,23 +12,18 @@ public:
     ~KeyboardComponent();
 
     //==============================================================================
-    void resized() override;
-
-    //==============================================================================
-    void handleMouseUp (const int noteNumber);
-    void handleMouseDown (const int noteNumber);
+    void initKeyboard();
+    OwnedArray<KeyComponent> mKeyComponents;
 
 private:
     //==============================================================================
-    void initKeyboard();
-    void bringBlackKeysToFront();
     juce::Rectangle<int> getKeyBounds (int& x, const int noteNumber);
+    void bringBlackKeysToFront();
 
     //==============================================================================
     const int mFirstKey = 21;
     const int mLastKey = 108;
     const int mWhiteKeyCount = 52;
-    OwnedArray<KeyComponent> mKeyComponents;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardComponent)

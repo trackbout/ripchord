@@ -10,3 +10,9 @@ InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
 InputKeyboardComponent::~InputKeyboardComponent()
 {
 }
+
+//==============================================================================
+void InputKeyboardComponent::resized()
+{
+    initKeyboard();
+}
