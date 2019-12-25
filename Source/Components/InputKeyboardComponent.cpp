@@ -4,6 +4,7 @@
 InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mInputKeyboardState (mMainProcess.getInputKeyboardState()),
     mCurrentPresetState (mMainProcess.getCurrentPresetState())
 {
 }

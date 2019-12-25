@@ -31,6 +31,8 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+
+    InputKeyboardState& mInputKeyboardState;
     CurrentPresetState& mCurrentPresetState;
 
     //==============================================================================
