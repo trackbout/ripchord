@@ -15,6 +15,10 @@ public:
     //==============================================================================
     void resized() override;
 
+    //==============================================================================
+    void handleMouseUp (const int noteNumber);
+    void handleMouseDown (const int noteNumber);
+
 private:
     //==============================================================================
     MainProcess& mMainProcess;
