@@ -3,7 +3,8 @@
 //==============================================================================
 OutputKeyboardComponent::OutputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState())
+    mGlobalState (mMainProcess.getGlobalState()),
+    mCurrentPresetState (mMainProcess.getCurrentPresetState())
 {
 }
 
@@ -26,10 +27,34 @@ void OutputKeyboardComponent::resized()
 //==============================================================================
 void OutputKeyboardComponent::handleMouseUp (const int inNoteNumber)
 {
-    DBG("OUTPUT NOTE UP: " << inNoteNumber);
+    if (mGlobalState.isPlayMode()) { handlePlayModeMouseUp (inNoteNumber); }
+    if (mGlobalState.isEditMode()) { handleEditModeMouseUp (inNoteNumber); }
 }
 
 void OutputKeyboardComponent::handleMouseDown (const int inNoteNumber)
 {
-    DBG("OUTPUT NOTE DOWN: " << inNoteNumber);
+    if (mGlobalState.isPlayMode()) { handlePlayModeMouseDown (inNoteNumber); }
+    if (mGlobalState.isEditMode()) { handleEditModeMouseDown (inNoteNumber); }
+}
+
+//==============================================================================
+void OutputKeyboardComponent::handlePlayModeMouseUp (const int inNoteNumber)
+{
+
+}
+
+void OutputKeyboardComponent::handlePlayModeMouseDown (const int inNoteNumber)
+{
+
+}
+
+//==============================================================================
+void OutputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
+{
+
+}
+
+void OutputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
+{
+
 }
