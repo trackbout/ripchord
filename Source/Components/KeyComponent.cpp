@@ -24,6 +24,7 @@ void KeyComponent::paint (Graphics& inGraphics)
 
     inGraphics.setColour (defaultColor);
     inGraphics.fillRect (keyArea.removeFromTop (noteHeight));
+
     inGraphics.setColour (defaultColor);
     inGraphics.fillRect (keyArea.removeFromTop (markerHeight));
 }
@@ -48,7 +49,5 @@ void KeyComponent::mouseDown (const MouseEvent& inEvent)
 //==============================================================================
 Colour KeyComponent::getDefaultColor()
 {
-    const bool isBlackKey = Interface::isBlackKey (mNoteNumber);
-    if (isBlackKey) { return COLOR_GREY_DARK; }
-    return COLOR_WHITE;
+    return Interface::isBlackKey (mNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
 }
