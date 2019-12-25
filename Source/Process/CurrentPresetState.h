@@ -31,10 +31,12 @@ public:
     //==============================================================================
     void addPresetChord (const int inputNote);
     void removePresetChord (const int inputNote);
+    bool containsPresetChord (const int inputNote);
 
     //==============================================================================
-    void addPresetChordNote (const int inputNote, const int *outputNote);
+    void addPresetChordNote (const int inputNote, const int outputNote);
     void removePresetChordNote (const int inputNote, const int *outputNote);
+    bool containsPresetChordNote (const int inputNote, const int outputNote);
 
 private:
     //==============================================================================

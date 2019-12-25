@@ -54,15 +54,29 @@ void CurrentPresetState::removePresetChord (const int inInputNote)
     mPresetChords.erase (inInputNote);
 }
 
+bool CurrentPresetState::containsPresetChord (const int inInputNote)
+{
+    return mPresetChords.count (inInputNote) > 0;
+}
+
 //==============================================================================
-void CurrentPresetState::addPresetChordNote (const int inInputNote, const int *inOutputNote)
+void CurrentPresetState::addPresetChordNote (const int inInputNote, const int inOutputNote)
 {
     Chord presetChord = mPresetChords[inInputNote];
-    presetChord.chordNotes.add (*inOutputNote);
+    presetChord.chordNotes.add (inOutputNote);
 }
 
 void CurrentPresetState::removePresetChordNote (const int inInputNote, const int *inOutputNote)
 {
     Chord presetChord = mPresetChords[inInputNote];
     presetChord.chordNotes.remove (*inOutputNote);
+}
+
+bool CurrentPresetState::containsPresetChordNote (const int inInputNote, const int inOutputNote)
+{
+    if (!containsPresetChord (inInputNote)) { return false; }
+
+    Chord presetChord = getPresetChord (inInputNote);
+    Array<int> notes = presetChord.chordNotes;
+    return std::find (std::begin(notes), std::end(notes), inOutputNote) != std::end(notes);
 }
