@@ -4,6 +4,11 @@
 KeyComponent::KeyComponent (const int inNoteNumber)
 :   mNoteNumber (inNoteNumber)
 {
+    bool isBlackKey = Interface::isBlackKey (mNoteNumber);
+    Colour defaultColor = isBlackKey ? COLOR_GREY_DARK : COLOR_WHITE;
+
+    mNoteColor = defaultColor;
+    mMarkerColor = defaultColor;
 }
 
 KeyComponent::~KeyComponent()
@@ -13,19 +18,17 @@ KeyComponent::~KeyComponent()
 //==============================================================================
 void KeyComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_LIGHT);
-    inGraphics.fillAll();
-
-    Colour defaultColor = getDefaultColor();
-
     const int markerHeight = 4;
     auto keyArea = getLocalBounds().reduced (1);
     auto noteHeight = keyArea.getHeight() - markerHeight;
 
-    inGraphics.setColour (defaultColor);
+    inGraphics.setColour (COLOR_GREY_LIGHT);
+    inGraphics.fillAll();
+
+    inGraphics.setColour (mNoteColor);
     inGraphics.fillRect (keyArea.removeFromTop (noteHeight));
 
-    inGraphics.setColour (defaultColor);
+    inGraphics.setColour (mMarkerColor);
     inGraphics.fillRect (keyArea.removeFromTop (markerHeight));
 }
 
@@ -47,7 +50,14 @@ void KeyComponent::mouseDown (const MouseEvent& inEvent)
 }
 
 //==============================================================================
-Colour KeyComponent::getDefaultColor()
+void KeyComponent::setNoteColor (Colour inColor)
 {
-    return Interface::isBlackKey (mNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
+    mNoteColor = inColor;
+    repaint();
+}
+
+void KeyComponent::setMarkerColor (Colour inColor)
+{
+    mMarkerColor = inColor;
+    repaint();
 }

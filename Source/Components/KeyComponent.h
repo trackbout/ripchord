@@ -26,13 +26,16 @@ public:
     std::function<void (const int noteNumber)> onMouseUp;
     std::function<void (const int noteNumber)> onMouseDown;
 
-protected:
     //==============================================================================
-    Colour getDefaultColor();
+    void setNoteColor (Colour color);
+    void setMarkerColor (Colour color);
 
 private:
     //==============================================================================
     const int mNoteNumber;
+
+    Colour mNoteColor;
+    Colour mMarkerColor;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyComponent)
