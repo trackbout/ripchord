@@ -18,11 +18,12 @@ void KeyboardComponent::initKeyboard()
 
     for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
-        auto keyBounds = getKeyBounds (x, noteNumber);
         KeyComponent* keyComponent = new KeyComponent (noteNumber);
 
+        auto keyBounds = getKeyBounds (x, noteNumber);
         keyComponent->setBounds (keyBounds);
-        mKeyComponents.add (keyComponent);
+
+        mKeyComponents[noteNumber] = keyComponent;
         addAndMakeVisible (keyComponent);
     }
 
@@ -40,7 +41,7 @@ juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNote
 
     if (Interface::isBlackKey (inNoteNumber))
     {
-        auto previousKey = mKeyComponents.getUnchecked (mKeyComponents.size() - 1);
+        auto previousKey = mKeyComponents.at (inNoteNumber - 1);
         currentX = previousKey->getRight() - (blackKeyWidth * 0.5f);
         return juce::Rectangle<int> (currentX, 0, blackKeyWidth, blackKeyHeight);
     }
@@ -54,10 +55,11 @@ juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNote
 
 void KeyboardComponent::bringBlackKeysToFront()
 {
-    for (auto& keyComponent : mKeyComponents)
+    for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
-        if (Interface::isBlackKey (keyComponent->getNoteNumber()))
+        if (Interface::isBlackKey (noteNumber))
         {
+            auto keyComponent = mKeyComponents.at (noteNumber);
             keyComponent->toFront (false);
         }
     }

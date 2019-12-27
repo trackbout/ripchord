@@ -13,17 +13,17 @@ public:
 
     //==============================================================================
     void initKeyboard();
-    OwnedArray<KeyComponent> mKeyComponents;
-
-private:
-    //==============================================================================
-    juce::Rectangle<int> getKeyBounds (int& x, const int noteNumber);
-    void bringBlackKeysToFront();
+    std::map<int, KeyComponent*> mKeyComponents;
 
     //==============================================================================
     const int mFirstKey = 21;
     const int mLastKey = 108;
+
+private:
+    //==============================================================================
     const int mWhiteKeyCount = 52;
+    juce::Rectangle<int> getKeyBounds (int& x, const int noteNumber);
+    void bringBlackKeysToFront();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardComponent)

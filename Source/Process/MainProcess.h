@@ -19,7 +19,6 @@ public:
 
     //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
-
     OutputKeyboardState& getOutputKeyboardState() { return mOutputKeyboardState; }
     InputKeyboardState& getInputKeyboardState() { return mInputKeyboardState; }
     CurrentPresetState& getCurrentPresetState() { return mCurrentPresetState; }
@@ -27,8 +26,9 @@ public:
 private:
     //==============================================================================
     MidiBuffer mMidiBuffer;
-    GlobalState mGlobalState;
 
+    //==============================================================================
+    GlobalState mGlobalState;
     OutputKeyboardState mOutputKeyboardState;
     InputKeyboardState mInputKeyboardState;
     CurrentPresetState mCurrentPresetState;

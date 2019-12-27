@@ -19,8 +19,9 @@ void InputKeyboardComponent::resized()
 {
     initKeyboard();
 
-    for (auto& keyComponent : mKeyComponents)
+    for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
+        auto keyComponent = mKeyComponents.at (noteNumber);
         keyComponent->onMouseUp = [this](const int inNoteNumber) { handleMouseUp (inNoteNumber); };
         keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
     }
@@ -76,21 +77,20 @@ void InputKeyboardComponent::handleSelectedEditNote (const DataMessage* inMessag
     const int prevSelectedEditNote = inMessage->messageData0;
     const int nextSelectedEditNote = inMessage->messageData1;
 
-    auto prevKeyComponent = mKeyComponents[prevSelectedEditNote];
-    auto nextKeyComponent = mKeyComponents[nextSelectedEditNote];
-
     if (prevSelectedEditNote > 0)
     {
-        prevKeyComponent->setNoteColor (prevKeyComponent->getDefaultColor (prevSelectedEditNote));
-    }
+        auto prevKeyComponent = mKeyComponents.at (prevSelectedEditNote);
+        auto defaultColor = prevKeyComponent->getDefaultColor (prevSelectedEditNote);
 
-    if (nextSelectedEditNote == 0)
-    {
-        nextKeyComponent->setNoteColor (nextKeyComponent->getDefaultColor (nextSelectedEditNote));
+        prevKeyComponent->setNoteColor (defaultColor);
+        prevKeyComponent->setMarkerColor (defaultColor);
     }
 
     if (nextSelectedEditNote > 0)
     {
+        auto nextKeyComponent = mKeyComponents.at (nextSelectedEditNote);
+
         nextKeyComponent->setNoteColor (COLOR_GREEN);
+        nextKeyComponent->setMarkerColor (COLOR_GREEN);
     }
 }

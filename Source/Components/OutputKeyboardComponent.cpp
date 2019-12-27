@@ -18,8 +18,9 @@ void OutputKeyboardComponent::resized()
 {
     initKeyboard();
 
-    for (auto& keyComponent : mKeyComponents)
+    for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
+        auto keyComponent = mKeyComponents.at (noteNumber);
         keyComponent->onMouseUp = [this](const int inNoteNumber) { handleMouseUp (inNoteNumber); };
         keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
     }

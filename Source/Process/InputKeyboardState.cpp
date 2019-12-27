@@ -18,7 +18,7 @@ int InputKeyboardState::getSelectedEditNote()
 void InputKeyboardState::setSelectedEditNote (int inNoteNumber)
 {
     const int prevSelectedEditNote = mSelectedEditNote;
-    const int nextSelectedEditNote = inNoteNumber;
+    const int nextSelectedEditNote = inNoteNumber == mSelectedEditNote ? 0 : inNoteNumber;
     mSelectedEditNote = nextSelectedEditNote;
 
     DataMessage* message = new DataMessage();
