@@ -53,12 +53,12 @@ void MainComponent::resized()
 }
 
 //==============================================================================
-void MainComponent::messageReceived (const DataMessage* inMessage)
+void MainComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (DataMessageCode::kViewUpdated): { handleViewUpdated(); } break;
-        case (DataMessageCode::kMenuUpdated): { handleMenuUpdated(); } break;
+        case (MessageCode::kViewUpdated): { handleViewUpdated(); } break;
+        case (MessageCode::kMenuUpdated): { handleMenuUpdated(); } break;
         default: { } break;
     };
 }

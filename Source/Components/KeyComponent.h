@@ -16,9 +16,6 @@ public:
     void paint (Graphics& graphics) override;
 
     //==============================================================================
-    const int getNoteNumber();
-
-    //==============================================================================
     void mouseUp (const MouseEvent& event) override;
     void mouseDown (const MouseEvent& event) override;
 
@@ -29,6 +26,10 @@ public:
     //==============================================================================
     void setNoteColor (Colour color);
     void setMarkerColor (Colour color);
+
+    //==============================================================================
+    const int getNoteNumber();
+    Colour getDefaultColor (const int noteNumber);
 
 private:
     //==============================================================================

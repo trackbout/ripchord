@@ -7,6 +7,7 @@ InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
     mInputKeyboardState (mMainProcess.getInputKeyboardState()),
     mCurrentPresetState (mMainProcess.getCurrentPresetState())
 {
+    mInputKeyboardState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
 InputKeyboardComponent::~InputKeyboardComponent()
@@ -57,5 +58,39 @@ void InputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
 
 void InputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
 {
+    mInputKeyboardState.setSelectedEditNote (inNoteNumber);
+}
 
+//==============================================================================
+void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
+{
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kSelectedEditNote): { handleSelectedEditNote (inMessage); } break;
+        default: { } break;
+    };
+}
+
+void InputKeyboardComponent::handleSelectedEditNote (const DataMessage* inMessage)
+{
+    const int prevSelectedEditNote = inMessage->messageData0;
+    const int nextSelectedEditNote = inMessage->messageData1;
+
+    auto prevKeyComponent = mKeyComponents[prevSelectedEditNote];
+    auto nextKeyComponent = mKeyComponents[nextSelectedEditNote];
+
+    if (prevSelectedEditNote > 0)
+    {
+        prevKeyComponent->setNoteColor (prevKeyComponent->getDefaultColor (prevSelectedEditNote));
+    }
+
+    if (nextSelectedEditNote == 0)
+    {
+        nextKeyComponent->setNoteColor (nextKeyComponent->getDefaultColor (nextSelectedEditNote));
+    }
+
+    if (nextSelectedEditNote > 0)
+    {
+        nextKeyComponent->setNoteColor (COLOR_GREEN);
+    }
 }

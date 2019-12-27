@@ -76,11 +76,11 @@ void KeyboardViewComponent::resized()
 }
 
 //==============================================================================
-void KeyboardViewComponent::messageReceived (const DataMessage* inMessage)
+void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (DataMessageCode::kModeUpdated): { handleModeUpdated(); } break;
+        case (MessageCode::kModeUpdated): { handleModeUpdated(); } break;
         default: { } break;
     };
 }

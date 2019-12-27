@@ -4,8 +4,7 @@
 KeyComponent::KeyComponent (const int inNoteNumber)
 :   mNoteNumber (inNoteNumber)
 {
-    bool isBlackKey = Interface::isBlackKey (mNoteNumber);
-    Colour defaultColor = isBlackKey ? COLOR_GREY_DARK : COLOR_WHITE;
+    Colour defaultColor = getDefaultColor (mNoteNumber);
 
     mNoteColor = defaultColor;
     mMarkerColor = defaultColor;
@@ -33,12 +32,6 @@ void KeyComponent::paint (Graphics& inGraphics)
 }
 
 //==============================================================================
-const int KeyComponent::getNoteNumber()
-{
-    return mNoteNumber;
-}
-
-//==============================================================================
 void KeyComponent::mouseUp (const MouseEvent& inEvent)
 {
     if (onMouseUp) { onMouseUp (mNoteNumber); }
@@ -60,4 +53,15 @@ void KeyComponent::setMarkerColor (Colour inColor)
 {
     mMarkerColor = inColor;
     repaint();
+}
+
+//==============================================================================
+const int KeyComponent::getNoteNumber()
+{
+    return mNoteNumber;
+}
+
+Colour KeyComponent::getDefaultColor (const int inNoteNumber)
+{
+    return Interface::isBlackKey (inNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
 }

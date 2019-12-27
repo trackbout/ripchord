@@ -15,7 +15,7 @@ void GlobalState::toggleMode()
     mMode = isPlayMode() ? Mode::Edit : Mode::Play;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = DataMessageCode::kModeUpdated;
+    message->messageCode = MessageCode::kModeUpdated;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -35,7 +35,7 @@ void GlobalState::toggleView()
     mView = isKeyboardView() ? View::Preset : View::Keyboard;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = DataMessageCode::kViewUpdated;
+    message->messageCode = MessageCode::kViewUpdated;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -55,7 +55,7 @@ void GlobalState::toggleMenu()
     mMenu = isMenuHidden() ? Menu::Visible : Menu::Hidden;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = DataMessageCode::kMenuUpdated;
+    message->messageCode = MessageCode::kMenuUpdated;
     sendMessage (message, ListenerType::kSync);
 }
 

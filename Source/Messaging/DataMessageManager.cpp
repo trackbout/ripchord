@@ -114,7 +114,7 @@ void DataMessageManager::updateSyncListeners (DataMessageBroadcaster* inBroadcas
     {
         if (pair->first == inBroadcaster)
         {
-            pair->second->messageReceived(inMessage);
+            pair->second->handleNewMessage (inMessage);
         }
 
         ++pair;
@@ -131,7 +131,7 @@ void DataMessageManager::updateAsyncListeners (DataMessageBroadcaster* inBroadca
         {
             if (pair->first == inBroadcaster)
             {
-                pair->second->messageReceived(inMessage);
+                pair->second->handleNewMessage (inMessage);
             }
 
             ++pair;

@@ -13,7 +13,7 @@ enum ListenerType
     kSyncAsync
 };
 
-enum DataMessageCode
+enum MessageCode
 {
     kGeneric = 0,
 
@@ -22,13 +22,14 @@ enum DataMessageCode
     kViewUpdated,
     kMenuUpdated,
 
+    // Messages from external midi keyboards
+    kNoteOnExternal,
+    kNoteOffExternal,
+
     // Messages from mouse clicks on the UI
     kNoteOnInternal,
     kNoteOffInternal,
-
-    // Messages from external midi keyboards
-    kNoteOnExternal,
-    kNoteOffExternal
+    kSelectedEditNote
 };
 
 //==============================================================================
@@ -41,7 +42,7 @@ public:
 
     //==============================================================================
     DataMessageBroadcaster* broadcaster;
-    DataMessageCode messageCode;
+    MessageCode messageCode;
 
     int listenerType;
     var messageData0;

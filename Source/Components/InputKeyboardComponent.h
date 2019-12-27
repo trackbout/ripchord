@@ -3,9 +3,10 @@
 #include "JuceHeader.h"
 #include "MainProcess.h"
 #include "KeyboardComponent.h"
+#include "DataMessageListener.h"
 
 //==============================================================================
-class InputKeyboardComponent : public KeyboardComponent
+class InputKeyboardComponent : public KeyboardComponent, public DataMessageListener
 {
 public:
     //==============================================================================
@@ -26,6 +27,10 @@ public:
     //==============================================================================
     void handleEditModeMouseUp (const int noteNumber);
     void handleEditModeMouseDown (const int noteNumber);
+
+    //==============================================================================
+    void handleNewMessage (const DataMessage* message) override;
+    void handleSelectedEditNote (const DataMessage* message);
 
 private:
     //==============================================================================

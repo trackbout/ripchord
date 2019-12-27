@@ -13,7 +13,7 @@ public:
     virtual ~DataMessageListener();
 
     //==============================================================================
-    virtual void messageReceived (const DataMessage* message) = 0;
+    virtual void handleNewMessage (const DataMessage* message) = 0;
 
 private:
     //==============================================================================
