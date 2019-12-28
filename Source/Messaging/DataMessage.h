@@ -48,12 +48,12 @@ public:
     MessageCode messageCode;
 
     int listenerType;
-    var messageData1;
-    var messageData2;
-    var messageData3;
-    var messageData4;
-    var messageData5;
-    var messageData6;
+    var messageVar1;
+    var messageVar2;
+    var messageVar3;
+    var messageVar4;
+    Array<int> messageArray1;
+    Array<int> messageArray2;
 
 private:
     //==============================================================================

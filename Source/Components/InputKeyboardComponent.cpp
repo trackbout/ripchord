@@ -73,8 +73,8 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 
 void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)
 {
-    const int prevEditModeInputNote = inMessage->messageData1;
-    const int nextEditModeInputNote = inMessage->messageData2;
+    const int prevEditModeInputNote = inMessage->messageVar1;
+    const int nextEditModeInputNote = inMessage->messageVar2;
 
     if (prevEditModeInputNote > 0)
     {
