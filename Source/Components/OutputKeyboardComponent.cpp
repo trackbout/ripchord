@@ -80,10 +80,10 @@ void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMess
 
     if (prevInputContainsChord)
     {
-        for (int& chordNote : prevInputChordNotes)
+        for (int& outputNote : prevInputChordNotes)
         {
-            auto keyComponent = mKeyComponents.at (chordNote);
-            auto defaultColor = keyComponent->getDefaultColor (chordNote);
+            auto keyComponent = mKeyComponents.at (outputNote);
+            auto defaultColor = keyComponent->getDefaultColor (outputNote);
 
             keyComponent->setNoteColor (defaultColor);
             keyComponent->setMarkerColor (defaultColor);
@@ -92,9 +92,9 @@ void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMess
 
     if (nextInputContainsChord)
     {
-        for (int& chordNote : nextInputChordNotes)
+        for (int& outputNote : nextInputChordNotes)
         {
-            auto keyComponent = mKeyComponents.at (chordNote);
+            auto keyComponent = mKeyComponents.at (outputNote);
 
             keyComponent->setNoteColor (COLOR_GREEN);
             keyComponent->setMarkerColor (COLOR_GREEN);

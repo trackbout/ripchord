@@ -93,13 +93,10 @@ void PresetState::setEditModeInputNote (int inInputNote)
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
     mEditModeInputNote = nextEditModeInputNote;
 
-    Array<int> emptyChordNotes;
     bool prevInputContainsChord = containsPresetChord (prevEditModeInputNote);
     bool nextInputContainsChord = containsPresetChord (nextEditModeInputNote);
-    Chord prevInputPresetChord = getPresetChord (prevEditModeInputNote);
-    Chord nextInputPresetChord = getPresetChord (nextEditModeInputNote);
-    Array<int> prevInputChordNotes = prevInputContainsChord ? prevInputPresetChord.chordNotes : emptyChordNotes;
-    Array<int> nextInputChordNotes = nextInputContainsChord ? nextInputPresetChord.chordNotes : emptyChordNotes;
+    Array<int> prevInputChordNotes = getPresetChord (prevEditModeInputNote).chordNotes;
+    Array<int> nextInputChordNotes = getPresetChord (nextEditModeInputNote).chordNotes;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kEditModeInputNote;
