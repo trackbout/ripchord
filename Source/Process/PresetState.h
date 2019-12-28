@@ -1,6 +1,8 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "DataMessage.h"
+#include "DataMessageBroadcaster.h"
 
 struct Chord
 {
@@ -9,12 +11,12 @@ struct Chord
 };
 
 //==============================================================================
-class CurrentPresetState
+class PresetState : public DataMessageBroadcaster
 {
 public:
     //==============================================================================
-    CurrentPresetState();
-    ~CurrentPresetState();
+    PresetState();
+    ~PresetState();
 
     //==============================================================================
     String getPresetName();
@@ -38,11 +40,18 @@ public:
     void removePresetChordNote (const int inputNote, const int *outputNote);
     bool containsPresetChordNote (const int inputNote, const int outputNote);
 
+    //==============================================================================
+    int getSelectedEditNote();
+    void setSelectedEditNote (int inputNote);
+
 private:
     //==============================================================================
     String mPresetName;
     std::map<int, Chord> mPresetChords;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CurrentPresetState)
+    int mSelectedEditNote = 0;
+
+    //==============================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)
 };

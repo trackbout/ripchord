@@ -2,9 +2,7 @@
 
 #include "JuceHeader.h"
 #include "GlobalState.h"
-#include "OutputKeyboardState.h"
-#include "InputKeyboardState.h"
-#include "CurrentPresetState.h"
+#include "PresetState.h"
 
 //==============================================================================
 class MainProcess
@@ -19,9 +17,7 @@ public:
 
     //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
-    OutputKeyboardState& getOutputKeyboardState() { return mOutputKeyboardState; }
-    InputKeyboardState& getInputKeyboardState() { return mInputKeyboardState; }
-    CurrentPresetState& getCurrentPresetState() { return mCurrentPresetState; }
+    PresetState& getPresetState() { return mPresetState; }
 
 private:
     //==============================================================================
@@ -29,9 +25,7 @@ private:
 
     //==============================================================================
     GlobalState mGlobalState;
-    OutputKeyboardState mOutputKeyboardState;
-    InputKeyboardState mInputKeyboardState;
-    CurrentPresetState mCurrentPresetState;
+    PresetState mPresetState;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainProcess)

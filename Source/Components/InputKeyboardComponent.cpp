@@ -4,10 +4,9 @@
 InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mInputKeyboardState (mMainProcess.getInputKeyboardState()),
-    mCurrentPresetState (mMainProcess.getCurrentPresetState())
+    mPresetState (mMainProcess.getPresetState())
 {
-    mInputKeyboardState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
 InputKeyboardComponent::~InputKeyboardComponent()
@@ -59,7 +58,7 @@ void InputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
 
 void InputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
 {
-    mInputKeyboardState.setSelectedEditNote (inNoteNumber);
+    mPresetState.setSelectedEditNote (inNoteNumber);
 }
 
 //==============================================================================

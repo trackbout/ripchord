@@ -100,18 +100,8 @@
         <FILE id="o9qHn5" name="MainProcess.h" compile="0" resource="0" file="Source/Process/MainProcess.h"/>
         <FILE id="nCT02j" name="GlobalState.cpp" compile="1" resource="0" file="Source/Process/GlobalState.cpp"/>
         <FILE id="dPTm4E" name="GlobalState.h" compile="0" resource="0" file="Source/Process/GlobalState.h"/>
-        <FILE id="cXQkVw" name="OutputKeyboardState.cpp" compile="1" resource="0"
-              file="Source/Process/OutputKeyboardState.cpp"/>
-        <FILE id="rAtfEL" name="OutputKeyboardState.h" compile="0" resource="0"
-              file="Source/Process/OutputKeyboardState.h"/>
-        <FILE id="OSdlgt" name="InputKeyboardState.cpp" compile="1" resource="0"
-              file="Source/Process/InputKeyboardState.cpp"/>
-        <FILE id="Gbh1wS" name="InputKeyboardState.h" compile="0" resource="0"
-              file="Source/Process/InputKeyboardState.h"/>
-        <FILE id="lnsmrV" name="CurrentPresetState.cpp" compile="1" resource="0"
-              file="Source/Process/CurrentPresetState.cpp"/>
-        <FILE id="QpZVtC" name="CurrentPresetState.h" compile="0" resource="0"
-              file="Source/Process/CurrentPresetState.h"/>
+        <FILE id="lnsmrV" name="PresetState.cpp" compile="1" resource="0" file="Source/Process/PresetState.cpp"/>
+        <FILE id="QpZVtC" name="PresetState.h" compile="0" resource="0" file="Source/Process/PresetState.h"/>
       </GROUP>
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>

@@ -4,8 +4,7 @@
 OutputKeyboardComponent::OutputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mOutputKeyboardState (mMainProcess.getOutputKeyboardState()),
-    mCurrentPresetState (mMainProcess.getCurrentPresetState())
+    mPresetState (mMainProcess.getPresetState())
 {
 }
 

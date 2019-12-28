@@ -31,9 +31,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
-
-    OutputKeyboardState& mOutputKeyboardState;
-    CurrentPresetState& mCurrentPresetState;
+    PresetState& mPresetState;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OutputKeyboardComponent)
