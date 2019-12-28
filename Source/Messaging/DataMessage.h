@@ -26,10 +26,13 @@ enum MessageCode
     kNoteOnExternal,
     kNoteOffExternal,
 
-    // Messages from mouse clicks on the UI
+    // Messages from mouse clicks on the InputKeyboardComponent
     kNoteOnInternal,
     kNoteOffInternal,
-    kSelectedEditNote
+    kEditModeInputNote,
+
+    // Messages from mouse clicks on the OutputKeyboardComponent
+    kEditModeOutputNote
 };
 
 //==============================================================================
@@ -45,9 +48,12 @@ public:
     MessageCode messageCode;
 
     int listenerType;
-    var messageData0;
     var messageData1;
     var messageData2;
+    var messageData3;
+    var messageData4;
+    var messageData5;
+    var messageData6;
 
 private:
     //==============================================================================

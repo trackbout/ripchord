@@ -41,8 +41,8 @@ public:
     bool containsPresetChordNote (const int inputNote, const int outputNote);
 
     //==============================================================================
-    int getSelectedEditNote();
-    void setSelectedEditNote (int inputNote);
+    int getEditModeInputNote();
+    void setEditModeInputNote (int inputNote);
 
 private:
     //==============================================================================
@@ -50,7 +50,7 @@ private:
     std::map<int, Chord> mPresetChords;
 
     //==============================================================================
-    int mSelectedEditNote = 0;
+    int mEditModeInputNote = 0;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

@@ -82,20 +82,20 @@ bool PresetState::containsPresetChordNote (const int inInputNote, const int inOu
 }
 
 //==============================================================================
-int PresetState::getSelectedEditNote()
+int PresetState::getEditModeInputNote()
 {
-    return mSelectedEditNote;
+    return mEditModeInputNote;
 }
 
-void PresetState::setSelectedEditNote (int inNoteNumber)
+void PresetState::setEditModeInputNote (int inInputNote)
 {
-    const int prevSelectedEditNote = mSelectedEditNote;
-    const int nextSelectedEditNote = inNoteNumber == mSelectedEditNote ? 0 : inNoteNumber;
-    mSelectedEditNote = nextSelectedEditNote;
+    const int prevEditModeInputNote = mEditModeInputNote;
+    const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
+    mEditModeInputNote = nextEditModeInputNote;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kSelectedEditNote;
-    message->messageData0 = prevSelectedEditNote;
-    message->messageData1 = nextSelectedEditNote;
+    message->messageCode = MessageCode::kEditModeInputNote;
+    message->messageData1 = prevEditModeInputNote;
+    message->messageData2 = nextEditModeInputNote;
     sendMessage (message, ListenerType::kSync);
 }

@@ -58,7 +58,7 @@ void InputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
 
 void InputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
 {
-    mPresetState.setSelectedEditNote (inNoteNumber);
+    mPresetState.setEditModeInputNote (inNoteNumber);
 }
 
 //==============================================================================
@@ -66,28 +66,28 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kSelectedEditNote): { handleSelectedEditNote (inMessage); } break;
+        case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         default: { } break;
     };
 }
 
-void InputKeyboardComponent::handleSelectedEditNote (const DataMessage* inMessage)
+void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)
 {
-    const int prevSelectedEditNote = inMessage->messageData0;
-    const int nextSelectedEditNote = inMessage->messageData1;
+    const int prevEditModeInputNote = inMessage->messageData1;
+    const int nextEditModeInputNote = inMessage->messageData2;
 
-    if (prevSelectedEditNote > 0)
+    if (prevEditModeInputNote > 0)
     {
-        auto prevKeyComponent = mKeyComponents.at (prevSelectedEditNote);
-        auto defaultColor = prevKeyComponent->getDefaultColor (prevSelectedEditNote);
+        auto prevKeyComponent = mKeyComponents.at (prevEditModeInputNote);
+        auto defaultColor = prevKeyComponent->getDefaultColor (prevEditModeInputNote);
 
         prevKeyComponent->setNoteColor (defaultColor);
         prevKeyComponent->setMarkerColor (defaultColor);
     }
 
-    if (nextSelectedEditNote > 0)
+    if (nextEditModeInputNote > 0)
     {
-        auto nextKeyComponent = mKeyComponents.at (nextSelectedEditNote);
+        auto nextKeyComponent = mKeyComponents.at (nextEditModeInputNote);
 
         nextKeyComponent->setNoteColor (COLOR_GREEN);
         nextKeyComponent->setMarkerColor (COLOR_GREEN);

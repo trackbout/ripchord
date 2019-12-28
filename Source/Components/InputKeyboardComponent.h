@@ -30,7 +30,7 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
-    void handleSelectedEditNote (const DataMessage* message);
+    void handleEditModeInputNote (const DataMessage* message);
 
 private:
     //==============================================================================
