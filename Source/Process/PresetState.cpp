@@ -33,18 +33,6 @@ void PresetState::setPresetChord (const int inInputNote, Chord inChord)
     mPresetChords[inInputNote] = inChord;
 }
 
-//==============================================================================
-void PresetState::resetPresetName()
-{
-    mPresetName = "";
-}
-
-void PresetState::resetPresetChords()
-{
-    mPresetChords.clear();
-}
-
-//==============================================================================
 void PresetState::addPresetChord (const int inInputNote)
 {
     Chord newChord;
@@ -62,37 +50,12 @@ bool PresetState::containsPresetChord (const int inInputNote)
 }
 
 //==============================================================================
-void PresetState::addPresetChordNote (const int inInputNote, const int inOutputNote)
-{
-    Chord presetChord = getPresetChord (inInputNote);
-    presetChord.chordNotes.add (inOutputNote);
-}
-
-void PresetState::removePresetChordNote (const int inInputNote, const int *inOutputNote)
-{
-    Chord presetChord = getPresetChord (inInputNote);
-    presetChord.chordNotes.remove (*inOutputNote);
-}
-
-bool PresetState::containsPresetChordNote (const int inInputNote, const int inOutputNote)
-{
-    Chord presetChord = getPresetChord (inInputNote);
-    Array<int> notes = presetChord.chordNotes;
-    return std::find (std::begin(notes), std::end(notes), inOutputNote) != std::end(notes);
-}
-
-//==============================================================================
-int PresetState::getEditModeInputNote()
-{
-    return mEditModeInputNote;
-}
-
-void PresetState::setEditModeInputNote (int inInputNote)
+void PresetState::setEditModeInputNote (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
-    Array<int> prevInputChordNotes = getPresetChord (prevEditModeInputNote).chordNotes;
-    Array<int> nextInputChordNotes = getPresetChord (nextEditModeInputNote).chordNotes;
+    Array<int> prevEditModeOutputNotes = getPresetChord (prevEditModeInputNote).chordNotes;
+    Array<int> nextEditModeOutputNotes = getPresetChord (nextEditModeInputNote).chordNotes;
 
     mEditModeInputNote = nextEditModeInputNote;
 
@@ -100,7 +63,12 @@ void PresetState::setEditModeInputNote (int inInputNote)
     message->messageCode = MessageCode::kEditModeInputNote;
     message->messageVar1 = prevEditModeInputNote;
     message->messageVar2 = nextEditModeInputNote;
-    message->messageArray1 = prevInputChordNotes;
-    message->messageArray2 = nextInputChordNotes;
+    message->messageArray1 = prevEditModeOutputNotes;
+    message->messageArray2 = nextEditModeOutputNotes;
     sendMessage (message, ListenerType::kSync);
+}
+
+void PresetState::setEditModeOutputNote (const int inOutputNote)
+{
+
 }

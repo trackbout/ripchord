@@ -32,7 +32,7 @@ enum MessageCode
     kEditModeInputNote,
 
     // Messages from mouse clicks on the OutputKeyboardComponent
-    kEditModeOutputNote
+    kEditModeOutputNotes
 };
 
 //==============================================================================

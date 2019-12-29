@@ -18,20 +18,15 @@ void OutputKeyboardComponent::resized()
 {
     initKeyboard();
 
-    for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
+    for (int outputNote = mFirstKey; outputNote <= mLastKey; outputNote++)
     {
-        auto keyComponent = mKeyComponents.at (noteNumber);
-        keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
+        auto keyComponent = mKeyComponents.at (outputNote);
+        keyComponent->onMouseDown = [this](const int inOutputNote) { handleMouseDown (inOutputNote); };
     }
 }
 
 //==============================================================================
-void OutputKeyboardComponent::handleMouseDown (const int inNoteNumber)
-{
-    if (mGlobalState.isEditMode()) { handleEditModeMouseDown (inNoteNumber); }
-}
-
-void OutputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
+void OutputKeyboardComponent::handleMouseDown (const int inOutputNote)
 {
 
 }
@@ -42,17 +37,16 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
-        case (MessageCode::kEditModeOutputNote): { handleEditModeOutputNote (inMessage); } break;
         default: { } break;
     };
 }
 
 void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)
 {
-    Array<int> prevInputChordNotes = inMessage->messageArray1;
-    Array<int> nextInputChordNotes = inMessage->messageArray2;
+    Array<int> prevEditModeOutputNotes = inMessage->messageArray1;
+    Array<int> nextEditModeOutputNotes = inMessage->messageArray2;
 
-    for (int& outputNote : prevInputChordNotes)
+    for (int& outputNote : prevEditModeOutputNotes)
     {
         auto keyComponent = mKeyComponents.at (outputNote);
         auto defaultColor = keyComponent->getDefaultColor (outputNote);
@@ -61,7 +55,7 @@ void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMess
         keyComponent->setMarkerColor (defaultColor);
     }
 
-    for (int& outputNote : nextInputChordNotes)
+    for (int& outputNote : nextEditModeOutputNotes)
     {
         auto keyComponent = mKeyComponents.at (outputNote);
 
@@ -70,7 +64,7 @@ void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMess
     }
 }
 
-void OutputKeyboardComponent::handleEditModeOutputNote (const DataMessage* inMessage)
+void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
 {
 
 }

@@ -18,39 +18,23 @@ void InputKeyboardComponent::resized()
 {
     initKeyboard();
 
-    for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
+    for (int inputNote = mFirstKey; inputNote <= mLastKey; inputNote++)
     {
-        auto keyComponent = mKeyComponents.at (noteNumber);
-        keyComponent->onMouseUp = [this](const int inNoteNumber) { handleMouseUp (inNoteNumber); };
-        keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->onMouseUp = [this](const int inInputNote) { handleMouseUp (inInputNote); };
+        keyComponent->onMouseDown = [this](const int inInputNote) { handleMouseDown (inInputNote); };
     }
 }
 
 //==============================================================================
-void InputKeyboardComponent::handleMouseUp (const int inNoteNumber)
-{
-    if (mGlobalState.isPlayMode()) { handlePlayModeMouseUp (inNoteNumber); }
-}
-
-void InputKeyboardComponent::handleMouseDown (const int inNoteNumber)
-{
-    if (mGlobalState.isPlayMode()) { handlePlayModeMouseDown (inNoteNumber); }
-    if (mGlobalState.isEditMode()) { handleEditModeMouseDown (inNoteNumber); }
-}
-
-void InputKeyboardComponent::handlePlayModeMouseUp (const int inNoteNumber)
+void InputKeyboardComponent::handleMouseUp (const int inInputNote)
 {
 
 }
 
-void InputKeyboardComponent::handlePlayModeMouseDown (const int inNoteNumber)
+void InputKeyboardComponent::handleMouseDown (const int inInputNote)
 {
-
-}
-
-void InputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
-{
-    mPresetState.setEditModeInputNote (inNoteNumber);
+    if (mGlobalState.isEditMode()) { mPresetState.setEditModeInputNote (inInputNote); }
 }
 
 //==============================================================================

@@ -104,6 +104,7 @@
         <FILE id="QpZVtC" name="PresetState.h" compile="0" resource="0" file="Source/Process/PresetState.h"/>
       </GROUP>
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
+        <FILE id="Con9Qt" name="Data.h" compile="0" resource="0" file="Source/Utils/Data.h"/>
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
         <FILE id="wPhM5I" name="Images.h" compile="0" resource="0" file="Source/Utils/Images.h"/>
         <FILE id="a6tugb" name="Interface.h" compile="0" resource="0" file="Source/Utils/Interface.h"/>

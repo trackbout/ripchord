@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Data.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -25,24 +26,13 @@ public:
     //==============================================================================
     Chord getPresetChord (const int inputNote);
     void setPresetChord (const int inputNote, Chord chord);
-
-    //==============================================================================
-    void resetPresetName();
-    void resetPresetChords();
-
-    //==============================================================================
     void addPresetChord (const int inputNote);
     void removePresetChord (const int inputNote);
     bool containsPresetChord (const int inputNote);
 
     //==============================================================================
-    void addPresetChordNote (const int inputNote, const int outputNote);
-    void removePresetChordNote (const int inputNote, const int *outputNote);
-    bool containsPresetChordNote (const int inputNote, const int outputNote);
-
-    //==============================================================================
-    int getEditModeInputNote();
-    void setEditModeInputNote (int inputNote);
+    void setEditModeInputNote (const int inputNote);
+    void setEditModeOutputNote (const int outputNote);
 
 private:
     //==============================================================================

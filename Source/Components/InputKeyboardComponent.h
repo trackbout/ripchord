@@ -17,11 +17,8 @@ public:
     void resized() override;
 
     //==============================================================================
-    void handleMouseUp (const int noteNumber);
-    void handleMouseDown (const int noteNumber);
-    void handlePlayModeMouseUp (const int noteNumber);
-    void handlePlayModeMouseDown (const int noteNumber);
-    void handleEditModeMouseDown (const int noteNumber);
+    void handleMouseUp (const int inputNote);
+    void handleMouseDown (const int inputNote);
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;

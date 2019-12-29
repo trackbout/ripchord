@@ -17,13 +17,12 @@ public:
     void resized() override;
 
     //==============================================================================
-    void handleMouseDown (const int noteNumber);
-    void handleEditModeMouseDown (const int noteNumber);
+    void handleMouseDown (const int outputNote);
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
     void handleEditModeInputNote (const DataMessage* message);
-    void handleEditModeOutputNote (const DataMessage* message);
+    void handleEditModeOutputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
