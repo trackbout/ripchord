@@ -30,7 +30,6 @@ void InputKeyboardComponent::resized()
 void InputKeyboardComponent::handleMouseUp (const int inNoteNumber)
 {
     if (mGlobalState.isPlayMode()) { handlePlayModeMouseUp (inNoteNumber); }
-    if (mGlobalState.isEditMode()) { handleEditModeMouseUp (inNoteNumber); }
 }
 
 void InputKeyboardComponent::handleMouseDown (const int inNoteNumber)
@@ -39,19 +38,12 @@ void InputKeyboardComponent::handleMouseDown (const int inNoteNumber)
     if (mGlobalState.isEditMode()) { handleEditModeMouseDown (inNoteNumber); }
 }
 
-//==============================================================================
 void InputKeyboardComponent::handlePlayModeMouseUp (const int inNoteNumber)
 {
 
 }
 
 void InputKeyboardComponent::handlePlayModeMouseDown (const int inNoteNumber)
-{
-
-}
-
-//==============================================================================
-void InputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
 {
 
 }

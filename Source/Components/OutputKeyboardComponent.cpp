@@ -21,39 +21,14 @@ void OutputKeyboardComponent::resized()
     for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
         auto keyComponent = mKeyComponents.at (noteNumber);
-        keyComponent->onMouseUp = [this](const int inNoteNumber) { handleMouseUp (inNoteNumber); };
         keyComponent->onMouseDown = [this](const int inNoteNumber) { handleMouseDown (inNoteNumber); };
     }
 }
 
 //==============================================================================
-void OutputKeyboardComponent::handleMouseUp (const int inNoteNumber)
-{
-    if (mGlobalState.isPlayMode()) { handlePlayModeMouseUp (inNoteNumber); }
-    if (mGlobalState.isEditMode()) { handleEditModeMouseUp (inNoteNumber); }
-}
-
 void OutputKeyboardComponent::handleMouseDown (const int inNoteNumber)
 {
-    if (mGlobalState.isPlayMode()) { handlePlayModeMouseDown (inNoteNumber); }
     if (mGlobalState.isEditMode()) { handleEditModeMouseDown (inNoteNumber); }
-}
-
-//==============================================================================
-void OutputKeyboardComponent::handlePlayModeMouseUp (const int inNoteNumber)
-{
-
-}
-
-void OutputKeyboardComponent::handlePlayModeMouseDown (const int inNoteNumber)
-{
-
-}
-
-//==============================================================================
-void OutputKeyboardComponent::handleEditModeMouseUp (const int inNoteNumber)
-{
-
 }
 
 void OutputKeyboardComponent::handleEditModeMouseDown (const int inNoteNumber)
@@ -67,37 +42,35 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
+        case (MessageCode::kEditModeOutputNote): { handleEditModeOutputNote (inMessage); } break;
         default: { } break;
     };
 }
 
 void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)
 {
-    bool prevInputContainsChord = inMessage->messageVar3;
-    bool nextInputContainsChord = inMessage->messageVar4;
     Array<int> prevInputChordNotes = inMessage->messageArray1;
     Array<int> nextInputChordNotes = inMessage->messageArray2;
 
-    if (prevInputContainsChord)
+    for (int& outputNote : prevInputChordNotes)
     {
-        for (int& outputNote : prevInputChordNotes)
-        {
-            auto keyComponent = mKeyComponents.at (outputNote);
-            auto defaultColor = keyComponent->getDefaultColor (outputNote);
+        auto keyComponent = mKeyComponents.at (outputNote);
+        auto defaultColor = keyComponent->getDefaultColor (outputNote);
 
-            keyComponent->setNoteColor (defaultColor);
-            keyComponent->setMarkerColor (defaultColor);
-        }
+        keyComponent->setNoteColor (defaultColor);
+        keyComponent->setMarkerColor (defaultColor);
     }
 
-    if (nextInputContainsChord)
+    for (int& outputNote : nextInputChordNotes)
     {
-        for (int& outputNote : nextInputChordNotes)
-        {
-            auto keyComponent = mKeyComponents.at (outputNote);
+        auto keyComponent = mKeyComponents.at (outputNote);
 
-            keyComponent->setNoteColor (COLOR_GREEN);
-            keyComponent->setMarkerColor (COLOR_GREEN);
-        }
+        keyComponent->setNoteColor (COLOR_GREEN);
+        keyComponent->setMarkerColor (COLOR_GREEN);
     }
+}
+
+void OutputKeyboardComponent::handleEditModeOutputNote (const DataMessage* inMessage)
+{
+
 }
