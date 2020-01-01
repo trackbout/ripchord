@@ -50,17 +50,12 @@ void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMe
     for (int& outputNote : prevEditModeOutputNotes)
     {
         auto keyComponent = mKeyComponents.at (outputNote);
-        auto defaultColor = keyComponent->getDefaultColor (outputNote);
-
-        keyComponent->setNoteColor (defaultColor);
-        keyComponent->setMarkerColor (defaultColor);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
     }
 
     for (int& outputNote : nextEditModeOutputNotes)
     {
         auto keyComponent = mKeyComponents.at (outputNote);
-
-        keyComponent->setNoteColor (COLOR_GREEN);
-        keyComponent->setMarkerColor (COLOR_GREEN);
+        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
 }

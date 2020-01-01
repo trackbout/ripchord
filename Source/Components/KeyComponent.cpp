@@ -55,6 +55,13 @@ void KeyComponent::setMarkerColor (Colour inColor)
     repaint();
 }
 
+void KeyComponent::setNoteAndMarkerColor (Colour inColor)
+{
+    mNoteColor = inColor;
+    mMarkerColor = inColor;
+    repaint();
+}
+
 //==============================================================================
 const int KeyComponent::getNoteNumber()
 {

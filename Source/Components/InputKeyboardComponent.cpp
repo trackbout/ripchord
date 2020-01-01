@@ -55,17 +55,12 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
     if (prevEditModeInputNote > 0)
     {
         auto prevKeyComponent = mKeyComponents.at (prevEditModeInputNote);
-        auto defaultColor = prevKeyComponent->getDefaultColor (prevEditModeInputNote);
-
-        prevKeyComponent->setNoteColor (defaultColor);
-        prevKeyComponent->setMarkerColor (defaultColor);
+        prevKeyComponent->setNoteAndMarkerColor (prevKeyComponent->getDefaultColor (prevEditModeInputNote));
     }
 
     if (nextEditModeInputNote > 0)
     {
         auto nextKeyComponent = mKeyComponents.at (nextEditModeInputNote);
-
-        nextKeyComponent->setNoteColor (COLOR_GREEN);
-        nextKeyComponent->setMarkerColor (COLOR_GREEN);
+        nextKeyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
 }

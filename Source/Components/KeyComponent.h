@@ -26,6 +26,7 @@ public:
     //==============================================================================
     void setNoteColor (Colour color);
     void setMarkerColor (Colour color);
+    void setNoteAndMarkerColor (Colour color);
 
     //==============================================================================
     const int getNoteNumber();
