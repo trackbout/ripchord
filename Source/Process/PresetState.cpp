@@ -54,8 +54,8 @@ void PresetState::setEditModeInputNote (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
-    Array<int> prevEditModeOutputNotes = getPresetChord (prevEditModeInputNote).chordNotes;
-    Array<int> nextEditModeOutputNotes = getPresetChord (nextEditModeInputNote).chordNotes;
+    juce::Array<int> prevEditModeOutputNotes = getPresetChord (prevEditModeInputNote).chordNotes;
+    juce::Array<int> nextEditModeOutputNotes = getPresetChord (nextEditModeInputNote).chordNotes;
 
     mEditModeInputNote = nextEditModeInputNote;
 
@@ -70,5 +70,37 @@ void PresetState::setEditModeInputNote (const int inInputNote)
 
 void PresetState::setEditModeOutputNote (const int inOutputNote)
 {
+    juce::Array<int> prevEditModeOutputNotes = getPresetChord (mEditModeInputNote).chordNotes;
+    bool shouldAddNote = !prevEditModeOutputNotes.contains (inOutputNote);
 
+    if (shouldAddNote)
+    {
+        if (!containsPresetChord (mEditModeInputNote)) { addPresetChord (mEditModeInputNote); }
+        Chord presetChord = getPresetChord (mEditModeInputNote);
+        presetChord.chordNotes.add (inOutputNote);
+        setPresetChord (mEditModeInputNote, presetChord);
+    }
+
+    else
+    {
+        if (prevEditModeOutputNotes.size() > 1)
+        {
+            Chord presetChord = getPresetChord (mEditModeInputNote);
+            presetChord.chordNotes.removeFirstMatchingValue (inOutputNote);
+            setPresetChord (mEditModeInputNote, presetChord);
+        }
+
+        else
+        {
+            removePresetChord (mEditModeInputNote);
+        }
+    }
+
+    juce::Array<int> nextEditModeOutputNotes = getPresetChord (mEditModeInputNote).chordNotes;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kEditModeOutputNotes;
+    message->messageArray1 = prevEditModeOutputNotes;
+    message->messageArray2 = nextEditModeOutputNotes;
+    sendMessage (message, ListenerType::kSync);
 }

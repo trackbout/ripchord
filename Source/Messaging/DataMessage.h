@@ -52,8 +52,8 @@ public:
     var messageVar2;
     var messageVar3;
     var messageVar4;
-    Array<int> messageArray1;
-    Array<int> messageArray2;
+    juce::Array<int> messageArray1;
+    juce::Array<int> messageArray2;
 
 private:
     //==============================================================================

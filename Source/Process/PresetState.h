@@ -1,14 +1,13 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Data.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
 struct Chord
 {
     String chordName;
-    Array<int> chordNotes;
+    juce::Array<int> chordNotes;
 };
 
 //==============================================================================

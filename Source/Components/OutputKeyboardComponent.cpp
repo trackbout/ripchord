@@ -28,7 +28,7 @@ void OutputKeyboardComponent::resized()
 //==============================================================================
 void OutputKeyboardComponent::handleMouseDown (const int inOutputNote)
 {
-
+    if (mGlobalState.isEditMode()) { mPresetState.setEditModeOutputNote (inOutputNote); }
 }
 
 //==============================================================================
@@ -36,15 +36,16 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
+        case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
+        case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         default: { } break;
     };
 }
 
-void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)
+void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
 {
-    Array<int> prevEditModeOutputNotes = inMessage->messageArray1;
-    Array<int> nextEditModeOutputNotes = inMessage->messageArray2;
+    juce::Array<int> prevEditModeOutputNotes = inMessage->messageArray1;
+    juce::Array<int> nextEditModeOutputNotes = inMessage->messageArray2;
 
     for (int& outputNote : prevEditModeOutputNotes)
     {
@@ -62,9 +63,4 @@ void OutputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMess
         keyComponent->setNoteColor (COLOR_GREEN);
         keyComponent->setMarkerColor (COLOR_GREEN);
     }
-}
-
-void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
-{
-
 }
