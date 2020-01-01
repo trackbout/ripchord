@@ -19,17 +19,6 @@ public:
     ~PresetState();
 
     //==============================================================================
-    String getPresetName();
-    void setPresetName (String name);
-
-    //==============================================================================
-    Chord getPresetChord (const int inputNote);
-    void setPresetChord (const int inputNote, Chord chord);
-    void addPresetChord (const int inputNote);
-    void removePresetChord (const int inputNote);
-    bool containsPresetChord (const int inputNote);
-
-    //==============================================================================
     void setEditModeInputNote (const int inputNote);
     void setEditModeOutputNote (const int outputNote);
 
@@ -41,6 +30,13 @@ private:
     //==============================================================================
     Chord mEmptyChord;
     int mEditModeInputNote = 0;
+
+    //==============================================================================
+    Chord getPresetChord (const int inputNote);
+    void setPresetChord (const int inputNote, Chord chord);
+    void addPresetChord (const int inputNote);
+    void removePresetChord (const int inputNote);
+    bool containsPresetChord (const int inputNote);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)
