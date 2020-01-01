@@ -14,6 +14,7 @@ void PresetState::setEditModeInputNote (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
+    bool prevEditModeInputNoteHasMarker = containsPresetChord (prevEditModeInputNote);
     juce::Array<int> prevEditModeOutputNotes = getPresetChord (prevEditModeInputNote).chordNotes;
     juce::Array<int> nextEditModeOutputNotes = getPresetChord (nextEditModeInputNote).chordNotes;
 
@@ -23,6 +24,7 @@ void PresetState::setEditModeInputNote (const int inInputNote)
     message->messageCode = MessageCode::kEditModeInputNote;
     message->messageVar1 = prevEditModeInputNote;
     message->messageVar2 = nextEditModeInputNote;
+    message->messageVar3 = prevEditModeInputNoteHasMarker;
     message->messageArray1 = prevEditModeOutputNotes;
     message->messageArray2 = nextEditModeOutputNotes;
     sendMessage (message, ListenerType::kSync);

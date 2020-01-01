@@ -51,11 +51,15 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
 {
     const int prevEditModeInputNote = inMessage->messageVar1;
     const int nextEditModeInputNote = inMessage->messageVar2;
+    bool prevEditModeInputNoteHasMarker = inMessage->messageVar3;
 
     if (prevEditModeInputNote > 0)
     {
         auto prevKeyComponent = mKeyComponents.at (prevEditModeInputNote);
-        prevKeyComponent->setNoteAndMarkerColor (prevKeyComponent->getDefaultColor (prevEditModeInputNote));
+        auto defaultColor = prevKeyComponent->getDefaultColor (prevEditModeInputNote);
+
+        if (prevEditModeInputNoteHasMarker) { prevKeyComponent->setNoteColor (defaultColor); }
+        else { prevKeyComponent->setNoteAndMarkerColor (defaultColor); }
     }
 
     if (nextEditModeInputNote > 0)
