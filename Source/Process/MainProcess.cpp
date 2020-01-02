@@ -36,12 +36,70 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
 void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
 {
-    mTransformedMidiBuffer.addEvent (inMessage, inTime);
+    juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
+    juce::Array<int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+
+    const int inputNote = inMessage.getNoteNumber();
+    currentlyOnInputNotes.addIfNotAlreadyThere (inputNote);
+
+    if (mPresetState.containsPresetChord (inputNote))
+    {
+        const int inputChannel = inMessage.getChannel();
+        const float inputVelocity = inMessage.getFloatVelocity();
+
+        for (const int chordNote : mPresetState.getPresetChordNotes (inputNote))
+        {
+            if (!currentlyOnOutputNotes.contains (chordNote))
+            {
+                const auto& message = MidiMessage::noteOn (inputChannel, chordNote, inputVelocity);
+                mTransformedMidiBuffer.addEvent (message, inTime);
+                currentlyOnOutputNotes.add (chordNote);
+            }
+        }
+    }
+
+    else if (!currentlyOnOutputNotes.contains (inputNote))
+    {
+        mTransformedMidiBuffer.addEvent (inMessage, inTime);
+        currentlyOnOutputNotes.add (inputNote);
+    }
+
+    mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
+    mMidiState.setCurrentlyOnOutputNotes (currentlyOnOutputNotes);
 }
 
 void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
 {
-    mTransformedMidiBuffer.addEvent (inMessage, inTime);
+    juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
+    juce::Array<int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+
+    const int inputNote = inMessage.getNoteNumber();
+    currentlyOnInputNotes.removeFirstMatchingValue (inputNote);
+
+    if (mPresetState.containsPresetChord (inputNote))
+    {
+        const int inputChannel = inMessage.getChannel();
+        const float inputVelocity = inMessage.getFloatVelocity();
+
+        for (const int chordNote : mPresetState.getPresetChordNotes (inputNote))
+        {
+            if (currentlyOnOutputNotes.contains (chordNote))
+            {
+                const auto& message = MidiMessage::noteOff (inputChannel, chordNote, inputVelocity);
+                mTransformedMidiBuffer.addEvent (message, inTime);
+                currentlyOnOutputNotes.removeFirstMatchingValue (chordNote);
+            }
+        }
+    }
+
+    else if (currentlyOnOutputNotes.contains (inputNote))
+    {
+        mTransformedMidiBuffer.addEvent (inMessage, inTime);
+        currentlyOnOutputNotes.removeFirstMatchingValue (inputNote);
+    }
+
+    mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
+    mMidiState.setCurrentlyOnOutputNotes (currentlyOnOutputNotes);
 }
 
 void MainProcess::handleNonNote (MidiMessage inMessage, int inTime)

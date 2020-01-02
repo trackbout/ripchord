@@ -20,6 +20,16 @@ const int PresetState::getEditModeInputNote()
     return mEditModeInputNote;
 }
 
+bool PresetState::containsPresetChord (const int inInputNote)
+{
+    return mPresetChords.count (inInputNote) > 0;
+}
+
+juce::Array<int> PresetState::getPresetChordNotes (const int inInputNote)
+{
+    return getPresetChord (inInputNote).chordNotes;
+}
+
 juce::Array<int> PresetState::getMappedInputNotes()
 {
     juce::Array<int> mappedInputNotes;
@@ -38,8 +48,8 @@ void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
     bool prevEditModeInputNoteHasMarker = containsPresetChord (prevEditModeInputNote);
-    juce::Array<int> prevEditModeOutputNotes = getPresetChord (prevEditModeInputNote).chordNotes;
-    juce::Array<int> nextEditModeOutputNotes = getPresetChord (nextEditModeInputNote).chordNotes;
+    juce::Array<int> prevEditModeOutputNotes = getPresetChordNotes (prevEditModeInputNote);
+    juce::Array<int> nextEditModeOutputNotes = getPresetChordNotes (nextEditModeInputNote);
 
     mEditModeInputNote = nextEditModeInputNote;
 
@@ -55,7 +65,7 @@ void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
 
 void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 {
-    juce::Array<int> prevEditModeOutputNotes = getPresetChord (mEditModeInputNote).chordNotes;
+    juce::Array<int> prevEditModeOutputNotes = getPresetChordNotes (mEditModeInputNote);
     bool shouldAddNote = !prevEditModeOutputNotes.contains (inOutputNote);
 
     if (shouldAddNote)
@@ -81,7 +91,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
         }
     }
 
-    juce::Array<int> nextEditModeOutputNotes = getPresetChord (mEditModeInputNote).chordNotes;
+    juce::Array<int> nextEditModeOutputNotes = getPresetChordNotes (mEditModeInputNote);
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kEditModeOutputNotes;
@@ -112,9 +122,4 @@ void PresetState::addPresetChord (const int inInputNote)
 void PresetState::removePresetChord (const int inInputNote)
 {
     mPresetChords.erase (inInputNote);
-}
-
-bool PresetState::containsPresetChord (const int inInputNote)
-{
-    return mPresetChords.count (inInputNote) > 0;
 }

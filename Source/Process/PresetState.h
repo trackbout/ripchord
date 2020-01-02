@@ -21,6 +21,8 @@ public:
     //==============================================================================
     void resetEditModeInputNote();
     const int getEditModeInputNote();
+    bool containsPresetChord (const int inputNote);
+    juce::Array<int> getPresetChordNotes (const int inputNote);
     juce::Array<int> getMappedInputNotes();
 
     //==============================================================================
@@ -41,7 +43,6 @@ private:
     void setPresetChord (const int inputNote, Chord chord);
     void addPresetChord (const int inputNote);
     void removePresetChord (const int inputNote);
-    bool containsPresetChord (const int inputNote);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)
