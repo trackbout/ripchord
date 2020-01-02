@@ -21,6 +21,7 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
+    void handleModeUpdated (const DataMessage* message);
     void handleEditModeOutputNotes (const DataMessage* message);
 
 private:

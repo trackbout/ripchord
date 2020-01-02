@@ -6,6 +6,7 @@ InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
     mGlobalState (mMainProcess.getGlobalState()),
     mPresetState (mMainProcess.getPresetState())
 {
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
@@ -42,9 +43,23 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         default: { } break;
     };
+}
+
+void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
+{
+    juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
+    Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
+
+    for (int& inputNote : mappedInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
+        keyComponent->setMarkerColor (markerColor);
+    }
 }
 
 void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessage)

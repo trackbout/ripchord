@@ -10,6 +10,19 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
+juce::Array<int> PresetState::getMappedInputNotes()
+{
+    juce::Array<int> mappedInputNotes;
+    std::map<int, Chord>::iterator pair;
+
+    for (pair = mPresetChords.begin(); pair != mPresetChords.end(); ++pair) {
+      mappedInputNotes.add (pair->first);
+    }
+
+    return mappedInputNotes;
+}
+
+//==============================================================================
 void PresetState::setEditModeInputNote (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;

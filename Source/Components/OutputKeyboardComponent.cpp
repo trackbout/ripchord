@@ -6,6 +6,7 @@ OutputKeyboardComponent::OutputKeyboardComponent (MainProcess& inMainProcess)
     mGlobalState (mMainProcess.getGlobalState()),
     mPresetState (mMainProcess.getPresetState())
 {
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
@@ -36,10 +37,20 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         default: { } break;
     };
+}
+
+void OutputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
+{
+    for (int outputNote = mFirstKey; outputNote <= mLastKey; outputNote++)
+    {
+        auto keyComponent = mKeyComponents.at (outputNote);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
+    }
 }
 
 void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)

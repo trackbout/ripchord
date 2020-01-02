@@ -23,15 +23,13 @@ enum MessageCode
     kMenuUpdated,
 
     // Messages from external midi keyboards
-    kNoteOnExternal,
-    kNoteOffExternal,
+    kMidiNoteOn,
+    kMidiNoteOff,
 
-    // Messages from mouse clicks on the InputKeyboardComponent
-    kNoteOnInternal,
-    kNoteOffInternal,
+    // Messages from mouse clicked keyboards
+    kMouseNoteOn,
+    kMouseNoteOff,
     kEditModeInputNote,
-
-    // Messages from mouse clicks on the OutputKeyboardComponent
     kEditModeOutputNotes
 };
 
