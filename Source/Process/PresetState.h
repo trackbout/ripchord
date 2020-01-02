@@ -6,8 +6,8 @@
 
 struct Chord
 {
-    String chordName;
-    juce::Array<int> chordNotes;
+    String name;
+    juce::Array<int> notes;
 };
 
 //==============================================================================
@@ -21,9 +21,11 @@ public:
     //==============================================================================
     void resetEditModeInputNote();
     const int getEditModeInputNote();
-    bool containsPresetChord (const int inputNote);
-    juce::Array<int> getPresetChordNotes (const int inputNote);
     juce::Array<int> getMappedInputNotes();
+
+    //==============================================================================
+    bool containsChord (const int inputNote);
+    juce::Array<int> getChordNotes (const int inputNote);
 
     //==============================================================================
     void handleEditModeMouseDownOnInput (const int inputNote);
@@ -31,18 +33,18 @@ public:
 
 private:
     //==============================================================================
-    String mPresetName;
-    std::map<int, Chord> mPresetChords;
+    String mName;
+    std::map<int, Chord> mChords;
 
     //==============================================================================
     Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
     //==============================================================================
-    Chord getPresetChord (const int inputNote);
-    void setPresetChord (const int inputNote, Chord chord);
-    void addPresetChord (const int inputNote);
-    void removePresetChord (const int inputNote);
+    Chord getChord (const int inputNote);
+    void setChord (const int inputNote, Chord chord);
+    void addChord (const int inputNote);
+    void removeChord (const int inputNote);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

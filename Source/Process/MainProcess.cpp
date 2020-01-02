@@ -42,12 +42,12 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
     const int inputNote = inMessage.getNoteNumber();
     currentlyOnInputNotes.addIfNotAlreadyThere (inputNote);
 
-    if (mPresetState.containsPresetChord (inputNote))
+    if (mPresetState.containsChord (inputNote))
     {
         const int inputChannel = inMessage.getChannel();
         const float inputVelocity = inMessage.getFloatVelocity();
 
-        for (const int chordNote : mPresetState.getPresetChordNotes (inputNote))
+        for (const int chordNote : mPresetState.getChordNotes (inputNote))
         {
             if (!currentlyOnOutputNotes.contains (chordNote))
             {
@@ -76,12 +76,12 @@ void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
     const int inputNote = inMessage.getNoteNumber();
     currentlyOnInputNotes.removeFirstMatchingValue (inputNote);
 
-    if (mPresetState.containsPresetChord (inputNote))
+    if (mPresetState.containsChord (inputNote))
     {
         const int inputChannel = inMessage.getChannel();
         const float inputVelocity = inMessage.getFloatVelocity();
 
-        for (const int chordNote : mPresetState.getPresetChordNotes (inputNote))
+        for (const int chordNote : mPresetState.getChordNotes (inputNote))
         {
             if (currentlyOnOutputNotes.contains (chordNote))
             {
