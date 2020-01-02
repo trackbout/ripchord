@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "GlobalState.h"
 #include "PresetState.h"
+#include "MidiState.h"
 
 //==============================================================================
 class MainProcess
@@ -18,6 +19,7 @@ public:
     //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
     PresetState& getPresetState() { return mPresetState; }
+    MidiState& getMidiState() { return mMidiState; }
 
 private:
     //==============================================================================
@@ -26,6 +28,7 @@ private:
     //==============================================================================
     GlobalState mGlobalState;
     PresetState mPresetState;
+    MidiState mMidiState;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainProcess)
