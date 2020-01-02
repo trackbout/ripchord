@@ -51,8 +51,16 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 
 void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
 {
+    const int editModeInputNote = mPresetState.getEditModeInputNote();
     juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
     Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
+
+    if (editModeInputNote > 0)
+    {
+        auto keyComponent = mKeyComponents.at (editModeInputNote);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (editModeInputNote));
+        mPresetState.resetEditModeInputNote();
+    }
 
     for (int& inputNote : mappedInputNotes)
     {
@@ -70,16 +78,16 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
 
     if (prevEditModeInputNote > 0)
     {
-        auto prevKeyComponent = mKeyComponents.at (prevEditModeInputNote);
-        auto defaultColor = prevKeyComponent->getDefaultColor (prevEditModeInputNote);
+        auto keyComponent = mKeyComponents.at (prevEditModeInputNote);
+        auto defaultColor = keyComponent->getDefaultColor (prevEditModeInputNote);
 
-        if (prevEditModeInputNoteHasMarker) { prevKeyComponent->setNoteColor (defaultColor); }
-        else { prevKeyComponent->setNoteAndMarkerColor (defaultColor); }
+        if (prevEditModeInputNoteHasMarker) { keyComponent->setNoteColor (defaultColor); }
+        else { keyComponent->setNoteAndMarkerColor (defaultColor); }
     }
 
     if (nextEditModeInputNote > 0)
     {
-        auto nextKeyComponent = mKeyComponents.at (nextEditModeInputNote);
-        nextKeyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+        auto keyComponent = mKeyComponents.at (nextEditModeInputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
 }

@@ -19,6 +19,8 @@ public:
     ~PresetState();
 
     //==============================================================================
+    void resetEditModeInputNote();
+    const int getEditModeInputNote();
     juce::Array<int> getMappedInputNotes();
 
     //==============================================================================

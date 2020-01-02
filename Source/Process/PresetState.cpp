@@ -10,6 +10,16 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
+void PresetState::resetEditModeInputNote()
+{
+    mEditModeInputNote = 0;
+}
+
+const int PresetState::getEditModeInputNote()
+{
+    return mEditModeInputNote;
+}
+
 juce::Array<int> PresetState::getMappedInputNotes()
 {
     juce::Array<int> mappedInputNotes;
