@@ -35,7 +35,7 @@ void InputKeyboardComponent::handleMouseUp (const int inInputNote)
 
 void InputKeyboardComponent::handleMouseDown (const int inInputNote)
 {
-    if (mGlobalState.isEditMode()) { mPresetState.setEditModeInputNote (inInputNote); }
+    if (mGlobalState.isEditMode()) { mPresetState.handleEditModeMouseDownOnInput (inInputNote); }
 }
 
 //==============================================================================

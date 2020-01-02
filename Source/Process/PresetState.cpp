@@ -23,7 +23,7 @@ juce::Array<int> PresetState::getMappedInputNotes()
 }
 
 //==============================================================================
-void PresetState::setEditModeInputNote (const int inInputNote)
+void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
@@ -43,7 +43,7 @@ void PresetState::setEditModeInputNote (const int inInputNote)
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::setEditModeOutputNote (const int inOutputNote)
+void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 {
     juce::Array<int> prevEditModeOutputNotes = getPresetChord (mEditModeInputNote).chordNotes;
     bool shouldAddNote = !prevEditModeOutputNotes.contains (inOutputNote);

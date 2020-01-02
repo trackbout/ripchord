@@ -22,8 +22,8 @@ public:
     juce::Array<int> getMappedInputNotes();
 
     //==============================================================================
-    void setEditModeInputNote (const int inputNote);
-    void setEditModeOutputNote (const int outputNote);
+    void handleEditModeMouseDownOnInput (const int inputNote);
+    void handleEditModeMouseDownOnOutput (const int outputNote);
 
 private:
     //==============================================================================

@@ -29,7 +29,7 @@ void OutputKeyboardComponent::resized()
 //==============================================================================
 void OutputKeyboardComponent::handleMouseDown (const int inOutputNote)
 {
-    if (mGlobalState.isEditMode()) { mPresetState.setEditModeOutputNote (inOutputNote); }
+    if (mGlobalState.isEditMode()) { mPresetState.handleEditModeMouseDownOnOutput (inOutputNote); }
 }
 
 //==============================================================================
