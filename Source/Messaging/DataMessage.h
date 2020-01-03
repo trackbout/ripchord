@@ -17,20 +17,18 @@ enum MessageCode
 {
     kGeneric = 0,
 
-    // Messages from global state
+    // Messages from GlobalState
     kModeUpdated,
     kViewUpdated,
     kMenuUpdated,
 
-    // Messages from external midi keyboards
-    kMidiNoteOn,
-    kMidiNoteOff,
-
-    // Messages from mouse clicked keyboards
-    kMouseNoteOn,
-    kMouseNoteOff,
+    // Messages from PresetState
     kEditModeInputNote,
-    kEditModeOutputNotes
+    kEditModeOutputNotes,
+
+    // Messages from MidiState
+    kCurrentlyOnInputNotes,
+    kCurrentlyOnOutputNotes
 };
 
 //==============================================================================

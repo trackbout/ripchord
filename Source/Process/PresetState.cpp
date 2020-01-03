@@ -25,7 +25,8 @@ juce::Array<int> PresetState::getMappedInputNotes()
     juce::Array<int> mappedInputNotes;
     std::map<int, Chord>::iterator pair;
 
-    for (pair = mChords.begin(); pair != mChords.end(); ++pair) {
+    for (pair = mChords.begin(); pair != mChords.end(); ++pair)
+    {
       mappedInputNotes.add (pair->first);
     }
 
