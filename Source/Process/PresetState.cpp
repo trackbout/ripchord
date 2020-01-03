@@ -71,7 +71,6 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
     if (shouldAddNote)
     {
-        if (!containsChord (mEditModeInputNote)) { addChord (mEditModeInputNote); }
         Chord presetChord = getChord (mEditModeInputNote);
         presetChord.notes.add (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
@@ -88,7 +87,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
         else
         {
-            removeChord (mEditModeInputNote);
+            mChords.erase (mEditModeInputNote);
         }
     }
 
@@ -112,15 +111,4 @@ Chord PresetState::getChord (const int inInputNote)
 void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
-}
-
-void PresetState::addChord (const int inInputNote)
-{
-    Chord newChord;
-    mChords[inInputNote] = newChord;
-}
-
-void PresetState::removeChord (const int inInputNote)
-{
-    mChords.erase (inInputNote);
 }

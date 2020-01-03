@@ -43,8 +43,6 @@ private:
     //==============================================================================
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
-    void addChord (const int inputNote);
-    void removeChord (const int inputNote);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)
