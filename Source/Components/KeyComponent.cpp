@@ -5,7 +5,6 @@ KeyComponent::KeyComponent (const int inNoteNumber)
 :   mNoteNumber (inNoteNumber)
 {
     Colour defaultColor = getDefaultColor (mNoteNumber);
-
     mNoteColor = defaultColor;
     mMarkerColor = defaultColor;
 }

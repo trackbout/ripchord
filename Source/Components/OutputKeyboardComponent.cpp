@@ -4,10 +4,12 @@
 OutputKeyboardComponent::OutputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mPresetState (mMainProcess.getPresetState())
+    mPresetState (mMainProcess.getPresetState()),
+    mMidiState (mMainProcess.getMidiState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
 }
 
 OutputKeyboardComponent::~OutputKeyboardComponent()
@@ -40,6 +42,7 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
+        case (MessageCode::kCurrentlyOnOutputNotes): { handleCurrentlyOnOutputNotes (inMessage); } break;
         default: { } break;
     };
 }
@@ -68,5 +71,23 @@ void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMe
     {
         auto keyComponent = mKeyComponents.at (outputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* inMessage)
+{
+    juce::Array<int> prevCurrentlyOnOutputNotes = inMessage->messageArray1;
+    juce::Array<int> nextCurrentlyOnOutputNotes = inMessage->messageArray2;
+
+    for (int& outputNote : prevCurrentlyOnOutputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (outputNote);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
+    }
+
+    for (int& outputNote : nextCurrentlyOnOutputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (outputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
     }
 }

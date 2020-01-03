@@ -33,7 +33,7 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
     message->messageCode = MessageCode::kCurrentlyOnInputNotes;
     message->messageArray1 = prevCurrentlyOnInputNotes;
     message->messageArray2 = nextCurrentlyOnInputNotes;
-    sendMessage (message, ListenerType::kSync);
+    sendMessage (message, ListenerType::kAsync);
 }
 
 void MidiState::setCurrentlyOnOutputNotes (std::map<int, int> inOutputNotes)
@@ -48,7 +48,7 @@ void MidiState::setCurrentlyOnOutputNotes (std::map<int, int> inOutputNotes)
     message->messageCode = MessageCode::kCurrentlyOnOutputNotes;
     message->messageArray1 = prevCurrentlyOnOutputNotes;
     message->messageArray2 = nextCurrentlyOnOutputNotes;
-    sendMessage (message, ListenerType::kSync);
+    sendMessage (message, ListenerType::kAsync);
 }
 
 //==============================================================================

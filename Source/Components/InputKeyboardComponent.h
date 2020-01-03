@@ -24,12 +24,14 @@ public:
     void handleNewMessage (const DataMessage* message) override;
     void handleModeUpdated (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
+    void handleCurrentlyOnInputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     PresetState& mPresetState;
+    MidiState& mMidiState;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InputKeyboardComponent)

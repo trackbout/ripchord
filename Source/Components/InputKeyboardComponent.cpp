@@ -4,10 +4,12 @@
 InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mPresetState (mMainProcess.getPresetState())
+    mPresetState (mMainProcess.getPresetState()),
+    mMidiState (mMainProcess.getMidiState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
 }
 
 InputKeyboardComponent::~InputKeyboardComponent()
@@ -45,6 +47,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
+        case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
         default: { } break;
     };
 }
@@ -89,5 +92,27 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
     {
         auto keyComponent = mKeyComponents.at (nextEditModeInputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inMessage)
+{
+    juce::Array<int> prevCurrentlyOnInputNotes = inMessage->messageArray1;
+    juce::Array<int> nextCurrentlyOnInputNotes = inMessage->messageArray2;
+    juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
+
+    for (int& inputNote : prevCurrentlyOnInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        Colour defaultColor = keyComponent->getDefaultColor (inputNote);
+        Colour markerColor = mappedInputNotes.contains (inputNote) ? COLOR_BLUE : defaultColor;
+        keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
+        keyComponent->setMarkerColor (markerColor);
+    }
+
+    for (int& inputNote : nextCurrentlyOnInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
     }
 }
