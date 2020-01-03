@@ -37,31 +37,31 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
 {
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    juce::Array<int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
-    const int inputNote = inMessage.getNoteNumber();
-    currentlyOnInputNotes.addIfNotAlreadyThere (inputNote);
+    const int inInputNote = inMessage.getNoteNumber();
+    currentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
-    if (mPresetState.containsChord (inputNote))
+    if (mPresetState.containsChord (inInputNote))
     {
-        const int inputChannel = inMessage.getChannel();
-        const float inputVelocity = inMessage.getFloatVelocity();
+        const int inInputChannel = inMessage.getChannel();
+        const float inInputVelocity = inMessage.getFloatVelocity();
 
-        for (const int chordNote : mPresetState.getChordNotes (inputNote))
+        for (const int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            if (!currentlyOnOutputNotes.contains (chordNote))
+            if (!mMidiState.containsCurrentlyOnOutputNote (chordNote))
             {
-                const auto& message = MidiMessage::noteOn (inputChannel, chordNote, inputVelocity);
+                const auto& message = MidiMessage::noteOn (inInputChannel, chordNote, inInputVelocity);
                 mTransformedMidiBuffer.addEvent (message, inTime);
-                currentlyOnOutputNotes.add (chordNote);
+                currentlyOnOutputNotes[chordNote] = inInputNote;
             }
         }
     }
 
-    else if (!currentlyOnOutputNotes.contains (inputNote))
+    else if (!mMidiState.containsCurrentlyOnOutputNote (inInputNote))
     {
         mTransformedMidiBuffer.addEvent (inMessage, inTime);
-        currentlyOnOutputNotes.add (inputNote);
+        currentlyOnOutputNotes[inInputNote] = inInputNote;
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -71,31 +71,31 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
 void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
 {
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    juce::Array<int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
-    const int inputNote = inMessage.getNoteNumber();
-    currentlyOnInputNotes.removeFirstMatchingValue (inputNote);
+    const int inInputNote = inMessage.getNoteNumber();
+    currentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
-    if (mPresetState.containsChord (inputNote))
+    if (mPresetState.containsChord (inInputNote))
     {
-        const int inputChannel = inMessage.getChannel();
-        const float inputVelocity = inMessage.getFloatVelocity();
+        const int inInputChannel = inMessage.getChannel();
+        const float inInputVelocity = inMessage.getFloatVelocity();
 
-        for (const int chordNote : mPresetState.getChordNotes (inputNote))
+        for (const int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            if (currentlyOnOutputNotes.contains (chordNote))
+            if (mMidiState.wasOutputNoteTriggeredByInputNote (chordNote, inInputNote))
             {
-                const auto& message = MidiMessage::noteOff (inputChannel, chordNote, inputVelocity);
+                const auto& message = MidiMessage::noteOff (inInputChannel, chordNote, inInputVelocity);
                 mTransformedMidiBuffer.addEvent (message, inTime);
-                currentlyOnOutputNotes.removeFirstMatchingValue (chordNote);
+                currentlyOnOutputNotes.erase (chordNote);
             }
         }
     }
 
-    else if (currentlyOnOutputNotes.contains (inputNote))
+    else if (mMidiState.wasOutputNoteTriggeredByInputNote (inInputNote, inInputNote))
     {
         mTransformedMidiBuffer.addEvent (inMessage, inTime);
-        currentlyOnOutputNotes.removeFirstMatchingValue (inputNote);
+        currentlyOnOutputNotes.erase (inInputNote);
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
