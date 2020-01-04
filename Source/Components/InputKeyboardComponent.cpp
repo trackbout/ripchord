@@ -100,19 +100,28 @@ void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inM
     juce::Array<int> prevCurrentlyOnInputNotes = inMessage->messageArray1;
     juce::Array<int> nextCurrentlyOnInputNotes = inMessage->messageArray2;
     juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
+    const int editModeInputNote = mPresetState.getEditModeInputNote();
+    bool isEditModeInputNoteOff = !nextCurrentlyOnInputNotes.contains (editModeInputNote);
 
     for (int& inputNote : prevCurrentlyOnInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
+        bool hasMarker = mappedInputNotes.contains (inputNote);
         Colour defaultColor = keyComponent->getDefaultColor (inputNote);
-        Colour markerColor = mappedInputNotes.contains (inputNote) ? COLOR_BLUE : defaultColor;
+        Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
         keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
-        keyComponent->setMarkerColor (markerColor);
+        keyComponent->setMarkerColor (hasMarker ? markerColor : defaultColor);
     }
 
     for (int& inputNote : nextCurrentlyOnInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
+    }
+
+    if (isEditModeInputNoteOff && editModeInputNote > 0)
+    {
+        auto keyComponent = mKeyComponents.at (editModeInputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
 }
