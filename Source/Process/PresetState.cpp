@@ -33,6 +33,11 @@ juce::Array<int> PresetState::getMappedInputNotes()
     return mappedInputNotes;
 }
 
+juce::Array<int> PresetState::getEditModeInputNoteChordNotes()
+{
+    return getChordNotes (mEditModeInputNote);
+}
+
 //==============================================================================
 bool PresetState::containsChord (const int inInputNote)
 {

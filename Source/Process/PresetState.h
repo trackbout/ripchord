@@ -22,6 +22,7 @@ public:
     void resetEditModeInputNote();
     const int getEditModeInputNote();
     juce::Array<int> getMappedInputNotes();
+    juce::Array<int> getEditModeInputNoteChordNotes();
 
     //==============================================================================
     bool containsChord (const int inputNote);

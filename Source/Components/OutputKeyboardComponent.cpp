@@ -78,6 +78,7 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = inMessage->messageArray1;
     juce::Array<int> nextCurrentlyOnOutputNotes = inMessage->messageArray2;
+    juce::Array<int> editModeInputNoteChordNotes = mPresetState.getEditModeInputNoteChordNotes();
 
     for (int& outputNote : prevCurrentlyOnOutputNotes)
     {
@@ -89,5 +90,14 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
     {
         auto keyComponent = mKeyComponents.at (outputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
+    }
+
+    for (int& outputNote : editModeInputNoteChordNotes)
+    {
+        if (!nextCurrentlyOnOutputNotes.contains (outputNote))
+        {
+            auto keyComponent = mKeyComponents.at (outputNote);
+            keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+        }
     }
 }
