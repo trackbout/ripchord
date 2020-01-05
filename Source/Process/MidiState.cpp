@@ -39,7 +39,7 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
 void MidiState::setCurrentlyOnOutputNotes (std::map<int, juce::Array<int>> inOutputNotes)
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = getOutputNotesArray (mCurrentlyOnOutputNotes);
-    juce::Array<int> nextCurrentlyOnOutputNotes = getOutputNotesArray (inOutputNotes);
+    juce::Array<int> nextCurrentlyOnOutputNotes = getModifiedOutputNotesArray (inOutputNotes);
 
     mCurrentlyOnOutputNotes.clear();
     mCurrentlyOnOutputNotes = inOutputNotes;
@@ -80,4 +80,25 @@ juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>>
     }
 
     return outputNotesArray;
+}
+
+juce::Array<int> MidiState::getModifiedOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
+{
+    juce::Array<int> modifiedOutputNotesArray;
+    std::map<int, juce::Array<int>>::iterator pair;
+
+    for (pair = outputNotes.begin(); pair != outputNotes.end(); ++pair)
+    {
+        if (pair->second.size() == 2)
+        {
+            modifiedOutputNotesArray.add ((pair->first) + OUTPUT_NOTE_MODIFIER);
+        }
+
+        else
+        {
+            modifiedOutputNotesArray.add (pair->first);
+        }
+    }
+
+    return modifiedOutputNotesArray;
 }

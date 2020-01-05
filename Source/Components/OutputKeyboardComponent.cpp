@@ -88,13 +88,23 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
 
     for (int& outputNote : nextCurrentlyOnOutputNotes)
     {
-        auto keyComponent = mKeyComponents.at (outputNote);
-        keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
+        if (outputNote > OUTPUT_NOTE_MODIFIER)
+        {
+            auto keyComponent = mKeyComponents.at (outputNote - OUTPUT_NOTE_MODIFIER);
+            keyComponent->setNoteAndMarkerColor (COLOR_BLUE_DARK);
+        }
+
+        else
+        {
+            auto keyComponent = mKeyComponents.at (outputNote);
+            keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
+        }
     }
 
     for (int& outputNote : editModeInputNoteChordNotes)
     {
-        if (!nextCurrentlyOnOutputNotes.contains (outputNote))
+        if (!nextCurrentlyOnOutputNotes.contains (outputNote) &&
+            !nextCurrentlyOnOutputNotes.contains (outputNote + OUTPUT_NOTE_MODIFIER))
         {
             auto keyComponent = mKeyComponents.at (outputNote);
             keyComponent->setNoteAndMarkerColor (COLOR_GREEN);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Constants.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -31,6 +32,7 @@ private:
 
     //==============================================================================
     juce::Array<int> getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes);
+    juce::Array<int> getModifiedOutputNotesArray (std::map<int, juce::Array<int>> outputNotes);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)
