@@ -15,7 +15,7 @@ juce::Array<int> MidiState::getCurrentlyOnInputNotes()
     return mCurrentlyOnInputNotes;
 }
 
-std::map<int, int> MidiState::getCurrentlyOnOutputNotes()
+std::map<int, juce::Array<int>> MidiState::getCurrentlyOnOutputNotes()
 {
     return mCurrentlyOnOutputNotes;
 }
@@ -36,7 +36,7 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
     sendMessage (message, ListenerType::kAsync);
 }
 
-void MidiState::setCurrentlyOnOutputNotes (std::map<int, int> inOutputNotes)
+void MidiState::setCurrentlyOnOutputNotes (std::map<int, juce::Array<int>> inOutputNotes)
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = getOutputNotesArray (mCurrentlyOnOutputNotes);
     juce::Array<int> nextCurrentlyOnOutputNotes = getOutputNotesArray (inOutputNotes);
@@ -57,23 +57,49 @@ bool MidiState::containsCurrentlyOnOutputNote (const int inOutputNote)
     return mCurrentlyOnOutputNotes.count (inOutputNote) > 0;
 }
 
-bool MidiState::wasOutputNoteTriggeredByInputNote (const int inOutputNote, const int inInputNote)
+bool MidiState::containsOutputNoteTrigger (const int inOutputNote, const int inInputNote)
 {
     if (!containsCurrentlyOnOutputNote (inOutputNote)) { return false; }
     auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
-    return inInputNote == pair->second;
+    juce::Array<int> triggers = pair->second;
+    return triggers.indexOf (inInputNote) > -1;
+}
+
+const int MidiState::getOutputNoteTriggerCount (const int inOutputNote, const int inInputNote)
+{
+    if (!containsCurrentlyOnOutputNote (inOutputNote)) { return 0; }
+    auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
+    juce::Array<int> triggers = pair->second;
+    return triggers.size();
 }
 
 //==============================================================================
-juce::Array<int> MidiState::getOutputNotesArray (std::map<int, int> outputNotes)
+void MidiState::addTrigger (std::map<int, juce::Array<int>>& inOutputNotes, const int inOutputNote, const int inInputNote)
 {
-    juce::Array<int> outputNotesKeys;
-    std::map<int, int>::iterator pair;
+    auto pair = inOutputNotes.find (inOutputNote);
+    juce::Array<int> triggers = pair->second;
+    triggers.add (inInputNote);
+    pair->second = triggers;
+}
+
+void MidiState::removeTrigger (std::map<int, juce::Array<int>>& inOutputNotes, const int inOutputNote, const int inInputNote)
+{
+    auto pair = inOutputNotes.find (inOutputNote);
+    juce::Array<int> triggers = pair->second;
+    triggers.removeFirstMatchingValue (inInputNote);
+    pair->second = triggers;
+}
+
+//==============================================================================
+juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
+{
+    juce::Array<int> outputNotesArray;
+    std::map<int, juce::Array<int>>::iterator pair;
 
     for (pair = outputNotes.begin(); pair != outputNotes.end(); ++pair)
     {
-      outputNotesKeys.add (pair->first);
+      outputNotesArray.add (pair->first);
     }
 
-    return outputNotesKeys;
+    return outputNotesArray;
 }

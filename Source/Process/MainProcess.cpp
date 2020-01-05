@@ -40,7 +40,7 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
     const int inInputChannel = inMessage.getChannel();
     const float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, juce::Array<int>> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
@@ -48,30 +48,38 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
     {
         for (const int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            if (mMidiState.containsCurrentlyOnOutputNote (chordNote))
+            const int triggerCount = mMidiState.getOutputNoteTriggerCount (chordNote, inInputNote);
+
+            if (triggerCount < 2 && mMidiState.containsCurrentlyOnOutputNote (chordNote))
             {
                 const auto& message = MidiMessage::noteOff (inInputChannel, chordNote, inInputVelocity);
                 mTransformedMidiBuffer.addEvent (message, inTime);
-                currentlyOnOutputNotes.erase (chordNote);
             }
 
-            const auto& message = MidiMessage::noteOn (inInputChannel, chordNote, inInputVelocity);
-            mTransformedMidiBuffer.addEvent (message, inTime);
-            currentlyOnOutputNotes[chordNote] = inInputNote;
+            if (triggerCount < 2)
+            {
+                const auto& message = MidiMessage::noteOn (inInputChannel, chordNote, inInputVelocity);
+                mTransformedMidiBuffer.addEvent (message, inTime);
+                mMidiState.addTrigger (currentlyOnOutputNotes, chordNote, inInputNote);
+            }
         }
     }
 
     else
     {
-        if (mMidiState.containsCurrentlyOnOutputNote (inInputNote))
+        const int triggerCount = mMidiState.getOutputNoteTriggerCount (inInputNote, inInputNote);
+
+        if (triggerCount < 2 && mMidiState.containsCurrentlyOnOutputNote (inInputNote))
         {
             const auto& message = MidiMessage::noteOff (inInputChannel, inInputNote, inInputVelocity);
             mTransformedMidiBuffer.addEvent (message, inTime);
-            currentlyOnOutputNotes.erase (inInputNote);
         }
 
-        mTransformedMidiBuffer.addEvent (inMessage, inTime);
-        currentlyOnOutputNotes[inInputNote] = inInputNote;
+        if (triggerCount < 2)
+        {
+            mTransformedMidiBuffer.addEvent (inMessage, inTime);
+            mMidiState.addTrigger (currentlyOnOutputNotes, inInputNote, inInputNote);
+        }
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -84,7 +92,7 @@ void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
     const int inInputChannel = inMessage.getChannel();
     const float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, int> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, juce::Array<int>> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
@@ -92,19 +100,38 @@ void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
     {
         for (const int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            if (mMidiState.wasOutputNoteTriggeredByInputNote (chordNote, inInputNote))
+            const int triggerCount = mMidiState.getOutputNoteTriggerCount (chordNote, inInputNote);
+            bool containsTrigger = mMidiState.containsOutputNoteTrigger (chordNote, inInputNote);
+
+            if (triggerCount == 2 && containsTrigger)
+            {
+                mMidiState.removeTrigger (currentlyOnOutputNotes, chordNote, inInputNote);
+            }
+
+            if (triggerCount == 1 && containsTrigger)
             {
                 const auto& message = MidiMessage::noteOff (inInputChannel, chordNote, inInputVelocity);
                 mTransformedMidiBuffer.addEvent (message, inTime);
-                currentlyOnOutputNotes.erase (chordNote);
+                currentlyOnOutputNotes.erase (inInputNote);
             }
         }
     }
 
-    else if (mMidiState.wasOutputNoteTriggeredByInputNote (inInputNote, inInputNote))
+    else
     {
-        mTransformedMidiBuffer.addEvent (inMessage, inTime);
-        currentlyOnOutputNotes.erase (inInputNote);
+        const int triggerCount = mMidiState.getOutputNoteTriggerCount (inInputNote, inInputNote);
+        bool containsTrigger = mMidiState.containsOutputNoteTrigger (inInputNote, inInputNote);
+
+        if (triggerCount == 2 && containsTrigger)
+        {
+            mMidiState.removeTrigger (currentlyOnOutputNotes, inInputNote, inInputNote);
+        }
+
+        if (triggerCount == 1 && containsTrigger)
+        {
+            mTransformedMidiBuffer.addEvent (inMessage, inTime);
+            currentlyOnOutputNotes.erase (inInputNote);
+        }
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);

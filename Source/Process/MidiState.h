@@ -14,24 +14,28 @@ public:
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
-    std::map<int, int> getCurrentlyOnOutputNotes();
+    std::map<int, juce::Array<int>> getCurrentlyOnOutputNotes();
 
     //==============================================================================
     void setCurrentlyOnInputNotes (juce::Array<int> inputNotes);
-    void setCurrentlyOnOutputNotes (std::map<int, int> outputNotes);
+    void setCurrentlyOnOutputNotes (std::map<int, juce::Array<int>> outputNotes);
 
     //==============================================================================
     bool containsCurrentlyOnOutputNote (const int outputNote);
-    bool wasOutputNoteTriggeredByInputNote (const int outputNote, const int inputNote);
+    bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
+    const int getOutputNoteTriggerCount (const int outputNote, const int inputNote);
+
+    //==============================================================================
+    void addTrigger (std::map<int, juce::Array<int>>& outputNotes, const int outputNote, const int inputNote);
+    void removeTrigger (std::map<int, juce::Array<int>>& outputNotes, const int outputNote, const int inputNote);
 
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
-    // KEY: output note // VALUE: trigger note
-    std::map<int, int> mCurrentlyOnOutputNotes;
+    std::map<int, juce::Array<int>> mCurrentlyOnOutputNotes;
 
     //==============================================================================
-    juce::Array<int> getOutputNotesArray (std::map<int, int> outputNotes);
+    juce::Array<int> getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)
