@@ -52,14 +52,9 @@ void MidiState::setCurrentlyOnOutputNotes (std::map<int, juce::Array<int>> inOut
 }
 
 //==============================================================================
-bool MidiState::containsCurrentlyOnOutputNote (const int inOutputNote)
-{
-    return mCurrentlyOnOutputNotes.count (inOutputNote) > 0;
-}
-
 bool MidiState::containsOutputNoteTrigger (const int inOutputNote, const int inInputNote)
 {
-    if (!containsCurrentlyOnOutputNote (inOutputNote)) { return false; }
+    if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return false; }
     auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
     juce::Array<int> triggers = pair->second;
     return triggers.indexOf (inInputNote) > -1;
@@ -67,7 +62,7 @@ bool MidiState::containsOutputNoteTrigger (const int inOutputNote, const int inI
 
 const int MidiState::getOutputNoteTriggerCount (const int inOutputNote, const int inInputNote)
 {
-    if (!containsCurrentlyOnOutputNote (inOutputNote)) { return 0; }
+    if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return 0; }
     auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
     juce::Array<int> triggers = pair->second;
     return triggers.size();

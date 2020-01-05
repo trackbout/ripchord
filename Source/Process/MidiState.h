@@ -21,7 +21,6 @@ public:
     void setCurrentlyOnOutputNotes (std::map<int, juce::Array<int>> outputNotes);
 
     //==============================================================================
-    bool containsCurrentlyOnOutputNote (const int outputNote);
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
     const int getOutputNoteTriggerCount (const int outputNote, const int inputNote);
 
