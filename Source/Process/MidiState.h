@@ -25,10 +25,6 @@ public:
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
     const int getOutputNoteTriggerCount (const int outputNote, const int inputNote);
 
-    //==============================================================================
-    void addTrigger (std::map<int, juce::Array<int>>& outputNotes, const int outputNote, const int inputNote);
-    void removeTrigger (std::map<int, juce::Array<int>>& outputNotes, const int outputNote, const int inputNote);
-
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;

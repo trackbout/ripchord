@@ -74,23 +74,6 @@ const int MidiState::getOutputNoteTriggerCount (const int inOutputNote, const in
 }
 
 //==============================================================================
-void MidiState::addTrigger (std::map<int, juce::Array<int>>& inOutputNotes, const int inOutputNote, const int inInputNote)
-{
-    auto pair = inOutputNotes.find (inOutputNote);
-    juce::Array<int> triggers = pair->second;
-    triggers.add (inInputNote);
-    pair->second = triggers;
-}
-
-void MidiState::removeTrigger (std::map<int, juce::Array<int>>& inOutputNotes, const int inOutputNote, const int inInputNote)
-{
-    auto pair = inOutputNotes.find (inOutputNote);
-    juce::Array<int> triggers = pair->second;
-    triggers.removeFirstMatchingValue (inInputNote);
-    pair->second = triggers;
-}
-
-//==============================================================================
 juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
 {
     juce::Array<int> outputNotesArray;

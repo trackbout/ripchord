@@ -60,7 +60,11 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
             {
                 const auto& message = MidiMessage::noteOn (inInputChannel, chordNote, inInputVelocity);
                 mTransformedMidiBuffer.addEvent (message, inTime);
-                mMidiState.addTrigger (currentlyOnOutputNotes, chordNote, inInputNote);
+
+                auto pair = currentlyOnOutputNotes.find (chordNote);
+                juce::Array<int> triggers = pair->second;
+                triggers.add (inInputNote);
+                pair->second = triggers;
             }
         }
     }
@@ -78,7 +82,11 @@ void MainProcess::handleNoteOn (MidiMessage inMessage, int inTime)
         if (triggerCount < 2)
         {
             mTransformedMidiBuffer.addEvent (inMessage, inTime);
-            mMidiState.addTrigger (currentlyOnOutputNotes, inInputNote, inInputNote);
+
+            auto pair = currentlyOnOutputNotes.find (inInputNote);
+            juce::Array<int> triggers = pair->second;
+            triggers.add (inInputNote);
+            pair->second = triggers;
         }
     }
 
@@ -105,7 +113,10 @@ void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
 
             if (triggerCount == 2 && containsTrigger)
             {
-                mMidiState.removeTrigger (currentlyOnOutputNotes, chordNote, inInputNote);
+                auto pair = currentlyOnOutputNotes.find (chordNote);
+                juce::Array<int> triggers = pair->second;
+                triggers.removeFirstMatchingValue (inInputNote);
+                pair->second = triggers;
             }
 
             if (triggerCount == 1 && containsTrigger)
@@ -124,7 +135,10 @@ void MainProcess::handleNoteOff (MidiMessage inMessage, int inTime)
 
         if (triggerCount == 2 && containsTrigger)
         {
-            mMidiState.removeTrigger (currentlyOnOutputNotes, inInputNote, inInputNote);
+            auto pair = currentlyOnOutputNotes.find (inInputNote);
+            juce::Array<int> triggers = pair->second;
+            triggers.removeFirstMatchingValue (inInputNote);
+            pair->second = triggers;
         }
 
         if (triggerCount == 1 && containsTrigger)
