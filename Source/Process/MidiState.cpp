@@ -69,6 +69,17 @@ const int MidiState::getOutputNoteTriggerCount (const int inOutputNote, const in
 }
 
 //==============================================================================
+void MidiState::handlePlayModeMouseUpOnInput (const int inInputNote)
+{
+    // Figure out how to call PluginProcessor.processBlock();
+}
+
+void MidiState::handlePlayModeMouseDownOnInput (const int inInputNote)
+{
+    // Figure out how to call PluginProcessor.processBlock();
+}
+
+//==============================================================================
 juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
 {
     juce::Array<int> outputNotesArray;
