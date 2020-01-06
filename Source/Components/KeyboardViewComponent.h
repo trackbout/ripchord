@@ -4,11 +4,13 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
+#include "Input.h"
 #include "MainProcess.h"
 #include "DataMessage.h"
 #include "DataMessageListener.h"
 #include "OutputKeyboardComponent.h"
 #include "InputKeyboardComponent.h"
+#include "PresetArrowsComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component, public DataMessageListener
@@ -40,6 +42,9 @@ private:
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
+
+    Input mPresetNameInput;
+    PresetArrowsComponent mPresetArrows;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

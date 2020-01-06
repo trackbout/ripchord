@@ -7,6 +7,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess)
 {
+    setWantsKeyboardFocus (true);
+
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
@@ -24,12 +26,28 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
+    mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
+    mPresetNameInput.setJustification (Justification::centred);
+    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mPresetNameInput.setWantsKeyboardFocus (true);
+
+    mPresetNameInput.onReturnKey = [this]() {
+        grabKeyboardFocus();
+    };
+
+    mPresetNameInput.onTextChange = [this]()
+    {
+        DBG("new text: " << mPresetNameInput.getText());
+    };
+
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
     addAndMakeVisible (mModeButton);
     addAndMakeVisible (mPresetsButton);
+    addAndMakeVisible (mPresetArrows);
+    addChildComponent (mPresetNameInput);
 }
 
 KeyboardViewComponent::~KeyboardViewComponent()
@@ -73,6 +91,17 @@ void KeyboardViewComponent::resized()
 
     mModeButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Interface::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+
+    auto presetArrowsBounds = Interface::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
+    mPresetNameInput.setBounds (presetArrowsBounds);
+    mPresetArrows.setBounds (presetArrowsBounds);
+
+    auto textInputFont = Font (mPresetNameInput.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO).boldened();
+    mPresetNameInput.applyFontToAllText (textInputFont);
+
+    auto& presetName = mPresetNameInput;
+    float presetExtra = presetName.getHeight() - presetName.getFont().getHeight() - presetName.getBorder().getTopAndBottom();
+    mPresetNameInput.setIndents (5, (int) (presetExtra * 0.5f));
 }
 
 //==============================================================================
@@ -88,4 +117,5 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 void KeyboardViewComponent::handleModeUpdated()
 {
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
+    mPresetNameInput.setVisible (mGlobalState.isEditMode());
 }

@@ -108,6 +108,7 @@
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
         <FILE id="wPhM5I" name="Images.h" compile="0" resource="0" file="Source/Utils/Images.h"/>
+        <FILE id="p0WZ4r" name="Input.h" compile="0" resource="0" file="Source/Utils/Input.h"/>
         <FILE id="a6tugb" name="Interface.h" compile="0" resource="0" file="Source/Utils/Interface.h"/>
         <FILE id="S3eEg0" name="System.h" compile="0" resource="0" file="Source/Utils/System.h"/>
         <FILE id="cq8mhm" name="Widgets.h" compile="0" resource="0" file="Source/Utils/Widgets.h"/>
