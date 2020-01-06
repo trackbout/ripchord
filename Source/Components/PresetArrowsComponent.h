@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "Constants.h"
+#include "TextLabel.h"
 #include "Images.h"
 
 //==============================================================================
@@ -14,10 +15,14 @@ public:
 
     void resized() override;
 
+    //==============================================================================
+    std::function<void()> onLeftArrowClick;
+    std::function<void()> onRightArrowClick;
+
 private:
     //==============================================================================
     Images mImages;
-
+    TextLabel mPresetNameLabel { "", "init" };
     DrawableButton mLeftArrowButton { "", DrawableButton::ImageStretched };
     DrawableButton mRightArrowButton { "", DrawableButton::ImageStretched };
 

@@ -5,7 +5,7 @@
 
 //==============================================================================
 // The juce text editor won't draw the 'textWhenEmpty' centred, so we inherit it here to add that ability.
-struct Input : public TextEditor
+struct TextInput : public TextEditor
 {
     using TextEditor::TextEditor;
 

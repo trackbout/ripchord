@@ -4,7 +4,7 @@
 #include "Constants.h"
 #include "Interface.h"
 #include "Images.h"
-#include "Input.h"
+#include "TextInput.h"
 #include "MainProcess.h"
 #include "DataMessage.h"
 #include "DataMessageListener.h"
@@ -44,7 +44,7 @@ private:
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
 
-    Input mPresetNameInput;
+    TextInput mPresetNameInput;
     PresetArrowsComponent mPresetArrows;
 
     //==============================================================================
