@@ -4,6 +4,7 @@
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mPresetState (mMainProcess.getPresetState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess)
 {
@@ -27,18 +28,11 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
     mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
-    mPresetNameInput.setJustification (Justification::centred);
     mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mPresetNameInput.setJustification (Justification::centred);
     mPresetNameInput.setWantsKeyboardFocus (true);
-
-    mPresetNameInput.onReturnKey = [this]() {
-        grabKeyboardFocus();
-    };
-
-    mPresetNameInput.onTextChange = [this]()
-    {
-        DBG("new text: " << mPresetNameInput.getText());
-    };
+    mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
+    mPresetNameInput.onTextChange = [this]() { mPresetState.handlePresetNameTextChanged (mPresetNameInput.getText()); };
 
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);

@@ -32,6 +32,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    PresetState& mPresetState;
 
     OutputKeyboardComponent mOutputKeyboard;
     InputKeyboardComponent mInputKeyboard;

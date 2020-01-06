@@ -32,6 +32,9 @@ public:
     void handleEditModeMouseDownOnInput (const int inputNote);
     void handleEditModeMouseDownOnOutput (const int outputNote);
 
+    //==============================================================================
+    void handlePresetNameTextChanged (String text);
+
 private:
     //==============================================================================
     String mName;

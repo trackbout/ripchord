@@ -109,6 +109,12 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 }
 
 //==============================================================================
+void PresetState::handlePresetNameTextChanged (String inText)
+{
+    mName = inText;
+}
+
+//==============================================================================
 Chord PresetState::getChord (const int inInputNote)
 {
     auto pair = mChords.find (inInputNote);
