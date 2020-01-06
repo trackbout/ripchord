@@ -72,6 +72,8 @@ void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
 
 void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 {
+    if (mEditModeInputNote == 0) { return; }
+
     juce::Array<int> prevEditModeOutputNotes = getChordNotes (mEditModeInputNote);
     bool shouldAddNote = !prevEditModeOutputNotes.contains (inOutputNote);
 
