@@ -44,6 +44,11 @@ bool PresetState::containsChord (const int inInputNote)
     return mChords.count (inInputNote) > 0;
 }
 
+String PresetState::getChordName (const int inInputNote)
+{
+    return getChord (inInputNote).name;
+}
+
 juce::Array<int> PresetState::getChordNotes (const int inInputNote)
 {
     return getChord (inInputNote).notes;
@@ -109,6 +114,18 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 }
 
 //==============================================================================
+void PresetState::handleChordNameTextChanged (String inChordName)
+{
+    Chord presetChord = getChord (mEditModeInputNote);
+    presetChord.name = inChordName;
+    setChord (mEditModeInputNote, presetChord);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kChordNameUpdated;
+    message->messageVar1 = inChordName;
+    sendMessage (message, ListenerType::kSync);
+}
+
 void PresetState::handlePresetNameTextChanged (String inPresetName)
 {
     mName = inPresetName;

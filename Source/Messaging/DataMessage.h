@@ -23,6 +23,7 @@ enum MessageCode
     kMenuUpdated,
 
     // Messages from PresetState
+    kChordNameUpdated,
     kPresetNameUpdated,
     kEditModeInputNote,
     kEditModeOutputNotes,

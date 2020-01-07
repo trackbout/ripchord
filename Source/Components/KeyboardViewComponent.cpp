@@ -28,12 +28,29 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
+    mChordNameLabel.setJustificationType (Justification::centred);
+
+    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY_MEDIUM);
+    mChordNameInput.setJustification (Justification::centred);
+    mChordNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mChordNameInput.setWantsKeyboardFocus (true);
+    mChordNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
+
+    mChordNameInput.onTextChange = [this]()
+    {
+        mPresetState.handleChordNameTextChanged (mChordNameInput.getText());
+    };
+
     mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
     mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
     mPresetNameInput.setJustification (Justification::centred);
     mPresetNameInput.setWantsKeyboardFocus (true);
     mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
-    mPresetNameInput.onTextChange = [this]() { mPresetState.handlePresetNameTextChanged (mPresetNameInput.getText()); };
+
+    mPresetNameInput.onTextChange = [this]()
+    {
+        mPresetState.handlePresetNameTextChanged (mPresetNameInput.getText());
+    };
 
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);
@@ -41,7 +58,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mInputKeyboardLabel);
     addAndMakeVisible (mModeButton);
     addAndMakeVisible (mPresetsButton);
+    addAndMakeVisible (mChordNameLabel);
     addAndMakeVisible (mPresetArrows);
+
+    addChildComponent (mChordNameInput);
     addChildComponent (mPresetNameInput);
 }
 
@@ -87,12 +107,22 @@ void KeyboardViewComponent::resized()
     mModeButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Interface::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
 
+    auto chordNameBounds = Interface::getRelativeBounds (mainArea, TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
+    mChordNameLabel.setBounds (chordNameBounds);
+    mChordNameInput.setBounds (chordNameBounds);
+
     auto presetArrowsBounds = Interface::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mPresetNameInput.setBounds (presetArrowsBounds);
     mPresetArrows.setBounds (presetArrowsBounds);
 
     auto textInputFont = Font (mPresetNameInput.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO).boldened();
+    mChordNameLabel.setFont (textInputFont);
+    mChordNameInput.applyFontToAllText (textInputFont);
     mPresetNameInput.applyFontToAllText (textInputFont);
+
+    auto& chordName = mChordNameInput;
+    float chordExtra = chordName.getHeight() - chordName.getFont().getHeight() - chordName.getBorder().getTopAndBottom();
+    mChordNameInput.setIndents (5, (int) (chordExtra * 0.5f));
 
     auto& presetName = mPresetNameInput;
     float presetExtra = presetName.getHeight() - presetName.getFont().getHeight() - presetName.getBorder().getTopAndBottom();
@@ -106,6 +136,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
+        case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         default: { } break;
     };
 }
@@ -114,10 +145,19 @@ void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 {
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
     mPresetNameInput.setVisible (mGlobalState.isEditMode());
+    mChordNameLabel.setVisible (mGlobalState.isPlayMode());
+    mChordNameInput.setVisible (false);
 }
 
 void KeyboardViewComponent::handlePresetNameUpdated (const DataMessage* inMessage)
 {
     String nextPresetName = inMessage->messageVar1;
     mPresetArrows.updateTextLabel (nextPresetName);
+}
+
+void KeyboardViewComponent::handleEditModeInputNote (const DataMessage* inMessage)
+{
+    const int nextEditModeInputNote = inMessage->messageVar2;
+    mChordNameInput.setText (mPresetState.getChordName (nextEditModeInputNote));
+    mChordNameInput.setVisible (nextEditModeInputNote > 0);
 }

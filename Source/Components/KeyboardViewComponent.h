@@ -28,6 +28,7 @@ public:
     void handleNewMessage (const DataMessage* message) override;
     void handleModeUpdated (const DataMessage* message);
     void handlePresetNameUpdated (const DataMessage* message);
+    void handleEditModeInputNote (const DataMessage* message);
 
 private:
     //==============================================================================
@@ -45,6 +46,8 @@ private:
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
 
+    Label mChordNameLabel;
+    TextInput mChordNameInput;
     TextInput mPresetNameInput;
     PresetArrowsComponent mPresetArrows;
 

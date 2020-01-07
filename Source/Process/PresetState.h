@@ -26,6 +26,7 @@ public:
 
     //==============================================================================
     bool containsChord (const int inputNote);
+    String getChordName (const int inputNote);
     juce::Array<int> getChordNotes (const int inputNote);
 
     //==============================================================================
@@ -33,6 +34,7 @@ public:
     void handleEditModeMouseDownOnOutput (const int outputNote);
 
     //==============================================================================
+    void handleChordNameTextChanged (String chordName);
     void handlePresetNameTextChanged (String presetName);
 
 private:
