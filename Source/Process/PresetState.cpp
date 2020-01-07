@@ -117,6 +117,8 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 void PresetState::handleChordNameTextChanged (String inChordName)
 {
     Chord presetChord = getChord (mEditModeInputNote);
+    if (mEditModeInputNote == 0 || presetChord.name == inChordName) { return; }
+
     presetChord.name = inChordName;
     setChord (mEditModeInputNote, presetChord);
 
@@ -128,6 +130,8 @@ void PresetState::handleChordNameTextChanged (String inChordName)
 
 void PresetState::handlePresetNameTextChanged (String inPresetName)
 {
+    if (mName == inPresetName) { return; }
+
     mName = inPresetName;
 
     DataMessage* message = new DataMessage();

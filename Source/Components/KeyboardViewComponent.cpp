@@ -4,13 +4,12 @@
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mPresetState (mMainProcess.getPresetState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
-    mPresetName (inMainProcess)
+    mPresetName (inMainProcess),
+    mChordName (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
-    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
@@ -27,19 +26,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mPresetName.setBounds (TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
-
-    mChordNameLabel.setJustificationType (Justification::centred);
-
-    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY_MEDIUM);
-    mChordNameInput.setJustification (Justification::centred);
-    mChordNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
-    mChordNameInput.setWantsKeyboardFocus (true);
-    mChordNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
-
-    mChordNameInput.onTextChange = [this]()
-    {
-        mPresetState.handleChordNameTextChanged (mChordNameInput.getText());
-    };
+    mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
 
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
@@ -49,9 +36,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);
     addAndMakeVisible (mPresetName);
-
-    addAndMakeVisible (mChordNameLabel);
-    addChildComponent (mChordNameInput);
+    addAndMakeVisible (mChordName);
 }
 
 KeyboardViewComponent::~KeyboardViewComponent()
@@ -93,21 +78,10 @@ void KeyboardViewComponent::resized()
     mOutputKeyboard.setTransform (AffineTransform::scale(scaleFactor));
     mInputKeyboard.setTransform (AffineTransform::scale(scaleFactor));
     mPresetName.setTransform (AffineTransform::scale(scaleFactor));
+    mChordName.setTransform (AffineTransform::scale(scaleFactor));
 
     mModeButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Interface::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
-
-    auto chordNameBounds = Interface::getRelativeBounds (mainArea, TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
-    mChordNameLabel.setBounds (chordNameBounds);
-    mChordNameInput.setBounds (chordNameBounds);
-
-    auto textInputFont = Font (mChordNameInput.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO).boldened();
-    mChordNameLabel.setFont (textInputFont);
-    mChordNameInput.applyFontToAllText (textInputFont);
-
-    auto& chordName = mChordNameInput;
-    float chordExtra = chordName.getHeight() - chordName.getFont().getHeight() - chordName.getBorder().getTopAndBottom();
-    mChordNameInput.setIndents (5, (int) (chordExtra * 0.5f));
 }
 
 //==============================================================================
@@ -116,7 +90,6 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
-        case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         default: { } break;
     };
 }
@@ -124,13 +97,4 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 {
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
-    mChordNameLabel.setVisible (mGlobalState.isPlayMode());
-    mChordNameInput.setVisible (false);
-}
-
-void KeyboardViewComponent::handleEditModeInputNote (const DataMessage* inMessage)
-{
-    const int nextEditModeInputNote = inMessage->messageVar2;
-    mChordNameInput.setText (mPresetState.getChordName (nextEditModeInputNote));
-    mChordNameInput.setVisible (nextEditModeInputNote > 0);
 }
