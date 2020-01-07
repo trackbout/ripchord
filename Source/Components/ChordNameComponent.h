@@ -23,12 +23,14 @@ public:
     void handleModeUpdated (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleEditModeOutputNotes (const DataMessage* message);
+    void handleCurrentlyOnInputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     PresetState& mPresetState;
+    MidiState& mMidiState;
 
     TextLabel mChordNameLabel;
     TextInput mChordNameInput;
