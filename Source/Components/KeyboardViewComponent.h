@@ -10,7 +10,7 @@
 #include "DataMessageListener.h"
 #include "OutputKeyboardComponent.h"
 #include "InputKeyboardComponent.h"
-#include "PresetArrowsComponent.h"
+#include "PresetNameComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component, public DataMessageListener
@@ -27,7 +27,6 @@ public:
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
     void handleModeUpdated (const DataMessage* message);
-    void handlePresetNameUpdated (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
 
 private:
@@ -38,6 +37,7 @@ private:
 
     OutputKeyboardComponent mOutputKeyboard;
     InputKeyboardComponent mInputKeyboard;
+    PresetNameComponent mPresetName;
 
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };
@@ -48,8 +48,6 @@ private:
 
     Label mChordNameLabel;
     TextInput mChordNameInput;
-    TextInput mPresetNameInput;
-    PresetArrowsComponent mPresetArrows;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)
