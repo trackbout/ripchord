@@ -8,9 +8,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess)
 {
-    setWantsKeyboardFocus (true);
-
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+
+    setWantsKeyboardFocus (true);
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
@@ -103,13 +104,20 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated(); } break;
+        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
         default: { } break;
     };
 }
 
-void KeyboardViewComponent::handleModeUpdated()
+void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 {
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
     mPresetNameInput.setVisible (mGlobalState.isEditMode());
+}
+
+void KeyboardViewComponent::handlePresetNameUpdated (const DataMessage* inMessage)
+{
+    String nextPresetName = inMessage->messageVar1;
+    mPresetArrows.updateTextLabel (nextPresetName);
 }

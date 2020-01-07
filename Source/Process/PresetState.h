@@ -33,7 +33,7 @@ public:
     void handleEditModeMouseDownOnOutput (const int outputNote);
 
     //==============================================================================
-    void handlePresetNameTextChanged (String text);
+    void handlePresetNameTextChanged (String presetName);
 
 private:
     //==============================================================================

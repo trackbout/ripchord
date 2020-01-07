@@ -14,6 +14,7 @@ public:
     ~PresetArrowsComponent();
 
     void resized() override;
+    void updateTextLabel (String presetName);
 
     //==============================================================================
     std::function<void()> onLeftArrowClick;

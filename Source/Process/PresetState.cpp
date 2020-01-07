@@ -109,9 +109,14 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 }
 
 //==============================================================================
-void PresetState::handlePresetNameTextChanged (String inText)
+void PresetState::handlePresetNameTextChanged (String inPresetName)
 {
-    mName = inText;
+    mName = inPresetName;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetNameUpdated;
+    message->messageVar1 = inPresetName;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================

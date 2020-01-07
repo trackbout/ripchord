@@ -23,6 +23,7 @@ PresetArrowsComponent::~PresetArrowsComponent()
 {
 }
 
+//==============================================================================
 void PresetArrowsComponent::resized()
 {
     auto area = getLocalBounds();
@@ -33,4 +34,9 @@ void PresetArrowsComponent::resized()
 
     mPresetNameLabel.setBounds (area);
     mPresetNameLabel.setFont (Font (area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO).boldened());
+}
+
+void PresetArrowsComponent::updateTextLabel (String inPresetName)
+{
+    mPresetNameLabel.setText (inPresetName, dontSendNotification);
 }
