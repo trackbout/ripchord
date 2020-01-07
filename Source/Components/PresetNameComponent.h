@@ -6,7 +6,6 @@
 #include "TextInput.h"
 #include "Images.h"
 #include "MainProcess.h"
-#include "DataMessage.h"
 #include "DataMessageListener.h"
 
 //==============================================================================

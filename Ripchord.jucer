@@ -40,6 +40,10 @@
               file="Source/Components/KeyboardViewComponent.cpp"/>
         <FILE id="FVJTpd" name="KeyboardViewComponent.h" compile="0" resource="0"
               file="Source/Components/KeyboardViewComponent.h"/>
+        <FILE id="vTGUGv" name="ChordNameComponent.cpp" compile="1" resource="0"
+              file="Source/Components/ChordNameComponent.cpp"/>
+        <FILE id="Q7PhgU" name="ChordNameComponent.h" compile="0" resource="0"
+              file="Source/Components/ChordNameComponent.h"/>
         <FILE id="w5X3i9" name="PresetNameComponent.cpp" compile="1" resource="0"
               file="Source/Components/PresetNameComponent.cpp"/>
         <FILE id="DFXIBa" name="PresetNameComponent.h" compile="0" resource="0"
