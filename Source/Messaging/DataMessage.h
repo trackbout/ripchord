@@ -4,13 +4,10 @@
 
 class DataMessageBroadcaster;
 
-// Never add a 'syncAsync' listener, a listener only needs one type.
-// The 'syncAsync' type exists for broadcasters, to broadcast a single message to multiple listener types.
 enum ListenerType
 {
     kSync = 0,
-    kAsync,
-    kSyncAsync
+    kAsync
 };
 
 enum MessageCode

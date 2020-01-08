@@ -14,13 +14,6 @@ DataMessageBroadcaster::~DataMessageBroadcaster()
 //==============================================================================
 void DataMessageBroadcaster::addListener (DataMessageListener* inListener, int inListenerType)
 {
-    if (inListenerType == ListenerType::kSyncAsync)
-    {
-        // A Broadcaster can be "syncAsync".
-        // A Listener can only be either "sync", or "async".
-        jassertfalse;
-    }
-
     // Call message manager, connect broadcaster to listener for given 'listener type'
     DataMessageManager::getInstance()->addListener (inListener, this, inListenerType);
 }

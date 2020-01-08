@@ -94,12 +94,6 @@ void DataMessageManager::sendMessageToListeners (DataMessageBroadcaster* inBroad
             updateAsyncListeners (inBroadcaster, inMessage);
         } break;
 
-        case (ListenerType::kSyncAsync):
-        {
-            updateSyncListeners (inBroadcaster, inMessage);
-            updateAsyncListeners (inBroadcaster, inMessage);
-        } break;
-
         default: {
             jassertfalse;
         } break;
