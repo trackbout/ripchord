@@ -60,7 +60,7 @@ bool MidiState::containsOutputNoteTrigger (const int inOutputNote, const int inI
     return triggers.indexOf (inInputNote) > -1;
 }
 
-const int MidiState::getOutputNoteTriggerCount (const int inOutputNote, const int inInputNote)
+const int MidiState::getOutputNoteTriggerCount (const int inOutputNote)
 {
     if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return 0; }
     auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);

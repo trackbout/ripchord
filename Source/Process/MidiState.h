@@ -23,7 +23,7 @@ public:
 
     //==============================================================================
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
-    const int getOutputNoteTriggerCount (const int outputNote, const int inputNote);
+    const int getOutputNoteTriggerCount (const int outputNote);
 
     //==============================================================================
     void handlePlayModeMouseUpOnInput (const int inputNote);

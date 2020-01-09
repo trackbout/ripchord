@@ -25,9 +25,16 @@ private:
     //==============================================================================
     MidiBuffer mTransformedMidiBuffer;
     void transformMidiBuffer (MidiBuffer& midiBuffer);
-    void handleNoteOn (MidiMessage message, int time);
-    void handleNoteOff (MidiMessage message, int time);
-    void handleNonNote (MidiMessage message, int time);
+    void handleNoteOn (MidiMessage& message, int time);
+    void handleNoteOff (MidiMessage& message, int time);
+    void handleNonNote (MidiMessage& message, int time);
+
+    //==============================================================================
+    void noteOnToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
+                              int outputNote, std::map<int, juce::Array<int>>& currentlyOnOutputNotes);
+
+    void noteOffToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
+                               int outputNote, std::map<int, juce::Array<int>>& currentlyOnOutputNotes);
 
     //==============================================================================
     GlobalState mGlobalState;
