@@ -79,9 +79,7 @@ void DataMessageManager::removeListener (DataMessageListener* inListener)
 void DataMessageManager::sendMessageToListeners (DataMessageBroadcaster* inBroadcaster,
                                                  DataMessage* inMessage,
                                                  int inListenerType)
-{   
-    std::multimap<DataMessageBroadcaster*, DataMessageListener*> store;
-
+{
     switch (inListenerType)
     {
         case (ListenerType::kSync):
@@ -113,6 +111,10 @@ void DataMessageManager::updateSyncListeners (DataMessageBroadcaster* inBroadcas
 
         ++pair;
     }
+
+    // after 'sync' broadcasting
+    // we delete message to prevent leaks
+    delete inMessage;
 }
 
 void DataMessageManager::updateAsyncListeners (DataMessageBroadcaster* inBroadcaster, DataMessage* inMessage)
@@ -130,5 +132,9 @@ void DataMessageManager::updateAsyncListeners (DataMessageBroadcaster* inBroadca
 
             ++pair;
         }
+
+        // after 'async' broadcasting
+        // we delete message to prevent leaks
+        delete inMessage;
     });
 }
