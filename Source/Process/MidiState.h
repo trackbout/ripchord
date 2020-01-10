@@ -25,10 +25,6 @@ public:
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
     const int getOutputNoteTriggerCount (const int outputNote);
 
-    //==============================================================================
-    void handlePlayModeMouseUpOnInput (const int inputNote);
-    void handlePlayModeMouseDownOnInput (const int inputNote);
-
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;

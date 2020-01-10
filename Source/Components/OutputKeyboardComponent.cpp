@@ -93,7 +93,6 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
             auto keyComponent = mKeyComponents.at (outputNote - OUTPUT_NOTE_MODIFIER);
             keyComponent->setNoteAndMarkerColor (COLOR_BLUE_DARK);
         }
-
         else
         {
             auto keyComponent = mKeyComponents.at (outputNote);

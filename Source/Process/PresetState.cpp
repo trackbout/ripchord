@@ -88,7 +88,6 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
         presetChord.notes.add (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
     }
-
     else
     {
         if (prevEditModeOutputNotes.size() > 1)
@@ -97,7 +96,6 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
             presetChord.notes.removeFirstMatchingValue (inOutputNote);
             setChord (mEditModeInputNote, presetChord);
         }
-
         else
         {
             mChords.erase (mEditModeInputNote);

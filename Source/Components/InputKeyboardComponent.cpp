@@ -32,12 +32,12 @@ void InputKeyboardComponent::resized()
 //==============================================================================
 void InputKeyboardComponent::handleMouseUp (const int inInputNote)
 {
-    if (mGlobalState.isPlayMode()) { mMidiState.handlePlayModeMouseUpOnInput (inInputNote); }
+    if (mGlobalState.isPlayMode()) { mMainProcess.handlePlayModeMouseUpOnInput (inInputNote); }
 }
 
 void InputKeyboardComponent::handleMouseDown (const int inInputNote)
 {
-    if (mGlobalState.isPlayMode()) { mMidiState.handlePlayModeMouseDownOnInput (inInputNote); }
+    if (mGlobalState.isPlayMode()) { mMainProcess.handlePlayModeMouseDownOnInput (inInputNote); }
     if (mGlobalState.isEditMode()) { mPresetState.handleEditModeMouseDownOnInput (inInputNote); }
 }
 

@@ -12,9 +12,29 @@ MainProcess::~MainProcess()
 //==============================================================================
 void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumberOfSamples)
 {
-    transformMidiBuffer (inMidiBuffer);
+    if (mMouseClickBuffer.getNumEvents() > 0)
+    {
+        transformMidiBuffer (mMouseClickBuffer);
+        mMouseClickBuffer.clear();
+    }
+    else
+    {
+        transformMidiBuffer (inMidiBuffer);
+    }
+
     inMidiBuffer.clear();
     inMidiBuffer.swapWith (mTransformedMidiBuffer);
+}
+
+//==============================================================================
+void MainProcess::handlePlayModeMouseUpOnInput (int inInputNote)
+{
+    mMouseClickBuffer.addEvent (MidiMessage::noteOff (1, inInputNote, 0.8f), 0);
+}
+
+void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
+{
+    mMouseClickBuffer.addEvent (MidiMessage::noteOn (1, inInputNote, 0.8f), 0);
 }
 
 //==============================================================================
@@ -24,7 +44,7 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
     MidiMessage message;
     mTransformedMidiBuffer.clear();
 
-    for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent(message, time);)
+    for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, time);)
     {
         if (message.isNoteOn()) { handleNoteOn (message, time); }
         if (message.isNoteOff()) { handleNoteOff (message, time); }
@@ -49,7 +69,6 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inTime)
             noteOnToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, chordNote, currentlyOnOutputNotes);
         }
     }
-
     else
     {
         noteOnToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, inInputNote, currentlyOnOutputNotes);
@@ -76,7 +95,6 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inTime)
             noteOffToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, chordNote, currentlyOnOutputNotes);
         }
     }
-
     else
     {
         noteOffToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, inInputNote, currentlyOnOutputNotes);

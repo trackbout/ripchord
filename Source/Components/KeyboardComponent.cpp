@@ -18,17 +18,15 @@ void KeyboardComponent::initKeyboard()
 
     for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
-        // create and make visible
         KeyComponent* keyComponent = new KeyComponent (noteNumber);
         auto keyBounds = getKeyBounds (x, noteNumber);
         keyComponent->setBounds (keyBounds);
         addAndMakeVisible (keyComponent);
 
-        // add to map
         mKeyComponents[noteNumber] = keyComponent;
 
-        // add to owned array
-        mKeys.add(keyComponent);
+        // Delete pointers to prevent leaks
+        mKeysToDelete.add (keyComponent);
     }
 
     bringBlackKeysToFront();
@@ -49,7 +47,6 @@ juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNote
         currentX = previousKey->getRight() - (blackKeyWidth * 0.5f);
         return juce::Rectangle<int> (currentX, 0, blackKeyWidth, blackKeyHeight);
     }
-
     else
     {
         inX = inX + whiteKeyWidth;

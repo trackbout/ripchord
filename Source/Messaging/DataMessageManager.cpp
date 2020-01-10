@@ -51,7 +51,6 @@ void DataMessageManager::removeListener (DataMessageListener* inListener)
             mSyncListeners.erase(sync_pair);
             sync_pair = mSyncListeners.begin();
         }
-
         else
         {
             ++sync_pair;
@@ -68,7 +67,6 @@ void DataMessageManager::removeListener (DataMessageListener* inListener)
             mAsyncListeners.erase(async_pair);
             async_pair = mAsyncListeners.begin();
         }
-
         else
         {
             ++async_pair;
@@ -112,8 +110,7 @@ void DataMessageManager::updateSyncListeners (DataMessageBroadcaster* inBroadcas
         ++pair;
     }
 
-    // after 'sync' broadcasting
-    // we delete message to prevent leaks
+    // Delete after broadcasting to prevent leaks
     delete inMessage;
 }
 
@@ -133,8 +130,7 @@ void DataMessageManager::updateAsyncListeners (DataMessageBroadcaster* inBroadca
             ++pair;
         }
 
-        // after 'async' broadcasting
-        // we delete message to prevent leaks
+        // Delete after broadcasting to prevent leaks
         delete inMessage;
     });
 }

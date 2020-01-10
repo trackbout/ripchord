@@ -17,13 +17,20 @@ public:
     void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
 
     //==============================================================================
+    void handlePlayModeMouseUpOnInput (int inputNote);
+    void handlePlayModeMouseDownOnInput (int inputNote);
+
+    //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
     PresetState& getPresetState() { return mPresetState; }
     MidiState& getMidiState() { return mMidiState; }
 
 private:
     //==============================================================================
+    MidiBuffer mMouseClickBuffer;
     MidiBuffer mTransformedMidiBuffer;
+
+    //==============================================================================
     void transformMidiBuffer (MidiBuffer& midiBuffer);
     void handleNoteOn (MidiMessage& message, int time);
     void handleNoteOff (MidiMessage& message, int time);

@@ -81,7 +81,6 @@ public:
                                                inWidth - thumbIndentx2, (float) inThumbSize,
                                                (inWidth - thumbIndentx2) * 0.5f);
             }
-
             else
             {
                 thumbPath.addRoundedRectangle ((float) inThumbStartPosition, inY + thumbIndent,
