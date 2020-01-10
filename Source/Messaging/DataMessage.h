@@ -54,6 +54,5 @@ private:
     //==============================================================================
 
     //==============================================================================
-    // TODO: figure out why this class leaks
-    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessage);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DataMessage);
 };
