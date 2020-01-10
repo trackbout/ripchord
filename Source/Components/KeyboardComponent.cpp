@@ -18,13 +18,17 @@ void KeyboardComponent::initKeyboard()
 
     for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
+        // create and make visible
         KeyComponent* keyComponent = new KeyComponent (noteNumber);
-
         auto keyBounds = getKeyBounds (x, noteNumber);
         keyComponent->setBounds (keyBounds);
-
-        mKeyComponents[noteNumber] = keyComponent;
         addAndMakeVisible (keyComponent);
+
+        // add to map
+        mKeyComponents[noteNumber] = keyComponent;
+
+        // add to owned array
+        mKeys.add(keyComponent);
     }
 
     bringBlackKeysToFront();

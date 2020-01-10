@@ -25,6 +25,7 @@ private:
     juce::Rectangle<int> getKeyBounds (int& x, const int noteNumber);
     void bringBlackKeysToFront();
 
+    juce::OwnedArray<KeyComponent> mKeys;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardComponent)
 };
