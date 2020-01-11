@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "FileManager.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -41,6 +42,10 @@ private:
     //==============================================================================
     String mName;
     std::map<int, Chord> mChords;
+
+    //==============================================================================
+    FileManager mFileManager;
+    bool mIsNewFile = true;
 
     //==============================================================================
     Chord mEmptyChord;

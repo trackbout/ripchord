@@ -108,6 +108,8 @@
         <FILE id="QpZVtC" name="PresetState.h" compile="0" resource="0" file="Source/Process/PresetState.h"/>
         <FILE id="qkwEkw" name="MidiState.cpp" compile="1" resource="0" file="Source/Process/MidiState.cpp"/>
         <FILE id="SLbGyZ" name="MidiState.h" compile="0" resource="0" file="Source/Process/MidiState.h"/>
+        <FILE id="AC0p38" name="FileManager.cpp" compile="1" resource="0" file="Source/Process/FileManager.cpp"/>
+        <FILE id="rAoP3E" name="FileManager.h" compile="0" resource="0" file="Source/Process/FileManager.h"/>
       </GROUP>
       <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
         <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
