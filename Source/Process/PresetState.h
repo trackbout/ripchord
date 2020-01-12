@@ -26,6 +26,7 @@ public:
     juce::Array<int> getEditModeInputNoteChordNotes();
 
     //==============================================================================
+    bool isPresetSaveable();
     bool containsChord (const int inputNote);
     String getChordName (const int inputNote);
     juce::Array<int> getChordNotes (const int inputNote);
@@ -45,7 +46,7 @@ private:
 
     //==============================================================================
     FileManager mFileManager;
-    bool mIsNewFile = true;
+    bool mIsNewPreset = true;
 
     //==============================================================================
     Chord mEmptyChord;
