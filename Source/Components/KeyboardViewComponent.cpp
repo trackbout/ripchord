@@ -19,6 +19,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
     mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg", "", "", "", "ModeEDIT.svg", "", "", "");
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg", "", "", "", "SaveON.svg", "", "", "");
+    mImages.setDrawableButtonImages (mSuccess, "Success.svg");
 
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
@@ -39,6 +40,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mPresetsButton);
     addAndMakeVisible (mModeButton);
     addChildComponent (mSaveButton);
+    addChildComponent (mSuccess);
 
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);
@@ -90,6 +92,7 @@ void KeyboardViewComponent::resized()
     mModeButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Interface::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mSaveButton.setBounds (Interface::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mSuccess.setBounds (Interface::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
 }
 
 //==============================================================================

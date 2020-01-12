@@ -46,7 +46,8 @@ private:
 
     //==============================================================================
     FileManager mFileManager;
-    bool mIsNewPreset = true;
+    bool mIsPresetNew = true;
+    bool mIsPresetModified = false;
 
     //==============================================================================
     Chord mEmptyChord;

@@ -32,6 +32,7 @@
         <FILE id="rtFr3r" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
         <FILE id="GQnmAg" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
         <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
+        <FILE id="HXPZ9G" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">
