@@ -13,11 +13,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
 
-    mImages.setDrawableButtonImages (mSaveButton, "Save.svg", "", "", "", "SaveON.svg", "", "", "");
     mImages.setDrawableButtonImages (mMenuButton, "Gear.svg");
-
-    mSaveButton.setTriggeredOnMouseDown (true);
-
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
     mMenuComponent.handleBackgroundClick = [this]() { mGlobalState.toggleMenu(); };
@@ -26,7 +22,6 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mKeyboardViewComponent);
     addChildComponent (mPresetViewComponent);
 
-    addAndMakeVisible (mSaveButton);
     addAndMakeVisible (mMenuButton);
     addChildComponent (mMenuComponent);
 }
@@ -52,9 +47,6 @@ void MainComponent::resized()
     auto titleArea = Interface::getRelativeBounds (mainArea, SPACE - 4, HEADER_Y, BUTTON_WIDTH + 10, ITEM_HEIGHT - 2);
     mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleArea);
-
-    auto saveButtonArea = Interface::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
-    mSaveButton.setBounds (saveButtonArea);
 
     auto menuButtonArea = Interface::getRelativeBounds (mainArea, MENU_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
     mMenuButton.setBounds (menuButtonArea);

@@ -38,6 +38,7 @@ private:
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
+    DrawableButton mSaveButton { "", DrawableButton::ImageStretched };
 
     OutputKeyboardComponent mOutputKeyboard;
     InputKeyboardComponent mInputKeyboard;
