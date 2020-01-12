@@ -4,12 +4,14 @@
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mPresetState (mMainProcess.getPresetState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
     mPresetName (inMainProcess),
     mChordName (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
@@ -96,12 +98,24 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
+        case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         default: { } break;
     };
 }
 
 void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 {
-    mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
     mSaveButton.setVisible (mGlobalState.isEditMode());
+    mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
+}
+
+void KeyboardViewComponent::handlePresetNameUpdated (const DataMessage* inMessage)
+{
+    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
+}
+
+void KeyboardViewComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
+{
+    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
 }

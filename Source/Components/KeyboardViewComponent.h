@@ -25,12 +25,14 @@ public:
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
     void handleModeUpdated (const DataMessage* message);
-    void handleEditModeInputNote (const DataMessage* message);
+    void handlePresetNameUpdated (const DataMessage* message);
+    void handleEditModeOutputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    PresetState& mPresetState;
 
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };
