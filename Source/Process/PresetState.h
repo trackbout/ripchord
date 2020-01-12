@@ -20,13 +20,17 @@ public:
     ~PresetState();
 
     //==============================================================================
+    bool isPresetNew();
+    bool isPresetModified();
+    bool isPresetSaveable();
+
+    //==============================================================================
     void resetEditModeInputNote();
     const int getEditModeInputNote();
     juce::Array<int> getMappedInputNotes();
     juce::Array<int> getEditModeInputNoteChordNotes();
 
     //==============================================================================
-    bool isPresetSaveable();
     bool containsChord (const int inputNote);
     String getChordName (const int inputNote);
     juce::Array<int> getChordNotes (const int inputNote);

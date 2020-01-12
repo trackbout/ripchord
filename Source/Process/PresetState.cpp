@@ -10,6 +10,34 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
+bool PresetState::isPresetNew()
+{
+    return mIsPresetNew;
+}
+
+bool PresetState::isPresetModified()
+{
+    return mIsPresetModified;
+}
+
+bool PresetState::isPresetSaveable()
+{
+    if (mName.isEmpty()) { return false; }
+
+    juce::Array<int> chordNotes;
+
+    for (int inputNote : getMappedInputNotes())
+    {
+        for (int chordNote : getChordNotes (inputNote))
+        {
+            chordNotes.add (chordNote);
+        }
+    }
+
+    return chordNotes.size() > 0;
+}
+
+//==============================================================================
 void PresetState::resetEditModeInputNote()
 {
     mEditModeInputNote = 0;
@@ -39,23 +67,6 @@ juce::Array<int> PresetState::getEditModeInputNoteChordNotes()
 }
 
 //==============================================================================
-bool PresetState::isPresetSaveable()
-{
-    if (mName.isEmpty()) { return false; }
-
-    juce::Array<int> chordNotes;
-
-    for (int inputNote : getMappedInputNotes())
-    {
-        for (int chordNote : getChordNotes (inputNote))
-        {
-            chordNotes.add (chordNote);
-        }
-    }
-
-    return chordNotes.size() > 0;
-}
-
 bool PresetState::containsChord (const int inInputNote)
 {
     return mChords.count (inInputNote) > 0;
