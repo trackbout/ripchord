@@ -28,6 +28,8 @@
         <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
         <FILE id="js20p0" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
         <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
+        <FILE id="F7kbOU" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
+        <FILE id="rtFr3r" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
         <FILE id="GQnmAg" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
         <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>

@@ -39,6 +39,7 @@ private:
 
     Images mImages;
     Label mTitleLabel { "", "ripchord" };
+    DrawableButton mSaveButton { "", DrawableButton::ImageStretched };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
