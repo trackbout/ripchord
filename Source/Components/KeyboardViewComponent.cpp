@@ -28,7 +28,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mModeButton.onClick = [this]() { mGlobalState.toggleMode(); };
 
     mSaveButton.setTriggeredOnMouseDown (true);
-    mSaveButton.onClick = [this]() { DBG("YOLO"); };
+    mSaveButton.onClick = [this]() { mPresetState.handleMouseClickOnSave(); };
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);

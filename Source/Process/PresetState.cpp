@@ -167,6 +167,13 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 }
 
 //==============================================================================
+void PresetState::handleMouseClickOnSave()
+{
+    if (!isPresetSaveable()) { return; }
+    DBG ("YOLO");
+}
+
+//==============================================================================
 Chord PresetState::getChord (const int inInputNote)
 {
     auto pair = mChords.find (inInputNote);
@@ -177,4 +184,25 @@ Chord PresetState::getChord (const int inInputNote)
 void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
+}
+
+//==============================================================================
+void PresetState::createPresetFile()
+{
+    // do stuff
+}
+
+void PresetState::updatePresetFile()
+{
+    // do stuff
+}
+
+void PresetState::renamePresetFile()
+{
+    // do stuff
+}
+
+void PresetState::deletePresetFile()
+{
+    // do stuff
 }
