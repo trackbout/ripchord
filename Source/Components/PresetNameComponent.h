@@ -25,8 +25,6 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
-    void handleModeUpdated (const DataMessage* message);
-    void handlePresetNameUpdated (const DataMessage* message);
 
 private:
     //==============================================================================
@@ -40,6 +38,9 @@ private:
 
     TextLabel mPresetNameLabel { "", "init" };
     TextInput mPresetNameInput;
+
+    void handleModeUpdated (const DataMessage* message);
+    void handlePresetNameUpdated (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetNameComponent)

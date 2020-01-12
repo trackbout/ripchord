@@ -22,9 +22,6 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
-    void handleModeUpdated (const DataMessage* message);
-    void handleEditModeInputNote (const DataMessage* message);
-    void handleCurrentlyOnInputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
@@ -32,6 +29,10 @@ private:
     GlobalState& mGlobalState;
     PresetState& mPresetState;
     MidiState& mMidiState;
+
+    void handleModeUpdated (const DataMessage* message);
+    void handleEditModeInputNote (const DataMessage* message);
+    void handleCurrentlyOnInputNotes (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InputKeyboardComponent)

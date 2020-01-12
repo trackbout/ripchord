@@ -24,9 +24,6 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
-    void handleModeUpdated (const DataMessage* message);
-    void handlePresetNameUpdated (const DataMessage* message);
-    void handleEditModeOutputNotes (const DataMessage* message);
 
 private:
     //==============================================================================
@@ -46,6 +43,10 @@ private:
     InputKeyboardComponent mInputKeyboard;
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
+
+    void handleModeUpdated (const DataMessage* message);
+    void handlePresetNameUpdated (const DataMessage* message);
+    void handleEditModeOutputNotes (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

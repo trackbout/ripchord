@@ -25,8 +25,6 @@ public:
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
-    void handleViewUpdated();
-    void handleMenuUpdated();
 
 private:
     //==============================================================================
@@ -40,6 +38,9 @@ private:
     Images mImages;
     Label mTitleLabel { "", "ripchord" };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
+
+    void handleViewUpdated();
+    void handleMenuUpdated();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
