@@ -101,24 +101,29 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
-        case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
-        case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
+        case (MessageCode::kPresetNameUpdated): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kChordNameUpdated): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
         default: { } break;
     };
 }
 
 void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 {
+    mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
 }
 
-void KeyboardViewComponent::handlePresetNameUpdated (const DataMessage* inMessage)
+void KeyboardViewComponent::handlePresetModified (const DataMessage* inMessage)
 {
+    mSuccess.setVisible (false);
     mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
 }
 
-void KeyboardViewComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
+void KeyboardViewComponent::handlePresetFileSaved (const DataMessage* inMessage)
 {
-    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
+    mSuccess.setVisible (true);
+    mSaveButton.setToggleState (false, dontSendNotification);
 }

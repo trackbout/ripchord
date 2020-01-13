@@ -21,11 +21,6 @@ public:
 
     //==============================================================================
     bool isPresetValid();
-    bool isPresetCreated();
-    bool isPresetNameModified();
-    bool isPresetDataModified();
-
-    //==============================================================================
     void resetEditModeInputNote();
     const int getEditModeInputNote();
     juce::Array<int> getMappedInputNotes();
@@ -68,6 +63,12 @@ private:
     //==============================================================================
     const File mUserDataPath;
     const File mPresetFolder;
+
+    //==============================================================================
+    bool isPresetCreated();
+    bool isPresetNameModified();
+    bool isPresetDataModified();
+    void setPresetFileSaved();
 
     //==============================================================================
     void createPresetFile();

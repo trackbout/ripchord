@@ -29,22 +29,6 @@ bool PresetState::isPresetValid()
     return chordNotes.size() > 0;
 }
 
-bool PresetState::isPresetCreated()
-{
-    return mIsPresetCreated;
-}
-
-bool PresetState::isPresetNameModified()
-{
-    return mIsPresetNameModified;
-}
-
-bool PresetState::isPresetDataModified()
-{
-    return mIsPresetDataModified;
-}
-
-//==============================================================================
 void PresetState::resetEditModeInputNote()
 {
     mEditModeInputNote = 0;
@@ -139,6 +123,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
     juce::Array<int> nextEditModeOutputNotes = getChordNotes (mEditModeInputNote);
 
+    mIsPresetDataModified = true;
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kEditModeOutputNotes;
     message->messageArray1 = prevEditModeOutputNotes;
@@ -155,6 +140,7 @@ void PresetState::handleChordNameTextChanged (String inChordName)
     presetChord.name = inChordName;
     setChord (mEditModeInputNote, presetChord);
 
+    mIsPresetDataModified = true;
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kChordNameUpdated;
     message->messageVar1 = inChordName;
@@ -167,6 +153,7 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 
     mName = inPresetName;
 
+    mIsPresetNameModified = true;
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetNameUpdated;
     message->messageVar1 = inPresetName;
@@ -196,19 +183,57 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
 }
 
 //==============================================================================
+bool PresetState::isPresetCreated()
+{
+    return mIsPresetCreated;
+}
+
+bool PresetState::isPresetNameModified()
+{
+    return mIsPresetNameModified;
+}
+
+bool PresetState::isPresetDataModified()
+{
+    return mIsPresetDataModified;
+}
+
+void PresetState::setPresetFileSaved()
+{
+    mIsPresetCreated = true;
+    mIsPresetNameModified = false;
+    mIsPresetDataModified = false;
+}
+
+//==============================================================================
 void PresetState::createPresetFile()
 {
     DBG ("CREATE PRESET FILE");
+
+    setPresetFileSaved();
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileSaved;
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::renamePresetFile()
 {
     DBG ("RENAME PRESET FILE");
+
+    setPresetFileSaved();
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileSaved;
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::updatePresetFile()
 {
     DBG ("UPDATE PRESET FILE");
+
+    setPresetFileSaved();
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileSaved;
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::deletePresetFile()

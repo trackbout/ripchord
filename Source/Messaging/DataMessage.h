@@ -24,6 +24,7 @@ enum MessageCode
     kPresetNameUpdated,
     kEditModeInputNote,
     kEditModeOutputNotes,
+    kPresetFileSaved,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

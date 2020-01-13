@@ -46,8 +46,8 @@ private:
     ChordNameComponent mChordName;
 
     void handleModeUpdated (const DataMessage* message);
-    void handlePresetNameUpdated (const DataMessage* message);
-    void handleEditModeOutputNotes (const DataMessage* message);
+    void handlePresetModified (const DataMessage* message);
+    void handlePresetFileSaved (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)
