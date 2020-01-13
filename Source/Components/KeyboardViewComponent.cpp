@@ -115,10 +115,10 @@ void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 
 void KeyboardViewComponent::handlePresetNameUpdated (const DataMessage* inMessage)
 {
-    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
+    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
 }
 
 void KeyboardViewComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
 {
-    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
+    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
 }

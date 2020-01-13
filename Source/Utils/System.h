@@ -3,7 +3,7 @@
 //==============================================================================
 namespace System
 {
-    static inline File getDefaultUserDataPath (StringRef inCompanyName, StringRef inAppName)
+    static inline File getUserDataPath (StringRef inCompanyName, StringRef inAppName)
     {
         #if JUCE_MAC || JUCE_IOS
             File directory ("~/Library/");

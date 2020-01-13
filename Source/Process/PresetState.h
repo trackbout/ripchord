@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "FileManager.h"
+#include "System.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -20,9 +20,10 @@ public:
     ~PresetState();
 
     //==============================================================================
-    bool isPresetNew();
-    bool isPresetModified();
-    bool isPresetSaveable();
+    bool isPresetValid();
+    bool isPresetCreated();
+    bool isPresetNameModified();
+    bool isPresetDataModified();
 
     //==============================================================================
     void resetEditModeInputNote();
@@ -52,9 +53,9 @@ private:
     std::map<int, Chord> mChords;
 
     //==============================================================================
-    FileManager mFileManager;
-    bool mIsPresetNew = true;
-    bool mIsPresetModified = false;
+    bool mIsPresetCreated = false;
+    bool mIsPresetNameModified = false;
+    bool mIsPresetDataModified = false;
 
     //==============================================================================
     Chord mEmptyChord;
@@ -65,9 +66,13 @@ private:
     void setChord (const int inputNote, Chord chord);
 
     //==============================================================================
+    const File mUserDataPath;
+    const File mPresetFolder;
+
+    //==============================================================================
     void createPresetFile();
-    void updatePresetFile();
     void renamePresetFile();
+    void updatePresetFile();
     void deletePresetFile();
 
     //==============================================================================

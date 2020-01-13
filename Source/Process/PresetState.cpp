@@ -2,6 +2,8 @@
 
 //==============================================================================
 PresetState::PresetState()
+:   mUserDataPath (System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName)),
+    mPresetFolder (mUserDataPath.getChildFile ("Presets"))
 {
 }
 
@@ -10,17 +12,7 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
-bool PresetState::isPresetNew()
-{
-    return mIsPresetNew;
-}
-
-bool PresetState::isPresetModified()
-{
-    return mIsPresetModified;
-}
-
-bool PresetState::isPresetSaveable()
+bool PresetState::isPresetValid()
 {
     if (mName.isEmpty()) { return false; }
 
@@ -35,6 +27,21 @@ bool PresetState::isPresetSaveable()
     }
 
     return chordNotes.size() > 0;
+}
+
+bool PresetState::isPresetCreated()
+{
+    return mIsPresetCreated;
+}
+
+bool PresetState::isPresetNameModified()
+{
+    return mIsPresetNameModified;
+}
+
+bool PresetState::isPresetDataModified()
+{
+    return mIsPresetDataModified;
 }
 
 //==============================================================================
@@ -169,8 +176,10 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 //==============================================================================
 void PresetState::handleMouseClickOnSave()
 {
-    if (!isPresetSaveable()) { return; }
-    DBG ("YOLO");
+    if (!isPresetValid()) { return; }
+    else if (!isPresetCreated()) { createPresetFile(); }
+    else if (isPresetNameModified()) { renamePresetFile(); }
+    else if (isPresetDataModified()) { updatePresetFile(); }
 }
 
 //==============================================================================
@@ -189,20 +198,20 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
 //==============================================================================
 void PresetState::createPresetFile()
 {
-    // do stuff
-}
-
-void PresetState::updatePresetFile()
-{
-    // do stuff
+    DBG ("CREATE PRESET FILE");
 }
 
 void PresetState::renamePresetFile()
 {
-    // do stuff
+    DBG ("RENAME PRESET FILE");
+}
+
+void PresetState::updatePresetFile()
+{
+    DBG ("UPDATE PRESET FILE");
 }
 
 void PresetState::deletePresetFile()
 {
-    // do stuff
+    DBG ("DLETE PRESET FILE");
 }

@@ -81,8 +81,8 @@ private:
         {
             jassert (inFilename.endsWithIgnoreCase (".svg"));
 
-            auto appDataPath = System::getDefaultUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
-            auto imagesPath = appDataPath.getChildFile ("Images");
+            auto userDataPath = System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
+            auto imagesPath = userDataPath.getChildFile ("Images");
 
             std::unique_ptr<Drawable> drawable = Drawable::createFromSVGFile (imagesPath.getChildFile (inFilename));
 
