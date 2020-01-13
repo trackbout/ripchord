@@ -78,7 +78,6 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = inMessage->messageArray1;
     juce::Array<int> nextCurrentlyOnOutputNotes = inMessage->messageArray2;
-    juce::Array<int> editModeInputNoteChordNotes = mPresetState.getEditModeInputNoteChordNotes();
 
     for (int& outputNote : prevCurrentlyOnOutputNotes)
     {
@@ -100,7 +99,7 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
         }
     }
 
-    for (int& outputNote : editModeInputNoteChordNotes)
+    for (int& outputNote : mPresetState.getChordNotes (mPresetState.getEditModeInputNote()))
     {
         if (!nextCurrentlyOnOutputNotes.contains (outputNote) &&
             !nextCurrentlyOnOutputNotes.contains (outputNote + OUTPUT_NOTE_MODIFIER))

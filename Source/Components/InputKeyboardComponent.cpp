@@ -56,7 +56,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
 {
     const int editModeInputNote = mPresetState.getEditModeInputNote();
-    juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
+    juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
     Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
 
     if (editModeInputNote > 0)
@@ -66,7 +66,7 @@ void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
         mPresetState.resetEditModeInputNote();
     }
 
-    for (int& inputNote : mappedInputNotes)
+    for (int& inputNote : presetInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
@@ -78,14 +78,14 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
 {
     const int prevEditModeInputNote = inMessage->messageVar1;
     const int nextEditModeInputNote = inMessage->messageVar2;
-    bool prevEditModeInputNoteHasMarker = inMessage->messageVar3;
+    bool prevEditModeInputNoteContainsChord = inMessage->messageVar3;
 
     if (prevEditModeInputNote > 0)
     {
         auto keyComponent = mKeyComponents.at (prevEditModeInputNote);
         auto defaultColor = keyComponent->getDefaultColor (prevEditModeInputNote);
 
-        if (prevEditModeInputNoteHasMarker) { keyComponent->setNoteColor (defaultColor); }
+        if (prevEditModeInputNoteContainsChord) { keyComponent->setNoteColor (defaultColor); }
         else { keyComponent->setNoteAndMarkerColor (defaultColor); }
     }
 
@@ -100,17 +100,17 @@ void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inM
 {
     juce::Array<int> prevCurrentlyOnInputNotes = inMessage->messageArray1;
     juce::Array<int> nextCurrentlyOnInputNotes = inMessage->messageArray2;
-    juce::Array<int> mappedInputNotes = mPresetState.getMappedInputNotes();
+    juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
     const int editModeInputNote = mPresetState.getEditModeInputNote();
 
     for (int& inputNote : prevCurrentlyOnInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
-        bool hasMarker = mappedInputNotes.contains (inputNote);
+        bool containsChord = presetInputNotes.contains (inputNote);
         Colour defaultColor = keyComponent->getDefaultColor (inputNote);
         Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
         keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
-        keyComponent->setMarkerColor (hasMarker ? markerColor : defaultColor);
+        keyComponent->setMarkerColor (containsChord ? markerColor : defaultColor);
     }
 
     for (int& inputNote : nextCurrentlyOnInputNotes)

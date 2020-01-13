@@ -18,7 +18,7 @@ bool PresetState::isPresetValid()
 
     juce::Array<int> chordNotes;
 
-    for (int inputNote : getMappedInputNotes())
+    for (int inputNote : getPresetInputNotes())
     {
         for (int chordNote : getChordNotes (inputNote))
         {
@@ -39,22 +39,17 @@ const int PresetState::getEditModeInputNote()
     return mEditModeInputNote;
 }
 
-juce::Array<int> PresetState::getMappedInputNotes()
+juce::Array<int> PresetState::getPresetInputNotes()
 {
-    juce::Array<int> mappedInputNotes;
+    juce::Array<int> presetInputNotes;
     std::map<int, Chord>::iterator pair;
 
     for (pair = mChords.begin(); pair != mChords.end(); ++pair)
     {
-      mappedInputNotes.add (pair->first);
+      presetInputNotes.add (pair->first);
     }
 
-    return mappedInputNotes;
-}
-
-juce::Array<int> PresetState::getEditModeInputNoteChordNotes()
-{
-    return getChordNotes (mEditModeInputNote);
+    return presetInputNotes;
 }
 
 //==============================================================================
@@ -78,7 +73,7 @@ void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
 {
     const int prevEditModeInputNote = mEditModeInputNote;
     const int nextEditModeInputNote = inInputNote == mEditModeInputNote ? 0 : inInputNote;
-    bool prevEditModeInputNoteHasMarker = containsChord (prevEditModeInputNote);
+    bool prevEditModeInputNoteContainsChord = containsChord (prevEditModeInputNote);
     juce::Array<int> prevEditModeOutputNotes = getChordNotes (prevEditModeInputNote);
     juce::Array<int> nextEditModeOutputNotes = getChordNotes (nextEditModeInputNote);
 
@@ -88,7 +83,7 @@ void PresetState::handleEditModeMouseDownOnInput (const int inInputNote)
     message->messageCode = MessageCode::kEditModeInputNote;
     message->messageVar1 = prevEditModeInputNote;
     message->messageVar2 = nextEditModeInputNote;
-    message->messageVar3 = prevEditModeInputNoteHasMarker;
+    message->messageVar3 = prevEditModeInputNoteContainsChord;
     message->messageArray1 = prevEditModeOutputNotes;
     message->messageArray2 = nextEditModeOutputNotes;
     sendMessage (message, ListenerType::kSync);
@@ -238,5 +233,5 @@ void PresetState::updatePresetFile()
 
 void PresetState::deletePresetFile()
 {
-    DBG ("DLETE PRESET FILE");
+    DBG ("DELETE PRESET FILE");
 }

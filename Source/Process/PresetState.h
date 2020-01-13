@@ -23,8 +23,7 @@ public:
     bool isPresetValid();
     void resetEditModeInputNote();
     const int getEditModeInputNote();
-    juce::Array<int> getMappedInputNotes();
-    juce::Array<int> getEditModeInputNoteChordNotes();
+    juce::Array<int> getPresetInputNotes();
 
     //==============================================================================
     bool containsChord (const int inputNote);
