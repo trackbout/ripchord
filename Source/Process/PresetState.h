@@ -21,7 +21,7 @@ public:
     ~PresetState();
 
     //==============================================================================
-    bool isPresetValid();
+    bool isPresetSaveable();
     void resetEditModeInputNote();
     const int getEditModeInputNote();
     juce::Array<int> getPresetInputNotes();
@@ -60,16 +60,10 @@ private:
     const File mPresetFolder;
 
     //==============================================================================
-    bool mIsPresetCreated = false;
+    String mPresetFileName;
     bool mIsPresetModified = false;
 
     //==============================================================================
-    void createPresetFile();
-    void updatePresetFile();
-    void deletePresetFile();
-
-    //==============================================================================
-    String mPresetFileName;
     XmlElement getXmlFromPresetState();
 
     //==============================================================================

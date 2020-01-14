@@ -12,7 +12,7 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
-bool PresetState::isPresetValid()
+bool PresetState::isPresetSaveable()
 {
     if (mName.isEmpty()) { return false; }
 
@@ -158,9 +158,21 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 //==============================================================================
 void PresetState::handleMouseClickOnSave()
 {
-    if (!isPresetValid()) { return; }
-    else if (!mIsPresetCreated) { createPresetFile(); }
-    else if (mIsPresetModified) { updatePresetFile(); }
+    if (!isPresetSaveable() || !mIsPresetModified) { return; }
+
+    File prevPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    mPresetFileName = mName + PRESET_FILE_EXTENSION;
+    mIsPresetModified = false;
+
+    XmlElement nextPresetXml = getXmlFromPresetState();
+    File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+    nextPresetXml.writeTo (nextPresetFile);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileSaved;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
@@ -174,33 +186,6 @@ Chord PresetState::getChord (const int inInputNote)
 void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
-}
-
-//==============================================================================
-void PresetState::createPresetFile()
-{
-    XmlElement presetXml = getXmlFromPresetState();
-    mPresetFileName = mName + PRESET_FILE_EXTENSION;
-    File presetFile = mPresetFolder.getChildFile (mPresetFileName);
-    presetXml.writeTo (presetFile);
-
-    mIsPresetCreated = true;
-    mIsPresetModified = false;
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetFileSaved;
-    sendMessage (message, ListenerType::kSync);
-}
-
-void PresetState::updatePresetFile()
-{
-    File presetFile = mPresetFolder.getChildFile (mPresetFileName);
-    if (presetFile.existsAsFile()) { presetFile.deleteFile(); }
-    createPresetFile();
-}
-
-void PresetState::deletePresetFile()
-{
-    DBG ("DELETE PRESET FILE");
 }
 
 //==============================================================================

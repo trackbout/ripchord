@@ -119,7 +119,7 @@ void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 void KeyboardViewComponent::handlePresetModified (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
-    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
+    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
 }
 
 void KeyboardViewComponent::handlePresetFileSaved (const DataMessage* inMessage)
