@@ -2,15 +2,10 @@
 
 #include "JuceHeader.h"
 #include "System.h"
+#include "Presets.h"
 #include "Constants.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
-
-struct Chord
-{
-    String name;
-    juce::Array<int> notes;
-};
 
 //==============================================================================
 class PresetState : public DataMessageBroadcaster
@@ -45,15 +40,15 @@ public:
 private:
     //==============================================================================
     String mName;
-    std::map<int, Chord> mChords;
+    std::map<int, Presets::Chord> mChords;
 
     //==============================================================================
-    Chord mEmptyChord;
+    Presets::Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
     //==============================================================================
-    Chord getChord (const int inputNote);
-    void setChord (const int inputNote, Chord chord);
+    Presets::Chord getChord (const int inputNote);
+    void setChord (const int inputNote, Presets::Chord chord);
 
     //==============================================================================
     const File mUserDataPath;
@@ -62,9 +57,6 @@ private:
     //==============================================================================
     String mPresetFileName;
     bool mIsPresetModified = false;
-
-    //==============================================================================
-    XmlElement getXmlFromPresetState();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

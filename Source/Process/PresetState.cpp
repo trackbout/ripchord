@@ -42,7 +42,7 @@ const int PresetState::getEditModeInputNote()
 juce::Array<int> PresetState::getPresetInputNotes()
 {
     juce::Array<int> presetInputNotes;
-    std::map<int, Chord>::iterator pair;
+    std::map<int, Presets::Chord>::iterator pair;
 
     for (pair = mChords.begin(); pair != mChords.end(); ++pair)
     {
@@ -98,7 +98,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
     if (shouldAddNote)
     {
-        Chord presetChord = getChord (mEditModeInputNote);
+        Presets::Chord presetChord = getChord (mEditModeInputNote);
         presetChord.notes.add (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
     }
@@ -106,7 +106,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
     {
         if (prevEditModeOutputNotes.size() > 1)
         {
-            Chord presetChord = getChord (mEditModeInputNote);
+            Presets::Chord presetChord = getChord (mEditModeInputNote);
             presetChord.notes.removeFirstMatchingValue (inOutputNote);
             setChord (mEditModeInputNote, presetChord);
         }
@@ -129,7 +129,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 //==============================================================================
 void PresetState::handleChordNameTextChanged (String inChordName)
 {
-    Chord presetChord = getChord (mEditModeInputNote);
+    Presets::Chord presetChord = getChord (mEditModeInputNote);
     if (mEditModeInputNote == 0 || presetChord.name == inChordName) { return; }
 
     presetChord.name = inChordName;
@@ -166,7 +166,7 @@ void PresetState::handleMouseClickOnSave()
     mPresetFileName = mName + PRESET_FILE_EXTENSION;
     mIsPresetModified = false;
 
-    XmlElement nextPresetXml = getXmlFromPresetState();
+    XmlElement nextPresetXml = getXmlFromPresetState (mName, mChords);
     File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
     nextPresetXml.writeTo (nextPresetFile);
 
@@ -176,46 +176,14 @@ void PresetState::handleMouseClickOnSave()
 }
 
 //==============================================================================
-Chord PresetState::getChord (const int inInputNote)
+Presets::Chord PresetState::getChord (const int inInputNote)
 {
     auto pair = mChords.find (inInputNote);
     if (pair == mChords.end()) { return mEmptyChord; }
     return pair->second;
 }
 
-void PresetState::setChord (const int inInputNote, Chord inChord)
+void PresetState::setChord (const int inInputNote, Presets::Chord inChord)
 {
     mChords[inInputNote] = inChord;
-}
-
-//==============================================================================
-XmlElement PresetState::getXmlFromPresetState()
-{
-    XmlElement xml ("ripchord");
-    XmlElement* preset = new XmlElement ("KeyboardMapping");
-    preset->setAttribute ("name", mName);
-
-    std::map<int, Chord>::iterator pair;
-
-    for (pair = mChords.begin(); pair != mChords.end(); ++pair)
-    {
-        XmlElement* mapping = new XmlElement ("mapping");
-        XmlElement* chord = new XmlElement ("chord");
-        StringArray chordNotes;
-
-        for (const int chordNote : pair->second.notes)
-        {
-            chordNotes.add (String (chordNote));
-        }
-
-        mapping->setAttribute ("note", String (pair->first));
-        chord->setAttribute ("name", pair->second.name);
-        chord->setAttribute ("notes", chordNotes.joinIntoString (";"));
-
-        mapping->addChildElement (chord);
-        preset->addChildElement (mapping);
-    }
-
-    xml.addChildElement (preset);
-    return xml;
 }
