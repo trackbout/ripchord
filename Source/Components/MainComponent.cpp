@@ -5,7 +5,8 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mKeyboardViewComponent (inMainProcess),
-    mPresetViewComponent (inMainProcess)
+    mPresetViewComponent (inMainProcess),
+    mMenuComponent (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 

@@ -1,7 +1,10 @@
 #include "MenuComponent.h"
 
 //==============================================================================
-MenuComponent::MenuComponent()
+MenuComponent::MenuComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess),
+    mGlobalState (mMainProcess.getGlobalState()),
+    mPresetState (mMainProcess.getPresetState())
 {
     mImages.setDrawableButtonImages (mNewButton, "New.svg");
     mImages.setDrawableButtonImages (mImportButton, "Import.svg");
@@ -15,22 +18,27 @@ MenuComponent::MenuComponent()
 
     mNewButton.onClick = [this]()
     {
-        DBG("NEW BUTTON");
+        mGlobalState.toggleMenu();
+        mPresetState.handleMouseClickOnNew();
     };
 
     mImportButton.onClick = [this]()
     {
-        DBG("IMPORT BUTTON");
+        mGlobalState.toggleMenu();
+        mPresetState.handleMouseClickOnImport();
     };
 
     mExportButton.onClick = [this]()
     {
-        DBG("EXPORT BUTTON");
+        mGlobalState.toggleMenu();
+        mPresetState.handleMouseClickOnExport();
     };
 
     mCommunityButton.onClick = [this]()
     {
-        DBG("COMMUNITY BUTTON");
+        mGlobalState.toggleMenu();
+        URL url { "https://trackbout.com/presets" };
+        url.launchInDefaultBrowser();
     };
 
     addAndMakeVisible (mNewButton);

@@ -156,6 +156,11 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 }
 
 //==============================================================================
+void PresetState::handleMouseClickOnNew()
+{
+    DBG ("NEW BUTTON");
+}
+
 void PresetState::handleMouseClickOnSave()
 {
     if (!isPresetSaveable() || !mIsPresetModified) { return; }
@@ -173,6 +178,16 @@ void PresetState::handleMouseClickOnSave()
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileSaved;
     sendMessage (message, ListenerType::kSync);
+}
+
+void PresetState::handleMouseClickOnImport()
+{
+    DBG ("IMPORT BUTTON");
+}
+
+void PresetState::handleMouseClickOnExport()
+{
+    DBG ("EXPORT BUTTON");
 }
 
 //==============================================================================

@@ -34,7 +34,10 @@ public:
     void handlePresetNameTextChanged (String presetName);
 
     //==============================================================================
+    void handleMouseClickOnNew();
     void handleMouseClickOnSave();
+    void handleMouseClickOnImport();
+    void handleMouseClickOnExport();
 
 private:
     //==============================================================================

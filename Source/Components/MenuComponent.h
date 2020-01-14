@@ -3,13 +3,14 @@
 #include "JuceHeader.h"
 #include "Images.h"
 #include "Styles.h"
+#include "MainProcess.h"
 
 //==============================================================================
 class MenuComponent : public Component
 {
 public:
     //==============================================================================
-    MenuComponent();
+    MenuComponent (MainProcess&);
     ~MenuComponent();
 
     //==============================================================================
@@ -22,8 +23,11 @@ public:
 
 private:
     //==============================================================================
-    Images mImages;
+    MainProcess& mMainProcess;
+    GlobalState& mGlobalState;
+    PresetState& mPresetState;
 
+    Images mImages;
     DrawableButton mNewButton { "", DrawableButton::ImageStretched };
     DrawableButton mImportButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportButton { "", DrawableButton::ImageStretched };
