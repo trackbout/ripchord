@@ -1,15 +1,18 @@
 #pragma once
 
 //==============================================================================
+const String PRESET_FILE_EXTENSION = ".rpc";
+
+//==============================================================================
+struct Chord
+{
+    String name;
+    juce::Array<int> notes;
+};
+
+//==============================================================================
 namespace Preset
 {
-    //==============================================================================
-    struct Chord
-    {
-        String name;
-        juce::Array<int> notes;
-    };
-
     //==============================================================================
     static inline XmlElement getXmlFromPresetState (String inName, std::map<int, Chord> inChords)
     {
@@ -17,7 +20,7 @@ namespace Preset
         XmlElement* preset = new XmlElement ("KeyboardMapping");
         preset->setAttribute ("name", inName);
 
-        std::map<int, Preset::Chord>::iterator pair;
+        std::map<int, Chord>::iterator pair;
 
         for (pair = inChords.begin(); pair != inChords.end(); ++pair)
         {

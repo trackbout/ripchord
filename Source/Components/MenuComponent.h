@@ -3,7 +3,6 @@
 #include "JuceHeader.h"
 #include "Images.h"
 #include "Styles.h"
-#include "Constants.h"
 
 //==============================================================================
 class MenuComponent : public Component

@@ -103,7 +103,6 @@
         <FILE id="T8mOZl" name="DataMessage.h" compile="0" resource="0" file="Source/Messaging/DataMessage.h"/>
       </GROUP>
       <GROUP id="{937C8C20-D95D-E7A6-0815-F312C0B9AAC3}" name="Modules">
-        <FILE id="ytj3Bt" name="Constants.h" compile="0" resource="0" file="Source/Modules/Constants.h"/>
         <FILE id="RoeDLW" name="Images.h" compile="0" resource="0" file="Source/Modules/Images.h"/>
         <FILE id="w15eM1" name="Preset.h" compile="0" resource="0" file="Source/Modules/Preset.h"/>
         <FILE id="PrYJEs" name="Styles.h" compile="0" resource="0" file="Source/Modules/Styles.h"/>

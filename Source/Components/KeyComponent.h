@@ -2,7 +2,6 @@
 
 #include "JuceHeader.h"
 #include "Styles.h"
-#include "Constants.h"
 
 //==============================================================================
 class KeyComponent : public Component

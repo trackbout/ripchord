@@ -1,10 +1,10 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Constants.h"
+#include "Images.h"
+#include "Styles.h"
 #include "TextLabel.h"
 #include "TextInput.h"
-#include "Images.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 

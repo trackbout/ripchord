@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Constants.h"
+#include "Styles.h"
 
 using namespace juce;
 

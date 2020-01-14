@@ -42,7 +42,7 @@ const int PresetState::getEditModeInputNote()
 juce::Array<int> PresetState::getPresetInputNotes()
 {
     juce::Array<int> presetInputNotes;
-    std::map<int, Preset::Chord>::iterator pair;
+    std::map<int, Chord>::iterator pair;
 
     for (pair = mChords.begin(); pair != mChords.end(); ++pair)
     {
@@ -98,7 +98,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
     if (shouldAddNote)
     {
-        Preset::Chord presetChord = getChord (mEditModeInputNote);
+        Chord presetChord = getChord (mEditModeInputNote);
         presetChord.notes.add (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
     }
@@ -106,7 +106,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
     {
         if (prevEditModeOutputNotes.size() > 1)
         {
-            Preset::Chord presetChord = getChord (mEditModeInputNote);
+            Chord presetChord = getChord (mEditModeInputNote);
             presetChord.notes.removeFirstMatchingValue (inOutputNote);
             setChord (mEditModeInputNote, presetChord);
         }
@@ -129,7 +129,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 //==============================================================================
 void PresetState::handleChordNameTextChanged (String inChordName)
 {
-    Preset::Chord presetChord = getChord (mEditModeInputNote);
+    Chord presetChord = getChord (mEditModeInputNote);
     if (mEditModeInputNote == 0 || presetChord.name == inChordName) { return; }
 
     presetChord.name = inChordName;
@@ -166,7 +166,7 @@ void PresetState::handleMouseClickOnSave()
     mPresetFileName = mName + PRESET_FILE_EXTENSION;
     mIsPresetModified = false;
 
-    XmlElement nextPresetXml = getXmlFromPresetState (mName, mChords);
+    XmlElement nextPresetXml = Preset::getXmlFromPresetState (mName, mChords);
     File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
     nextPresetXml.writeTo (nextPresetFile);
 
@@ -176,14 +176,14 @@ void PresetState::handleMouseClickOnSave()
 }
 
 //==============================================================================
-Preset::Chord PresetState::getChord (const int inInputNote)
+Chord PresetState::getChord (const int inInputNote)
 {
     auto pair = mChords.find (inInputNote);
     if (pair == mChords.end()) { return mEmptyChord; }
     return pair->second;
 }
 
-void PresetState::setChord (const int inInputNote, Preset::Chord inChord)
+void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
 }

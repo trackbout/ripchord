@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Constants.h"
+#include "Styles.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 

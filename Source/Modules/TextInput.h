@@ -1,7 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Constants.h"
+#include "Styles.h"
 
 //==============================================================================
 // The juce text editor won't draw the 'textWhenEmpty' centred, so we inherit it here to add that ability.
