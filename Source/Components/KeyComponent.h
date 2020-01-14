@@ -1,8 +1,8 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Styles.h"
 #include "Constants.h"
-#include "Interface.h"
 
 //==============================================================================
 class KeyComponent : public Component

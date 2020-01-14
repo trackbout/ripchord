@@ -2,8 +2,8 @@
 
 #include "JuceHeader.h"
 #include "Images.h"
+#include "Styles.h"
 #include "Constants.h"
-#include "Interface.h"
 #include "MainProcess.h"
 #include "DataMessage.h"
 #include "DataMessageListener.h"

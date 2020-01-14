@@ -102,6 +102,16 @@
         <FILE id="AmzX4d" name="DataMessage.cpp" compile="1" resource="0" file="Source/Messaging/DataMessage.cpp"/>
         <FILE id="T8mOZl" name="DataMessage.h" compile="0" resource="0" file="Source/Messaging/DataMessage.h"/>
       </GROUP>
+      <GROUP id="{937C8C20-D95D-E7A6-0815-F312C0B9AAC3}" name="Modules">
+        <FILE id="ytj3Bt" name="Constants.h" compile="0" resource="0" file="Source/Modules/Constants.h"/>
+        <FILE id="RoeDLW" name="Images.h" compile="0" resource="0" file="Source/Modules/Images.h"/>
+        <FILE id="w15eM1" name="Preset.h" compile="0" resource="0" file="Source/Modules/Preset.h"/>
+        <FILE id="PrYJEs" name="Styles.h" compile="0" resource="0" file="Source/Modules/Styles.h"/>
+        <FILE id="lbLBpc" name="System.h" compile="0" resource="0" file="Source/Modules/System.h"/>
+        <FILE id="N34Pzs" name="TextInput.h" compile="0" resource="0" file="Source/Modules/TextInput.h"/>
+        <FILE id="WGnph0" name="TextLabel.h" compile="0" resource="0" file="Source/Modules/TextLabel.h"/>
+        <FILE id="sGht0S" name="Widgets.h" compile="0" resource="0" file="Source/Modules/Widgets.h"/>
+      </GROUP>
       <GROUP id="{C521147D-4A15-1CE4-CEE7-69E5A6393259}" name="Process">
         <FILE id="dX0oVw" name="MainProcess.cpp" compile="1" resource="0" file="Source/Process/MainProcess.cpp"/>
         <FILE id="o9qHn5" name="MainProcess.h" compile="0" resource="0" file="Source/Process/MainProcess.h"/>
@@ -111,16 +121,6 @@
         <FILE id="QpZVtC" name="PresetState.h" compile="0" resource="0" file="Source/Process/PresetState.h"/>
         <FILE id="qkwEkw" name="MidiState.cpp" compile="1" resource="0" file="Source/Process/MidiState.cpp"/>
         <FILE id="SLbGyZ" name="MidiState.h" compile="0" resource="0" file="Source/Process/MidiState.h"/>
-      </GROUP>
-      <GROUP id="{453D27A9-CCE4-DE40-4300-AAC13558B1E2}" name="Utils">
-        <FILE id="jp0Dn5" name="Constants.h" compile="0" resource="0" file="Source/Utils/Constants.h"/>
-        <FILE id="wPhM5I" name="Images.h" compile="0" resource="0" file="Source/Utils/Images.h"/>
-        <FILE id="a6tugb" name="Interface.h" compile="0" resource="0" file="Source/Utils/Interface.h"/>
-        <FILE id="DmzQKB" name="Presets.h" compile="0" resource="0" file="Source/Utils/Presets.h"/>
-        <FILE id="S3eEg0" name="System.h" compile="0" resource="0" file="Source/Utils/System.h"/>
-        <FILE id="p0WZ4r" name="TextInput.h" compile="0" resource="0" file="Source/Utils/TextInput.h"/>
-        <FILE id="NXkhgq" name="TextLabel.h" compile="0" resource="0" file="Source/Utils/TextLabel.h"/>
-        <FILE id="cq8mhm" name="Widgets.h" compile="0" resource="0" file="Source/Utils/Widgets.h"/>
       </GROUP>
       <FILE id="HHUctx" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

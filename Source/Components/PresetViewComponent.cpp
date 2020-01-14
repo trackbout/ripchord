@@ -36,8 +36,8 @@ void PresetViewComponent::paint (Graphics& inGraphics)
     inGraphics.setColour (COLOR_GREY_DARK);
     auto mainArea = getLocalBounds();
 
-    auto presetListBgArea = Interface::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                      PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
+    auto presetListBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
+                                                       PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
 
     float cornerSize = presetListBgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
     inGraphics.fillRoundedRectangle (presetListBgArea, cornerSize);
@@ -47,14 +47,14 @@ void PresetViewComponent::resized()
 {
     auto mainArea = getLocalBounds();
 
-    mPresetFilterInput.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y,
-                                                                KEYBOARD_BG_WIDTH, ITEM_HEIGHT));
+    mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y,
+                                                             KEYBOARD_BG_WIDTH, ITEM_HEIGHT));
 
-    mFavoritesButton.setBounds (Interface::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y,
-                                                              BUTTON_WIDTH, ITEM_HEIGHT));
+    mFavoritesButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y,
+                                                           BUTTON_WIDTH, ITEM_HEIGHT));
 
-    mKeyboardsButton.setBounds (Interface::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y,
-                                                              BUTTON_WIDTH, ITEM_HEIGHT));
+    mKeyboardsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y,
+                                                           BUTTON_WIDTH, ITEM_HEIGHT));
 
     int inputHeight = mPresetFilterInput.getHeight();
     float inputFontHeight = inputHeight * TEXT_INPUT_FONT_HEIGHT_RATIO;
@@ -65,11 +65,11 @@ void PresetViewComponent::resized()
     int scrollbarWidth = inputHeight * 0.6f;
     mPresetViewport.setScrollBarThickness (scrollbarWidth);
 
-    auto viewportArea = Interface::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                        PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT);
+    auto viewportArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
+                                                   PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT);
 
-    auto presetListArea = Interface::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                          PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
+    auto presetListArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
+                                                     PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
 
     mPresetViewport.setBounds (viewportArea);
     mPresetListComponent.setBounds (presetListArea);

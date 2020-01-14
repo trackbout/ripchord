@@ -53,8 +53,8 @@ void MenuComponent::paint (Graphics& inGraphics)
 void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
-    auto menuArea = Interface::getRelativeBounds (mainArea, ACTIONS_MENU_X, ACTIONS_MENU_Y,
-                                                  ACTIONS_MENU_WIDTH, ACTIONS_MENU_HEIGHT);
+    auto menuArea = Styles::getRelativeBounds (mainArea, ACTIONS_MENU_X, ACTIONS_MENU_Y,
+                                               ACTIONS_MENU_WIDTH, ACTIONS_MENU_HEIGHT);
 
     int menuHeight = menuArea.getHeight();
     int buttonHeight = menuHeight / ACTIONS_MENU_BUTTON_COUNT;

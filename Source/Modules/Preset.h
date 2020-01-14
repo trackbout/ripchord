@@ -1,7 +1,7 @@
 #pragma once
 
 //==============================================================================
-namespace Presets
+namespace Preset
 {
     //==============================================================================
     struct Chord
@@ -17,7 +17,7 @@ namespace Presets
         XmlElement* preset = new XmlElement ("KeyboardMapping");
         preset->setAttribute ("name", inName);
 
-        std::map<int, Presets::Chord>::iterator pair;
+        std::map<int, Preset::Chord>::iterator pair;
 
         for (pair = inChords.begin(); pair != inChords.end(); ++pair)
         {

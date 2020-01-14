@@ -41,7 +41,7 @@ juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNote
     const int blackKeyWidth = whiteKeyWidth * 0.78f;
     const int blackKeyHeight = whiteKeyHeight * 0.66f;
 
-    if (Interface::isBlackKey (inNoteNumber))
+    if (Styles::isBlackKey (inNoteNumber))
     {
         auto previousKey = mKeyComponents.at (inNoteNumber - 1);
         currentX = previousKey->getRight() - (blackKeyWidth * 0.5f);
@@ -58,7 +58,7 @@ void KeyboardComponent::bringBlackKeysToFront()
 {
     for (int noteNumber = mFirstKey; noteNumber <= mLastKey; noteNumber++)
     {
-        if (Interface::isBlackKey (noteNumber))
+        if (Styles::isBlackKey (noteNumber))
         {
             auto keyComponent = mKeyComponents.at (noteNumber);
             keyComponent->toFront (false);

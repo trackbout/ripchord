@@ -1,9 +1,9 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Constants.h"
-#include "Interface.h"
 #include "Images.h"
+#include "Styles.h"
+#include "Constants.h"
 #include "MainProcess.h"
 #include "PresetListComponent.h"
 

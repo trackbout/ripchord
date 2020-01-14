@@ -3,11 +3,11 @@
 #include "Constants.h"
 
 //==============================================================================
-namespace Interface
+namespace Styles
 {
     //==============================================================================
     static inline Rectangle<int> getRelativeBounds (Rectangle<int> inBaselineBounds,
-                                                            int inX, int inY, int inWidth, int inHeight)
+                                                    int inX, int inY, int inWidth, int inHeight)
     {
         Rectangle<float> proportions {
             inX / EDITOR_WIDTH,

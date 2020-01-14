@@ -2,7 +2,7 @@
 
 #include "JuceHeader.h"
 #include "System.h"
-#include "Presets.h"
+#include "Preset.h"
 #include "Constants.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
@@ -40,15 +40,15 @@ public:
 private:
     //==============================================================================
     String mName;
-    std::map<int, Presets::Chord> mChords;
+    std::map<int, Preset::Chord> mChords;
 
     //==============================================================================
-    Presets::Chord mEmptyChord;
+    Preset::Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
     //==============================================================================
-    Presets::Chord getChord (const int inputNote);
-    void setChord (const int inputNote, Presets::Chord chord);
+    Preset::Chord getChord (const int inputNote);
+    void setChord (const int inputNote, Preset::Chord chord);
 
     //==============================================================================
     const File mUserDataPath;

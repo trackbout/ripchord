@@ -42,7 +42,7 @@ const int PresetState::getEditModeInputNote()
 juce::Array<int> PresetState::getPresetInputNotes()
 {
     juce::Array<int> presetInputNotes;
-    std::map<int, Presets::Chord>::iterator pair;
+    std::map<int, Preset::Chord>::iterator pair;
 
     for (pair = mChords.begin(); pair != mChords.end(); ++pair)
     {
@@ -98,7 +98,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 
     if (shouldAddNote)
     {
-        Presets::Chord presetChord = getChord (mEditModeInputNote);
+        Preset::Chord presetChord = getChord (mEditModeInputNote);
         presetChord.notes.add (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
     }
@@ -106,7 +106,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
     {
         if (prevEditModeOutputNotes.size() > 1)
         {
-            Presets::Chord presetChord = getChord (mEditModeInputNote);
+            Preset::Chord presetChord = getChord (mEditModeInputNote);
             presetChord.notes.removeFirstMatchingValue (inOutputNote);
             setChord (mEditModeInputNote, presetChord);
         }
@@ -129,7 +129,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
 //==============================================================================
 void PresetState::handleChordNameTextChanged (String inChordName)
 {
-    Presets::Chord presetChord = getChord (mEditModeInputNote);
+    Preset::Chord presetChord = getChord (mEditModeInputNote);
     if (mEditModeInputNote == 0 || presetChord.name == inChordName) { return; }
 
     presetChord.name = inChordName;
@@ -176,14 +176,14 @@ void PresetState::handleMouseClickOnSave()
 }
 
 //==============================================================================
-Presets::Chord PresetState::getChord (const int inInputNote)
+Preset::Chord PresetState::getChord (const int inInputNote)
 {
     auto pair = mChords.find (inInputNote);
     if (pair == mChords.end()) { return mEmptyChord; }
     return pair->second;
 }
 
-void PresetState::setChord (const int inInputNote, Presets::Chord inChord)
+void PresetState::setChord (const int inInputNote, Preset::Chord inChord)
 {
     mChords[inInputNote] = inChord;
 }

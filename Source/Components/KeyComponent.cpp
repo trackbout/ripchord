@@ -69,5 +69,5 @@ const int KeyComponent::getNoteNumber()
 
 Colour KeyComponent::getDefaultColor (const int inNoteNumber)
 {
-    return Interface::isBlackKey (inNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
+    return Styles::isBlackKey (inNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
 }

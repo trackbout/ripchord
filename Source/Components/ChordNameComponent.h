@@ -1,9 +1,9 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Styles.h"
 #include "TextLabel.h"
 #include "TextInput.h"
-#include "Interface.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 
