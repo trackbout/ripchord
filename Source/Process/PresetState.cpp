@@ -203,7 +203,9 @@ void PresetState::setPresetFileSaved()
 //==============================================================================
 void PresetState::createPresetFile()
 {
-    DBG ("CREATE PRESET FILE");
+    XmlElement presetXml = getXmlFromPresetState();
+    File presetFile = mPresetFolder.getChildFile (mName + PRESET_FILE_EXTENSION);
+    presetXml.writeTo (presetFile);
 
     setPresetFileSaved();
     DataMessage* message = new DataMessage();
@@ -234,4 +236,36 @@ void PresetState::updatePresetFile()
 void PresetState::deletePresetFile()
 {
     DBG ("DELETE PRESET FILE");
+}
+
+//==============================================================================
+XmlElement PresetState::getXmlFromPresetState()
+{
+    XmlElement xml ("ripchord");
+    XmlElement* preset = new XmlElement ("KeyboardMapping");
+    preset->setAttribute ("name", mName);
+
+    std::map<int, Chord>::iterator pair;
+
+    for (pair = mChords.begin(); pair != mChords.end(); ++pair)
+    {
+        XmlElement* mapping = new XmlElement ("mapping");
+        XmlElement* chord = new XmlElement ("chord");
+        StringArray chordNotes;
+
+        for (const int chordNote : pair->second.notes)
+        {
+            chordNotes.add (String (chordNote));
+        }
+
+        mapping->setAttribute ("note", String (pair->first));
+        chord->setAttribute ("name", pair->second.name);
+        chord->setAttribute ("notes", chordNotes.joinIntoString (";"));
+
+        mapping->addChildElement (chord);
+        preset->addChildElement (mapping);
+    }
+
+    xml.addChildElement (preset);
+    return xml;
 }

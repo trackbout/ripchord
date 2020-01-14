@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "System.h"
+#include "Constants.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -74,6 +75,9 @@ private:
     void renamePresetFile();
     void updatePresetFile();
     void deletePresetFile();
+
+    //==============================================================================
+    XmlElement getXmlFromPresetState();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)
