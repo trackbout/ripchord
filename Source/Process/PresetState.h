@@ -48,11 +48,6 @@ private:
     std::map<int, Chord> mChords;
 
     //==============================================================================
-    bool mIsPresetCreated = false;
-    bool mIsPresetNameModified = false;
-    bool mIsPresetDataModified = false;
-
-    //==============================================================================
     Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
@@ -65,18 +60,16 @@ private:
     const File mPresetFolder;
 
     //==============================================================================
-    bool isPresetCreated();
-    bool isPresetNameModified();
-    bool isPresetDataModified();
-    void setPresetFileSaved();
+    bool mIsPresetCreated = false;
+    bool mIsPresetModified = false;
 
     //==============================================================================
     void createPresetFile();
-    void renamePresetFile();
     void updatePresetFile();
     void deletePresetFile();
 
     //==============================================================================
+    String mPresetFileName;
     XmlElement getXmlFromPresetState();
 
     //==============================================================================
