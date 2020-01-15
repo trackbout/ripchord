@@ -46,6 +46,7 @@ private:
     ChordNameComponent mChordName;
 
     void handleModeUpdated (const DataMessage* message);
+    void handlePresetFileNew (const DataMessage* message);
     void handlePresetModified (const DataMessage* message);
     void handlePresetFileSaved (const DataMessage* message);
 

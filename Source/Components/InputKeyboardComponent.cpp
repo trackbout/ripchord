@@ -47,6 +47,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
         default: { } break;
@@ -71,6 +72,15 @@ void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
         keyComponent->setMarkerColor (markerColor);
+    }
+}
+
+void InputKeyboardComponent::handlePresetFileNew (const DataMessage* inMessage)
+{
+    for (int inputNote = mFirstKey; inputNote <= mLastKey; inputNote++)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (inputNote));
     }
 }
 

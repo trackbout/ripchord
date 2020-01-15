@@ -40,6 +40,7 @@ private:
     TextInput mPresetNameInput;
 
     void handleModeUpdated (const DataMessage* message);
+    void handlePresetFileNew (const DataMessage* message);
     void handlePresetNameUpdated (const DataMessage* message);
 
     //==============================================================================

@@ -20,11 +20,12 @@ enum MessageCode
     kMenuUpdated,
 
     // Messages from PresetState
+    kPresetFileNew,
+    kPresetFileSaved,
     kChordNameUpdated,
     kPresetNameUpdated,
     kEditModeInputNote,
     kEditModeOutputNotes,
-    kPresetFileSaved,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

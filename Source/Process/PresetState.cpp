@@ -158,7 +158,15 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 //==============================================================================
 void PresetState::handleMouseClickOnNew()
 {
-    DBG ("NEW BUTTON");
+    mName.clear();
+    mChords.clear();
+    mPresetFileName.clear();
+    mIsPresetModified = false;
+    mEditModeInputNote = 0;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileNew;
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::handleMouseClickOnSave()

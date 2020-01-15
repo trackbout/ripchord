@@ -4,11 +4,13 @@
 MainComponent::MainComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mPresetState (mMainProcess.getPresetState()),
     mKeyboardViewComponent (inMainProcess),
     mPresetViewComponent (inMainProcess),
     mMenuComponent (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
@@ -58,19 +60,26 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kViewUpdated): { handleViewUpdated(); } break;
-        case (MessageCode::kMenuUpdated): { handleMenuUpdated(); } break;
+        case (MessageCode::kViewUpdated): { handleViewUpdated (inMessage); } break;
+        case (MessageCode::kMenuUpdated): { handleMenuUpdated (inMessage); } break;
+        case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         default: { } break;
     };
 }
 
-void MainComponent::handleViewUpdated()
+void MainComponent::handleViewUpdated (const DataMessage* inMessage)
 {
     mKeyboardViewComponent.setVisible (!mGlobalState.isPresetView());
     mPresetViewComponent.setVisible (mGlobalState.isPresetView());
 }
 
-void MainComponent::handleMenuUpdated()
+void MainComponent::handleMenuUpdated (const DataMessage* inMessage)
 {
     mMenuComponent.setVisible (mGlobalState.isMenuVisible());
+}
+
+void MainComponent::handlePresetFileNew (const DataMessage* inMessage)
+{
+    if (mGlobalState.isPlayMode()) { mGlobalState.toggleMode(); }
+    if (mGlobalState.isPresetView()) { mGlobalState.toggleView(); }
 }

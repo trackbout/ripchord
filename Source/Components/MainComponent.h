@@ -29,6 +29,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    PresetState& mPresetState;
 
     KeyboardViewComponent mKeyboardViewComponent;
     PresetViewComponent mPresetViewComponent;
@@ -38,8 +39,9 @@ private:
     Label mTitleLabel { "", "ripchord" };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
-    void handleViewUpdated();
-    void handleMenuUpdated();
+    void handleViewUpdated (const DataMessage* message);
+    void handleMenuUpdated (const DataMessage* message);
+    void handlePresetFileNew (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
