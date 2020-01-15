@@ -63,6 +63,7 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kViewUpdated): { handleViewUpdated (inMessage); } break;
         case (MessageCode::kMenuUpdated): { handleMenuUpdated (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
     };
 }
@@ -81,5 +82,11 @@ void MainComponent::handleMenuUpdated (const DataMessage* inMessage)
 void MainComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
     if (mGlobalState.isPlayMode()) { mGlobalState.toggleMode(); }
+    if (mGlobalState.isPresetView()) { mGlobalState.toggleView(); }
+}
+
+void MainComponent::handlePresetFileLoaded (const DataMessage* inMessage)
+{
+    if (mGlobalState.isEditMode()) { mGlobalState.toggleMode(); }
     if (mGlobalState.isPresetView()) { mGlobalState.toggleView(); }
 }

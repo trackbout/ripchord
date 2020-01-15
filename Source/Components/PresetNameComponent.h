@@ -41,6 +41,7 @@ private:
 
     void handleModeUpdated (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
+    void handlePresetFileLoaded (const DataMessage* message);
     void handlePresetNameUpdated (const DataMessage* message);
 
     //==============================================================================

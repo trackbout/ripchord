@@ -51,6 +51,7 @@ private:
     //==============================================================================
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
+    void resetPresetState();
 
     //==============================================================================
     const File mUserDataPath;

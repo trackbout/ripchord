@@ -41,6 +41,7 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kCurrentlyOnOutputNotes): { handleCurrentlyOnOutputNotes (inMessage); } break;
@@ -50,20 +51,17 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 
 void OutputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
 {
-    for (int outputNote = mFirstKey; outputNote <= mLastKey; outputNote++)
-    {
-        auto keyComponent = mKeyComponents.at (outputNote);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
-    }
+    resetKeyColors();
 }
 
 void OutputKeyboardComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
-    for (int outputNote = mFirstKey; outputNote <= mLastKey; outputNote++)
-    {
-        auto keyComponent = mKeyComponents.at (outputNote);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
-    }
+    resetKeyColors();
+}
+
+void OutputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessage)
+{
+    resetKeyColors();
 }
 
 void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)

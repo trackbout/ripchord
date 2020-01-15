@@ -58,6 +58,7 @@ void ChordNameComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
@@ -72,6 +73,11 @@ void ChordNameComponent::handleModeUpdated (const DataMessage* inMessage)
 }
 
 void ChordNameComponent::handlePresetFileNew (const DataMessage* inMessage)
+{
+    mChordNameInput.clear();
+}
+
+void ChordNameComponent::handlePresetFileLoaded (const DataMessage* inMessage)
 {
     mChordNameInput.clear();
 }

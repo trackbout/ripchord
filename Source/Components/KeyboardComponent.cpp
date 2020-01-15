@@ -32,6 +32,15 @@ void KeyboardComponent::initKeyboard()
     bringBlackKeysToFront();
 }
 
+void KeyboardComponent::resetKeyColors()
+{
+    for (int note = mFirstKey; note <= mLastKey; note++)
+    {
+        auto keyComponent = mKeyComponents.at (note);
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (note));
+    }
+}
+
 //==============================================================================
 juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNoteNumber)
 {

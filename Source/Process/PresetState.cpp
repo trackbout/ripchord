@@ -158,12 +158,7 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 //==============================================================================
 void PresetState::handleMouseClickOnNew()
 {
-    mName.clear();
-    mChords.clear();
-    mPresetFileName.clear();
-    mIsPresetModified = false;
-    mEditModeInputNote = 0;
-
+    resetPresetState();
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileNew;
     sendMessage (message, ListenerType::kSync);
@@ -190,7 +185,31 @@ void PresetState::handleMouseClickOnSave()
 
 void PresetState::handleMouseClickOnImport()
 {
-    DBG ("IMPORT BUTTON");
+    FileChooser chooser ("Import preset file...", mPresetFolder, "*" + PRESET_FILE_EXTENSION);
+
+    if (chooser.browseForFileToOpen())
+    {
+        File chosenFile = chooser.getResult();
+        if (!chosenFile.existsAsFile()) { return; }
+
+        resetPresetState();
+        mPresetFileName = chosenFile.getFileName();
+        mName = Preset::getPresetNameFromXml (chosenFile);
+        mChords = Preset::getPresetChordsFromXml (chosenFile);
+
+        File prevPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+        if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+        XmlElement nextPresetXml = Preset::getXmlFromPresetState (mName, mChords);
+        File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+        nextPresetXml.writeTo (nextPresetFile);
+
+        DataMessage* message = new DataMessage();
+        message->messageCode = MessageCode::kPresetFileLoaded;
+        message->messageVar1 = mName;
+        message->messageArray1 = getPresetInputNotes();
+        sendMessage (message, ListenerType::kSync);
+    }
 }
 
 void PresetState::handleMouseClickOnExport()
@@ -209,4 +228,13 @@ Chord PresetState::getChord (const int inInputNote)
 void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
+}
+
+void PresetState::resetPresetState()
+{
+    mName.clear();
+    mChords.clear();
+    mPresetFileName.clear();
+    mIsPresetModified = false;
+    mEditModeInputNote = 0;
 }

@@ -70,6 +70,7 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
         default: { } break;
     };
@@ -83,6 +84,13 @@ void PresetNameComponent::handleModeUpdated (const DataMessage* inMessage)
 void PresetNameComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
     mPresetNameInput.clear();
+}
+
+void PresetNameComponent::handlePresetFileLoaded (const DataMessage* inMessage)
+{
+    String nextPresetName = inMessage->messageVar1;
+    mPresetNameLabel.setText (nextPresetName, dontSendNotification);
+    mPresetNameInput.setText (nextPresetName);
 }
 
 void PresetNameComponent::handlePresetNameUpdated (const DataMessage* inMessage)

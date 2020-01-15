@@ -102,10 +102,11 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
-        case (MessageCode::kPresetNameUpdated): { handlePresetModified (inMessage); } break;
-        case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
-        case (MessageCode::kChordNameUpdated): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
+        case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kPresetNameUpdated): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kChordNameUpdated): { handlePresetModified (inMessage); } break;
         default: { } break;
     };
 }
@@ -119,6 +120,19 @@ void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
 
 void KeyboardViewComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
+    mSuccess.setVisible (false);
+    mSaveButton.setToggleState (false, dontSendNotification);
+}
+
+void KeyboardViewComponent::handlePresetFileSaved (const DataMessage* inMessage)
+{
+    mSuccess.setVisible (true);
+    mSaveButton.setToggleState (false, dontSendNotification);
+}
+
+void KeyboardViewComponent::handlePresetFileLoaded (const DataMessage* inMessage)
+{
+    mSuccess.setVisible (false);
     mSaveButton.setToggleState (false, dontSendNotification);
 }
 
@@ -126,10 +140,4 @@ void KeyboardViewComponent::handlePresetModified (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
     mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
-}
-
-void KeyboardViewComponent::handlePresetFileSaved (const DataMessage* inMessage)
-{
-    mSuccess.setVisible (true);
-    mSaveButton.setToggleState (false, dontSendNotification);
 }

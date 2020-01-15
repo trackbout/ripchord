@@ -33,6 +33,7 @@ private:
 
     void handleModeUpdated (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
+    void handlePresetFileLoaded (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleEditModeOutputNotes (const DataMessage* message);
     void handleCurrentlyOnInputNotes (const DataMessage* message);

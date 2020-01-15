@@ -47,8 +47,9 @@ private:
 
     void handleModeUpdated (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
-    void handlePresetModified (const DataMessage* message);
     void handlePresetFileSaved (const DataMessage* message);
+    void handlePresetFileLoaded (const DataMessage* message);
+    void handlePresetModified (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

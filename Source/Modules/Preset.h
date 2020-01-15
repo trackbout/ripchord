@@ -16,16 +16,16 @@ namespace Preset
     //==============================================================================
     static inline XmlElement getXmlFromPresetState (String inName, std::map<int, Chord> inChords)
     {
-        XmlElement xml ("ripchord");
-        XmlElement* preset = new XmlElement ("KeyboardMapping");
-        preset->setAttribute ("name", inName);
+        XmlElement presetXml ("ripchord");
+        XmlElement* mappingsXml = new XmlElement ("KeyboardMapping");
+        mappingsXml->setAttribute ("name", inName);
 
         std::map<int, Chord>::iterator pair;
 
         for (pair = inChords.begin(); pair != inChords.end(); ++pair)
         {
-            XmlElement* mapping = new XmlElement ("mapping");
-            XmlElement* chord = new XmlElement ("chord");
+            XmlElement* mappingXml = new XmlElement ("mapping");
+            XmlElement* chordXml = new XmlElement ("chord");
             StringArray chordNotes;
 
             for (const int chordNote : pair->second.notes)
@@ -33,15 +33,48 @@ namespace Preset
                 chordNotes.add (String (chordNote));
             }
 
-            mapping->setAttribute ("note", String (pair->first));
-            chord->setAttribute ("name", pair->second.name);
-            chord->setAttribute ("notes", chordNotes.joinIntoString (";"));
+            mappingXml->setAttribute ("note", String (pair->first));
+            chordXml->setAttribute ("name", pair->second.name);
+            chordXml->setAttribute ("notes", chordNotes.joinIntoString (";"));
 
-            mapping->addChildElement (chord);
-            preset->addChildElement (mapping);
+            mappingXml->addChildElement (chordXml);
+            mappingsXml->addChildElement (mappingXml);
         }
 
-        xml.addChildElement (preset);
-        return xml;
+        presetXml.addChildElement (mappingsXml);
+        return presetXml;
+    }
+
+    static inline String getPresetNameFromXml (const File& inFile)
+    {
+        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
+        XmlElement* mappingsXml = presetXml->getChildByName ("KeyboardMapping");
+        return mappingsXml->getStringAttribute ("name");
+    }
+
+    static inline std::map<int, Chord> getPresetChordsFromXml (const File& inFile)
+    {
+        std::map<int, Chord> chords;
+        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
+        XmlElement* mappingsXml = presetXml->getChildByName ("KeyboardMapping");
+
+        forEachXmlChildElementWithTagName (*mappingsXml, mappingXml, "mapping")
+        {
+            Chord chord;
+            juce::Array<int> notes;
+            int note = mappingXml->getIntAttribute("note");
+            XmlElement* chordXml = mappingXml->getChildByName ("chord");
+            String notesString = chordXml->getStringAttribute ("notes");
+            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
+
+            String name = chordXml->getStringAttribute ("name");
+            for (String& note : notesSA) { notes.add (note.getIntValue()); }
+
+            chord.name = name;
+            chord.notes = notes;
+            chords[note] = chord;
+        }
+
+        return chords;
     }
 }

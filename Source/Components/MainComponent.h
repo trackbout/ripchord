@@ -42,6 +42,7 @@ private:
     void handleViewUpdated (const DataMessage* message);
     void handleMenuUpdated (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
+    void handlePresetFileLoaded (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

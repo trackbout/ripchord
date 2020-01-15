@@ -22,6 +22,7 @@ enum MessageCode
     // Messages from PresetState
     kPresetFileNew,
     kPresetFileSaved,
+    kPresetFileLoaded,
     kChordNameUpdated,
     kPresetNameUpdated,
     kEditModeInputNote,
