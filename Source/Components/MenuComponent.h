@@ -4,9 +4,10 @@
 #include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
+#include "DataMessageListener.h"
 
 //==============================================================================
-class MenuComponent : public Component
+class MenuComponent : public Component, public DataMessageListener
 {
 public:
     //==============================================================================
@@ -21,6 +22,9 @@ public:
     void mouseDown (const MouseEvent& event) override;
     std::function<void()> handleBackgroundClick;
 
+    //==============================================================================
+    void handleNewMessage (const DataMessage* message) override;
+
 private:
     //==============================================================================
     MainProcess& mMainProcess;
@@ -32,6 +36,9 @@ private:
     DrawableButton mImportButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportButton { "", DrawableButton::ImageStretched };
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };
+
+    //==============================================================================
+    void handleMenuUpdated (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MenuComponent)

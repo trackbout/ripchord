@@ -214,7 +214,16 @@ void PresetState::handleMouseClickOnImport()
 
 void PresetState::handleMouseClickOnExport()
 {
-    DBG ("EXPORT BUTTON");
+    if (!isPresetSaveable()) { return; }
+
+    FileChooser chooser ("Copy preset to...", mPresetFolder, "*" + PRESET_FILE_EXTENSION);
+
+    if (chooser.browseForFileToSave (true))
+    {
+        File chosenFile (chooser.getResult());
+        XmlElement presetXml = Preset::getXmlFromPresetState (mName, mChords);
+        presetXml.writeTo (chosenFile);
+    }
 }
 
 //==============================================================================

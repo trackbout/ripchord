@@ -6,6 +6,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mGlobalState (mMainProcess.getGlobalState()),
     mPresetState (mMainProcess.getPresetState())
 {
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+
     mImages.setDrawableButtonImages (mNewButton, "New.svg");
     mImages.setDrawableButtonImages (mImportButton, "Import.svg");
     mImages.setDrawableButtonImages (mExportButton, "Export.svg");
@@ -18,27 +20,28 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mNewButton.onClick = [this]()
     {
-        mGlobalState.toggleMenu();
         mPresetState.handleMouseClickOnNew();
+        mGlobalState.toggleMenu();
     };
 
     mImportButton.onClick = [this]()
     {
-        mGlobalState.toggleMenu();
         mPresetState.handleMouseClickOnImport();
+        mGlobalState.toggleMenu();
     };
 
     mExportButton.onClick = [this]()
     {
-        mGlobalState.toggleMenu();
+        if (!mPresetState.isPresetSaveable()) { return; }
         mPresetState.handleMouseClickOnExport();
+        mGlobalState.toggleMenu();
     };
 
     mCommunityButton.onClick = [this]()
     {
-        mGlobalState.toggleMenu();
         URL url { "https://trackbout.com/presets" };
         url.launchInDefaultBrowser();
+        mGlobalState.toggleMenu();
     };
 
     addAndMakeVisible (mNewButton);
@@ -77,4 +80,21 @@ void MenuComponent::resized()
 void MenuComponent::mouseDown (const MouseEvent& inEvent)
 {
     if (handleBackgroundClick) { handleBackgroundClick(); }
+}
+
+//==============================================================================
+void MenuComponent::handleNewMessage (const DataMessage* inMessage)
+{
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kMenuUpdated): { handleMenuUpdated (inMessage); } break;
+        default: { } break;
+    };
+}
+
+void MenuComponent::handleMenuUpdated (const DataMessage* inMessage)
+{
+    if (mGlobalState.isMenuHidden()) { return; }
+    bool isExportable = mPresetState.isPresetSaveable();
+    mImages.setDrawableButtonImages (mExportButton, isExportable ? "Export.svg" : "ExportOFF.svg");
 }
