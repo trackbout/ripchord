@@ -70,10 +70,10 @@
               file="Source/Components/PresetViewComponent.cpp"/>
         <FILE id="jiCklL" name="PresetViewComponent.h" compile="0" resource="0"
               file="Source/Components/PresetViewComponent.h"/>
-        <FILE id="B6w6nM" name="PresetListComponent.cpp" compile="1" resource="0"
-              file="Source/Components/PresetListComponent.cpp"/>
-        <FILE id="SC7dBf" name="PresetListComponent.h" compile="0" resource="0"
-              file="Source/Components/PresetListComponent.h"/>
+        <FILE id="B6w6nM" name="PresetBrowserComponent.cpp" compile="1" resource="0"
+              file="Source/Components/PresetBrowserComponent.cpp"/>
+        <FILE id="SC7dBf" name="PresetBrowserComponent.h" compile="0" resource="0"
+              file="Source/Components/PresetBrowserComponent.h"/>
         <FILE id="N0yrvE" name="PresetComponent.cpp" compile="1" resource="0"
               file="Source/Components/PresetComponent.cpp"/>
         <FILE id="wMXjn0" name="PresetComponent.h" compile="0" resource="0"

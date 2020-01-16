@@ -4,7 +4,7 @@
 #include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
-#include "PresetListComponent.h"
+#include "PresetBrowserComponent.h"
 
 //==============================================================================
 class PresetViewComponent : public Component
@@ -26,7 +26,7 @@ private:
     Images mImages;
     Viewport mPresetViewport;
     TextEditor mPresetFilterInput;
-    PresetListComponent mPresetListComponent;
+    PresetBrowserComponent mPresetBrowserComponent;
 
     DrawableButton mFavoritesButton { "", DrawableButton::ImageStretched };
     DrawableButton mKeyboardsButton { "", DrawableButton::ImageStretched };

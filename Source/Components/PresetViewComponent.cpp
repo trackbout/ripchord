@@ -18,7 +18,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
-    mPresetViewport.setViewedComponent (&mPresetListComponent, false);
+    mPresetViewport.setViewedComponent (&mPresetBrowserComponent, false);
     mPresetViewport.setScrollBarsShown (true, false);
 
     addAndMakeVisible (mFavoritesButton);
@@ -36,11 +36,11 @@ void PresetViewComponent::paint (Graphics& inGraphics)
     inGraphics.setColour (COLOR_GREY_DARK);
     auto mainArea = getLocalBounds();
 
-    auto presetListBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
+    auto presetBrowserBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
                                                        PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
 
-    float cornerSize = presetListBgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
-    inGraphics.fillRoundedRectangle (presetListBgArea, cornerSize);
+    float cornerSize = presetBrowserBgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
+    inGraphics.fillRoundedRectangle (presetBrowserBgArea, cornerSize);
 }
 
 void PresetViewComponent::resized()
@@ -68,10 +68,10 @@ void PresetViewComponent::resized()
     auto viewportArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
                                                    PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT);
 
-    auto presetListArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
+    auto presetBrowserArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
                                                      PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
 
     mPresetViewport.setBounds (viewportArea);
-    mPresetListComponent.setBounds (presetListArea);
-    mPresetListComponent.setViewedSize (presetListArea.getWidth(), presetListArea.getHeight());
+    mPresetBrowserComponent.setBounds (presetBrowserArea);
+    mPresetBrowserComponent.setViewedSize (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
 }

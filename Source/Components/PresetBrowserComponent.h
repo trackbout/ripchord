@@ -4,12 +4,12 @@
 #include "PresetComponent.h"
 
 //==============================================================================
-class PresetListComponent : public Component
+class PresetBrowserComponent : public Component
 {
 public:
     //==============================================================================
-    PresetListComponent();
-    ~PresetListComponent();
+    PresetBrowserComponent();
+    ~PresetBrowserComponent();
 
     //==============================================================================
     void resized() override;
@@ -25,5 +25,5 @@ private:
     int mSpaceWidth = 0;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetListComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)
 };

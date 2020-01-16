@@ -1,17 +1,17 @@
 #include "JuceHeader.h"
-#include "PresetListComponent.h"
+#include "PresetBrowserComponent.h"
 
 //==============================================================================
-PresetListComponent::PresetListComponent()
+PresetBrowserComponent::PresetBrowserComponent()
 {
 }
 
-PresetListComponent::~PresetListComponent()
+PresetBrowserComponent::~PresetBrowserComponent()
 {
 }
 
 //==============================================================================
-void PresetListComponent::resized()
+void PresetBrowserComponent::resized()
 {
     for (int i = 0; i < mPresetComponents.size(); ++i)
     {
@@ -21,7 +21,7 @@ void PresetListComponent::resized()
     }
 }
 
-void PresetListComponent::setViewedSize (int inWidth, int inHeight)
+void PresetBrowserComponent::setViewedSize (int inWidth, int inHeight)
 {
     mPresetWidth = int (inWidth * (PRESET_WIDTH / PRESET_LIST_WIDTH));
     mSpaceWidth = (inWidth - (PRESETS_PER_ROW * mPresetWidth)) / (PRESETS_PER_ROW + 1);
