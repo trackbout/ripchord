@@ -26,7 +26,7 @@ private:
     Images mImages;
     Viewport mPresetViewport;
     TextEditor mPresetFilterInput;
-    PresetBrowserComponent mPresetBrowserComponent;
+    PresetBrowserComponent mPresetBrowser;
 
     DrawableButton mFavoritesButton { "", DrawableButton::ImageStretched };
     DrawableButton mKeyboardsButton { "", DrawableButton::ImageStretched };

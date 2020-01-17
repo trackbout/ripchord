@@ -47,3 +47,14 @@ void PresetComponent::resized()
     mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
 }
+
+//==============================================================================
+void PresetComponent::setFileName (String inFileName)
+{
+    mPresetLabel.setText (inFileName, dontSendNotification);
+}
+
+void PresetComponent::setIsFavorite (bool inIsFavorite)
+{
+    mIsFavorite = inIsFavorite;
+}

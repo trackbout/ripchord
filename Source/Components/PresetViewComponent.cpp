@@ -3,7 +3,8 @@
 //==============================================================================
 PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
-    mGlobalState (mMainProcess.getGlobalState())
+    mGlobalState (mMainProcess.getGlobalState()),
+    mPresetBrowser (inMainProcess)
 {
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
     mPresetFilterInput.setColour (TextEditor::outlineColourId, COLOR_GREY_LIGHTER);
@@ -18,8 +19,8 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
-    mPresetViewport.setViewedComponent (&mPresetBrowserComponent, false);
     mPresetViewport.setScrollBarsShown (true, false);
+    mPresetViewport.setViewedComponent (&mPresetBrowser, false);
 
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
@@ -72,6 +73,6 @@ void PresetViewComponent::resized()
                                                      PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
 
     mPresetViewport.setBounds (viewportArea);
-    mPresetBrowserComponent.setBounds (presetBrowserArea);
-    mPresetBrowserComponent.setViewedSize (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
+    mPresetBrowser.setBounds (presetBrowserArea);
+    mPresetBrowser.setDimensions (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
 }

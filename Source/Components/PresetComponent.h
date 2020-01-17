@@ -17,12 +17,15 @@ public:
     void paint (Graphics& graphics) override;
     void resized() override;
 
+    //==============================================================================
+    void setFileName (String fileName);
+    void setIsFavorite (bool isFavorite);
+
 private:
     //==============================================================================
     Images mImages;
-
-    File mPresetFile;
-    Label mPresetLabel { "", "preset" };
+    Label mPresetLabel;
+    bool mIsFavorite;
 
     PresetDeleteComponent mPresetDeleteComponent;
 

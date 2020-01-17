@@ -12,8 +12,12 @@ public:
     BrowserState();
     ~BrowserState();
 
+    //==============================================================================
+    std::map<String, bool, std::less<String>> getPresetNames();
+
 private:
     //==============================================================================
+    std::map<String, bool, std::less<String>> mPresetNames;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)

@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "GlobalState.h"
 #include "PresetState.h"
+#include "BrowserState.h"
 #include "MidiState.h"
 
 //==============================================================================
@@ -23,6 +24,7 @@ public:
     //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
     PresetState& getPresetState() { return mPresetState; }
+    BrowserState& getBrowserState() { return mBrowserState; }
     MidiState& getMidiState() { return mMidiState; }
 
 private:
@@ -46,6 +48,7 @@ private:
     //==============================================================================
     GlobalState mGlobalState;
     PresetState mPresetState;
+    BrowserState mBrowserState;
     MidiState mMidiState;
 
     //==============================================================================
