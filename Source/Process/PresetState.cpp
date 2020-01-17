@@ -42,11 +42,10 @@ const int PresetState::getEditModeInputNote()
 juce::Array<int> PresetState::getPresetInputNotes()
 {
     juce::Array<int> presetInputNotes;
-    std::map<int, Chord>::iterator pair;
 
-    for (pair = mChords.begin(); pair != mChords.end(); ++pair)
+    for (const auto& pair : mChords)
     {
-      presetInputNotes.add (pair->first);
+      presetInputNotes.add (pair.first);
     }
 
     return presetInputNotes;

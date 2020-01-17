@@ -20,21 +20,19 @@ namespace Preset
         XmlElement* mappingsXml = new XmlElement ("KeyboardMapping");
         mappingsXml->setAttribute ("name", inName);
 
-        std::map<int, Chord>::iterator pair;
-
-        for (pair = inChords.begin(); pair != inChords.end(); ++pair)
+        for (const auto& pair : inChords)
         {
             XmlElement* mappingXml = new XmlElement ("mapping");
             XmlElement* chordXml = new XmlElement ("chord");
             StringArray chordNotes;
 
-            for (const int chordNote : pair->second.notes)
+            for (const int chordNote : pair.second.notes)
             {
                 chordNotes.add (String (chordNote));
             }
 
-            mappingXml->setAttribute ("note", String (pair->first));
-            chordXml->setAttribute ("name", pair->second.name);
+            mappingXml->setAttribute ("note", String (pair.first));
+            chordXml->setAttribute ("name", pair.second.name);
             chordXml->setAttribute ("notes", chordNotes.joinIntoString (";"));
 
             mappingXml->addChildElement (chordXml);

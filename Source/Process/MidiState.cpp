@@ -72,11 +72,10 @@ const int MidiState::getOutputNoteTriggerCount (const int inOutputNote)
 juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
 {
     juce::Array<int> outputNotesArray;
-    std::map<int, juce::Array<int>>::iterator pair;
 
-    for (pair = outputNotes.begin(); pair != outputNotes.end(); ++pair)
+    for (const auto& pair : outputNotes)
     {
-      outputNotesArray.add (pair->first);
+      outputNotesArray.add (pair.first);
     }
 
     return outputNotesArray;
@@ -85,17 +84,16 @@ juce::Array<int> MidiState::getOutputNotesArray (std::map<int, juce::Array<int>>
 juce::Array<int> MidiState::getModifiedOutputNotesArray (std::map<int, juce::Array<int>> outputNotes)
 {
     juce::Array<int> modifiedOutputNotesArray;
-    std::map<int, juce::Array<int>>::iterator pair;
 
-    for (pair = outputNotes.begin(); pair != outputNotes.end(); ++pair)
+    for (const auto& pair : outputNotes)
     {
-        if (pair->second.size() == 2)
+        if (pair.second.size() == 2)
         {
-            modifiedOutputNotesArray.add ((pair->first) + OUTPUT_NOTE_MODIFIER);
+            modifiedOutputNotesArray.add ((pair.first) + OUTPUT_NOTE_MODIFIER);
         }
         else
         {
-            modifiedOutputNotesArray.add (pair->first);
+            modifiedOutputNotesArray.add (pair.first);
         }
     }
 
