@@ -15,6 +15,8 @@ PresetComponent::PresetComponent (const String inFileName, const int inIndexValu
     mTrashButton.setTriggeredOnMouseDown (true);
     mStarButton.setTriggeredOnMouseDown (true);
 
+    mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
+
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);
     addAndMakeVisible (mTrashButton);
