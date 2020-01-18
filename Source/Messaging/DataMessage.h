@@ -15,9 +15,9 @@ enum MessageCode
     kGeneric = 0,
 
     // Messages from GlobalState
-    kModeUpdated,
-    kViewUpdated,
-    kMenuUpdated,
+    kToggleMode,
+    kToggleView,
+    kToggleMenu,
 
     // Messages from PresetState
     kPresetFileNew,
@@ -29,6 +29,7 @@ enum MessageCode
     kEditModeOutputNotes,
 
     // Messages from BrowserState
+    kToggleFavorites,
     kPresetNamesUpdated,
 
     // Messages from MidiState

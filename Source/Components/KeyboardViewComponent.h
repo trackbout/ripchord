@@ -45,7 +45,7 @@ private:
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
 
-    void handleModeUpdated (const DataMessage* message);
+    void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileSaved (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);

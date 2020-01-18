@@ -16,12 +16,18 @@ public:
     juce::Array<juce::Array<String>> getPresetNames();
 
     //==============================================================================
+    bool getIsFavoritesOn();
+    void toggleFavorites();
+
+    //==============================================================================
     void handleMouseClickOnDelete (const int indexValue);
     void handleMouseClickOnFavorite (const int indexValue);
 
 private:
     //==============================================================================
     juce::Array<juce::Array<String>> mPresetNames;
+
+    bool mIsFavoritesOn = false;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)

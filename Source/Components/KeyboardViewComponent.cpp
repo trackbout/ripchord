@@ -100,7 +100,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
@@ -111,7 +111,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     };
 }
 
-void KeyboardViewComponent::handleModeUpdated (const DataMessage* inMessage)
+void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());

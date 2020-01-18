@@ -68,7 +68,7 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
@@ -76,7 +76,7 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
     };
 }
 
-void PresetNameComponent::handleModeUpdated (const DataMessage* inMessage)
+void PresetNameComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mPresetNameInput.setVisible (mGlobalState.isEditMode());
 }

@@ -56,7 +56,7 @@ void ChordNameComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
@@ -66,7 +66,7 @@ void ChordNameComponent::handleNewMessage (const DataMessage* inMessage)
     };
 }
 
-void ChordNameComponent::handleModeUpdated (const DataMessage* inMessage)
+void ChordNameComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mChordNameLabel.setVisible (mGlobalState.isPlayMode());
     mChordNameInput.setVisible (false);

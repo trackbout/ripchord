@@ -4,17 +4,20 @@
 PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mBrowserState (mMainProcess.getBrowserState()),
     mPresetBrowser (inMainProcess)
 {
+    mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
     mPresetFilterInput.setColour (TextEditor::outlineColourId, COLOR_GREY_LIGHTER);
     mPresetFilterInput.setColour (TextEditor::focusedOutlineColourId, COLOR_BLUE);
 
-    mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg", "", "", "", "FavoritesON.svg", "", "", "");
+    mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
-    mFavoritesButton.onClick = [this]() { DBG("FAVORITES BUTTON"); };
+    mFavoritesButton.onClick = [this]() { mBrowserState.toggleFavorites(); };
 
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
@@ -75,4 +78,21 @@ void PresetViewComponent::resized()
     mPresetViewport.setBounds (viewportArea);
     mPresetBrowser.setBounds (presetBrowserArea);
     mPresetBrowser.setDimensions (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
+}
+
+//==============================================================================
+void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
+{
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
+        default: { } break;
+    };
+}
+
+//==============================================================================
+void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
+{
+    bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
+    mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
 }

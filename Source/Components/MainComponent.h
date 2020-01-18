@@ -39,8 +39,8 @@ private:
     Label mTitleLabel { "", "ripchord" };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
-    void handleViewUpdated (const DataMessage* message);
-    void handleMenuUpdated (const DataMessage* message);
+    void handleToggleView (const DataMessage* message);
+    void handleToggleMenu (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);
 

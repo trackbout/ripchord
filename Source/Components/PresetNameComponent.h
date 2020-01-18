@@ -39,7 +39,7 @@ private:
     TextLabel mPresetNameLabel { "", "init" };
     TextInput mPresetNameInput;
 
-    void handleModeUpdated (const DataMessage* message);
+    void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);
     void handlePresetNameUpdated (const DataMessage* message);

@@ -23,6 +23,21 @@ juce::Array<juce::Array<String>> BrowserState::getPresetNames()
 }
 
 //==============================================================================
+bool BrowserState::getIsFavoritesOn()
+{
+    return mIsFavoritesOn;
+}
+
+void BrowserState::toggleFavorites()
+{
+    mIsFavoritesOn = !mIsFavoritesOn;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleFavorites;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
 {
     // 1. Update ripchord.favorites

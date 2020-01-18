@@ -38,7 +38,7 @@ private:
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
-    void handleMenuUpdated (const DataMessage* message);
+    void handleToggleMenu (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MenuComponent)

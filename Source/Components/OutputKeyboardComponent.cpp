@@ -39,7 +39,7 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
@@ -49,7 +49,7 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     };
 }
 
-void OutputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
+void OutputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
 {
     resetKeyColors();
 }

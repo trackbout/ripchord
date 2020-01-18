@@ -60,21 +60,21 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kViewUpdated): { handleViewUpdated (inMessage); } break;
-        case (MessageCode::kMenuUpdated): { handleMenuUpdated (inMessage); } break;
+        case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
+        case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
     };
 }
 
-void MainComponent::handleViewUpdated (const DataMessage* inMessage)
+void MainComponent::handleToggleView (const DataMessage* inMessage)
 {
     mKeyboardViewComponent.setVisible (!mGlobalState.isPresetView());
     mPresetViewComponent.setVisible (mGlobalState.isPresetView());
 }
 
-void MainComponent::handleMenuUpdated (const DataMessage* inMessage)
+void MainComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     mMenuComponent.setVisible (mGlobalState.isMenuVisible());
 }

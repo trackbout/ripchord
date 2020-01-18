@@ -46,7 +46,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kModeUpdated): { handleModeUpdated (inMessage); } break;
+        case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
@@ -55,7 +55,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     };
 }
 
-void InputKeyboardComponent::handleModeUpdated (const DataMessage* inMessage)
+void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
 {
     const int editModeInputNote = mPresetState.getEditModeInputNote();
     juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();

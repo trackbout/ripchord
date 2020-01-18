@@ -87,12 +87,12 @@ void MenuComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kMenuUpdated): { handleMenuUpdated (inMessage); } break;
+        case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
         default: { } break;
     };
 }
 
-void MenuComponent::handleMenuUpdated (const DataMessage* inMessage)
+void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     if (mGlobalState.isMenuHidden()) { return; }
     bool isExportable = mPresetState.isPresetSaveable();
