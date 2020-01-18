@@ -8,6 +8,7 @@ PresetBrowserComponent::PresetBrowserComponent (MainProcess& inMainProcess)
     mBrowserState (mMainProcess.getBrowserState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
 PresetBrowserComponent::~PresetBrowserComponent()
@@ -27,6 +28,17 @@ void PresetBrowserComponent::setDimensions (int inWidth, int inHeight)
 }
 
 //==============================================================================
+void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
+{
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kViewUpdated): { handleViewUpdated (inMessage); } break;
+        case (MessageCode::kPresetFileDeleted): { handlePresetFileDeleted (inMessage); } break;
+        default: { } break;
+    };
+}
+
+//==============================================================================
 void PresetBrowserComponent::refreshBrowser (juce::Array<juce::Array<String>> inPresetNames)
 {
     removeAllChildren();
@@ -37,6 +49,7 @@ void PresetBrowserComponent::refreshBrowser (juce::Array<juce::Array<String>> in
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
         auto* presetComponent = new PresetComponent (inPresetNames[index][0], index);
+        presetComponent->onDelete = [this](const int inIndexValue) { handleMouseClickOnDelete (inIndexValue); };
         presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
         addAndMakeVisible (presetComponent);
 
@@ -49,17 +62,17 @@ void PresetBrowserComponent::refreshBrowser (juce::Array<juce::Array<String>> in
     setSize (getWidth(), viewportHeight);
 }
 
-//==============================================================================
-void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
+void PresetBrowserComponent::handleMouseClickOnDelete (const int inIndexValue)
 {
-    switch (inMessage->messageCode)
-    {
-        case (MessageCode::kViewUpdated): { handleViewUpdated (inMessage); } break;
-        default: { } break;
-    };
+    mBrowserState.handleMouseClickOnDelete (inIndexValue);
 }
 
 void PresetBrowserComponent::handleViewUpdated (const DataMessage* inMessage)
+{
+    refreshBrowser (mBrowserState.getPresetNames());
+}
+
+void PresetBrowserComponent::handlePresetFileDeleted (const DataMessage* inMessage)
 {
     refreshBrowser (mBrowserState.getPresetNames());
 }

@@ -1,8 +1,7 @@
 #include "PresetDeleteComponent.h"
 
 //==============================================================================
-PresetDeleteComponent::PresetDeleteComponent (const int inIndexValue)
-:   mIndexValue (inIndexValue)
+PresetDeleteComponent::PresetDeleteComponent()
 {
     mImages.setDrawableButtonImages (mCancelButton, "Cancel.svg");
     mImages.setDrawableButtonImages (mDeleteButton, "Delete.svg");
@@ -11,6 +10,7 @@ PresetDeleteComponent::PresetDeleteComponent (const int inIndexValue)
     mDeleteButton.setTriggeredOnMouseDown (true);
 
     mCancelButton.onClick = [this]() { setVisible (false); };
+    mDeleteButton.onClick = [this]() { if (onMouseClick) { onMouseClick(); } };
 
     addAndMakeVisible (mCancelButton);
     addAndMakeVisible (mDeleteButton);

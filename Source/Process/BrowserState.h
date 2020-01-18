@@ -15,6 +15,9 @@ public:
     //==============================================================================
     juce::Array<juce::Array<String>> getPresetNames();
 
+    //==============================================================================
+    void handleMouseClickOnDelete (const int indexValue);
+
 private:
     //==============================================================================
     juce::Array<juce::Array<String>> mPresetNames;

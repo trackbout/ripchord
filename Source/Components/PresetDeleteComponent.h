@@ -9,17 +9,18 @@ class PresetDeleteComponent : public Component
 {
 public:
     //==============================================================================
-    PresetDeleteComponent (const int indexValue);
+    PresetDeleteComponent();
     ~PresetDeleteComponent();
 
     void paint (Graphics& graphics) override;
     void resized() override;
 
+    //==============================================================================
+    std::function<void()> onMouseClick;
+
 private:
     //==============================================================================
     Images mImages;
-    const int mIndexValue;
-
     DrawableButton mCancelButton { "", DrawableButton::ImageStretched };
     DrawableButton mDeleteButton { "", DrawableButton::ImageStretched };
 

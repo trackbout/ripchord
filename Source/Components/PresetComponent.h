@@ -17,6 +17,9 @@ public:
     void paint (Graphics& graphics) override;
     void resized() override;
 
+    //==============================================================================
+    std::function<void (const int indexValue)> onDelete;
+
 private:
     //==============================================================================
     Images mImages;
@@ -27,6 +30,8 @@ private:
 
     DrawableButton mStarButton { "", DrawableButton::ImageStretched };
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
+
+    void handleDelete();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComponent)

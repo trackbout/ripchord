@@ -2,8 +2,7 @@
 
 //==============================================================================
 PresetComponent::PresetComponent (const String inFileName, const int inIndexValue)
-:   mIndexValue (inIndexValue),
-    mPresetDelete (inIndexValue)
+:   mIndexValue (inIndexValue)
 {
     mPresetLabel.setText (inFileName, dontSendNotification);
     mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
@@ -16,6 +15,7 @@ PresetComponent::PresetComponent (const String inFileName, const int inIndexValu
     mStarButton.setTriggeredOnMouseDown (true);
 
     mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
+    mPresetDelete.onMouseClick = [this]() { handleDelete(); };
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);
@@ -51,4 +51,10 @@ void PresetComponent::resized()
 
     mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
+}
+
+//==============================================================================
+void PresetComponent::handleDelete()
+{
+    if (onDelete) { onDelete (mIndexValue); }
 }

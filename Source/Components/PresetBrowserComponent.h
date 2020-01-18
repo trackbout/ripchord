@@ -35,7 +35,10 @@ private:
 
     void refreshBrowser (juce::Array<juce::Array<String>> presetNames);
 
+    void handleMouseClickOnDelete (const int indexValue);
+
     void handleViewUpdated (const DataMessage* message);
+    void handlePresetFileDeleted (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)
