@@ -16,17 +16,20 @@ public:
     juce::Array<juce::Array<String>> getPresetNames();
 
     //==============================================================================
+    String getFilterText();
     bool getIsFavoritesOn();
     void toggleFavorites();
 
     //==============================================================================
     void handleMouseClickOnDelete (const int indexValue);
     void handleMouseClickOnFavorite (const int indexValue);
+    void handlePresetFilterTextChanged (String filterText);
 
 private:
     //==============================================================================
     juce::Array<juce::Array<String>> mPresetNames;
 
+    String mFilterText = "";
     bool mIsFavoritesOn = false;
 
     //==============================================================================

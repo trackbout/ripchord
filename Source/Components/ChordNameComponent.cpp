@@ -15,10 +15,10 @@ ChordNameComponent::ChordNameComponent (MainProcess& inMainProcess)
 
     mChordNameLabel.setJustificationType (Justification::centred);
 
-    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY_MEDIUM);
+    mChordNameInput.setWantsKeyboardFocus (true);
     mChordNameInput.setJustification (Justification::centred);
     mChordNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
-    mChordNameInput.setWantsKeyboardFocus (true);
+    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY_MEDIUM);
     mChordNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
     mChordNameInput.onTextChange = [this]()
@@ -111,6 +111,6 @@ void ChordNameComponent::handleCurrentlyOnInputNotes (const DataMessage* inMessa
 
     if (nextCurrentlyOnInputNotes.size() == 0)
     {
-        mChordNameLabel.setText("", dontSendNotification);
+        mChordNameLabel.setText ("", dontSendNotification);
     }
 }

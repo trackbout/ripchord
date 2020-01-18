@@ -71,7 +71,7 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
-        case (MessageCode::kPresetNameUpdated): { handlePresetNameUpdated (inMessage); } break;
+        case (MessageCode::kPresetNameTextChanged): { handlePresetNameUpdated (inMessage); } break;
         default: { } break;
     };
 }

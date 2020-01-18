@@ -38,6 +38,7 @@ private:
     DrawableButton mKeyboardsButton { "", DrawableButton::ImageStretched };
 
     void handleToggleFavorites (const DataMessage* message);
+    void handlePresetFilterTextChanged (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetViewComponent)

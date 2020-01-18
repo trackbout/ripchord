@@ -105,8 +105,8 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
-        case (MessageCode::kPresetNameUpdated): { handlePresetModified (inMessage); } break;
-        case (MessageCode::kChordNameUpdated): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kPresetNameTextChanged): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kChordNameTextChanged): { handlePresetModified (inMessage); } break;
         default: { } break;
     };
 }

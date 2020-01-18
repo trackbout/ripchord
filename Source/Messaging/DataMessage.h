@@ -23,14 +23,15 @@ enum MessageCode
     kPresetFileNew,
     kPresetFileSaved,
     kPresetFileLoaded,
-    kChordNameUpdated,
-    kPresetNameUpdated,
     kEditModeInputNote,
     kEditModeOutputNotes,
+    kChordNameTextChanged,
+    kPresetNameTextChanged,
 
     // Messages from BrowserState
     kToggleFavorites,
-    kPresetNamesUpdated,
+    kPresetNamesChanged,
+    kPresetFilterTextChanged,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

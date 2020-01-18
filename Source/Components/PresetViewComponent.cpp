@@ -9,9 +9,17 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 {
     mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    setWantsKeyboardFocus (true);
+
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
     mPresetFilterInput.setColour (TextEditor::outlineColourId, COLOR_GREY_LIGHTER);
     mPresetFilterInput.setColour (TextEditor::focusedOutlineColourId, COLOR_BLUE);
+    mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
+
+    mPresetFilterInput.onTextChange = [this]()
+    {
+        mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
+    };
 
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
@@ -25,9 +33,10 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mPresetViewport.setScrollBarsShown (true, false);
     mPresetViewport.setViewedComponent (&mPresetBrowser, false);
 
+    addAndMakeVisible (mPresetFilterInput);
+    addAndMakeVisible (mPresetViewport);
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
-    addAndMakeVisible (mPresetViewport);
 }
 
 PresetViewComponent::~PresetViewComponent()
@@ -86,6 +95,7 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
+        case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
         default: { } break;
     };
 }
@@ -95,4 +105,9 @@ void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
     bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
     mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
+}
+
+void PresetViewComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
+{
+    mPresetFilterInput.setText (mBrowserState.getFilterText(), dontSendNotification);
 }

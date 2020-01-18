@@ -136,7 +136,7 @@ void PresetState::handleChordNameTextChanged (String inChordName)
 
     mIsPresetModified = true;
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kChordNameUpdated;
+    message->messageCode = MessageCode::kChordNameTextChanged;
     message->messageVar1 = inChordName;
     sendMessage (message, ListenerType::kSync);
 }
@@ -149,7 +149,7 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 
     mIsPresetModified = true;
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetNameUpdated;
+    message->messageCode = MessageCode::kPresetNameTextChanged;
     message->messageVar1 = inPresetName;
     sendMessage (message, ListenerType::kSync);
 }

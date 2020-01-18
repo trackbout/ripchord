@@ -34,13 +34,14 @@ private:
 
     void handleToggleView (const DataMessage* message);
     void handleToggleFavorites (const DataMessage* message);
-    void handlePresetNamesUpdated (const DataMessage* message);
+    void handlePresetNamesChanged (const DataMessage* message);
+    void handlePresetFilterTextChanged (const DataMessage* message);
 
     void handleMouseClickOnDelete (const int indexValue);
     void handleMouseClickOnFavorite (const int indexValue);
 
     void refreshBrowser();
-    void renderPresetNames (juce::Array<juce::Array<String>> presetNames);
+    void renderPresetComponents (juce::Array<juce::Array<String>> presetNames);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)

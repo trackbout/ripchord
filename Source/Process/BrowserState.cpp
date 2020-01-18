@@ -23,6 +23,11 @@ juce::Array<juce::Array<String>> BrowserState::getPresetNames()
 }
 
 //==============================================================================
+String BrowserState::getFilterText()
+{
+    return mFilterText;
+}
+
 bool BrowserState::getIsFavoritesOn()
 {
     return mIsFavoritesOn;
@@ -46,7 +51,7 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
     mPresetNames.remove (inIndexValue);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetNamesUpdated;
+    message->messageCode = MessageCode::kPresetNamesChanged;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -59,6 +64,15 @@ void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
     mPresetNames.set (inIndexValue, nextPresetName);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetNamesUpdated;
+    message->messageCode = MessageCode::kPresetNamesChanged;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void BrowserState::handlePresetFilterTextChanged (String inFilterText)
+{
+    mFilterText = inFilterText;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFilterTextChanged;
     sendMessage (message, ListenerType::kSync);
 }

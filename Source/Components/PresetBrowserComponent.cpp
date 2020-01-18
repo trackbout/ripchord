@@ -34,7 +34,8 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
-        case (MessageCode::kPresetNamesUpdated): { handlePresetNamesUpdated (inMessage); } break;
+        case (MessageCode::kPresetNamesChanged): { handlePresetNamesChanged (inMessage); } break;
+        case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
         default: { } break;
     };
 }
@@ -50,7 +51,12 @@ void PresetBrowserComponent::handleToggleFavorites (const DataMessage* inMessage
     refreshBrowser();
 }
 
-void PresetBrowserComponent::handlePresetNamesUpdated (const DataMessage* inMessage)
+void PresetBrowserComponent::handlePresetNamesChanged (const DataMessage* inMessage)
+{
+    refreshBrowser();
+}
+
+void PresetBrowserComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
 {
     refreshBrowser();
 }
@@ -70,26 +76,54 @@ void PresetBrowserComponent::refreshBrowser()
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
+    juce::Array<juce::Array<String>> filteredPresetNames;
+    bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
+    bool isFilterTextOn = !mBrowserState.getFilterText().isEmpty();
 
-    if (!mBrowserState.getIsFavoritesOn())
+    if (!isFavoritesOn && !isFilterTextOn)
     {
-        renderPresetNames (mBrowserState.getPresetNames());
+        renderPresetComponents (mBrowserState.getPresetNames());
     }
 
-    if (mBrowserState.getIsFavoritesOn())
+    if (isFavoritesOn && !isFilterTextOn)
     {
-        juce::Array<juce::Array<String>> filteredPresetNames;
-
         for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
         {
             if (presetName[1] == "true") { filteredPresetNames.add (presetName); }
         }
 
-        renderPresetNames (filteredPresetNames);
+        renderPresetComponents (filteredPresetNames);
+    }
+
+    if (!isFavoritesOn && isFilterTextOn)
+    {
+        String filterText = mBrowserState.getFilterText();
+
+        for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
+        {
+            if (presetName[0].containsIgnoreCase (filterText)) { filteredPresetNames.add (presetName); }
+        }
+
+        renderPresetComponents (filteredPresetNames);
+    }
+
+    if (isFavoritesOn && isFilterTextOn)
+    {
+        String filterText = mBrowserState.getFilterText();
+
+        for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
+        {
+            if (presetName[0].containsIgnoreCase (filterText) && presetName[1] == "true")
+            {
+                filteredPresetNames.add (presetName);
+            }
+        }
+
+        renderPresetComponents (filteredPresetNames);
     }
 }
 
-void PresetBrowserComponent::renderPresetNames (juce::Array<juce::Array<String>> inPresetNames)
+void PresetBrowserComponent::renderPresetComponents (juce::Array<juce::Array<String>> inPresetNames)
 {
     for (int index = 0; index < inPresetNames.size(); index++)
     {
