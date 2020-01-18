@@ -31,6 +31,19 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
     mPresetNames.remove (inIndexValue);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetFileDeleted;
+    message->messageCode = MessageCode::kPresetNamesUpdated;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
+{
+    // 1. Update ripchord.favorites
+    // 2. Update indexValue in presetNames
+    juce::Array<String> nextPresetName = mPresetNames[inIndexValue];
+    nextPresetName.set (1, nextPresetName[1] == "false" ? "true" : "false");
+    mPresetNames.set (inIndexValue, nextPresetName);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetNamesUpdated;
     sendMessage (message, ListenerType::kSync);
 }

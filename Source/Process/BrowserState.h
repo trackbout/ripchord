@@ -17,6 +17,7 @@ public:
 
     //==============================================================================
     void handleMouseClickOnDelete (const int indexValue);
+    void handleMouseClickOnFavorite (const int indexValue);
 
 private:
     //==============================================================================

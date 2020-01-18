@@ -33,12 +33,12 @@ private:
 
     OwnedArray<PresetComponent> mPresetsToDelete;
 
-    void refreshBrowser (juce::Array<juce::Array<String>> presetNames);
+    void handleViewUpdated (const DataMessage* message);
+    void handlePresetNamesUpdated (const DataMessage* message);
 
     void handleMouseClickOnDelete (const int indexValue);
-
-    void handleViewUpdated (const DataMessage* message);
-    void handlePresetFileDeleted (const DataMessage* message);
+    void handleMouseClickOnFavorite (const int indexValue);
+    void refreshBrowser (juce::Array<juce::Array<String>> presetNames);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)

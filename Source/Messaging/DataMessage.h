@@ -29,7 +29,7 @@ enum MessageCode
     kEditModeOutputNotes,
 
     // Messages from BrowserState
-    kPresetFileDeleted,
+    kPresetNamesUpdated,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

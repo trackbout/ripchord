@@ -1,21 +1,23 @@
 #include "PresetComponent.h"
 
 //==============================================================================
-PresetComponent::PresetComponent (const String inFileName, const int inIndexValue)
-:   mIndexValue (inIndexValue)
+PresetComponent::PresetComponent (const int inIndexValue, const String inFileName, const bool inIsFavorite)
+:   mIndexValue (inIndexValue),
+    mIsFavorite (inIsFavorite)
 {
     mPresetLabel.setText (inFileName, dontSendNotification);
     mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
-    mImages.setDrawableButtonImages (mStarButton, "Star.svg", "", "", "", "StarON.svg", "", "", "");
+    mImages.setDrawableButtonImages (mStarButton, inIsFavorite ? "StarON.svg" : "Star.svg");
 
     mTrashButton.setTriggeredOnMouseDown (true);
     mStarButton.setTriggeredOnMouseDown (true);
 
     mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
-    mPresetDelete.onMouseClick = [this]() { handleDelete(); };
+    mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mIndexValue); } };
+    mPresetDelete.onMouseClick = [this]() { if (onDelete) { onDelete (mIndexValue); } };
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);
@@ -51,10 +53,4 @@ void PresetComponent::resized()
 
     mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
-}
-
-//==============================================================================
-void PresetComponent::handleDelete()
-{
-    if (onDelete) { onDelete (mIndexValue); }
 }
