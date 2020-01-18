@@ -33,7 +33,7 @@ private:
 
     OwnedArray<PresetComponent> mPresetsToDelete;
 
-    void refreshBrowser (std::map<String, bool, std::less<String>> presetNames);
+    void refreshBrowser (juce::Array<juce::Array<String>> presetNames);
 
     void handleViewUpdated (const DataMessage* message);
 

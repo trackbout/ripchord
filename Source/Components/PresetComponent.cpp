@@ -1,8 +1,11 @@
 #include "PresetComponent.h"
 
 //==============================================================================
-PresetComponent::PresetComponent()
+PresetComponent::PresetComponent (const String inFileName, const int inIndexValue)
+:   mIndexValue (inIndexValue),
+    mPresetDelete (inIndexValue)
 {
+    mPresetLabel.setText (inFileName, dontSendNotification);
     mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
 
@@ -15,7 +18,7 @@ PresetComponent::PresetComponent()
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);
     addAndMakeVisible (mTrashButton);
-    addChildComponent (mPresetDeleteComponent);
+    addChildComponent (mPresetDelete);
 }
 
 PresetComponent::~PresetComponent()
@@ -33,7 +36,7 @@ void PresetComponent::paint (Graphics& inGraphics)
 void PresetComponent::resized()
 {
     auto area = getLocalBounds();
-    mPresetDeleteComponent.setBounds (area);
+    mPresetDelete.setBounds (area);
 
     juce::Rectangle<float> starAreaProportion (STAR_X / PRESET_WIDTH, STAR_Y / ITEM_HEIGHT,
                                                STAR_WIDTH / PRESET_WIDTH, STAR_HEIGHT / ITEM_HEIGHT);
@@ -46,15 +49,4 @@ void PresetComponent::resized()
 
     mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
-}
-
-//==============================================================================
-void PresetComponent::setFileName (String inFileName)
-{
-    mPresetLabel.setText (inFileName, dontSendNotification);
-}
-
-void PresetComponent::setIsFavorite (bool inIsFavorite)
-{
-    mIsFavorite = inIsFavorite;
 }

@@ -10,24 +10,20 @@ class PresetComponent : public Component
 {
 public:
     //==============================================================================
-    PresetComponent();
+    PresetComponent (const String fileName, const int indexValue);
     ~PresetComponent();
 
     //==============================================================================
     void paint (Graphics& graphics) override;
     void resized() override;
 
-    //==============================================================================
-    void setFileName (String fileName);
-    void setIsFavorite (bool isFavorite);
-
 private:
     //==============================================================================
     Images mImages;
     Label mPresetLabel;
-    bool mIsFavorite;
+    const int mIndexValue;
 
-    PresetDeleteComponent mPresetDeleteComponent;
+    PresetDeleteComponent mPresetDelete;
 
     DrawableButton mStarButton { "", DrawableButton::ImageStretched };
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };

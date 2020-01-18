@@ -27,21 +27,18 @@ void PresetBrowserComponent::setDimensions (int inWidth, int inHeight)
 }
 
 //==============================================================================
-void PresetBrowserComponent::refreshBrowser (std::map<String, bool, std::less<String>> inPresetNames)
+void PresetBrowserComponent::refreshBrowser (juce::Array<juce::Array<String>> inPresetNames)
 {
-    int index = 0;
     removeAllChildren();
 
-    for (const auto& pair : inPresetNames)
+    for (int index = 0; index < inPresetNames.size(); index++)
     {
         int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
-        auto* presetComponent = new PresetComponent();
+        auto* presetComponent = new PresetComponent (inPresetNames[index][0], index);
         presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
-        presetComponent->setFileName (pair.first);
         addAndMakeVisible (presetComponent);
-        index++;
 
         // Delete pointers to prevent leaks
         mPresetsToDelete.add (presetComponent);
