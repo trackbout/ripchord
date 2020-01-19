@@ -1,7 +1,19 @@
 #pragma once
 
+#include "System.h"
+
 //==============================================================================
-const String PRESET_FILE_EXTENSION = ".rpc";
+const String PRESET_EXTENSION = ".rpc";
+const File PRESET_FOLDER = System::getUserDataPath (ProjectInfo::companyName,
+                                                    ProjectInfo::projectName).getChildFile ("Presets");
+
+//==============================================================================
+struct Preset
+{
+    int indexValue;
+    String fileName;
+    bool isFavorite;
+};
 
 //==============================================================================
 struct Chord
@@ -11,7 +23,7 @@ struct Chord
 };
 
 //==============================================================================
-namespace Preset
+namespace Presets
 {
     //==============================================================================
     static inline XmlElement getXmlFromPresetState (String inName, std::map<int, Chord> inChords)

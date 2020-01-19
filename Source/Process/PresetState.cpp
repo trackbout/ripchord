@@ -2,8 +2,6 @@
 
 //==============================================================================
 PresetState::PresetState()
-:   mUserDataPath (System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName)),
-    mPresetFolder (mUserDataPath.getChildFile ("Presets"))
 {
 }
 
@@ -167,14 +165,14 @@ void PresetState::handleMouseClickOnSave()
 {
     if (!isPresetSaveable() || !mIsPresetModified) { return; }
 
-    File prevPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+    File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
     if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
 
-    mPresetFileName = mName + PRESET_FILE_EXTENSION;
+    mPresetFileName = mName + PRESET_EXTENSION;
     mIsPresetModified = false;
 
-    XmlElement nextPresetXml = Preset::getXmlFromPresetState (mName, mChords);
-    File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+    XmlElement nextPresetXml = Presets::getXmlFromPresetState (mName, mChords);
+    File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
     nextPresetXml.writeTo (nextPresetFile);
 
     DataMessage* message = new DataMessage();
@@ -184,7 +182,7 @@ void PresetState::handleMouseClickOnSave()
 
 void PresetState::handleMouseClickOnImport()
 {
-    FileChooser chooser ("Import preset file...", mPresetFolder, "*" + PRESET_FILE_EXTENSION);
+    FileChooser chooser ("Import preset file...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
 
     if (chooser.browseForFileToOpen())
     {
@@ -193,14 +191,14 @@ void PresetState::handleMouseClickOnImport()
 
         resetPresetState();
         mPresetFileName = chosenFile.getFileName();
-        mName = Preset::getPresetNameFromXml (chosenFile);
-        mChords = Preset::getPresetChordsFromXml (chosenFile);
+        mName = Presets::getPresetNameFromXml (chosenFile);
+        mChords = Presets::getPresetChordsFromXml (chosenFile);
 
-        File prevPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+        File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
         if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
 
-        XmlElement nextPresetXml = Preset::getXmlFromPresetState (mName, mChords);
-        File nextPresetFile = mPresetFolder.getChildFile (mPresetFileName);
+        XmlElement nextPresetXml = Presets::getXmlFromPresetState (mName, mChords);
+        File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
         nextPresetXml.writeTo (nextPresetFile);
 
         DataMessage* message = new DataMessage();
@@ -215,12 +213,12 @@ void PresetState::handleMouseClickOnExport()
 {
     if (!isPresetSaveable()) { return; }
 
-    FileChooser chooser ("Copy preset to...", mPresetFolder, "*" + PRESET_FILE_EXTENSION);
+    FileChooser chooser ("Copy preset to...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
 
     if (chooser.browseForFileToSave (true))
     {
         File chosenFile (chooser.getResult());
-        XmlElement presetXml = Preset::getXmlFromPresetState (mName, mChords);
+        XmlElement presetXml = Presets::getXmlFromPresetState (mName, mChords);
         presetXml.writeTo (chosenFile);
     }
 }

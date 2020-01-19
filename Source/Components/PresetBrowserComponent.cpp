@@ -76,7 +76,7 @@ void PresetBrowserComponent::refreshBrowser()
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
-    juce::Array<juce::Array<var>> filteredPresets;
+    juce::Array<Preset> filteredPresets;
     bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
     bool isFilterTextOn = !mBrowserState.getFilterText().isEmpty();
 
@@ -87,10 +87,9 @@ void PresetBrowserComponent::refreshBrowser()
 
     if (isFavoritesOn && !isFilterTextOn)
     {
-        for (juce::Array<var>& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getPresets())
         {
-            bool isFavorite = preset[2];
-            if (isFavorite) { filteredPresets.add (preset); }
+            if (preset.isFavorite) { filteredPresets.add (preset); }
         }
 
         renderPresetComponents (filteredPresets);
@@ -100,10 +99,9 @@ void PresetBrowserComponent::refreshBrowser()
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (juce::Array<var>& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getPresets())
         {
-            String fileName = preset[1];
-            if (fileName.containsIgnoreCase (filterText)) { filteredPresets.add (preset); }
+            if (preset.fileName.containsIgnoreCase (filterText)) { filteredPresets.add (preset); }
         }
 
         renderPresetComponents (filteredPresets);
@@ -113,11 +111,9 @@ void PresetBrowserComponent::refreshBrowser()
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (juce::Array<var>& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getPresets())
         {
-            bool isFavorite = preset[2];
-            String fileName = preset[1];
-            if (isFavorite && fileName.containsIgnoreCase (filterText))
+            if (preset.isFavorite && preset.fileName.containsIgnoreCase (filterText))
             {
                 filteredPresets.add (preset);
             }
@@ -127,11 +123,11 @@ void PresetBrowserComponent::refreshBrowser()
     }
 }
 
-void PresetBrowserComponent::renderPresetComponents (juce::Array<juce::Array<var>> inPresets)
+void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPresets)
 {
     for (int index = 0; index < inPresets.size(); index++)
     {
-        juce::Array<var> preset = inPresets[index];
+        Preset preset = inPresets[index];
         int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 

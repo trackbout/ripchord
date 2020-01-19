@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Presets.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -13,7 +14,7 @@ public:
     ~BrowserState();
 
     //==============================================================================
-    juce::Array<juce::Array<var>> getPresets();
+    juce::Array<Preset> getPresets();
 
     //==============================================================================
     String getFilterText();
@@ -27,8 +28,7 @@ public:
 
 private:
     //==============================================================================
-    // [0]: indexValue, [1]: fileName, [2]: isFavorite
-    juce::Array<juce::Array<var>> mPresets;
+    juce::Array<Preset> mPresets;
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;

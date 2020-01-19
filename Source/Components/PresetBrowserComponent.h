@@ -41,7 +41,7 @@ private:
     void handleMouseClickOnFavorite (const int indexValue);
 
     void refreshBrowser();
-    void renderPresetComponents (juce::Array<juce::Array<var>> presets);
+    void renderPresetComponents (juce::Array<Preset> presets);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)

@@ -1,22 +1,22 @@
 #include "PresetComponent.h"
 
 //==============================================================================
-PresetComponent::PresetComponent (juce::Array<var> inPreset)
+PresetComponent::PresetComponent (Preset inPreset)
 :   mPreset (inPreset)
 {
-    mPresetLabel.setText (mPreset[1], dontSendNotification);
+    mPresetLabel.setText (mPreset.fileName, dontSendNotification);
     mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
-    mImages.setDrawableButtonImages (mStarButton, mPreset[2] ? "StarON.svg" : "Star.svg");
+    mImages.setDrawableButtonImages (mStarButton, mPreset.isFavorite ? "StarON.svg" : "Star.svg");
 
     mTrashButton.setTriggeredOnMouseDown (true);
     mStarButton.setTriggeredOnMouseDown (true);
 
     mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
-    mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mPreset[0]); } };
-    mPresetDelete.onMouseClick = [this]() { if (onDelete) { onDelete (mPreset[0]); } };
+    mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mPreset.indexValue); } };
+    mPresetDelete.onMouseClick = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);

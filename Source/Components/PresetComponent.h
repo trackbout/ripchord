@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "Images.h"
 #include "Styles.h"
+#include "Presets.h"
 #include "PresetDeleteComponent.h"
 
 //==============================================================================
@@ -10,7 +11,7 @@ class PresetComponent : public Component
 {
 public:
     //==============================================================================
-    PresetComponent (juce::Array<var> preset);
+    PresetComponent (Preset preset);
     ~PresetComponent();
 
     //==============================================================================
@@ -23,8 +24,7 @@ public:
 
 private:
     //==============================================================================
-    // [0]: indexValue, [1]: fileName, [2]: isFavorite
-    juce::Array<var> mPreset;
+    Preset mPreset;
 
     Images mImages;
     Label mPresetLabel;

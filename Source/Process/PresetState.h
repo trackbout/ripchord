@@ -1,8 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "System.h"
-#include "Preset.h"
+#include "Presets.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -52,10 +51,6 @@ private:
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
     void resetPresetState();
-
-    //==============================================================================
-    const File mUserDataPath;
-    const File mPresetFolder;
 
     //==============================================================================
     String mPresetFileName;

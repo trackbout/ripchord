@@ -5,12 +5,10 @@ BrowserState::BrowserState()
 {
     for (int index = 0; index <= 30; index++)
     {
-        String fileName = "Preset " + std::to_string (index);
-
-        juce::Array<var> preset;
-        preset.add (index);
-        preset.add (fileName);
-        preset.add (false);
+        Preset preset;
+        preset.indexValue = index;
+        preset.fileName = "Preset " + std::to_string (index);
+        preset.isFavorite = false;
         mPresets.add (preset);
     }
 }
@@ -20,7 +18,7 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
-juce::Array<juce::Array<var>> BrowserState::getPresets()
+juce::Array<Preset> BrowserState::getPresets()
 {
     return mPresets;
 }
@@ -62,8 +60,8 @@ void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 {
     // 1. Update ripchord.favorites
     // 2. Update indexValue in presets
-    juce::Array<var> nextPreset = mPresets[inIndexValue];
-    nextPreset.set (2, !nextPreset[2]);
+    Preset nextPreset = mPresets[inIndexValue];
+    nextPreset.isFavorite = !nextPreset.isFavorite;
     mPresets.set (inIndexValue, nextPreset);
 
     DataMessage* message = new DataMessage();
