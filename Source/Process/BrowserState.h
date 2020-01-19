@@ -34,6 +34,9 @@ private:
     String mFilterText = "";
     bool mIsFavoritesOn = false;
 
+    PropertiesFile mPropertiesFile { System::createPluginPropertiesOptions ("favorites") };
+    StringArray mFavoritesFiles { StringArray::fromTokens (mPropertiesFile.getValue ("favorites"), ";", "") };
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)
 };

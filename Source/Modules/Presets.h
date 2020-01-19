@@ -26,6 +26,13 @@ struct Chord
 namespace Presets
 {
     //==============================================================================
+    static inline Array<File> getSortedPresetFiles()
+    {
+        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*.rpc");
+        files.sort();
+        return files;
+    }
+
     static inline XmlElement getXmlFromPresetState (String inName, std::map<int, Chord> inChords)
     {
         XmlElement presetXml ("ripchord");
@@ -86,12 +93,5 @@ namespace Presets
         }
 
         return chords;
-    }
-
-    static inline Array<File> getPresetFiles()
-    {
-        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*.rpc");
-        files.sort();
-        return files;
     }
 }
