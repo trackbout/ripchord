@@ -32,35 +32,15 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
-        case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
-        case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
-        case (MessageCode::kPresetsChanged): { handlePresetsChanged (inMessage); } break;
+        case (MessageCode::kToggleView): { refreshBrowser(); } break;
+        case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
+        case (MessageCode::kPresetFilterTextChanged): { refreshBrowser(); } break;
+        case (MessageCode::kPresetsChanged): { refreshBrowser(); } break;
         default: { } break;
     };
 }
 
 //==============================================================================
-void PresetBrowserComponent::handleToggleView (const DataMessage* inMessage)
-{
-    refreshBrowser();
-}
-
-void PresetBrowserComponent::handleToggleFavorites (const DataMessage* inMessage)
-{
-    refreshBrowser();
-}
-
-void PresetBrowserComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
-{
-    refreshBrowser();
-}
-
-void PresetBrowserComponent::handlePresetsChanged (const DataMessage* inMessage)
-{
-    refreshBrowser();
-}
-
 void PresetBrowserComponent::handleMouseClickOnDelete (const int inIndexValue)
 {
     mBrowserState.handleMouseClickOnDelete (inIndexValue);

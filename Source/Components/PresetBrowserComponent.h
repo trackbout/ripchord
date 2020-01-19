@@ -32,11 +32,6 @@ private:
 
     OwnedArray<PresetComponent> mPresetsToDelete;
 
-    void handleToggleView (const DataMessage* message);
-    void handleToggleFavorites (const DataMessage* message);
-    void handlePresetFilterTextChanged (const DataMessage* message);
-    void handlePresetsChanged (const DataMessage* message);
-
     void handleMouseClickOnDelete (const int indexValue);
     void handleMouseClickOnFavorite (const int indexValue);
 
