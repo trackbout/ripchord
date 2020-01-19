@@ -4,7 +4,6 @@
 
 //==============================================================================
 const String PRESET_EXTENSION = ".rpc";
-const String PRESET_WILDCARD = "*" + PRESET_EXTENSION;
 const File PRESET_FOLDER = System::getUserDataPath (ProjectInfo::companyName,
                                                     ProjectInfo::projectName).getChildFile ("Presets");
 
@@ -27,9 +26,21 @@ struct Chord
 namespace Presets
 {
     //==============================================================================
+    static inline bool isValidFileName (String inFileName)
+    {
+        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -_1234567890";
+
+        for (int index = 0; index < inFileName.length(); index++)
+        {
+            if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
+        }
+
+        return true;
+    }
+
     static inline Array<File> getSortedPresetFiles()
     {
-        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, PRESET_WILDCARD);
+        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*" + PRESET_EXTENSION);
         files.sort();
         return files;
     }

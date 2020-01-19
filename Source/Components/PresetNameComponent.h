@@ -41,8 +41,7 @@ private:
 
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
-    void handlePresetFileLoaded (const DataMessage* message);
-    void handlePresetNameUpdated (const DataMessage* message);
+    void handlePresetNameTextChanged (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetNameComponent)

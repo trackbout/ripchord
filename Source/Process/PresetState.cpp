@@ -143,12 +143,15 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 {
     if (mName == inPresetName) { return; }
 
-    mName = inPresetName;
+    if (Presets::isValidFileName (inPresetName))
+    {
+        mName = inPresetName;
+        mIsPresetModified = true;
+    }
 
-    mIsPresetModified = true;
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetNameTextChanged;
-    message->messageVar1 = inPresetName;
+    message->messageVar1 = mName;
     sendMessage (message, ListenerType::kSync);
 }
 
