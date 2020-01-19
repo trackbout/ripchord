@@ -3,7 +3,7 @@
 //==============================================================================
 BrowserState::BrowserState()
 {
-    refreshPresets();
+    refreshPresetFiles();
 }
 
 BrowserState::~BrowserState()
@@ -11,17 +11,18 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
-void BrowserState::refreshPresets()
+void BrowserState::refreshPresetFiles()
 {
     mPresets.clear();
-    Array<File> files = Presets::getSortedPresetFiles();
+    mPresetFiles.clear();
+    mPresetFiles = Presets::getSortedPresetFiles();
 
-    for (int index = 0; index < files.size(); index++)
+    for (int index = 0; index < mPresetFiles.size(); index++)
     {
         Preset preset;
         preset.indexValue = index;
-        preset.fileName = files[index].getFileNameWithoutExtension();
-        preset.isFavorite = mFavoritesFiles.contains (files[index].getFullPathName());
+        preset.fileName = mPresetFiles[index].getFileNameWithoutExtension();
+        preset.isFavorite = mFavPathNames.contains (mPresetFiles[index].getFullPathName());
         mPresets.add (preset);
     }
 }
@@ -54,10 +55,17 @@ void BrowserState::toggleFavorites()
 //==============================================================================
 void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
 {
-    // 1. Update ripchord.favorites
-    // 2. Delete file based on file name
-    // 3. Remove indexValue from presets
+    File file = mPresetFiles[inIndexValue];
+
+    if (mFavPathNames.contains (file.getFullPathName()))
+    {
+        mFavPathNames.removeString (file.getFullPathName());
+        mPropertiesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+        mPropertiesFile.saveIfNeeded();
+    }
+
     mPresets.remove (inIndexValue);
+    file.deleteFile();
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetsChanged;
@@ -67,21 +75,21 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
 void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 {
     Preset preset = mPresets[inIndexValue];
-    File file = Presets::getSortedPresetFiles()[inIndexValue];
+    File file = mPresetFiles[inIndexValue];
 
     if (preset.isFavorite)
     {
         preset.isFavorite = false;
-        mFavoritesFiles.removeString (file.getFullPathName());
+        mFavPathNames.removeString (file.getFullPathName());
     }
     else
     {
         preset.isFavorite = true;
-        mFavoritesFiles.addIfNotAlreadyThere (file.getFullPathName());
+        mFavPathNames.addIfNotAlreadyThere (file.getFullPathName());
     }
 
     mPresets.set (inIndexValue, preset);
-    mPropertiesFile.setValue ("favorites", mFavoritesFiles.joinIntoString (";"));
+    mPropertiesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
     mPropertiesFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();

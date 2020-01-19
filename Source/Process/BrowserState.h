@@ -14,7 +14,7 @@ public:
     ~BrowserState();
 
     //==============================================================================
-    void refreshPresets();
+    void refreshPresetFiles();
     juce::Array<Preset> getPresets();
 
     //==============================================================================
@@ -29,13 +29,14 @@ public:
 
 private:
     //==============================================================================
+    Array<File> mPresetFiles;
     juce::Array<Preset> mPresets;
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;
 
     PropertiesFile mPropertiesFile { System::createPluginPropertiesOptions ("favorites") };
-    StringArray mFavoritesFiles { StringArray::fromTokens (mPropertiesFile.getValue ("favorites"), ";", "") };
+    StringArray mFavPathNames { StringArray::fromTokens (mPropertiesFile.getValue ("favorites"), ";", "") };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)
