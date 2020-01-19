@@ -4,6 +4,7 @@
 
 //==============================================================================
 const String PRESET_EXTENSION = ".rpc";
+const String PRESET_WILDCARD = "*" + PRESET_EXTENSION;
 const File PRESET_FOLDER = System::getUserDataPath (ProjectInfo::companyName,
                                                     ProjectInfo::projectName).getChildFile ("Presets");
 
@@ -28,7 +29,7 @@ namespace Presets
     //==============================================================================
     static inline Array<File> getSortedPresetFiles()
     {
-        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*.rpc");
+        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, PRESET_WILDCARD);
         files.sort();
         return files;
     }
@@ -60,13 +61,6 @@ namespace Presets
 
         presetXml.addChildElement (mappingsXml);
         return presetXml;
-    }
-
-    static inline String getPresetNameFromXml (const File& inFile)
-    {
-        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
-        XmlElement* mappingsXml = presetXml->getChildByName ("KeyboardMapping");
-        return mappingsXml->getStringAttribute ("name");
     }
 
     static inline std::map<int, Chord> getPresetChordsFromXml (const File& inFile)

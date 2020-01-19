@@ -191,7 +191,7 @@ void PresetState::handleMouseClickOnImport()
 
         resetPresetState();
         mPresetFileName = chosenFile.getFileName();
-        mName = Presets::getPresetNameFromXml (chosenFile);
+        mName = chosenFile.getFileNameWithoutExtension();
         mChords = Presets::getPresetChordsFromXml (chosenFile);
 
         File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
