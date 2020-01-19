@@ -3,14 +3,7 @@
 //==============================================================================
 BrowserState::BrowserState()
 {
-    for (int index = 0; index <= 30; index++)
-    {
-        Preset preset;
-        preset.indexValue = index;
-        preset.fileName = "Preset " + std::to_string (index);
-        preset.isFavorite = false;
-        mPresets.add (preset);
-    }
+    refreshPresets();
 }
 
 BrowserState::~BrowserState()
@@ -18,6 +11,21 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
+void BrowserState::refreshPresets()
+{
+    mPresets.clear();
+    Array<File> files = Presets::getPresetFiles();
+
+    for (int index = 0; index < files.size(); index++)
+    {
+        Preset preset;
+        preset.indexValue = index;
+        preset.fileName = files[index].getFileNameWithoutExtension();
+        preset.isFavorite = false;
+        mPresets.add (preset);
+    }
+}
+
 juce::Array<Preset> BrowserState::getPresets()
 {
     return mPresets;

@@ -87,4 +87,11 @@ namespace Presets
 
         return chords;
     }
+
+    static inline Array<File> getPresetFiles()
+    {
+        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*.rpc");
+        files.sort();
+        return files;
+    }
 }
