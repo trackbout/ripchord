@@ -13,7 +13,7 @@ public:
     ~BrowserState();
 
     //==============================================================================
-    juce::Array<juce::Array<String>> getPresetNames();
+    juce::Array<juce::Array<var>> getPresets();
 
     //==============================================================================
     String getFilterText();
@@ -27,7 +27,8 @@ public:
 
 private:
     //==============================================================================
-    juce::Array<juce::Array<String>> mPresetNames;
+    // [0]: indexValue, [1]: fileName, [2]: isFavorite
+    juce::Array<juce::Array<var>> mPresets;
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;

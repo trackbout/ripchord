@@ -3,12 +3,15 @@
 //==============================================================================
 BrowserState::BrowserState()
 {
-    for (int index = 1; index <= 30; index++)
+    for (int index = 0; index <= 30; index++)
     {
-        juce::Array<String> presetName;
-        presetName.add ("Preset " + std::to_string (index));
-        presetName.add ("false");
-        mPresetNames.add (presetName);
+        String fileName = "Preset " + std::to_string (index);
+
+        juce::Array<var> preset;
+        preset.add (index);
+        preset.add (fileName);
+        preset.add (false);
+        mPresets.add (preset);
     }
 }
 
@@ -17,9 +20,9 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
-juce::Array<juce::Array<String>> BrowserState::getPresetNames()
+juce::Array<juce::Array<var>> BrowserState::getPresets()
 {
-    return mPresetNames;
+    return mPresets;
 }
 
 //==============================================================================
@@ -47,24 +50,24 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
 {
     // 1. Update ripchord.favorites
     // 2. Delete file based on file name
-    // 3. Remove indexValue from presetNames
-    mPresetNames.remove (inIndexValue);
+    // 3. Remove indexValue from presets
+    mPresets.remove (inIndexValue);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetNamesChanged;
+    message->messageCode = MessageCode::kPresetsChanged;
     sendMessage (message, ListenerType::kSync);
 }
 
 void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 {
     // 1. Update ripchord.favorites
-    // 2. Update indexValue in presetNames
-    juce::Array<String> nextPresetName = mPresetNames[inIndexValue];
-    nextPresetName.set (1, nextPresetName[1] == "false" ? "true" : "false");
-    mPresetNames.set (inIndexValue, nextPresetName);
+    // 2. Update indexValue in presets
+    juce::Array<var> nextPreset = mPresets[inIndexValue];
+    nextPreset.set (2, !nextPreset[2]);
+    mPresets.set (inIndexValue, nextPreset);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetNamesChanged;
+    message->messageCode = MessageCode::kPresetsChanged;
     sendMessage (message, ListenerType::kSync);
 }
 

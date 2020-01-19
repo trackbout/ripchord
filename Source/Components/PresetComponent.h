@@ -10,7 +10,7 @@ class PresetComponent : public Component
 {
 public:
     //==============================================================================
-    PresetComponent (const int indexValue, const String fileName, const bool isFavorite);
+    PresetComponent (juce::Array<var> preset);
     ~PresetComponent();
 
     //==============================================================================
@@ -23,11 +23,11 @@ public:
 
 private:
     //==============================================================================
+    // [0]: indexValue, [1]: fileName, [2]: isFavorite
+    juce::Array<var> mPreset;
+
     Images mImages;
     Label mPresetLabel;
-    const int mIndexValue;
-    const bool mIsFavorite;
-
     PresetDeleteComponent mPresetDelete;
 
     DrawableButton mStarButton { "", DrawableButton::ImageStretched };

@@ -30,8 +30,8 @@ enum MessageCode
 
     // Messages from BrowserState
     kToggleFavorites,
-    kPresetNamesChanged,
     kPresetFilterTextChanged,
+    kPresetsChanged,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

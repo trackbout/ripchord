@@ -34,8 +34,8 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
-        case (MessageCode::kPresetNamesChanged): { handlePresetNamesChanged (inMessage); } break;
         case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
+        case (MessageCode::kPresetsChanged): { handlePresetsChanged (inMessage); } break;
         default: { } break;
     };
 }
@@ -51,12 +51,12 @@ void PresetBrowserComponent::handleToggleFavorites (const DataMessage* inMessage
     refreshBrowser();
 }
 
-void PresetBrowserComponent::handlePresetNamesChanged (const DataMessage* inMessage)
+void PresetBrowserComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
 {
     refreshBrowser();
 }
 
-void PresetBrowserComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
+void PresetBrowserComponent::handlePresetsChanged (const DataMessage* inMessage)
 {
     refreshBrowser();
 }
@@ -76,64 +76,68 @@ void PresetBrowserComponent::refreshBrowser()
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
-    juce::Array<juce::Array<String>> filteredPresetNames;
+    juce::Array<juce::Array<var>> filteredPresets;
     bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
     bool isFilterTextOn = !mBrowserState.getFilterText().isEmpty();
 
     if (!isFavoritesOn && !isFilterTextOn)
     {
-        renderPresetComponents (mBrowserState.getPresetNames());
+        renderPresetComponents (mBrowserState.getPresets());
     }
 
     if (isFavoritesOn && !isFilterTextOn)
     {
-        for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
+        for (juce::Array<var>& preset : mBrowserState.getPresets())
         {
-            if (presetName[1] == "true") { filteredPresetNames.add (presetName); }
+            bool isFavorite = preset[2];
+            if (isFavorite) { filteredPresets.add (preset); }
         }
 
-        renderPresetComponents (filteredPresetNames);
+        renderPresetComponents (filteredPresets);
     }
 
     if (!isFavoritesOn && isFilterTextOn)
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
+        for (juce::Array<var>& preset : mBrowserState.getPresets())
         {
-            if (presetName[0].containsIgnoreCase (filterText)) { filteredPresetNames.add (presetName); }
+            String fileName = preset[1];
+            if (fileName.containsIgnoreCase (filterText)) { filteredPresets.add (preset); }
         }
 
-        renderPresetComponents (filteredPresetNames);
+        renderPresetComponents (filteredPresets);
     }
 
     if (isFavoritesOn && isFilterTextOn)
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (juce::Array<String>& presetName : mBrowserState.getPresetNames())
+        for (juce::Array<var>& preset : mBrowserState.getPresets())
         {
-            if (presetName[0].containsIgnoreCase (filterText) && presetName[1] == "true")
+            bool isFavorite = preset[2];
+            String fileName = preset[1];
+            if (isFavorite && fileName.containsIgnoreCase (filterText))
             {
-                filteredPresetNames.add (presetName);
+                filteredPresets.add (preset);
             }
         }
 
-        renderPresetComponents (filteredPresetNames);
+        renderPresetComponents (filteredPresets);
     }
 }
 
-void PresetBrowserComponent::renderPresetComponents (juce::Array<juce::Array<String>> inPresetNames)
+void PresetBrowserComponent::renderPresetComponents (juce::Array<juce::Array<var>> inPresets)
 {
-    for (int index = 0; index < inPresetNames.size(); index++)
+    for (int index = 0; index < inPresets.size(); index++)
     {
-        juce::Array<String> presetName = inPresetNames[index];
+        juce::Array<var> preset = inPresets[index];
         int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
-        auto* presetComponent = new PresetComponent (index, presetName[0], presetName[1] == "true");
-        presetComponent->onDelete = [this](const int index) { handleMouseClickOnDelete (index); };
-        presetComponent->onFavorite = [this](const int index) { handleMouseClickOnFavorite (index); };
+        auto* presetComponent = new PresetComponent (preset);
+        presetComponent->onDelete = [this](const int indexValue) { handleMouseClickOnDelete (indexValue); };
+        presetComponent->onFavorite = [this](const int indexValue) { handleMouseClickOnFavorite (indexValue); };
         presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
         addAndMakeVisible (presetComponent);
 
@@ -141,7 +145,7 @@ void PresetBrowserComponent::renderPresetComponents (juce::Array<juce::Array<Str
         mPresetsToDelete.add (presetComponent);
     }
 
-    int rowCount = (int) std::ceil (inPresetNames.size() / (float) (PRESETS_PER_ROW));
+    int rowCount = (int) std::ceil (inPresets.size() / (float) (PRESETS_PER_ROW));
     int viewportHeight = ((mPresetHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
     setSize (getWidth(), viewportHeight);
 }
