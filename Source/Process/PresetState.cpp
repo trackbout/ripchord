@@ -10,6 +10,11 @@ PresetState::~PresetState()
 }
 
 //==============================================================================
+String PresetState::getName()
+{
+    return mName;
+}
+
 bool PresetState::isPresetSaveable()
 {
     if (mName.isEmpty()) { return false; }

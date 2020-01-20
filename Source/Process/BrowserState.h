@@ -16,6 +16,8 @@ public:
     //==============================================================================
     void filterPresets();
     void refreshPresetFiles();
+
+    //==============================================================================
     Array<File> getAllPresetFiles();
     juce::Array<Preset> getFilteredPresets();
 
@@ -24,8 +26,8 @@ public:
     void handleMouseClickOnFavorite (const int indexValue);
 
     //==============================================================================
-    void handleMouseClickOnLeftArrow();
-    void handleMouseClickOnRightArrow();
+    void handleMouseClickOnLeftArrow (String presetName);
+    void handleMouseClickOnRightArrow (String presetName);
 
     //==============================================================================
     void handleMouseClickOnFavorites();
@@ -39,6 +41,7 @@ private:
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;
+    int getFilteredIndex (String presetName);
 
     PropertiesFile mPropertiesFile { System::createPluginPropertiesOptions ("favorites") };
     StringArray mFavPathNames { StringArray::fromTokens (mPropertiesFile.getValue ("favorites"), ";", "") };

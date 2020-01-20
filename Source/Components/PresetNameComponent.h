@@ -20,6 +20,10 @@ public:
     void resized() override;
 
     //==============================================================================
+    void triggerLeftArrow();
+    void triggerRightArrow();
+
+    //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
 
 private:
@@ -39,6 +43,7 @@ private:
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetNameTextChanged (const DataMessage* message);
+    void handleCurrentIndexChanged (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetNameComponent)

@@ -23,6 +23,9 @@ public:
     void resized() override;
 
     //==============================================================================
+    bool keyPressed (const KeyPress& key) override;
+
+    //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
 
 private:

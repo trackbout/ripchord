@@ -71,6 +71,7 @@ void BrowserState::refreshPresetFiles()
     }
 }
 
+//==============================================================================
 Array<File> BrowserState::getAllPresetFiles()
 {
     return mAllPresetFiles;
@@ -127,14 +128,36 @@ void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 }
 
 //==============================================================================
-void BrowserState::handleMouseClickOnLeftArrow()
+void BrowserState::handleMouseClickOnLeftArrow (String inPresetName)
 {
-    DBG ("LEFT");
+    int index = getFilteredIndex (inPresetName);
+
+    if (index > 0) { index = index - 1; }
+    else if (index == 0) { index = mFilteredPresets.size() - 1; }
+    else if (index == -1 && !mFilteredPresets.isEmpty()) { index = mFilteredPresets.size() - 1; }
+
+    int nextIndex = index >= 0 ? mFilteredPresets[index].indexValue : -1;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kCurrentIndexChanged;
+    message->messageVar1 = nextIndex;
+    sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleMouseClickOnRightArrow()
+void BrowserState::handleMouseClickOnRightArrow (String inPresetName)
 {
-    DBG ("RIGHT");
+    int index = getFilteredIndex (inPresetName);
+
+    if (index >= 0 && index < (mFilteredPresets.size() - 1)) { index = index + 1; }
+    else if (index == (mFilteredPresets.size() - 1)) { index = 0; }
+    else if (index == -1 && !mFilteredPresets.isEmpty()) { index = 0; }
+
+    int nextIndex = index >= 0 ? mFilteredPresets[index].indexValue : -1;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kCurrentIndexChanged;
+    message->messageVar1 = nextIndex;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
@@ -156,4 +179,18 @@ void BrowserState::handlePresetFilterTextChanged (String inFilterText)
     message->messageCode = MessageCode::kPresetFilterTextChanged;
     message->messageVar1 = mFilterText;
     sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+int BrowserState::getFilteredIndex (String inPresetName)
+{
+    int filteredIndex = -1;
+
+    for (int index = 0; index < mFilteredPresets.size(); index++)
+    {
+        String presetName = mFilteredPresets[index].fileName;
+        if (presetName == inPresetName) { filteredIndex = index; }
+    }
+
+    return filteredIndex;
 }

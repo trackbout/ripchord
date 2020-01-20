@@ -14,6 +14,7 @@ public:
     ~PresetState();
 
     //==============================================================================
+    String getName();
     bool isPresetSaveable();
     void resetEditModeInputNote();
     const int getEditModeInputNote();

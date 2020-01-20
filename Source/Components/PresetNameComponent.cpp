@@ -9,6 +9,7 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setWantsKeyboardFocus (true);
 
@@ -18,8 +19,15 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
     mLeftArrowButton.setTriggeredOnMouseDown (true);
     mRightArrowButton.setTriggeredOnMouseDown (true);
 
-    mLeftArrowButton.onClick = [this]() { mBrowserState.handleMouseClickOnLeftArrow(); };
-    mRightArrowButton.onClick = [this]() { mBrowserState.handleMouseClickOnRightArrow(); };
+    mLeftArrowButton.onClick = [this]()
+    {
+        mBrowserState.handleMouseClickOnLeftArrow (mPresetState.getName());
+    };
+
+    mRightArrowButton.onClick = [this]()
+    {
+        mBrowserState.handleMouseClickOnRightArrow (mPresetState.getName());
+    };
 
     mPresetNameLabel.setJustificationType (Justification::centred);
 
@@ -65,6 +73,17 @@ void PresetNameComponent::resized()
 }
 
 //==============================================================================
+void PresetNameComponent::triggerLeftArrow()
+{
+    mLeftArrowButton.triggerClick();
+}
+
+void PresetNameComponent::triggerRightArrow()
+{
+    mRightArrowButton.triggerClick();
+}
+
+//==============================================================================
 void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
@@ -73,6 +92,7 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetNameTextChanged (inMessage); } break;
         case (MessageCode::kPresetNameTextChanged): { handlePresetNameTextChanged (inMessage); } break;
+        case (MessageCode::kCurrentIndexChanged): { handleCurrentIndexChanged (inMessage); } break;
         default: { } break;
     };
 }
@@ -85,6 +105,7 @@ void PresetNameComponent::handleToggleMode (const DataMessage* inMessage)
 void PresetNameComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
     mPresetNameInput.clear();
+    mPresetNameLabel.setText ("init", dontSendNotification);
 }
 
 void PresetNameComponent::handlePresetNameTextChanged (const DataMessage* inMessage)
@@ -92,4 +113,13 @@ void PresetNameComponent::handlePresetNameTextChanged (const DataMessage* inMess
     String nextPresetName = inMessage->messageVar1;
     mPresetNameLabel.setText (nextPresetName, dontSendNotification);
     mPresetNameInput.setText (nextPresetName);
+}
+
+void PresetNameComponent::handleCurrentIndexChanged (const DataMessage* inMessage)
+{
+    int nextIndex = inMessage->messageVar1;
+    if (nextIndex < 0) { return; }
+
+    File presetFile = mBrowserState.getAllPresetFiles()[nextIndex];
+    mPresetState.handleMouseClickOnPreset (presetFile);
 }

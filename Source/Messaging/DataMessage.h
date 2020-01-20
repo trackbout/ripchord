@@ -32,6 +32,7 @@ enum MessageCode
     kPresetFileDeleted,
     kPresetFileFavorited,
     kPresetFilterTextChanged,
+    kCurrentIndexChanged,
     kToggleFavorites,
 
     // Messages from MidiState

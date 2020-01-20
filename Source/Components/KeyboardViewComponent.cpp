@@ -13,6 +13,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    setWantsKeyboardFocus (true);
+
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
@@ -93,6 +95,26 @@ void KeyboardViewComponent::resized()
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mSaveButton.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mSuccess.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+}
+
+//==============================================================================
+bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
+{
+    if (mGlobalState.isPresetView() || mGlobalState.isEditMode()) { return false; }
+
+    auto keyCode = inKey.getKeyCode();
+
+    if (keyCode == KeyPress::leftKey || keyCode == KeyPress::upKey)
+    {
+        mPresetName.triggerLeftArrow();
+    }
+
+    if (keyCode == KeyPress::rightKey || keyCode == KeyPress::downKey)
+    {
+        mPresetName.triggerRightArrow();
+    }
+
+    return false;
 }
 
 //==============================================================================
