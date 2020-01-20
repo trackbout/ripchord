@@ -5,6 +5,7 @@
 PresetBrowserComponent::PresetBrowserComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mPresetState (mMainProcess.getPresetState()),
     mBrowserState (mMainProcess.getBrowserState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -41,16 +42,6 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 }
 
 //==============================================================================
-void PresetBrowserComponent::handleMouseClickOnDelete (const int inIndexValue)
-{
-    mBrowserState.handleMouseClickOnDelete (inIndexValue);
-}
-
-void PresetBrowserComponent::handleMouseClickOnFavorite (const int inIndexValue)
-{
-    mBrowserState.handleMouseClickOnFavorite (inIndexValue);
-}
-
 void PresetBrowserComponent::refreshBrowser()
 {
     if (mGlobalState.isKeyboardView()) { return; }
@@ -112,9 +103,24 @@ void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPrese
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
         auto* presetComponent = new PresetComponent (preset);
-        presetComponent->onDelete = [this](const int indexValue) { handleMouseClickOnDelete (indexValue); };
-        presetComponent->onFavorite = [this](const int indexValue) { handleMouseClickOnFavorite (indexValue); };
         presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
+
+        presetComponent->onClick = [this](const int indexValue)
+        {
+            Array<File> presetFiles = mBrowserState.getPresetFiles();
+            mPresetState.handleMouseClickOnPreset (presetFiles[indexValue]);
+        };
+
+        presetComponent->onDelete = [this](const int indexValue)
+        {
+            mBrowserState.handleMouseClickOnDelete (indexValue);
+        };
+
+        presetComponent->onFavorite = [this](const int indexValue)
+        {
+            mBrowserState.handleMouseClickOnFavorite (indexValue);
+        };
+
         addAndMakeVisible (presetComponent);
 
         // Delete pointers to prevent leaks

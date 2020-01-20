@@ -37,22 +37,22 @@ public:
     void handleMouseClickOnSave();
     void handleMouseClickOnImport();
     void handleMouseClickOnExport();
+    void handleMouseClickOnPreset (File presetFile);
 
 private:
     //==============================================================================
     String mName;
     std::map<int, Chord> mChords;
 
-    //==============================================================================
     Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
-    //==============================================================================
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
-    void resetPresetState();
 
-    //==============================================================================
+    void resetPresetState();
+    void loadPresetFile (File presetFile);
+
     String mPresetFileName;
     bool mIsPresetModified = false;
 

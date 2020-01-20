@@ -17,8 +17,10 @@ public:
     //==============================================================================
     void paint (Graphics& graphics) override;
     void resized() override;
+    void mouseDown (const MouseEvent& event) override;
 
     //==============================================================================
+    std::function<void (const int indexValue)> onClick;
     std::function<void (const int indexValue)> onDelete;
     std::function<void (const int indexValue)> onFavorite;
 

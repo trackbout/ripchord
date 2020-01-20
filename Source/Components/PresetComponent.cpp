@@ -4,6 +4,7 @@
 PresetComponent::PresetComponent (Preset inPreset)
 :   mPreset (inPreset)
 {
+    mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
     mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
@@ -52,4 +53,9 @@ void PresetComponent::resized()
 
     mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
+}
+
+void PresetComponent::mouseDown (const MouseEvent& inEvent)
+{
+    if (onClick) { onClick (mPreset.indexValue); }
 }

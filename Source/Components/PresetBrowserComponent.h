@@ -23,6 +23,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    PresetState& mPresetState;
     BrowserState& mBrowserState;
 
     int mPresetHeight = 0;
@@ -30,13 +31,9 @@ private:
     int mSpaceHeight = 0;
     int mSpaceWidth = 0;
 
-    OwnedArray<PresetComponent> mPresetsToDelete;
-
-    void handleMouseClickOnDelete (const int indexValue);
-    void handleMouseClickOnFavorite (const int indexValue);
-
     void refreshBrowser();
     void renderPresetComponents (juce::Array<Preset> presets);
+    OwnedArray<PresetComponent> mPresetsToDelete;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)

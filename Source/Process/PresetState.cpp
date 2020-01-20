@@ -190,25 +190,11 @@ void PresetState::handleMouseClickOnImport()
     if (chooser.browseForFileToOpen())
     {
         File chosenFile = chooser.getResult();
-        if (!chosenFile.existsAsFile()) { return; }
 
-        resetPresetState();
-        mPresetFileName = chosenFile.getFileName();
-        mName = chosenFile.getFileNameWithoutExtension();
-        mChords = Presets::getPresetChordsFromXml (chosenFile);
-
-        File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
-        if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
-
-        XmlElement nextPresetXml = Presets::getXmlFromPresetState (mName, mChords);
-        File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
-        nextPresetXml.writeTo (nextPresetFile);
-
-        DataMessage* message = new DataMessage();
-        message->messageCode = MessageCode::kPresetFileLoaded;
-        message->messageVar1 = mName;
-        message->messageArray1 = getPresetInputNotes();
-        sendMessage (message, ListenerType::kSync);
+        if (chosenFile.existsAsFile())
+        {
+            loadPresetFile (chosenFile);
+        }
     }
 }
 
@@ -223,6 +209,14 @@ void PresetState::handleMouseClickOnExport()
         File chosenFile (chooser.getResult());
         XmlElement presetXml = Presets::getXmlFromPresetState (mName, mChords);
         presetXml.writeTo (chosenFile);
+    }
+}
+
+void PresetState::handleMouseClickOnPreset (File inPresetFile)
+{
+    if (inPresetFile.existsAsFile())
+    {
+        loadPresetFile (inPresetFile);
     }
 }
 
@@ -246,4 +240,25 @@ void PresetState::resetPresetState()
     mPresetFileName.clear();
     mIsPresetModified = false;
     mEditModeInputNote = 0;
+}
+
+void PresetState::loadPresetFile (File inPresetFile)
+{
+    resetPresetState();
+    mPresetFileName = inPresetFile.getFileName();
+    mName = inPresetFile.getFileNameWithoutExtension();
+    mChords = Presets::getPresetChordsFromXml (inPresetFile);
+
+    File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    XmlElement nextPresetXml = Presets::getXmlFromPresetState (mName, mChords);
+    File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
+    nextPresetXml.writeTo (nextPresetFile);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileLoaded;
+    message->messageVar1 = mName;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
 }

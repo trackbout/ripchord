@@ -27,6 +27,11 @@ void BrowserState::refreshPresetFiles()
     }
 }
 
+Array<File> BrowserState::getPresetFiles()
+{
+    return mPresetFiles;
+}
+
 juce::Array<Preset> BrowserState::getPresets()
 {
     return mPresets;
