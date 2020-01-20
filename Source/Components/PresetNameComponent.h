@@ -20,10 +20,6 @@ public:
     void resized() override;
 
     //==============================================================================
-    std::function<void()> onLeftArrowClick;
-    std::function<void()> onRightArrowClick;
-
-    //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
 
 private:
@@ -31,6 +27,7 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     PresetState& mPresetState;
+    BrowserState& mBrowserState;
 
     Images mImages;
     DrawableButton mLeftArrowButton { "", DrawableButton::ImageStretched };

@@ -15,23 +15,29 @@ public:
 
     //==============================================================================
     void refreshPresetFiles();
-    Array<File> getPresetFiles();
-    juce::Array<Preset> getPresets();
+    Array<File> getAllPresetFiles();
+    juce::Array<Preset> getAllPresets();
 
     //==============================================================================
     String getFilterText();
     bool getIsFavoritesOn();
-    void toggleFavorites();
 
     //==============================================================================
     void handleMouseClickOnDelete (const int indexValue);
     void handleMouseClickOnFavorite (const int indexValue);
+
+    //==============================================================================
+    void handleMouseClickOnLeftArrow();
+    void handleMouseClickOnRightArrow();
+
+    //==============================================================================
+    void handleMouseClickOnFavorites();
     void handlePresetFilterTextChanged (String filterText);
 
 private:
     //==============================================================================
-    Array<File> mPresetFiles;
-    juce::Array<Preset> mPresets;
+    Array<File> mAllPresetFiles;
+    juce::Array<Preset> mAllPresets;
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;

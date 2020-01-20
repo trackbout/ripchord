@@ -33,10 +33,11 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleView): { refreshBrowser(); } break;
-        case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
+        case (MessageCode::kPresetFileDeleted): { refreshBrowser(); } break;
+        case (MessageCode::kPresetFileFavorited): { refreshBrowser(); } break;
         case (MessageCode::kPresetFilterTextChanged): { refreshBrowser(); } break;
-        case (MessageCode::kPresetsChanged): { refreshBrowser(); } break;
+        case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
+        case (MessageCode::kToggleView): { refreshBrowser(); } break;
         default: { } break;
     };
 }
@@ -53,12 +54,12 @@ void PresetBrowserComponent::refreshBrowser()
 
     if (!isFavoritesOn && !isFilterTextOn)
     {
-        renderPresetComponents (mBrowserState.getPresets());
+        renderPresetComponents (mBrowserState.getAllPresets());
     }
 
     if (isFavoritesOn && !isFilterTextOn)
     {
-        for (Preset& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getAllPresets())
         {
             if (preset.isFavorite) { filteredPresets.add (preset); }
         }
@@ -70,7 +71,7 @@ void PresetBrowserComponent::refreshBrowser()
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (Preset& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getAllPresets())
         {
             if (preset.fileName.containsIgnoreCase (filterText)) { filteredPresets.add (preset); }
         }
@@ -82,7 +83,7 @@ void PresetBrowserComponent::refreshBrowser()
     {
         String filterText = mBrowserState.getFilterText();
 
-        for (Preset& preset : mBrowserState.getPresets())
+        for (Preset& preset : mBrowserState.getAllPresets())
         {
             if (preset.isFavorite && preset.fileName.containsIgnoreCase (filterText))
             {
@@ -107,8 +108,8 @@ void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPrese
 
         presetComponent->onClick = [this](const int indexValue)
         {
-            Array<File> presetFiles = mBrowserState.getPresetFiles();
-            mPresetState.handleMouseClickOnPreset (presetFiles[indexValue]);
+            Array<File> allPresetFiles = mBrowserState.getAllPresetFiles();
+            mPresetState.handleMouseClickOnPreset (allPresetFiles[indexValue]);
         };
 
         presetComponent->onDelete = [this](const int indexValue)

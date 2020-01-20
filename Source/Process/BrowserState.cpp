@@ -13,28 +13,28 @@ BrowserState::~BrowserState()
 //==============================================================================
 void BrowserState::refreshPresetFiles()
 {
-    mPresets.clear();
-    mPresetFiles.clear();
-    mPresetFiles = Presets::getSortedPresetFiles();
+    mAllPresets.clear();
+    mAllPresetFiles.clear();
+    mAllPresetFiles = Presets::getSortedPresetFiles();
 
-    for (int index = 0; index < mPresetFiles.size(); index++)
+    for (int index = 0; index < mAllPresetFiles.size(); index++)
     {
         Preset preset;
         preset.indexValue = index;
-        preset.fileName = mPresetFiles[index].getFileNameWithoutExtension();
-        preset.isFavorite = mFavPathNames.contains (mPresetFiles[index].getFullPathName());
-        mPresets.add (preset);
+        preset.fileName = mAllPresetFiles[index].getFileNameWithoutExtension();
+        preset.isFavorite = mFavPathNames.contains (mAllPresetFiles[index].getFullPathName());
+        mAllPresets.add (preset);
     }
 }
 
-Array<File> BrowserState::getPresetFiles()
+Array<File> BrowserState::getAllPresetFiles()
 {
-    return mPresetFiles;
+    return mAllPresetFiles;
 }
 
-juce::Array<Preset> BrowserState::getPresets()
+juce::Array<Preset> BrowserState::getAllPresets()
 {
-    return mPresets;
+    return mAllPresets;
 }
 
 //==============================================================================
@@ -48,19 +48,10 @@ bool BrowserState::getIsFavoritesOn()
     return mIsFavoritesOn;
 }
 
-void BrowserState::toggleFavorites()
-{
-    mIsFavoritesOn = !mIsFavoritesOn;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleFavorites;
-    sendMessage (message, ListenerType::kSync);
-}
-
 //==============================================================================
 void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
 {
-    File file = mPresetFiles[inIndexValue];
+    File file = mAllPresetFiles[inIndexValue];
 
     if (mFavPathNames.contains (file.getFullPathName()))
     {
@@ -69,18 +60,18 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
         mPropertiesFile.saveIfNeeded();
     }
 
-    mPresets.remove (inIndexValue);
+    mAllPresets.remove (inIndexValue);
     file.deleteFile();
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetsChanged;
+    message->messageCode = MessageCode::kPresetFileDeleted;
     sendMessage (message, ListenerType::kSync);
 }
 
 void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 {
-    Preset preset = mPresets[inIndexValue];
-    File file = mPresetFiles[inIndexValue];
+    Preset preset = mAllPresets[inIndexValue];
+    File file = mAllPresetFiles[inIndexValue];
 
     if (preset.isFavorite)
     {
@@ -93,12 +84,33 @@ void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
         mFavPathNames.addIfNotAlreadyThere (file.getFullPathName());
     }
 
-    mPresets.set (inIndexValue, preset);
+    mAllPresets.set (inIndexValue, preset);
     mPropertiesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
     mPropertiesFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetsChanged;
+    message->messageCode = MessageCode::kPresetFileFavorited;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void BrowserState::handleMouseClickOnLeftArrow()
+{
+    DBG ("LEFT");
+}
+
+void BrowserState::handleMouseClickOnRightArrow()
+{
+    DBG ("RIGHT");
+}
+
+//==============================================================================
+void BrowserState::handleMouseClickOnFavorites()
+{
+    mIsFavoritesOn = !mIsFavoritesOn;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleFavorites;
     sendMessage (message, ListenerType::kSync);
 }
 

@@ -29,9 +29,10 @@ enum MessageCode
     kPresetNameTextChanged,
 
     // Messages from BrowserState
-    kToggleFavorites,
+    kPresetFileDeleted,
+    kPresetFileFavorited,
     kPresetFilterTextChanged,
-    kPresetsChanged,
+    kToggleFavorites,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

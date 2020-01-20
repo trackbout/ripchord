@@ -4,7 +4,8 @@
 PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
-    mPresetState (mMainProcess.getPresetState())
+    mPresetState (mMainProcess.getPresetState()),
+    mBrowserState (mMainProcess.getBrowserState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -17,8 +18,8 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
     mLeftArrowButton.setTriggeredOnMouseDown (true);
     mRightArrowButton.setTriggeredOnMouseDown (true);
 
-    mLeftArrowButton.onClick = [this]() { if (onLeftArrowClick) onLeftArrowClick(); };
-    mRightArrowButton.onClick = [this]() { if (onRightArrowClick) onRightArrowClick(); };
+    mLeftArrowButton.onClick = [this]() { mBrowserState.handleMouseClickOnLeftArrow(); };
+    mRightArrowButton.onClick = [this]() { mBrowserState.handleMouseClickOnRightArrow(); };
 
     mPresetNameLabel.setJustificationType (Justification::centred);
 
