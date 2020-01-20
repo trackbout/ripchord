@@ -33,7 +33,6 @@ private:
 
     void hardRefresh();
     void refreshBrowser();
-    void renderPresetComponents (juce::Array<Preset> presets);
     OwnedArray<PresetComponent> mPresetsToDelete;
 
     //==============================================================================

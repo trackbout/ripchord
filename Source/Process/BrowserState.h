@@ -14,13 +14,10 @@ public:
     ~BrowserState();
 
     //==============================================================================
+    void filterPresets();
     void refreshPresetFiles();
     Array<File> getAllPresetFiles();
-    juce::Array<Preset> getAllPresets();
-
-    //==============================================================================
-    String getFilterText();
-    bool getIsFavoritesOn();
+    juce::Array<Preset> getFilteredPresets();
 
     //==============================================================================
     void handleMouseClickOnDelete (const int indexValue);
@@ -38,6 +35,7 @@ private:
     //==============================================================================
     Array<File> mAllPresetFiles;
     juce::Array<Preset> mAllPresets;
+    juce::Array<Preset> mFilteredPresets;
 
     String mFilterText = "";
     bool mIsFavoritesOn = false;

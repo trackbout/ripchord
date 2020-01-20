@@ -54,62 +54,16 @@ void PresetBrowserComponent::hardRefresh()
 
 void PresetBrowserComponent::refreshBrowser()
 {
-    juce::Array<Preset> filteredPresets;
-    bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
-    bool isFilterTextOn = !mBrowserState.getFilterText().isEmpty();
+    mBrowserState.filterPresets();
 
-    if (!isFavoritesOn && !isFilterTextOn)
-    {
-        renderPresetComponents (mBrowserState.getAllPresets());
-    }
-
-    if (isFavoritesOn && !isFilterTextOn)
-    {
-        for (Preset& preset : mBrowserState.getAllPresets())
-        {
-            if (preset.isFavorite) { filteredPresets.add (preset); }
-        }
-
-        renderPresetComponents (filteredPresets);
-    }
-
-    if (!isFavoritesOn && isFilterTextOn)
-    {
-        String filterText = mBrowserState.getFilterText();
-
-        for (Preset& preset : mBrowserState.getAllPresets())
-        {
-            if (preset.fileName.containsIgnoreCase (filterText)) { filteredPresets.add (preset); }
-        }
-
-        renderPresetComponents (filteredPresets);
-    }
-
-    if (isFavoritesOn && isFilterTextOn)
-    {
-        String filterText = mBrowserState.getFilterText();
-
-        for (Preset& preset : mBrowserState.getAllPresets())
-        {
-            if (preset.isFavorite && preset.fileName.containsIgnoreCase (filterText))
-            {
-                filteredPresets.add (preset);
-            }
-        }
-
-        renderPresetComponents (filteredPresets);
-    }
-}
-
-void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPresets)
-{
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
+    juce::Array<Preset> filteredPresets = mBrowserState.getFilteredPresets();
 
-    for (int index = 0; index < inPresets.size(); index++)
+    for (int index = 0; index < filteredPresets.size(); index++)
     {
-        Preset preset = inPresets[index];
+        Preset preset = filteredPresets[index];
         int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
@@ -138,7 +92,7 @@ void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPrese
         mPresetsToDelete.add (presetComponent);
     }
 
-    int rowCount = (int) std::ceil (inPresets.size() / (float) (PRESETS_PER_ROW));
+    int rowCount = (int) std::ceil (filteredPresets.size() / (float) (PRESETS_PER_ROW));
     int viewportHeight = ((mPresetHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
     setSize (getWidth(), viewportHeight);
 }

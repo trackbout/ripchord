@@ -4,6 +4,7 @@
 BrowserState::BrowserState()
 {
     refreshPresetFiles();
+    mFilteredPresets = mAllPresets;
 }
 
 BrowserState::~BrowserState()
@@ -11,6 +12,49 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
+void BrowserState::filterPresets()
+{
+    mFilteredPresets.clear();
+
+    if (!mIsFavoritesOn && mFilterText.isEmpty())
+    {
+        mFilteredPresets = mAllPresets;
+    }
+
+    if (mIsFavoritesOn && mFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (preset.isFavorite)
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    if (!mIsFavoritesOn && !mFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (preset.fileName.containsIgnoreCase (mFilterText))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    if (mIsFavoritesOn && !mFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (preset.isFavorite && preset.fileName.containsIgnoreCase (mFilterText))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+}
+
 void BrowserState::refreshPresetFiles()
 {
     mAllPresets.clear();
@@ -32,20 +76,9 @@ Array<File> BrowserState::getAllPresetFiles()
     return mAllPresetFiles;
 }
 
-juce::Array<Preset> BrowserState::getAllPresets()
+juce::Array<Preset> BrowserState::getFilteredPresets()
 {
-    return mAllPresets;
-}
-
-//==============================================================================
-String BrowserState::getFilterText()
-{
-    return mFilterText;
-}
-
-bool BrowserState::getIsFavoritesOn()
-{
-    return mIsFavoritesOn;
+    return mFilteredPresets;
 }
 
 //==============================================================================
@@ -111,6 +144,7 @@ void BrowserState::handleMouseClickOnFavorites()
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleFavorites;
+    message->messageVar1 = mIsFavoritesOn;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -120,5 +154,6 @@ void BrowserState::handlePresetFilterTextChanged (String inFilterText)
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFilterTextChanged;
+    message->messageVar1 = mFilterText;
     sendMessage (message, ListenerType::kSync);
 }

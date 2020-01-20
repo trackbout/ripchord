@@ -103,11 +103,12 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
-    bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
+    bool isFavoritesOn = inMessage->messageVar1;
     mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
 }
 
 void PresetViewComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)
 {
-    mPresetFilterInput.setText (mBrowserState.getFilterText(), dontSendNotification);
+    String filterText = inMessage->messageVar1;
+    mPresetFilterInput.setText (filterText, dontSendNotification);
 }
