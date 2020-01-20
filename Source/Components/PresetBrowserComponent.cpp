@@ -9,6 +9,7 @@ PresetBrowserComponent::PresetBrowserComponent (MainProcess& inMainProcess)
     mBrowserState (mMainProcess.getBrowserState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
@@ -33,21 +34,26 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kPresetFileDeleted): { refreshBrowser(); } break;
+        case (MessageCode::kToggleView): { hardRefresh(); } break;
+        case (MessageCode::kPresetFileSaved): { hardRefresh(); } break;
+        case (MessageCode::kPresetFileLoaded): { hardRefresh(); } break;
+        case (MessageCode::kPresetFileDeleted): { hardRefresh(); } break;
         case (MessageCode::kPresetFileFavorited): { refreshBrowser(); } break;
         case (MessageCode::kPresetFilterTextChanged): { refreshBrowser(); } break;
         case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
-        case (MessageCode::kToggleView): { refreshBrowser(); } break;
         default: { } break;
     };
 }
 
 //==============================================================================
+void PresetBrowserComponent::hardRefresh()
+{
+    mBrowserState.refreshPresetFiles();
+    refreshBrowser();
+}
+
 void PresetBrowserComponent::refreshBrowser()
 {
-    if (mGlobalState.isKeyboardView()) { return; }
-
-    removeAllChildren();
     juce::Array<Preset> filteredPresets;
     bool isFavoritesOn = mBrowserState.getIsFavoritesOn();
     bool isFilterTextOn = !mBrowserState.getFilterText().isEmpty();
@@ -97,6 +103,10 @@ void PresetBrowserComponent::refreshBrowser()
 
 void PresetBrowserComponent::renderPresetComponents (juce::Array<Preset> inPresets)
 {
+    if (mGlobalState.isKeyboardView()) { return; }
+
+    removeAllChildren();
+
     for (int index = 0; index < inPresets.size(); index++)
     {
         Preset preset = inPresets[index];

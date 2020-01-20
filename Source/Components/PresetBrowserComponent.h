@@ -31,6 +31,7 @@ private:
     int mSpaceHeight = 0;
     int mSpaceWidth = 0;
 
+    void hardRefresh();
     void refreshBrowser();
     void renderPresetComponents (juce::Array<Preset> presets);
     OwnedArray<PresetComponent> mPresetsToDelete;
