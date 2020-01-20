@@ -26,55 +26,7 @@ struct Chord
 namespace Presets
 {
     //==============================================================================
-    static inline bool isValidFileName (String inFileName)
-    {
-        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -_1234567890";
-
-        for (int index = 0; index < inFileName.length(); index++)
-        {
-            if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
-        }
-
-        return true;
-    }
-
-    static inline Array<File> getSortedPresetFiles()
-    {
-        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*" + PRESET_EXTENSION);
-        files.sort();
-        return files;
-    }
-
-    static inline XmlElement getXmlFromPresetState (String inName, std::map<int, Chord> inChords)
-    {
-        XmlElement presetXml ("ripchord");
-        XmlElement* mappingsXml = new XmlElement ("KeyboardMapping");
-        mappingsXml->setAttribute ("name", inName);
-
-        for (const auto& pair : inChords)
-        {
-            XmlElement* mappingXml = new XmlElement ("mapping");
-            XmlElement* chordXml = new XmlElement ("chord");
-            StringArray chordNotes;
-
-            for (const int chordNote : pair.second.notes)
-            {
-                chordNotes.add (String (chordNote));
-            }
-
-            mappingXml->setAttribute ("note", String (pair.first));
-            chordXml->setAttribute ("name", pair.second.name);
-            chordXml->setAttribute ("notes", chordNotes.joinIntoString (";"));
-
-            mappingXml->addChildElement (chordXml);
-            mappingsXml->addChildElement (mappingXml);
-        }
-
-        presetXml.addChildElement (mappingsXml);
-        return presetXml;
-    }
-
-    static inline std::map<int, Chord> getPresetChordsFromXml (const File& inFile)
+    static inline std::map<int, Chord> legacyGetChordsFromXml (const File& inFile)
     {
         std::map<int, Chord> chords;
         std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
@@ -92,11 +44,95 @@ namespace Presets
             String name = chordXml->getStringAttribute ("name");
             for (String& note : notesSA) { notes.add (note.getIntValue()); }
 
-            chord.name = name;
-            chord.notes = notes;
-            chords[note] = chord;
+            if (notes.size() > 0)
+            {
+                chord.name = name;
+                chord.notes = notes;
+                chords[note] = chord;
+            }
         }
 
         return chords;
+    }
+
+    static inline std::map<int, Chord> getChordsFromXml (const File& inFile)
+    {
+        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
+        XmlElement* firstChildXml = presetXml->getFirstChildElement();
+        String tagName = firstChildXml->getTagName();
+
+        if (tagName == "KeyboardMapping") { return legacyGetChordsFromXml (inFile); }
+
+        std::map<int, Chord> chords;
+
+        forEachXmlChildElementWithTagName (*firstChildXml, inputXml, "input")
+        {
+            Chord chord;
+            juce::Array<int> notes;
+            int note = inputXml->getIntAttribute("note");
+            XmlElement* chordXml = inputXml->getChildByName ("chord");
+            String notesString = chordXml->getStringAttribute ("notes");
+            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
+
+            String name = chordXml->getStringAttribute ("name");
+            for (String& note : notesSA) { notes.add (note.getIntValue()); }
+
+            if (notes.size() > 0)
+            {
+                chord.name = name;
+                chord.notes = notes;
+                chords[note] = chord;
+            }
+        }
+
+        return chords;
+    }
+
+    static inline XmlElement getXmlFromChords (std::map<int, Chord> inChords)
+    {
+        XmlElement rootXml ("ripchord");
+        XmlElement* presetXml = new XmlElement ("preset");
+
+        for (const auto& pair : inChords)
+        {
+            StringArray chordNotes;
+
+            for (const int chordNote : pair.second.notes)
+            {
+                chordNotes.add (String (chordNote));
+            }
+
+            XmlElement* inputXml = new XmlElement ("input");
+            XmlElement* chordXml = new XmlElement ("chord");
+
+            inputXml->setAttribute ("note", String (pair.first));
+            chordXml->setAttribute ("name", pair.second.name);
+            chordXml->setAttribute ("notes", chordNotes.joinIntoString (";"));
+
+            inputXml->addChildElement (chordXml);
+            presetXml->addChildElement (inputXml);
+        }
+
+        rootXml.addChildElement (presetXml);
+        return rootXml;
+    }
+
+    static inline bool isValidFileName (String inFileName)
+    {
+        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -_1234567890";
+
+        for (int index = 0; index < inFileName.length(); index++)
+        {
+            if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
+        }
+
+        return true;
+    }
+
+    static inline Array<File> getSortedPresetFiles()
+    {
+        Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*" + PRESET_EXTENSION);
+        files.sort();
+        return files;
     }
 }
