@@ -19,6 +19,16 @@ enum MessageCode
     kToggleView,
     kToggleMenu,
 
+    // Messages from ControlsState
+    kToggleTranspose,
+
+    // Messages from BrowserState
+    kPresetFileDeleted,
+    kPresetFileFavorited,
+    kPresetFilterTextChanged,
+    kCurrentIndexChanged,
+    kToggleFavorites,
+
     // Messages from PresetState
     kPresetFileNew,
     kPresetFileSaved,
@@ -27,13 +37,6 @@ enum MessageCode
     kEditModeOutputNotes,
     kChordNameTextChanged,
     kPresetNameTextChanged,
-
-    // Messages from BrowserState
-    kPresetFileDeleted,
-    kPresetFileFavorited,
-    kPresetFilterTextChanged,
-    kCurrentIndexChanged,
-    kToggleFavorites,
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,

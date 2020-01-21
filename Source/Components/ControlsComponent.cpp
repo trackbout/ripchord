@@ -2,11 +2,17 @@
 
 //==============================================================================
 ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
-:   mMainProcess (inMainProcess)
+:   mMainProcess (inMainProcess),
+    mControlsState (mMainProcess.getControlsState())
 {
-    mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg");
-    mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
-    mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg");
+    mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+
+    mShiftLeftButton.setImages (mImages.getDrawable ("ShiftLeft.svg"));
+    mTransposeButton.setImages (mImages.getDrawable ("Transpose.svg"));
+    mShiftRightButton.setImages (mImages.getDrawable ("ShiftRight.svg"));
+
+    mTransposeButton.setTriggeredOnMouseDown (true);
+    mTransposeButton.onClick = [this]() { mControlsState.toggleTranspose(); };
 
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);
@@ -30,7 +36,15 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleMode): { DBG ("YOLO"); } break;
+        case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         default: { } break;
     };
+}
+
+//==============================================================================
+void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
+{
+    if (mControlsState.isTransposeOff()) { mTransposeButton.setImages (mImages.getDrawable ("Transpose.svg")); }
+    if (mControlsState.isTransposeOn()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeON.svg")); }
+    if (mControlsState.isTransposeLocked()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeLOCK.svg")); }
 }

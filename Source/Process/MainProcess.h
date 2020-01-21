@@ -4,6 +4,7 @@
 #include "GlobalState.h"
 #include "PresetState.h"
 #include "BrowserState.h"
+#include "ControlsState.h"
 #include "MidiState.h"
 
 //==============================================================================
@@ -23,8 +24,9 @@ public:
 
     //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
-    PresetState& getPresetState() { return mPresetState; }
+    ControlsState& getControlsState() { return mControlsState; }
     BrowserState& getBrowserState() { return mBrowserState; }
+    PresetState& getPresetState() { return mPresetState; }
     MidiState& getMidiState() { return mMidiState; }
 
 private:
@@ -47,8 +49,9 @@ private:
 
     //==============================================================================
     GlobalState mGlobalState;
-    PresetState mPresetState;
+    ControlsState mControlsState;
     BrowserState mBrowserState;
+    PresetState mPresetState;
     MidiState mMidiState;
 
     //==============================================================================

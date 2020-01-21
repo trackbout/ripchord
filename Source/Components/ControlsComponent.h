@@ -23,11 +23,14 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+    ControlsState& mControlsState;
 
     Images mImages;
     DrawableButton mShiftLeftButton { "", DrawableButton::ImageStretched };
     DrawableButton mTransposeButton { "", DrawableButton::ImageStretched };
     DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
+
+    void handleToggleTranspose (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)
