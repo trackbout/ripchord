@@ -10,6 +10,11 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
+int MidiState::getCurrentlyOnTransposeNote()
+{
+    return mCurrentlyOnTransposeNote;
+}
+
 juce::Array<int> MidiState::getCurrentlyOnInputNotes()
 {
     return mCurrentlyOnInputNotes;
@@ -21,6 +26,11 @@ std::map<int, Origin> MidiState::getCurrentlyOnOutputNotes()
 }
 
 //==============================================================================
+void MidiState::setCurrentlyOnTransposeNote (const int inInputNote)
+{
+    mCurrentlyOnTransposeNote = inInputNote;
+}
+
 void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
 {
     juce::Array<int> prevCurrentlyOnInputNotes = mCurrentlyOnInputNotes;
