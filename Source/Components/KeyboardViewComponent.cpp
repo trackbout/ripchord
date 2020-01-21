@@ -8,7 +8,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
     mPresetName (inMainProcess),
-    mChordName (inMainProcess)
+    mChordName (inMainProcess),
+    mControls (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -36,6 +37,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mPresetName.setBounds (TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
+    mControls.setBounds (SPACE, CONTROLS_Y, CONTROLS_WIDTH, CONTROLS_HEIGHT);
 
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
@@ -48,6 +50,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mInputKeyboard);
     addAndMakeVisible (mPresetName);
     addAndMakeVisible (mChordName);
+    addAndMakeVisible (mControls);
 }
 
 KeyboardViewComponent::~KeyboardViewComponent()

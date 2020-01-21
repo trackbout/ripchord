@@ -9,6 +9,7 @@
 #include "InputKeyboardComponent.h"
 #include "PresetNameComponent.h"
 #include "ChordNameComponent.h"
+#include "ControlsComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component, public DataMessageListener
@@ -47,6 +48,7 @@ private:
     InputKeyboardComponent mInputKeyboard;
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
+    ControlsComponent mControls;
 
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
