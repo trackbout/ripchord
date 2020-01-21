@@ -15,9 +15,9 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mTransposeButton.setTriggeredOnMouseDown (true);
     mShiftRightButton.setTriggeredOnMouseDown (true);
 
-    mShiftLeftButton.onClick = [this]() { DBG ("LEFT"); };
+    mShiftLeftButton.onClick = [this]() { mControlsState.handleMouseClickOnShiftLeft(); };
     mTransposeButton.onClick = [this]() { mControlsState.toggleTranspose(); };
-    mShiftRightButton.onClick = [this]() { DBG ("RIGHT"); };
+    mShiftRightButton.onClick = [this]() { mControlsState.handleMouseClickOnShiftRight(); };
 
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);

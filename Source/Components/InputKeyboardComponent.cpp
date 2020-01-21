@@ -4,10 +4,12 @@
 InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mControlsState (mMainProcess.getControlsState()),
     mPresetState (mMainProcess.getPresetState()),
     mMidiState (mMainProcess.getMidiState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
 }
@@ -51,6 +53,8 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
+        case (MessageCode::kTransposeBaseChanged): { handleTransposeBaseChanged (inMessage); } break;
+        case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         default: { } break;
     };
 }
@@ -79,6 +83,11 @@ void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
 void InputKeyboardComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
     resetKeyColors();
+
+    if (!mControlsState.isTransposeOff())
+    {
+        turnOnTransposeKeys (mControlsState.getTransposeBase());
+    }
 }
 
 void InputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessage)
@@ -90,6 +99,11 @@ void InputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessag
     {
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setMarkerColor (COLOR_BLUE);
+    }
+
+    if (!mControlsState.isTransposeOff())
+    {
+        turnOnTransposeKeys (mControlsState.getTransposeBase());
     }
 }
 
@@ -142,5 +156,49 @@ void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inM
     {
         auto keyComponent = mKeyComponents.at (editModeInputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void InputKeyboardComponent::handleTransposeBaseChanged (const DataMessage* inMessage)
+{
+    int prevTransposeBase = inMessage->messageVar1;
+    int nextTransposeBase = inMessage->messageVar2;
+
+    turnOffTransposeKeys (prevTransposeBase);
+    turnOnTransposeKeys (nextTransposeBase);
+}
+
+void InputKeyboardComponent::handleToggleTranspose (const DataMessage* inMessage)
+{
+    int nextTransposeBase = inMessage->messageVar1;
+    if (!mControlsState.isTransposeOff()) { turnOnTransposeKeys (nextTransposeBase); }
+    if (mControlsState.isTransposeOff()) { turnOffTransposeKeys (nextTransposeBase); }
+}
+
+//==============================================================================
+void InputKeyboardComponent::turnOnTransposeKeys (const int transposeBase)
+{
+    for (int index = transposeBase; index < transposeBase + 25; index++)
+    {
+        auto keyComponent = mKeyComponents.at (index);
+        Colour markerColor = index == transposeBase + 12 ? COLOR_RED : COLOR_PURPLE;
+
+        keyComponent->setNoteColor (keyComponent->getDefaultColor (index));
+        keyComponent->setMarkerColor (markerColor);
+    }
+}
+
+void InputKeyboardComponent::turnOffTransposeKeys (const int transposeBase)
+{
+    juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
+
+    for (int index = transposeBase; index < transposeBase + 25; index++)
+    {
+        auto keyComponent = mKeyComponents.at (index);
+        bool isPresetNote = presetInputNotes.contains (index);
+        Colour defaultColor = keyComponent->getDefaultColor (index);
+
+        keyComponent->setNoteColor (defaultColor);
+        keyComponent->setMarkerColor (isPresetNote ? COLOR_BLUE : defaultColor);
     }
 }

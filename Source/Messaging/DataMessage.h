@@ -21,6 +21,7 @@ enum MessageCode
 
     // Messages from ControlsState
     kToggleTranspose,
+    kTransposeBaseChanged,
 
     // Messages from BrowserState
     kPresetFileDeleted,

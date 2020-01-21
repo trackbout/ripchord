@@ -4,6 +4,7 @@ const Colour COLOR_BLUE_DARK = Colour (0,117,168);
 const Colour COLOR_BLUE = Colour (0,168,232);
 const Colour COLOR_GREEN = Colour (87,186,123);
 const Colour COLOR_PURPLE = Colour (121,87,186);
+const Colour COLOR_RED = Colour (239,71,111);
 const Colour COLOR_WHITE = Colour (255,255,255);
 const Colour COLOR_BLACK = Colour (0,0,0);
 const Colour COLOR_GREY_DARK = Colour (60,60,60);

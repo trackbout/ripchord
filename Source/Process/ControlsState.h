@@ -16,13 +16,19 @@ public:
     enum Transpose { Off = 0, On, Locked };
 
     //==============================================================================
-    void toggleTranspose();
     bool isTransposeOff();
     bool isTransposeOn();
     bool isTransposeLocked();
 
+    //==============================================================================
+    int getTransposeBase();
+    void toggleTranspose();
+    void handleMouseClickOnShiftLeft();
+    void handleMouseClickOnShiftRight();
+
 private:
     //==============================================================================
+    int mTransposeBase = 21;
     Transpose mTranspose = Transpose::Off;
 
     //==============================================================================
