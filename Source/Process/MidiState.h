@@ -2,7 +2,6 @@
 
 #include "JuceHeader.h"
 #include "Midi.h"
-#include "Styles.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -33,7 +32,7 @@ private:
 
     //==============================================================================
     juce::Array<int> getOutputNotesArray (std::map<int, Origin> outputNotes);
-    juce::Array<int> getModifiedOutputNotesArray (std::map<int, Origin> outputNotes);
+    juce::Array<int> getWeightedOutputNotesArray (std::map<int, Origin> outputNotes);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)

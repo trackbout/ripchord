@@ -39,7 +39,7 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
 void MidiState::setCurrentlyOnOutputNotes (std::map<int, Origin> inOutputNotes)
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = getOutputNotesArray (mCurrentlyOnOutputNotes);
-    juce::Array<int> nextCurrentlyOnOutputNotes = getModifiedOutputNotesArray (inOutputNotes);
+    juce::Array<int> nextCurrentlyOnOutputNotes = getWeightedOutputNotesArray (inOutputNotes);
 
     mCurrentlyOnOutputNotes.clear();
     mCurrentlyOnOutputNotes = inOutputNotes;
@@ -81,21 +81,21 @@ juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Origin> outputNot
     return outputNotesArray;
 }
 
-juce::Array<int> MidiState::getModifiedOutputNotesArray (std::map<int, Origin> outputNotes)
+juce::Array<int> MidiState::getWeightedOutputNotesArray (std::map<int, Origin> outputNotes)
 {
-    juce::Array<int> modifiedOutputNotesArray;
+    juce::Array<int> weightedOutputNotesArray;
 
     for (const auto& pair : outputNotes)
     {
         if (pair.second.triggers.size() == 2)
         {
-            modifiedOutputNotesArray.add ((pair.first) + OUTPUT_NOTE_MODIFIER);
+            weightedOutputNotesArray.add ((pair.first) + DOUBLE_TRIGGER_WEIGHT);
         }
         else
         {
-            modifiedOutputNotesArray.add (pair.first);
+            weightedOutputNotesArray.add (pair.first);
         }
     }
 
-    return modifiedOutputNotesArray;
+    return weightedOutputNotesArray;
 }

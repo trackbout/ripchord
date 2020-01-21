@@ -99,8 +99,6 @@ const float ACTIONS_MENU_HEIGHT = ACTIONS_MENU_BUTTON_HEIGHT * ACTIONS_MENU_BUTT
 const float ACTIONS_MENU_X = EDITOR_WIDTH * 0.5f - ACTIONS_MENU_WIDTH * 0.5f;
 const float ACTIONS_MENU_Y = EDITOR_HEIGHT * 0.5f - ACTIONS_MENU_HEIGHT * 0.5f;
 
-const int OUTPUT_NOTE_MODIFIER = 1000;
-
 //==============================================================================
 namespace Styles
 {

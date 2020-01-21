@@ -95,9 +95,9 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
 
     for (int& outputNote : nextCurrentlyOnOutputNotes)
     {
-        if (outputNote > OUTPUT_NOTE_MODIFIER)
+        if (outputNote > DOUBLE_TRIGGER_WEIGHT)
         {
-            auto keyComponent = mKeyComponents.at (outputNote - OUTPUT_NOTE_MODIFIER);
+            auto keyComponent = mKeyComponents.at (outputNote - DOUBLE_TRIGGER_WEIGHT);
             keyComponent->setNoteAndMarkerColor (COLOR_BLUE_DARK);
         }
         else
@@ -110,7 +110,7 @@ void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* i
     for (int& outputNote : mPresetState.getChordNotes (mPresetState.getEditModeInputNote()))
     {
         if (!nextCurrentlyOnOutputNotes.contains (outputNote) &&
-            !nextCurrentlyOnOutputNotes.contains (outputNote + OUTPUT_NOTE_MODIFIER))
+            !nextCurrentlyOnOutputNotes.contains (outputNote + DOUBLE_TRIGGER_WEIGHT))
         {
             auto keyComponent = mKeyComponents.at (outputNote);
             keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
