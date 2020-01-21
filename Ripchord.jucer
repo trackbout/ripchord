@@ -52,6 +52,10 @@
               file="Source/Components/KeyboardViewComponent.cpp"/>
         <FILE id="FVJTpd" name="KeyboardViewComponent.h" compile="0" resource="0"
               file="Source/Components/KeyboardViewComponent.h"/>
+        <FILE id="dlQPGa" name="ControlsComponent.cpp" compile="1" resource="0"
+              file="Source/Components/ControlsComponent.cpp"/>
+        <FILE id="hPkuDX" name="ControlsComponent.h" compile="0" resource="0"
+              file="Source/Components/ControlsComponent.h"/>
         <FILE id="vTGUGv" name="ChordNameComponent.cpp" compile="1" resource="0"
               file="Source/Components/ChordNameComponent.cpp"/>
         <FILE id="Q7PhgU" name="ChordNameComponent.h" compile="0" resource="0"
@@ -125,6 +129,9 @@
         <FILE id="o9qHn5" name="MainProcess.h" compile="0" resource="0" file="Source/Process/MainProcess.h"/>
         <FILE id="nCT02j" name="GlobalState.cpp" compile="1" resource="0" file="Source/Process/GlobalState.cpp"/>
         <FILE id="dPTm4E" name="GlobalState.h" compile="0" resource="0" file="Source/Process/GlobalState.h"/>
+        <FILE id="TACcWv" name="ControlsState.cpp" compile="1" resource="0"
+              file="Source/Process/ControlsState.cpp"/>
+        <FILE id="nQRcvu" name="ControlsState.h" compile="0" resource="0" file="Source/Process/ControlsState.h"/>
         <FILE id="O22gR8" name="BrowserState.cpp" compile="1" resource="0"
               file="Source/Process/BrowserState.cpp"/>
         <FILE id="pTnNEa" name="BrowserState.h" compile="0" resource="0" file="Source/Process/BrowserState.h"/>
