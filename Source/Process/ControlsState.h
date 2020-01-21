@@ -22,6 +22,9 @@ public:
 
     //==============================================================================
     int getTransposeBase();
+    bool isTransposeKey (const int inputNote);
+
+    //==============================================================================
     void toggleTranspose();
     void handleMouseClickOnShiftLeft();
     void handleMouseClickOnShiftRight();

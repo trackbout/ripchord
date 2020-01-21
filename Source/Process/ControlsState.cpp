@@ -31,6 +31,12 @@ int ControlsState::getTransposeBase()
     return mTransposeBase;
 }
 
+bool ControlsState::isTransposeKey (const int inInputNote)
+{
+    return mTransposeBase <= inInputNote && inInputNote < (mTransposeBase + 25);
+}
+
+//==============================================================================
 void ControlsState::toggleTranspose()
 {
     switch (mTranspose)
