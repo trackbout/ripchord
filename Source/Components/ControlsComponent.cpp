@@ -7,12 +7,17 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
 {
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mShiftLeftButton.setImages (mImages.getDrawable ("ShiftLeft.svg"));
-    mTransposeButton.setImages (mImages.getDrawable ("Transpose.svg"));
-    mShiftRightButton.setImages (mImages.getDrawable ("ShiftRight.svg"));
+    mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
+    mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
+    mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
 
+    mShiftLeftButton.setTriggeredOnMouseDown (true);
     mTransposeButton.setTriggeredOnMouseDown (true);
+    mShiftRightButton.setTriggeredOnMouseDown (true);
+
+    mShiftLeftButton.onClick = [this]() { DBG ("LEFT"); };
     mTransposeButton.onClick = [this]() { mControlsState.toggleTranspose(); };
+    mShiftRightButton.onClick = [this]() { DBG ("RIGHT"); };
 
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);
