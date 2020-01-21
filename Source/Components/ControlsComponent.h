@@ -24,6 +24,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     ControlsState& mControlsState;
+    MidiState& mMidiState;
 
     Images mImages;
     DrawableButton mShiftLeftButton { "", DrawableButton::ImageStretched };

@@ -3,7 +3,8 @@
 //==============================================================================
 ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
-    mControlsState (mMainProcess.getControlsState())
+    mControlsState (mMainProcess.getControlsState()),
+    mMidiState (mMainProcess.getMidiState())
 {
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
@@ -15,9 +16,23 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mTransposeButton.setTriggeredOnMouseDown (true);
     mShiftRightButton.setTriggeredOnMouseDown (true);
 
-    mShiftLeftButton.onClick = [this]() { mControlsState.handleMouseClickOnShiftLeft(); };
-    mTransposeButton.onClick = [this]() { mControlsState.toggleTranspose(); };
-    mShiftRightButton.onClick = [this]() { mControlsState.handleMouseClickOnShiftRight(); };
+    mShiftLeftButton.onClick = [this]()
+    {
+        if (mMidiState.shouldPreventToggleTranspose()) { return; }
+        mControlsState.handleMouseClickOnShiftLeft();
+    };
+
+    mTransposeButton.onClick = [this]()
+    {
+        if (mMidiState.shouldPreventToggleTranspose()) { return; }
+        mControlsState.toggleTranspose();
+    };
+
+    mShiftRightButton.onClick = [this]()
+    {
+        if (mMidiState.shouldPreventToggleTranspose()) { return; }
+        mControlsState.handleMouseClickOnShiftRight();
+    };
 
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);

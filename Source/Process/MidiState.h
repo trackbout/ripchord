@@ -15,6 +15,7 @@ public:
 
     //==============================================================================
     int getCurrentlyOnTransposeNote();
+    bool shouldPreventToggleTranspose();
     juce::Array<int> getCurrentlyOnInputNotes();
     std::map<int, Origin> getCurrentlyOnOutputNotes();
 
@@ -29,7 +30,7 @@ public:
 
 private:
     //==============================================================================
-    int mCurrentlyOnTransposeNote;
+    int mCurrentlyOnTransposeNote = -1;
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;
 

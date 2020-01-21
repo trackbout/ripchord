@@ -46,9 +46,16 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
     for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, time);)
     {
-        if (message.isNoteOn()) { handleNoteOn (message, time); }
-        if (message.isNoteOff()) { handleNoteOff (message, time); }
-        if (!message.isNoteOnOrOff()) { handleNonNote (message, time); }
+        if (!mControlsState.isTransposeOff() && mControlsState.isTransposeKey (message.getNoteNumber()))
+        {
+            DBG ("TRANSPOSE");
+        }
+        else
+        {
+            if (message.isNoteOn()) { handleNoteOn (message, time); }
+            if (message.isNoteOff()) { handleNoteOff (message, time); }
+            if (!message.isNoteOnOrOff()) { handleNonNote (message, time); }
+        }
     }
 }
 
