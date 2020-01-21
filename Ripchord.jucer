@@ -117,6 +117,7 @@
       </GROUP>
       <GROUP id="{937C8C20-D95D-E7A6-0815-F312C0B9AAC3}" name="Modules">
         <FILE id="RoeDLW" name="Images.h" compile="0" resource="0" file="Source/Modules/Images.h"/>
+        <FILE id="p4SnGX" name="Midi.h" compile="0" resource="0" file="Source/Modules/Midi.h"/>
         <FILE id="w15eM1" name="Presets.h" compile="0" resource="0" file="Source/Modules/Presets.h"/>
         <FILE id="PrYJEs" name="Styles.h" compile="0" resource="0" file="Source/Modules/Styles.h"/>
         <FILE id="lbLBpc" name="System.h" compile="0" resource="0" file="Source/Modules/System.h"/>

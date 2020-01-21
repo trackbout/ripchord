@@ -6,6 +6,7 @@
 #include "BrowserState.h"
 #include "ControlsState.h"
 #include "MidiState.h"
+#include "Midi.h"
 
 //==============================================================================
 class MainProcess
@@ -42,10 +43,10 @@ private:
 
     //==============================================================================
     void noteOnToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                              int outputNote, std::map<int, juce::Array<int>>& currentlyOnOutputNotes);
+                              int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
     void noteOffToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                               int outputNote, std::map<int, juce::Array<int>>& currentlyOnOutputNotes);
+                               int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
     //==============================================================================
     GlobalState mGlobalState;

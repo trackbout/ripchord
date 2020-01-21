@@ -58,7 +58,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inTime)
     int inInputChannel = inMessage.getChannel();
     float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, juce::Array<int>> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
@@ -84,7 +84,7 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inTime)
     int inInputChannel = inMessage.getChannel();
     float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, juce::Array<int>> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
@@ -111,7 +111,7 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 
 //==============================================================================
 void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                       int inOutputNote, std::map<int, juce::Array<int>>& inCurrentlyOnOutputNotes)
+                                       int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (inOutputNote);
 
@@ -121,16 +121,16 @@ void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, floa
         mTransformedMidiBuffer.addEvent (message, inTime);
 
         auto pair = inCurrentlyOnOutputNotes.find (inOutputNote);
-        juce::Array<int> triggers = pair->second;
+        juce::Array<int> triggers = pair->second.triggers;
         triggers.add (inInputNote);
-        pair->second = triggers;
+        pair->second.triggers = triggers;
     }
 
     if (triggerCount == 0)
     {
         juce::Array<int> triggers;
         triggers.add (inInputNote);
-        inCurrentlyOnOutputNotes[inOutputNote] = triggers;
+        inCurrentlyOnOutputNotes[inOutputNote].triggers = triggers;
     }
 
     if (triggerCount == 1 || triggerCount == 0)
@@ -141,7 +141,7 @@ void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, floa
 }
 
 void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                        int inOutputNote, std::map<int, juce::Array<int>>& inCurrentlyOnOutputNotes)
+                                        int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
     bool containsTrigger = mMidiState.containsOutputNoteTrigger (inOutputNote, inInputNote);
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (inOutputNote);
@@ -149,9 +149,9 @@ void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, flo
     if (triggerCount == 2 && containsTrigger)
     {
         auto pair = inCurrentlyOnOutputNotes.find (inOutputNote);
-        juce::Array<int> triggers = pair->second;
+        juce::Array<int> triggers = pair->second.triggers;
         triggers.removeFirstMatchingValue (inInputNote);
-        pair->second = triggers;
+        pair->second.triggers = triggers;
     }
 
     if (triggerCount == 1 && containsTrigger)
