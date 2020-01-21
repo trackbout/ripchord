@@ -93,6 +93,7 @@ void KeyboardViewComponent::resized()
     mInputKeyboard.setTransform (AffineTransform::scale(scaleFactor));
     mPresetName.setTransform (AffineTransform::scale(scaleFactor));
     mChordName.setTransform (AffineTransform::scale(scaleFactor));
+    mControls.setTransform (AffineTransform::scale(scaleFactor));
 
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));

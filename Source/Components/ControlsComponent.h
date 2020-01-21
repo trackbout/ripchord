@@ -1,6 +1,8 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Images.h"
+#include "Styles.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 
@@ -13,7 +15,6 @@ public:
     ~ControlsComponent();
 
     //==============================================================================
-    void paint (Graphics& graphics) override;
     void resized() override;
 
     //==============================================================================
@@ -22,6 +23,11 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+
+    Images mImages;
+    DrawableButton mShiftLeftButton { "", DrawableButton::ImageStretched };
+    DrawableButton mTransposeButton { "", DrawableButton::ImageStretched };
+    DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)
