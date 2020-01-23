@@ -15,14 +15,14 @@ bool ControlsState::isTransposeOff()
     return mTranspose == Transpose::Off;
 }
 
-bool ControlsState::isTransposeOn()
+bool ControlsState::isTransposeEnabled()
 {
-    return mTranspose == Transpose::On;
+    return mTranspose == Transpose::Enabled;
 }
 
-bool ControlsState::isTransposeLocked()
+bool ControlsState::isTransposeLatched()
 {
-    return mTranspose == Transpose::Locked;
+    return mTranspose == Transpose::Latched;
 }
 
 //==============================================================================
@@ -41,9 +41,9 @@ void ControlsState::toggleTranspose()
 {
     switch (mTranspose)
     {
-        case (Transpose::Off): { mTranspose = Transpose::On; } break;
-        case (Transpose::On): { mTranspose = Transpose::Locked; } break;
-        case (Transpose::Locked): { mTranspose = Transpose::Off; } break;
+        case (Transpose::Off): { mTranspose = Transpose::Enabled; } break;
+        case (Transpose::Enabled): { mTranspose = Transpose::Latched; } break;
+        case (Transpose::Latched): { mTranspose = Transpose::Off; } break;
     };
 
     DataMessage* message = new DataMessage();

@@ -65,6 +65,6 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 {
     if (mControlsState.isTransposeOff()) { mTransposeButton.setImages (mImages.getDrawable ("Transpose.svg")); }
-    if (mControlsState.isTransposeOn()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeON.svg")); }
-    if (mControlsState.isTransposeLocked()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeLOCK.svg")); }
+    if (mControlsState.isTransposeEnabled()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeENABLED.svg")); }
+    if (mControlsState.isTransposeLatched()) { mTransposeButton.setImages (mImages.getDrawable ("TransposeLATCHED.svg")); }
 }

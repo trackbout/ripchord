@@ -175,17 +175,17 @@ void MainProcess::handleTransposeNoteOn (int inInputNote)
 {
     if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
 
-    if (mControlsState.isTransposeOn() && mMidiState.getCurrentlyOnTransposeNote() == -1)
+    if (mControlsState.isTransposeEnabled() && mMidiState.getCurrentlyOnTransposeNote() == -1)
     {
         mMidiState.setCurrentlyOnTransposeNote (inInputNote);
     }
 
-    else if (mControlsState.isTransposeLocked() && mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
+    else if (mControlsState.isTransposeLatched() && mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
     {
         mMidiState.setCurrentlyOnTransposeNote (inInputNote);
     }
 
-    else if (mControlsState.isTransposeLocked() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    else if (mControlsState.isTransposeLatched() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
     {
         mMidiState.setCurrentlyOnTransposeNote (-1);
     }
@@ -195,7 +195,7 @@ void MainProcess::handleTransposeNoteOff (int inInputNote)
 {
     if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
 
-    if (mControlsState.isTransposeOn() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    if (mControlsState.isTransposeEnabled() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
     {
         mMidiState.setCurrentlyOnTransposeNote (-1);
     }

@@ -13,12 +13,12 @@ public:
     ~ControlsState();
 
     //==============================================================================
-    enum Transpose { Off = 0, On, Locked };
+    enum Transpose { Off, Enabled, Latched };
 
     //==============================================================================
     bool isTransposeOff();
-    bool isTransposeOn();
-    bool isTransposeLocked();
+    bool isTransposeEnabled();
+    bool isTransposeLatched();
 
     //==============================================================================
     int getTransposeBase();

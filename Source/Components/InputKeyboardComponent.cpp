@@ -165,39 +165,21 @@ void InputKeyboardComponent::handleCurrentlyOnTransposeNote (const DataMessage* 
     const int prevTransposeNote = inMessage->messageVar1;
     const int nextTransposeNote = inMessage->messageVar2;
 
-    if (mControlsState.isTransposeOn())
+    if (nextTransposeNote == -1)
     {
-        if (nextTransposeNote == -1)
-        {
-            auto keyComponent = mKeyComponents.at (prevTransposeNote);
-            keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
-        }
-
-        if (nextTransposeNote > 0)
-        {
-            auto keyComponent = mKeyComponents.at (nextTransposeNote);
-            keyComponent->setNoteColor (COLOR_PURPLE);
-        }
+        auto keyComponent = mKeyComponents.at (prevTransposeNote);
+        keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
     }
 
-    if (mControlsState.isTransposeLocked())
+    if (nextTransposeNote > 0)
     {
-        if (nextTransposeNote == -1)
+        auto keyComponent = mKeyComponents.at (nextTransposeNote);
+        keyComponent->setNoteColor (COLOR_PURPLE);
+
+        if (prevTransposeNote > 0)
         {
             auto keyComponent = mKeyComponents.at (prevTransposeNote);
             keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
-        }
-
-        if (nextTransposeNote > 0)
-        {
-            auto keyComponent = mKeyComponents.at (nextTransposeNote);
-            keyComponent->setNoteColor (COLOR_PURPLE);
-
-            if (prevTransposeNote > 0)
-            {
-                auto keyComponent = mKeyComponents.at (prevTransposeNote);
-                keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
-            }
         }
     }
 }
