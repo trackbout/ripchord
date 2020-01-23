@@ -46,9 +46,10 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
     for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, time);)
     {
-        if (!mControlsState.isTransposeOff() && mControlsState.isTransposeKey (message.getNoteNumber()))
+        if (!mControlsState.isTransposeOff() && mControlsState.isTransposeNote (message.getNoteNumber()))
         {
-            DBG ("TRANSPOSE");
+            if (message.isNoteOn()) { handleTransposeNoteOn (message.getNoteNumber()); }
+            if (message.isNoteOff()) { handleTransposeNoteOff (message.getNoteNumber()); }
         }
         else
         {
@@ -166,5 +167,36 @@ void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, flo
         const auto& message = MidiMessage::noteOff (inInputChannel, inOutputNote, inInputVelocity);
         mTransformedMidiBuffer.addEvent (message, inTime);
         inCurrentlyOnOutputNotes.erase (inOutputNote);
+    }
+}
+
+//==============================================================================
+void MainProcess::handleTransposeNoteOn (int inInputNote)
+{
+    if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
+
+    if (mControlsState.isTransposeOn() && mMidiState.getCurrentlyOnTransposeNote() == -1)
+    {
+        mMidiState.setCurrentlyOnTransposeNote (inInputNote);
+    }
+
+    else if (mControlsState.isTransposeLocked() && mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
+    {
+        mMidiState.setCurrentlyOnTransposeNote (inInputNote);
+    }
+
+    else if (mControlsState.isTransposeLocked() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    {
+        mMidiState.setCurrentlyOnTransposeNote (-1);
+    }
+}
+
+void MainProcess::handleTransposeNoteOff (int inInputNote)
+{
+    if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
+
+    if (mControlsState.isTransposeOn() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    {
+        mMidiState.setCurrentlyOnTransposeNote (-1);
     }
 }

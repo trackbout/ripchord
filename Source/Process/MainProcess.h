@@ -49,6 +49,10 @@ private:
                                int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
     //==============================================================================
+    void handleTransposeNoteOn (int inputNote);
+    void handleTransposeNoteOff (int inputNote);
+
+    //==============================================================================
     GlobalState mGlobalState;
     ControlsState mControlsState;
     BrowserState mBrowserState;

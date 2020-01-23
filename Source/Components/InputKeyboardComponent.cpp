@@ -53,6 +53,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
+        case (MessageCode::kCurrentlyOnTransposeNote): { handleCurrentlyOnTransposeNote (inMessage); } break;
         case (MessageCode::kTransposeBaseChanged): { handleTransposeBaseChanged (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         default: { } break;
@@ -156,6 +157,48 @@ void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inM
     {
         auto keyComponent = mKeyComponents.at (editModeInputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void InputKeyboardComponent::handleCurrentlyOnTransposeNote (const DataMessage* inMessage)
+{
+    const int prevTransposeNote = inMessage->messageVar1;
+    const int nextTransposeNote = inMessage->messageVar2;
+
+    if (mControlsState.isTransposeOn())
+    {
+        if (nextTransposeNote == -1)
+        {
+            auto keyComponent = mKeyComponents.at (prevTransposeNote);
+            keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
+        }
+
+        if (nextTransposeNote > 0)
+        {
+            auto keyComponent = mKeyComponents.at (nextTransposeNote);
+            keyComponent->setNoteColor (COLOR_PURPLE);
+        }
+    }
+
+    if (mControlsState.isTransposeLocked())
+    {
+        if (nextTransposeNote == -1)
+        {
+            auto keyComponent = mKeyComponents.at (prevTransposeNote);
+            keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
+        }
+
+        if (nextTransposeNote > 0)
+        {
+            auto keyComponent = mKeyComponents.at (nextTransposeNote);
+            keyComponent->setNoteColor (COLOR_PURPLE);
+
+            if (prevTransposeNote > 0)
+            {
+                auto keyComponent = mKeyComponents.at (prevTransposeNote);
+                keyComponent->setNoteColor (keyComponent->getDefaultColor (prevTransposeNote));
+            }
+        }
     }
 }
 

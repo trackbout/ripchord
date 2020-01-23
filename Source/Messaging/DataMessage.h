@@ -41,7 +41,8 @@ enum MessageCode
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,
-    kCurrentlyOnOutputNotes
+    kCurrentlyOnOutputNotes,
+    kCurrentlyOnTransposeNote
 };
 
 //==============================================================================
