@@ -20,8 +20,9 @@ enum MessageCode
     kToggleMenu,
 
     // Messages from ControlsState
+    kActiveTransposeNote,
     kToggleTranspose,
-    kTransposeBaseChanged,
+    kTransposeBase,
 
     // Messages from BrowserState
     kPresetFileDeleted,
@@ -41,8 +42,7 @@ enum MessageCode
 
     // Messages from MidiState
     kCurrentlyOnInputNotes,
-    kCurrentlyOnOutputNotes,
-    kCurrentlyOnTransposeNote
+    kCurrentlyOnOutputNotes
 };
 
 //==============================================================================

@@ -35,7 +35,7 @@ private:
     void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
 
-    bool isTransposeArrowDisabled();
+    bool isTransposeShiftDisabled();
     bool isTransposeToggleDisabled();
 
     //==============================================================================

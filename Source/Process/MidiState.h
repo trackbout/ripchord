@@ -14,12 +14,10 @@ public:
     ~MidiState();
 
     //==============================================================================
-    int getCurrentlyOnTransposeNote();
     juce::Array<int> getCurrentlyOnInputNotes();
     std::map<int, Origin> getCurrentlyOnOutputNotes();
 
     //==============================================================================
-    void setCurrentlyOnTransposeNote (const int inputNote);
     void setCurrentlyOnInputNotes (juce::Array<int> inputNotes);
     void setCurrentlyOnOutputNotes (std::map<int, Origin> outputNotes);
 
@@ -29,7 +27,6 @@ public:
 
 private:
     //==============================================================================
-    int mCurrentlyOnTransposeNote = -1;
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;
 

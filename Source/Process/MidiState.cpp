@@ -10,11 +10,6 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
-int MidiState::getCurrentlyOnTransposeNote()
-{
-    return mCurrentlyOnTransposeNote;
-}
-
 juce::Array<int> MidiState::getCurrentlyOnInputNotes()
 {
     return mCurrentlyOnInputNotes;
@@ -26,20 +21,6 @@ std::map<int, Origin> MidiState::getCurrentlyOnOutputNotes()
 }
 
 //==============================================================================
-void MidiState::setCurrentlyOnTransposeNote (const int inInputNote)
-{
-    const int prevCurrentlyOnTransposeNote = mCurrentlyOnTransposeNote;
-    const int nextCurrentlyOnTransposeNote = inInputNote;
-
-    mCurrentlyOnTransposeNote = nextCurrentlyOnTransposeNote;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kCurrentlyOnTransposeNote;
-    message->messageVar1 = prevCurrentlyOnTransposeNote;
-    message->messageVar2 = nextCurrentlyOnTransposeNote;
-    sendMessage (message, ListenerType::kAsync);
-}
-
 void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
 {
     juce::Array<int> prevCurrentlyOnInputNotes = mCurrentlyOnInputNotes;

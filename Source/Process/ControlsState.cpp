@@ -26,21 +26,42 @@ int ControlsState::getTransposeBase()
     return mTransposeBase;
 }
 
+int ControlsState::getActiveTransposeNote()
+{
+    return mActiveTransposeNote;
+}
+
+void ControlsState::setActiveTransposeNote (const int inInputNote)
+{
+    const int prevActiveTransposeNote = mActiveTransposeNote;
+    const int nextActiveTransposeNote = inInputNote;
+
+    mActiveTransposeNote = nextActiveTransposeNote;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kActiveTransposeNote;
+    message->messageVar1 = prevActiveTransposeNote;
+    message->messageVar2 = nextActiveTransposeNote;
+    sendMessage (message, ListenerType::kAsync);
+}
+
+//==============================================================================
 bool ControlsState::isTransposeNote (const int inInputNote)
 {
     return mTransposeBase <= inInputNote && inInputNote < (mTransposeBase + 25);
 }
 
-int ControlsState::getTransposedNote (const int inOutputNote, const int inCurrentlyOnTransposeNote)
+int ControlsState::getTransposedNote (const int inOutputNote, const int inActiveTransposeNote)
 {
-    if (isTransposeOff() || inCurrentlyOnTransposeNote == -1) { return inOutputNote; }
-    return inOutputNote + (inCurrentlyOnTransposeNote - mTransposeBase - 12);
+    if (isTransposeOff() || inActiveTransposeNote == -1) { return inOutputNote; }
+    return inOutputNote + (inActiveTransposeNote - mTransposeBase - 12);
 }
 
 //==============================================================================
 void ControlsState::toggleTranspose()
 {
     mTranspose = isTransposeOff() ? Transpose::On : Transpose::Off;
+    if (mActiveTransposeNote > 0) { mActiveTransposeNote = -1; }
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTranspose;
@@ -58,7 +79,7 @@ void ControlsState::handleMouseClickOnShiftLeft()
     mTransposeBase = nextTransposeBase;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTransposeBaseChanged;
+    message->messageCode = MessageCode::kTransposeBase;
     message->messageVar1 = prevTransposeBase;
     message->messageVar2 = nextTransposeBase;
     sendMessage (message, ListenerType::kSync);
@@ -74,7 +95,7 @@ void ControlsState::handleMouseClickOnShiftRight()
     mTransposeBase = nextTransposeBase;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTransposeBaseChanged;
+    message->messageCode = MessageCode::kTransposeBase;
     message->messageVar1 = prevTransposeBase;
     message->messageVar2 = nextTransposeBase;
     sendMessage (message, ListenerType::kSync);

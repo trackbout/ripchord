@@ -48,7 +48,7 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
     {
         if (mControlsState.isTransposeOn() && mControlsState.isTransposeNote (message.getNoteNumber()))
         {
-            if (message.isNoteOn()) { handleTransposeNoteOn (message.getNoteNumber()); }
+            if (message.isNoteOn()) { handleActiveTransposeNote (message.getNoteNumber()); }
         }
         else
         {
@@ -120,7 +120,7 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
                                        int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
-    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mMidiState.getCurrentlyOnTransposeNote());
+    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (transposedNote);
 
     if (triggerCount == 1)
@@ -151,7 +151,7 @@ void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, floa
 void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
                                         int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
-    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mMidiState.getCurrentlyOnTransposeNote());
+    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
     bool containsTrigger = mMidiState.containsOutputNoteTrigger (transposedNote, inInputNote);
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (transposedNote);
 
@@ -172,18 +172,18 @@ void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, flo
 }
 
 //==============================================================================
-void MainProcess::handleTransposeNoteOn (int inInputNote)
+void MainProcess::handleActiveTransposeNote (int inInputNote)
 {
     if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
     if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
 
-    else if (mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
+    else if (mControlsState.getActiveTransposeNote() != inInputNote)
     {
-        mMidiState.setCurrentlyOnTransposeNote (inInputNote);
+        mControlsState.setActiveTransposeNote (inInputNote);
     }
 
-    else if (mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    else if (mControlsState.getActiveTransposeNote() == inInputNote)
     {
-        mMidiState.setCurrentlyOnTransposeNote (-1);
+        mControlsState.setActiveTransposeNote (-1);
     }
 }

@@ -20,20 +20,19 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
 
     mShiftLeftButton.onClick = [this]()
     {
-        if (isTransposeArrowDisabled()) { return; }
+        if (isTransposeShiftDisabled()) { return; }
         mControlsState.handleMouseClickOnShiftLeft();
     };
 
     mTransposeButton.onClick = [this]()
     {
         if (isTransposeToggleDisabled()) { return; }
-        if (mMidiState.getCurrentlyOnTransposeNote() > 0) { mMidiState.setCurrentlyOnTransposeNote (-1); }
         mControlsState.toggleTranspose();
     };
 
     mShiftRightButton.onClick = [this]()
     {
-        if (isTransposeArrowDisabled()) { return; }
+        if (isTransposeShiftDisabled()) { return; }
         mControlsState.handleMouseClickOnShiftRight();
     };
 
@@ -69,7 +68,6 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
 {
     if (mGlobalState.isPlayMode()) { return; }
-    if (mMidiState.getCurrentlyOnTransposeNote() > 0) { mMidiState.setCurrentlyOnTransposeNote (-1); }
     if (mControlsState.isTransposeOn()) { mControlsState.toggleTranspose(); }
 }
 
@@ -79,10 +77,10 @@ void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mTransposeButton, svgPath);
 }
 
-bool ControlsComponent::isTransposeArrowDisabled()
+bool ControlsComponent::isTransposeShiftDisabled()
 {
     if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return true; }
-    if (mMidiState.getCurrentlyOnTransposeNote() > 0) { return true; }
+    if (mControlsState.getActiveTransposeNote() > 0) { return true; }
     if (mGlobalState.isEditMode()) { return true; }
     return false;
 }

@@ -21,8 +21,12 @@ public:
 
     //==============================================================================
     int getTransposeBase();
+    int getActiveTransposeNote();
+    void setActiveTransposeNote (const int inputNote);
+
+    //==============================================================================
     bool isTransposeNote (const int inputNote);
-    int getTransposedNote (const int outputNote, const int currentlyOnTransposeNote);
+    int getTransposedNote (const int outputNote, const int activeTransposeNote);
 
     //==============================================================================
     void toggleTranspose();
@@ -31,8 +35,10 @@ public:
 
 private:
     //==============================================================================
-    int mTransposeBase = 21;
     Transpose mTranspose = Transpose::Off;
+
+    int mTransposeBase = 21;
+    int mActiveTransposeNote = -1;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsState)

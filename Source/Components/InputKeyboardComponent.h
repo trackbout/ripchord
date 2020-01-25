@@ -36,14 +36,13 @@ private:
     void handlePresetFileLoaded (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleCurrentlyOnInputNotes (const DataMessage* message);
-    void handleCurrentlyOnTransposeNote (const DataMessage* message);
-    void handleTransposeBaseChanged (const DataMessage* message);
+    void handleActiveTransposeNote (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
+    void handleTransposeBase (const DataMessage* message);
 
     //==============================================================================
     void turnOnTransposeKeys (const int transposeBase);
     void turnOffTransposeKeys (const int transposeBase);
-    void resetInputKeyboard();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InputKeyboardComponent)

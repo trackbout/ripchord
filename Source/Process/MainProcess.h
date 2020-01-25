@@ -49,7 +49,7 @@ private:
                                int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
     //==============================================================================
-    void handleTransposeNoteOn (int inputNote);
+    void handleActiveTransposeNote (int inputNote);
 
     //==============================================================================
     GlobalState mGlobalState;
