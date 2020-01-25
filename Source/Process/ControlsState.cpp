@@ -15,14 +15,9 @@ bool ControlsState::isTransposeOff()
     return mTranspose == Transpose::Off;
 }
 
-bool ControlsState::isTransposeEnabled()
+bool ControlsState::isTransposeOn()
 {
-    return mTranspose == Transpose::Enabled;
-}
-
-bool ControlsState::isTransposeLatched()
-{
-    return mTranspose == Transpose::Latched;
+    return mTranspose == Transpose::On;
 }
 
 //==============================================================================
@@ -39,12 +34,7 @@ bool ControlsState::isTransposeNote (const int inInputNote)
 //==============================================================================
 void ControlsState::toggleTranspose()
 {
-    switch (mTranspose)
-    {
-        case (Transpose::Off): { mTranspose = Transpose::Enabled; } break;
-        case (Transpose::Enabled): { mTranspose = Transpose::Latched; } break;
-        case (Transpose::Latched): { mTranspose = Transpose::Off; } break;
-    };
+    mTranspose = isTransposeOff() ? Transpose::On : Transpose::Off;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTranspose;

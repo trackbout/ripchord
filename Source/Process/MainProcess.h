@@ -50,7 +50,6 @@ private:
 
     //==============================================================================
     void handleTransposeNoteOn (int inputNote);
-    void handleTransposeNoteOff (int inputNote);
 
     //==============================================================================
     GlobalState mGlobalState;

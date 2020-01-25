@@ -39,10 +39,7 @@
         <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
         <FILE id="HXPZ9G" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="Lf4gNK" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
-        <FILE id="RYi5cT" name="TransposeENABLED.svg" compile="0" resource="1"
-              file="Source/Assets/TransposeENABLED.svg"/>
-        <FILE id="B89KiO" name="TransposeLATCHED.svg" compile="0" resource="1"
-              file="Source/Assets/TransposeLATCHED.svg"/>
+        <FILE id="RYi5cT" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">

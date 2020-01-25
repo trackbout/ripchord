@@ -46,10 +46,9 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
     for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, time);)
     {
-        if (!mControlsState.isTransposeOff() && mControlsState.isTransposeNote (message.getNoteNumber()))
+        if (mControlsState.isTransposeOn() && mControlsState.isTransposeNote (message.getNoteNumber()))
         {
             if (message.isNoteOn()) { handleTransposeNoteOn (message.getNoteNumber()); }
-            if (message.isNoteOff()) { handleTransposeNoteOff (message.getNoteNumber()); }
         }
         else
         {
@@ -174,28 +173,14 @@ void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, flo
 void MainProcess::handleTransposeNoteOn (int inInputNote)
 {
     if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
+    if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
 
-    if (mControlsState.isTransposeEnabled() && mMidiState.getCurrentlyOnTransposeNote() == -1)
+    else if (mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
     {
         mMidiState.setCurrentlyOnTransposeNote (inInputNote);
     }
 
-    else if (mControlsState.isTransposeLatched() && mMidiState.getCurrentlyOnTransposeNote() != inInputNote)
-    {
-        mMidiState.setCurrentlyOnTransposeNote (inInputNote);
-    }
-
-    else if (mControlsState.isTransposeLatched() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
-    {
-        mMidiState.setCurrentlyOnTransposeNote (-1);
-    }
-}
-
-void MainProcess::handleTransposeNoteOff (int inInputNote)
-{
-    if (inInputNote == mControlsState.getTransposeBase() + 12) { return; }
-
-    if (mControlsState.isTransposeEnabled() && mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
+    else if (mMidiState.getCurrentlyOnTransposeNote() == inInputNote)
     {
         mMidiState.setCurrentlyOnTransposeNote (-1);
     }
