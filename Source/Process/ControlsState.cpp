@@ -31,6 +31,12 @@ bool ControlsState::isTransposeNote (const int inInputNote)
     return mTransposeBase <= inInputNote && inInputNote < (mTransposeBase + 25);
 }
 
+int ControlsState::getTransposedNote (const int inOutputNote, const int inCurrentlyOnTransposeNote)
+{
+    if (isTransposeOff() || inCurrentlyOnTransposeNote == -1) { return inOutputNote; }
+    return inOutputNote + (inCurrentlyOnTransposeNote - mTransposeBase - 12);
+}
+
 //==============================================================================
 void ControlsState::toggleTranspose()
 {

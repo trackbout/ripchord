@@ -22,6 +22,7 @@ public:
     //==============================================================================
     int getTransposeBase();
     bool isTransposeNote (const int inputNote);
+    int getTransposedNote (const int outputNote, const int currentlyOnTransposeNote);
 
     //==============================================================================
     void toggleTranspose();
