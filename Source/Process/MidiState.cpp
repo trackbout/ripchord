@@ -15,11 +15,6 @@ int MidiState::getCurrentlyOnTransposeNote()
     return mCurrentlyOnTransposeNote;
 }
 
-bool MidiState::shouldPreventToggleTranspose()
-{
-    return mCurrentlyOnInputNotes.size() > 0 || mCurrentlyOnTransposeNote > 0;
-}
-
 juce::Array<int> MidiState::getCurrentlyOnInputNotes()
 {
     return mCurrentlyOnInputNotes;

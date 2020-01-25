@@ -238,15 +238,6 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
     mChords[inInputNote] = inChord;
 }
 
-void PresetState::resetPresetState()
-{
-    mName.clear();
-    mChords.clear();
-    mPresetFileName.clear();
-    mIsPresetModified = false;
-    mEditModeInputNote = 0;
-}
-
 void PresetState::loadPresetFile (File inPresetFile)
 {
     resetPresetState();
@@ -266,4 +257,13 @@ void PresetState::loadPresetFile (File inPresetFile)
     message->messageVar1 = mName;
     message->messageArray1 = getPresetInputNotes();
     sendMessage (message, ListenerType::kSync);
+}
+
+void PresetState::resetPresetState()
+{
+    mName.clear();
+    mChords.clear();
+    mPresetFileName.clear();
+    mIsPresetModified = false;
+    mEditModeInputNote = 0;
 }

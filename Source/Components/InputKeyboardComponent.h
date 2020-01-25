@@ -43,6 +43,7 @@ private:
     //==============================================================================
     void turnOnTransposeKeys (const int transposeBase);
     void turnOffTransposeKeys (const int transposeBase);
+    void resetInputKeyboard();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InputKeyboardComponent)

@@ -23,6 +23,7 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+    GlobalState& mGlobalState;
     ControlsState& mControlsState;
     MidiState& mMidiState;
 
@@ -31,7 +32,11 @@ private:
     DrawableButton mTransposeButton { "", DrawableButton::ImageStretched };
     DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
 
+    void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
+
+    bool isTransposeArrowDisabled();
+    bool isTransposeToggleDisabled();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)

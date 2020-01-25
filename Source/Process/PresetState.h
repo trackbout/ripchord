@@ -51,8 +51,8 @@ private:
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
 
-    void resetPresetState();
     void loadPresetFile (File presetFile);
+    void resetPresetState();
 
     String mPresetFileName;
     bool mIsPresetModified = false;
