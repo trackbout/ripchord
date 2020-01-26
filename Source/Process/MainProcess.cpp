@@ -65,7 +65,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inTime)
     int inInputChannel = inMessage.getChannel();
     float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Output> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
@@ -91,7 +91,7 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inTime)
     int inInputChannel = inMessage.getChannel();
     float inInputVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Output> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
@@ -118,7 +118,7 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 
 //==============================================================================
 void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                       int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
+                                       int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
 {
     const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (transposedNote);
@@ -149,7 +149,7 @@ void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, floa
 }
 
 void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                        int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
+                                        int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
 {
     const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
     bool containsTrigger = mMidiState.containsOutputNoteTrigger (transposedNote, inInputNote);

@@ -15,7 +15,7 @@ juce::Array<int> MidiState::getCurrentlyOnInputNotes()
     return mCurrentlyOnInputNotes;
 }
 
-std::map<int, Origin> MidiState::getCurrentlyOnOutputNotes()
+std::map<int, Output> MidiState::getCurrentlyOnOutputNotes()
 {
     return mCurrentlyOnOutputNotes;
 }
@@ -36,7 +36,7 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
     sendMessage (message, ListenerType::kAsync);
 }
 
-void MidiState::setCurrentlyOnOutputNotes (std::map<int, Origin> inOutputNotes)
+void MidiState::setCurrentlyOnOutputNotes (std::map<int, Output> inOutputNotes)
 {
     juce::Array<int> prevCurrentlyOnOutputNotes = getOutputNotesArray (mCurrentlyOnOutputNotes);
     juce::Array<int> nextCurrentlyOnOutputNotes = getWeightedOutputNotesArray (inOutputNotes);
@@ -69,7 +69,7 @@ const int MidiState::getOutputNoteTriggerCount (const int inOutputNote)
 }
 
 //==============================================================================
-juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Origin> outputNotes)
+juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Output> outputNotes)
 {
     juce::Array<int> outputNotesArray;
 
@@ -81,7 +81,7 @@ juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Origin> outputNot
     return outputNotesArray;
 }
 
-juce::Array<int> MidiState::getWeightedOutputNotesArray (std::map<int, Origin> outputNotes)
+juce::Array<int> MidiState::getWeightedOutputNotesArray (std::map<int, Output> outputNotes)
 {
     juce::Array<int> weightedOutputNotesArray;
 

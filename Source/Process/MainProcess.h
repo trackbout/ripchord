@@ -43,10 +43,10 @@ private:
 
     //==============================================================================
     void noteOnToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                              int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
+                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
 
     void noteOffToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                               int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
+                               int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);
