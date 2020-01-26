@@ -10,9 +10,17 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    mImages.setDrawableButtonImages (mVelocityDepth, "Velocity.svg");
+    mImages.setDrawableButtonImages (mVelocityAlternate, "Alternate.svg");
+    mImages.setDrawableButtonImages (mVelocityVariance, "Variance.svg");
+
     mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
     mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
     mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
+
+    mImages.setDrawableButtonImages (mTimingVariance, "Variance.svg");
+    mImages.setDrawableButtonImages (mTimingAlternate, "Alternate.svg");
+    mImages.setDrawableButtonImages (mTimingDepth, "Timing.svg");
 
     mShiftLeftButton.setTriggeredOnMouseDown (true);
     mTransposeButton.setTriggeredOnMouseDown (true);
@@ -36,9 +44,17 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
         mControlsState.handleMouseClickOnShiftRight();
     };
 
+    addChildComponent (mVelocityDepth);
+    addChildComponent (mVelocityAlternate);
+    addChildComponent (mVelocityVariance);
+
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);
     addAndMakeVisible (mShiftRightButton);
+
+    addChildComponent (mTimingVariance);
+    addChildComponent (mTimingAlternate);
+    addChildComponent (mTimingDepth);
 }
 
 ControlsComponent::~ControlsComponent()
@@ -48,9 +64,17 @@ ControlsComponent::~ControlsComponent()
 //==============================================================================
 void ControlsComponent::resized()
 {
+    mVelocityDepth.setBounds (VELOCITY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mVelocityAlternate.setBounds (VELOCITY_ALTERNATE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mVelocityVariance.setBounds (VELOCITY_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+
     mShiftLeftButton.setBounds (SHIFT_LEFT_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mTransposeButton.setBounds (TRANSPOSE_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mShiftRightButton.setBounds (SHIFT_RIGHT_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+
+    mTimingVariance.setBounds (TIMING_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mTimingAlternate.setBounds (TIMING_ALTERNATE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mTimingDepth.setBounds (TIMING_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 }
 
 //==============================================================================
