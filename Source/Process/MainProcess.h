@@ -42,11 +42,11 @@ private:
     void handleNonNote (MidiMessage& message, int time);
 
     //==============================================================================
-    void noteOnToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
+    void noteOnToOutputNote (int inputNote, int inputChannel, float inputVelocity, int time,
+                             int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
-    void noteOffToOutputNotes (int inputNote, int inputChannel, float inputVelocity, int time,
-                               int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
+    void noteOffToOutputNote (int inputNote, int inputChannel, float inputVelocity, int time,
+                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);

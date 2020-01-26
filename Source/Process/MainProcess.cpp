@@ -73,12 +73,14 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inTime)
     {
         for (int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            noteOnToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, chordNote, currentlyOnOutputNotes);
+            noteOnToOutputNote (inInputNote, inInputChannel, inInputVelocity, inTime,
+                                chordNote, currentlyOnOutputNotes, true);
         }
     }
     else
     {
-        noteOnToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, inInputNote, currentlyOnOutputNotes);
+        noteOnToOutputNote (inInputNote, inInputChannel, inInputVelocity, inTime,
+                            inInputNote, currentlyOnOutputNotes, false);
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -99,12 +101,14 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inTime)
     {
         for (int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            noteOffToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, chordNote, currentlyOnOutputNotes);
+            noteOffToOutputNote (inInputNote, inInputChannel, inInputVelocity, inTime,
+                                 chordNote, currentlyOnOutputNotes, true);
         }
     }
     else
     {
-        noteOffToOutputNotes (inInputNote, inInputChannel, inInputVelocity, inTime, inInputNote, currentlyOnOutputNotes);
+        noteOffToOutputNote (inInputNote, inInputChannel, inInputVelocity, inTime,
+                             inInputNote, currentlyOnOutputNotes, false);
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -117,18 +121,19 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 }
 
 //==============================================================================
-void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                       int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
+void MainProcess::noteOnToOutputNote (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
+                                      int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
-    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
-    const int triggerCount = mMidiState.getOutputNoteTriggerCount (transposedNote);
+    const int outputNote = inIsChord ?
+    mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote()) : inOutputNote;
+    const int triggerCount = mMidiState.getOutputNoteTriggerCount (outputNote);
 
     if (triggerCount == 1)
     {
-        const auto& message = MidiMessage::noteOff (inInputChannel, transposedNote, inInputVelocity);
+        const auto& message = MidiMessage::noteOff (inInputChannel, outputNote, inInputVelocity);
         mTransformedMidiBuffer.addEvent (message, inTime);
 
-        auto pair = inCurrentlyOnOutputNotes.find (transposedNote);
+        auto pair = inCurrentlyOnOutputNotes.find (outputNote);
         juce::Array<int> triggers = pair->second.triggers;
         triggers.add (inInputNote);
         pair->second.triggers = triggers;
@@ -138,26 +143,27 @@ void MainProcess::noteOnToOutputNotes (int inInputNote, int inInputChannel, floa
     {
         juce::Array<int> triggers;
         triggers.add (inInputNote);
-        inCurrentlyOnOutputNotes[transposedNote].triggers = triggers;
+        inCurrentlyOnOutputNotes[outputNote].triggers = triggers;
     }
 
     if (triggerCount == 1 || triggerCount == 0)
     {
-        const auto& message = MidiMessage::noteOn (inInputChannel, transposedNote, inInputVelocity);
+        const auto& message = MidiMessage::noteOn (inInputChannel, outputNote, inInputVelocity);
         mTransformedMidiBuffer.addEvent (message, inTime);
     }
 }
 
-void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
-                                        int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
+void MainProcess::noteOffToOutputNote (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
+                                       int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
-    const int transposedNote = mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote());
-    bool containsTrigger = mMidiState.containsOutputNoteTrigger (transposedNote, inInputNote);
-    const int triggerCount = mMidiState.getOutputNoteTriggerCount (transposedNote);
+    const int outputNote = inIsChord ?
+    mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote()) : inOutputNote;
+    bool containsTrigger = mMidiState.containsOutputNoteTrigger (outputNote, inInputNote);
+    const int triggerCount = mMidiState.getOutputNoteTriggerCount (outputNote);
 
     if (triggerCount == 2 && containsTrigger)
     {
-        auto pair = inCurrentlyOnOutputNotes.find (transposedNote);
+        auto pair = inCurrentlyOnOutputNotes.find (outputNote);
         juce::Array<int> triggers = pair->second.triggers;
         triggers.removeFirstMatchingValue (inInputNote);
         pair->second.triggers = triggers;
@@ -165,9 +171,9 @@ void MainProcess::noteOffToOutputNotes (int inInputNote, int inInputChannel, flo
 
     if (triggerCount == 1 && containsTrigger)
     {
-        const auto& message = MidiMessage::noteOff (inInputChannel, transposedNote, inInputVelocity);
+        const auto& message = MidiMessage::noteOff (inInputChannel, outputNote, inInputVelocity);
         mTransformedMidiBuffer.addEvent (message, inTime);
-        inCurrentlyOnOutputNotes.erase (transposedNote);
+        inCurrentlyOnOutputNotes.erase (outputNote);
     }
 }
 
