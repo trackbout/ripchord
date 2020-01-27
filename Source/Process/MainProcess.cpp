@@ -187,11 +187,11 @@ void MainProcess::handleActiveTransposeNote (int inInputNote)
 
     else if (mControlsState.getActiveTransposeNote() != inInputNote)
     {
-        mControlsState.setActiveTransposeNote (inInputNote);
+        mMidiState.setActiveTransposeNoteIfAllowed (inInputNote);
     }
 
     else if (mControlsState.getActiveTransposeNote() == inInputNote)
     {
-        mControlsState.setActiveTransposeNote (-1);
+        mMidiState.setActiveTransposeNoteIfAllowed (-1);
     }
 }

@@ -69,6 +69,15 @@ const int MidiState::getOutputNoteTriggerCount (const int inOutputNote)
 }
 
 //==============================================================================
+void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
+{
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kActiveTransposeNoteAllowed;
+    message->messageVar1 = inputNote;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Output> outputNotes)
 {
     juce::Array<int> outputNotesArray;

@@ -36,6 +36,7 @@ private:
     void handlePresetFileLoaded (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleCurrentlyOnInputNotes (const DataMessage* message);
+    void handleActiveTransposeNoteAllowed (const DataMessage* message);
     void handleActiveTransposeNote (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
     void handleTransposeBase (const DataMessage* message);

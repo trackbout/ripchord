@@ -9,10 +9,11 @@ InputKeyboardComponent::InputKeyboardComponent (MainProcess& inMainProcess)
     mMidiState (mMainProcess.getMidiState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
-    mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
+    mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
+    mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 }
 
 InputKeyboardComponent::~InputKeyboardComponent()
@@ -54,6 +55,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
+        case (MessageCode::kActiveTransposeNoteAllowed): { handleActiveTransposeNoteAllowed (inMessage); } break;
         case (MessageCode::kActiveTransposeNote): { handleActiveTransposeNote (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kTransposeBase): { handleTransposeBase (inMessage); } break;
@@ -157,6 +159,12 @@ void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inM
         auto keyComponent = mKeyComponents.at (editModeInputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
+}
+
+void InputKeyboardComponent::handleActiveTransposeNoteAllowed (const DataMessage* inMessage)
+{
+    if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+    mControlsState.setActiveTransposeNote (inMessage->messageVar1);
 }
 
 void InputKeyboardComponent::handleActiveTransposeNote (const DataMessage* inMessage)

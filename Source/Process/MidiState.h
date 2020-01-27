@@ -25,6 +25,9 @@ public:
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
     const int getOutputNoteTriggerCount (const int outputNote);
 
+    //==============================================================================
+    void setActiveTransposeNoteIfAllowed (const int inputNote);
+
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
