@@ -88,9 +88,8 @@ namespace Presets
         return chords;
     }
 
-    static inline XmlElement getXmlFromChords (std::map<int, Chord> inChords)
+    static inline XmlElement* getInnerXmlPointerFromChords (std::map<int, Chord> inChords)
     {
-        XmlElement rootXml ("ripchord");
         XmlElement* presetXml = new XmlElement ("preset");
 
         for (const auto& pair : inChords)
@@ -113,6 +112,13 @@ namespace Presets
             presetXml->addChildElement (inputXml);
         }
 
+        return presetXml;
+    }
+
+    static inline XmlElement getXmlFromChords (std::map<int, Chord> inChords)
+    {
+        XmlElement rootXml ("ripchord");
+        XmlElement* presetXml = getInnerXmlPointerFromChords (inChords);
         rootXml.addChildElement (presetXml);
         return rootXml;
     }
