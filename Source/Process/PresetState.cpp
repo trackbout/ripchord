@@ -15,7 +15,7 @@ String PresetState::getName()
     return mName;
 }
 
-bool PresetState::isPresetSaveable()
+bool PresetState::isPresetValid()
 {
     if (mName.isEmpty()) { return false; }
 
@@ -30,6 +30,11 @@ bool PresetState::isPresetSaveable()
     }
 
     return chordNotes.size() > 0;
+}
+
+bool PresetState::isPresetModified()
+{
+    return mIsPresetModified;
 }
 
 void PresetState::resetEditModeInputNote()
@@ -171,7 +176,7 @@ void PresetState::handleMouseClickOnNew()
 
 void PresetState::handleMouseClickOnSave()
 {
-    if (!isPresetSaveable() || !mIsPresetModified) { return; }
+    if (!isPresetValid() || !mIsPresetModified) { return; }
 
     File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
     if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
@@ -205,7 +210,7 @@ void PresetState::handleMouseClickOnImport()
 
 void PresetState::handleMouseClickOnExport()
 {
-    if (!isPresetSaveable()) { return; }
+    if (!isPresetValid()) { return; }
 
     FileChooser chooser ("Copy preset to...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
 

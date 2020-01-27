@@ -46,7 +46,9 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
     for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, time);)
     {
-        if (mControlsState.isTransposeOn() && mControlsState.isTransposeNote (message.getNoteNumber()))
+        if (mGlobalState.isPlayMode() &&
+            mControlsState.isTransposeOn() &&
+            mControlsState.isTransposeNote (message.getNoteNumber()))
         {
             if (message.isNoteOn()) { handleActiveTransposeNote (message.getNoteNumber()); }
         }
@@ -124,7 +126,7 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 void MainProcess::noteOnToOutputNote (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
                                       int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
-    const int outputNote = inIsChord ?
+    const int outputNote = inIsChord && mGlobalState.isPlayMode() ?
     mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote()) : inOutputNote;
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (outputNote);
 
@@ -156,7 +158,7 @@ void MainProcess::noteOnToOutputNote (int inInputNote, int inInputChannel, float
 void MainProcess::noteOffToOutputNote (int inInputNote, int inInputChannel, float inInputVelocity, int inTime,
                                        int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
-    const int outputNote = inIsChord ?
+    const int outputNote = inIsChord && mGlobalState.isPlayMode() ?
     mControlsState.getTransposedNote (inOutputNote, mControlsState.getActiveTransposeNote()) : inOutputNote;
     bool containsTrigger = mMidiState.containsOutputNoteTrigger (outputNote, inInputNote);
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (outputNote);

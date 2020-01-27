@@ -27,6 +27,8 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mMenuButton);
     addChildComponent (mMenuComponent);
+
+    reconstruct();
 }
 
 MainComponent::~MainComponent()
@@ -89,4 +91,12 @@ void MainComponent::handlePresetFileLoaded (const DataMessage* inMessage)
 {
     if (mGlobalState.isEditMode()) { mGlobalState.toggleMode(); }
     if (mGlobalState.isPresetView()) { mGlobalState.toggleView(); }
+}
+
+void MainComponent::reconstruct()
+{
+    if (mGlobalState.isPlayMode()) { mGlobalState.toggleMode(); }
+    if (mGlobalState.isMenuVisible()) { mGlobalState.toggleMenu(); }
+    if (mGlobalState.isPresetView()) { mGlobalState.toggleView(); }
+    if (mGlobalState.isEditMode()) { mGlobalState.toggleMode(); }
 }

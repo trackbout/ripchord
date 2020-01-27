@@ -32,7 +32,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mExportButton.onClick = [this]()
     {
-        if (!mPresetState.isPresetSaveable()) { return; }
+        if (!mPresetState.isPresetValid()) { return; }
         mPresetState.handleMouseClickOnExport();
         mGlobalState.toggleMenu();
     };
@@ -95,6 +95,6 @@ void MenuComponent::handleNewMessage (const DataMessage* inMessage)
 void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     if (mGlobalState.isMenuHidden()) { return; }
-    bool isExportable = mPresetState.isPresetSaveable();
+    bool isExportable = mPresetState.isPresetValid();
     mImages.setDrawableButtonImages (mExportButton, isExportable ? "Export.svg" : "ExportOFF.svg");
 }

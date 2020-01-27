@@ -99,7 +99,15 @@ void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
 
 void PresetNameComponent::handleToggleMode (const DataMessage* inMessage)
 {
+    const String presetName = mPresetState.getName();
     mPresetNameInput.setVisible (mGlobalState.isEditMode());
+
+    if (presetName.isNotEmpty())
+    {
+        mPresetNameInput.clear();
+        mPresetNameInput.setText (presetName);
+        mPresetNameLabel.setText (presetName, dontSendNotification);
+    }
 }
 
 void PresetNameComponent::handlePresetFileNew (const DataMessage* inMessage)

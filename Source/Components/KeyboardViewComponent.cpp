@@ -5,6 +5,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mPresetState (mMainProcess.getPresetState()),
+    mMidiState (mMainProcess.getMidiState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
     mPresetName (inMainProcess),
@@ -25,10 +26,16 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mSuccess, "Success.svg");
 
     mPresetsButton.setTriggeredOnMouseDown (true);
-    mPresetsButton.onClick = [this]() { mGlobalState.toggleView(); };
+    mPresetsButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleView(); }
+    };
 
     mModeButton.setTriggeredOnMouseDown (true);
-    mModeButton.onClick = [this]() { mGlobalState.toggleMode(); };
+    mModeButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleMode(); }
+    };
 
     mSaveButton.setTriggeredOnMouseDown (true);
     mSaveButton.onClick = [this]() { mPresetState.handleMouseClickOnSave(); };
@@ -142,6 +149,8 @@ void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
     mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());
     mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
+    bool isPresetSaveable = mPresetState.isPresetModified() && mPresetState.isPresetValid();
+    mSaveButton.setToggleState (isPresetSaveable, dontSendNotification);
 }
 
 void KeyboardViewComponent::handlePresetFileNew (const DataMessage* inMessage)
@@ -165,5 +174,5 @@ void KeyboardViewComponent::handlePresetFileLoaded (const DataMessage* inMessage
 void KeyboardViewComponent::handlePresetModified (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
-    mSaveButton.setToggleState (mPresetState.isPresetSaveable(), dontSendNotification);
+    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
 }

@@ -34,6 +34,7 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     PresetState& mPresetState;
+    MidiState& mMidiState;
 
     Label mOutputKeyboardLabel { "", "output" };
     Label mInputKeyboardLabel { "", "input" };

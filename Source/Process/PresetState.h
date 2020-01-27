@@ -15,7 +15,8 @@ public:
 
     //==============================================================================
     String getName();
-    bool isPresetSaveable();
+    bool isPresetValid();
+    bool isPresetModified();
     void resetEditModeInputNote();
     const int getEditModeInputNote();
     juce::Array<int> getPresetInputNotes();

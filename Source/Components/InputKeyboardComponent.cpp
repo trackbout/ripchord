@@ -63,6 +63,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 
 void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
 {
+    resetKeyColors();
     const int editModeInputNote = mPresetState.getEditModeInputNote();
     juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
     Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
@@ -79,6 +80,17 @@ void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
         keyComponent->setMarkerColor (markerColor);
+    }
+
+    if (mGlobalState.isPlayMode() && mControlsState.isTransposeOn())
+    {
+        turnOnTransposeKeys (mControlsState.getTransposeBase());
+
+        if (mControlsState.getActiveTransposeNote() > 0)
+        {
+            auto keyComponent = mKeyComponents.at (mControlsState.getActiveTransposeNote());
+            keyComponent->setNoteColor (COLOR_PURPLE);
+        }
     }
 }
 

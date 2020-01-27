@@ -91,8 +91,16 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
 {
-    if (mGlobalState.isPlayMode()) { return; }
-    if (mControlsState.isTransposeOn()) { mControlsState.toggleTranspose(); }
+    if (mGlobalState.isEditMode())
+    {
+        mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
+    }
+
+    if (mGlobalState.isPlayMode())
+    {
+        String svgPath = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
+        mImages.setDrawableButtonImages (mTransposeButton, svgPath);
+    }
 }
 
 void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
