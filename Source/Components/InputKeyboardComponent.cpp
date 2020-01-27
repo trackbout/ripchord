@@ -64,16 +64,9 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
 {
     resetKeyColors();
-    const int editModeInputNote = mPresetState.getEditModeInputNote();
+    mPresetState.resetEditModeInputNote();
     juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
     Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
-
-    if (editModeInputNote > 0)
-    {
-        auto keyComponent = mKeyComponents.at (editModeInputNote);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (editModeInputNote));
-        mPresetState.resetEditModeInputNote();
-    }
 
     for (int& inputNote : presetInputNotes)
     {
