@@ -184,9 +184,9 @@ void PresetState::handleMouseClickOnSave()
     mPresetFileName = mName + PRESET_EXTENSION;
     mIsPresetModified = false;
 
-    XmlElement nextPresetXml = Presets::getXmlFromChords (mChords);
-    File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
-    nextPresetXml.writeTo (nextPresetFile);
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (mPresetFileName));
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileSaved;
@@ -216,9 +216,9 @@ void PresetState::handleMouseClickOnExport()
 
     if (chooser.browseForFileToSave (true))
     {
-        File chosenFile (chooser.getResult());
-        XmlElement presetXml = Presets::getXmlFromChords (mChords);
-        presetXml.writeTo (chosenFile);
+        XmlElement rootXml ("ripchord");
+        rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
+        rootXml.writeTo (chooser.getResult());
     }
 }
 
@@ -248,14 +248,17 @@ void PresetState::loadPresetFile (File inPresetFile)
     resetPresetState();
     mPresetFileName = inPresetFile.getFileName();
     mName = inPresetFile.getFileNameWithoutExtension();
-    mChords = Presets::getChordsFromXml (inPresetFile);
+
+    std::unique_ptr<XmlElement> inRootXml = parseXML (inPresetFile);
+    XmlElement* presetXml = inRootXml->getFirstChildElement();
+    mChords = Presets::getChordsFromPresetXml (presetXml);
 
     File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
     if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
 
-    XmlElement nextPresetXml = Presets::getXmlFromChords (mChords);
-    File nextPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
-    nextPresetXml.writeTo (nextPresetFile);
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (mPresetFileName));
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileLoaded;
@@ -271,4 +274,24 @@ void PresetState::resetPresetState()
     mPresetFileName.clear();
     mIsPresetModified = false;
     mEditModeInputNote = 0;
+}
+
+//==============================================================================
+XmlElement* PresetState::exportPresetStateXml()
+{
+    XmlElement* presetStateXml = new XmlElement ("PresetState");
+    presetStateXml->setAttribute ("name", mName);
+    presetStateXml->setAttribute ("presetFileName", mPresetFileName);
+    presetStateXml->setAttribute ("isPresetModified", mIsPresetModified);
+    presetStateXml->addChildElement (Presets::getPresetXmlFromChords (mChords));
+    return presetStateXml;
+}
+
+void PresetState::importPresetStateXml (XmlElement* inPresetStateXml)
+{
+    XmlElement* presetXml = inPresetStateXml->getFirstChildElement();
+    mName = inPresetStateXml->getStringAttribute ("name");
+    mPresetFileName = inPresetStateXml->getStringAttribute ("presetFileName");
+    mIsPresetModified = inPresetStateXml->getBoolAttribute ("isPresetModified");
+    mChords = Presets::getChordsFromPresetXml (presetXml);
 }

@@ -33,6 +33,10 @@ public:
     void handleMouseClickOnShiftLeft();
     void handleMouseClickOnShiftRight();
 
+    //==============================================================================
+    XmlElement* exportControlsStateXml();
+    void importControlsStateXml (XmlElement* presetStateXml);
+
 private:
     //==============================================================================
     Transpose mTranspose = Transpose::Off;

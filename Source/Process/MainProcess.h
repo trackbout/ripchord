@@ -30,6 +30,10 @@ public:
     PresetState& getPresetState() { return mPresetState; }
     MidiState& getMidiState() { return mMidiState; }
 
+    //==============================================================================
+    XmlElement* exportSessionXml();
+    void importSessionXml (XmlElement* sessionXml);
+
 private:
     //==============================================================================
     MidiBuffer mMouseClickBuffer;

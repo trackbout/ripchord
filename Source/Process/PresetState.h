@@ -41,6 +41,10 @@ public:
     void handleMouseClickOnExport();
     void handleMouseClickOnPreset (File presetFile);
 
+    //==============================================================================
+    XmlElement* exportPresetStateXml();
+    void importPresetStateXml (XmlElement* presetStateXml);
+
 private:
     //==============================================================================
     String mName;
@@ -49,14 +53,14 @@ private:
     Chord mEmptyChord;
     int mEditModeInputNote = 0;
 
+    String mPresetFileName;
+    bool mIsPresetModified = false;
+
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
 
     void loadPresetFile (File presetFile);
     void resetPresetState();
-
-    String mPresetFileName;
-    bool mIsPresetModified = false;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

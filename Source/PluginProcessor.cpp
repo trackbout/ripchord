@@ -160,15 +160,25 @@ int RipchordPluginProcessor::getLastEditorHeight (int inDefaultHeight) const
 //==============================================================================
 void RipchordPluginProcessor::getStateInformation (MemoryBlock& inMemory)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    XmlElement sessionXml (JucePlugin_Name);
+
+    sessionXml.setAttribute ("editorWidth", mLastEditorWidth);
+    sessionXml.setAttribute ("editorHeight", mLastEditorHeight);
+    sessionXml.setAttribute ("t", String (Time::currentTimeMillis()));
+    sessionXml.addChildElement (mMainProcess.exportSessionXml());
+
+    copyXmlToBinary (sessionXml, inMemory);
 }
 
 void RipchordPluginProcessor::setStateInformation (const void* inData, int inSizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> sessionXml (getXmlFromBinary (inData, inSizeInBytes));
+    if (sessionXml == nullptr || !sessionXml->hasTagName (JucePlugin_Name)) { return; }
+
+    mLastEditorWidth = sessionXml->getIntAttribute ("editorWidth", -1);
+    mLastEditorHeight = sessionXml->getIntAttribute ("editorHeight", -1);
+
+    mMainProcess.importSessionXml (sessionXml->getFirstChildElement());
 }
 
 //==============================================================================

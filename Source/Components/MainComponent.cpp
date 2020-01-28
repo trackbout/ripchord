@@ -28,7 +28,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mMenuButton);
     addChildComponent (mMenuComponent);
 
-    reconstruct();
+    mShouldReconstruct = true;
 }
 
 MainComponent::~MainComponent()
@@ -40,6 +40,12 @@ void MainComponent::paint (Graphics& inGraphics)
 {
     inGraphics.setColour (COLOR_GREY_LIGHTEST);
     inGraphics.fillRect (getLocalBounds());
+
+    if (mShouldReconstruct)
+    {
+        reconstruct();
+        mShouldReconstruct = false;
+    }
 }
 
 void MainComponent::resized()

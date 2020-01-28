@@ -195,3 +195,23 @@ void MainProcess::handleActiveTransposeNote (int inInputNote)
         mMidiState.setActiveTransposeNoteIfAllowed (-1);
     }
 }
+
+//==============================================================================
+XmlElement* MainProcess::exportSessionXml()
+{
+    XmlElement* sessionXml = new XmlElement ("Session");
+    sessionXml->addChildElement (mControlsState.exportControlsStateXml());
+    sessionXml->addChildElement (mPresetState.exportPresetStateXml());
+    return sessionXml;
+}
+
+void MainProcess::importSessionXml (XmlElement* inSessionXml)
+{
+    if (inSessionXml->getTagName() != "Session") { return; }
+
+    XmlElement* controlsStateXml = inSessionXml->getChildByName("ControlsState");
+    XmlElement* presetStateXml = inSessionXml->getChildByName("PresetState");
+
+    mControlsState.importControlsStateXml (controlsStateXml);
+    mPresetState.importPresetStateXml (presetStateXml);
+}

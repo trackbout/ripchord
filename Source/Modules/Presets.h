@@ -26,69 +26,7 @@ struct Chord
 namespace Presets
 {
     //==============================================================================
-    static inline std::map<int, Chord> legacyGetChordsFromXml (const File& inFile)
-    {
-        std::map<int, Chord> chords;
-        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
-        XmlElement* mappingsXml = presetXml->getChildByName ("KeyboardMapping");
-
-        forEachXmlChildElementWithTagName (*mappingsXml, mappingXml, "mapping")
-        {
-            Chord chord;
-            juce::Array<int> notes;
-            int note = mappingXml->getIntAttribute("note");
-            XmlElement* chordXml = mappingXml->getChildByName ("chord");
-            String notesString = chordXml->getStringAttribute ("notes");
-            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
-
-            String name = chordXml->getStringAttribute ("name");
-            for (String& note : notesSA) { notes.add (note.getIntValue()); }
-
-            if (notes.size() > 0)
-            {
-                chord.name = name;
-                chord.notes = notes;
-                chords[note] = chord;
-            }
-        }
-
-        return chords;
-    }
-
-    static inline std::map<int, Chord> getChordsFromXml (const File& inFile)
-    {
-        std::unique_ptr<XmlElement> presetXml = parseXML (inFile);
-        XmlElement* firstChildXml = presetXml->getFirstChildElement();
-        String tagName = firstChildXml->getTagName();
-
-        if (tagName == "KeyboardMapping") { return legacyGetChordsFromXml (inFile); }
-
-        std::map<int, Chord> chords;
-
-        forEachXmlChildElementWithTagName (*firstChildXml, inputXml, "input")
-        {
-            Chord chord;
-            juce::Array<int> notes;
-            int note = inputXml->getIntAttribute("note");
-            XmlElement* chordXml = inputXml->getChildByName ("chord");
-            String notesString = chordXml->getStringAttribute ("notes");
-            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
-
-            String name = chordXml->getStringAttribute ("name");
-            for (String& note : notesSA) { notes.add (note.getIntValue()); }
-
-            if (notes.size() > 0)
-            {
-                chord.name = name;
-                chord.notes = notes;
-                chords[note] = chord;
-            }
-        }
-
-        return chords;
-    }
-
-    static inline XmlElement* getInnerXmlPointerFromChords (std::map<int, Chord> inChords)
+    static inline XmlElement* getPresetXmlFromChords (std::map<int, Chord> inChords)
     {
         XmlElement* presetXml = new XmlElement ("preset");
 
@@ -115,17 +53,37 @@ namespace Presets
         return presetXml;
     }
 
-    static inline XmlElement getXmlFromChords (std::map<int, Chord> inChords)
+    static inline std::map<int, Chord> getChordsFromPresetXml (XmlElement* inPresetXml)
     {
-        XmlElement rootXml ("ripchord");
-        XmlElement* presetXml = getInnerXmlPointerFromChords (inChords);
-        rootXml.addChildElement (presetXml);
-        return rootXml;
+        std::map<int, Chord> chords;
+        String inputTagName = inPresetXml->getTagName() == "preset" ? "input" : "mapping";
+
+        forEachXmlChildElementWithTagName (*inPresetXml, inputXml, inputTagName)
+        {
+            Chord chord;
+            juce::Array<int> notes;
+            int note = inputXml->getIntAttribute("note");
+            XmlElement* chordXml = inputXml->getChildByName ("chord");
+            String notesString = chordXml->getStringAttribute ("notes");
+            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
+
+            String name = chordXml->getStringAttribute ("name");
+            for (String& note : notesSA) { notes.add (note.getIntValue()); }
+
+            if (notes.size() > 0)
+            {
+                chord.name = name;
+                chord.notes = notes;
+                chords[note] = chord;
+            }
+        }
+
+        return chords;
     }
 
     static inline bool isValidFileName (String inFileName)
     {
-        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -_1234567890";
+        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 _-";
 
         for (int index = 0; index < inFileName.length(); index++)
         {

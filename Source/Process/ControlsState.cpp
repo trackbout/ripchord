@@ -100,3 +100,20 @@ void ControlsState::handleMouseClickOnShiftRight()
     message->messageVar2 = nextTransposeBase;
     sendMessage (message, ListenerType::kSync);
 }
+
+//==============================================================================
+XmlElement* ControlsState::exportControlsStateXml()
+{
+    XmlElement* controlsStateXml = new XmlElement ("ControlsState");
+    controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
+    controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
+    controlsStateXml->setAttribute ("isTransposeOn", isTransposeOn());
+    return controlsStateXml;
+}
+
+void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
+{
+    mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
+    mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
+    mTranspose = inControlsStateXml->getBoolAttribute ("isTransposeOn") ? Transpose::On : Transpose::Off;
+}
