@@ -127,46 +127,35 @@ bool RipchordPluginProcessor::hasEditor() const
     return true;
 }
 
-void RipchordPluginProcessor::setLastEditorWidth (int inWidth)
+int RipchordPluginProcessor::getLastEditorWidth() const
 {
-    mLastEditorWidth = inWidth;
+    if (mLastEditorWidth < 0) { return EDITOR_WIDTH; }
+    return mLastEditorWidth;
 }
 
-void RipchordPluginProcessor::setLastEditorHeight (int inHeight)
+int RipchordPluginProcessor::getLastEditorHeight() const
 {
-    mLastEditorHeight = inHeight;
+    if (mLastEditorWidth < 0) { return EDITOR_HEIGHT; }
+    return mLastEditorHeight;
 }
 
-int RipchordPluginProcessor::getLastEditorWidth (int inDefaultWidth) const
+//==============================================================================
+void RipchordPluginProcessor::setLastEditorWidth (int inEditorWidth)
 {
-    if (mLastEditorWidth > 0)
-    {
-        return mLastEditorWidth;
-    }
-
-    return inDefaultWidth;
+    mLastEditorWidth = inEditorWidth;
 }
 
-int RipchordPluginProcessor::getLastEditorHeight (int inDefaultHeight) const
+void RipchordPluginProcessor::setLastEditorHeight (int inEditorHeight)
 {
-    if (mLastEditorHeight > 0)
-    {
-        return mLastEditorHeight;
-    }
-
-    return inDefaultHeight;
+    mLastEditorHeight = inEditorHeight;
 }
 
 //==============================================================================
 void RipchordPluginProcessor::getStateInformation (MemoryBlock& inMemory)
 {
     XmlElement sessionXml (JucePlugin_Name);
-
-    sessionXml.setAttribute ("editorWidth", mLastEditorWidth);
-    sessionXml.setAttribute ("editorHeight", mLastEditorHeight);
     sessionXml.setAttribute ("t", String (Time::currentTimeMillis()));
     sessionXml.addChildElement (mMainProcess.exportSessionXml());
-
     copyXmlToBinary (sessionXml, inMemory);
 }
 
@@ -174,9 +163,6 @@ void RipchordPluginProcessor::setStateInformation (const void* inData, int inSiz
 {
     std::unique_ptr<XmlElement> sessionXml (getXmlFromBinary (inData, inSizeInBytes));
     if (sessionXml == nullptr || !sessionXml->hasTagName (JucePlugin_Name)) { return; }
-
-    mLastEditorWidth = sessionXml->getIntAttribute ("editorWidth", -1);
-    mLastEditorHeight = sessionXml->getIntAttribute ("editorHeight", -1);
 
     mMainProcess.importSessionXml (sessionXml->getFirstChildElement());
 }

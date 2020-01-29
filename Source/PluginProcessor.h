@@ -38,10 +38,14 @@ public:
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
-    void setLastEditorWidth (int width);
-    void setLastEditorHeight (int height);
-    int getLastEditorWidth (int defaultWidth) const;
-    int getLastEditorHeight (int defaultHeight) const;
+
+    //==============================================================================
+    int getLastEditorWidth() const;
+    int getLastEditorHeight() const;
+
+    //==============================================================================
+    void setLastEditorWidth (int editorWidth);
+    void setLastEditorHeight (int editorHeight);
 
     //==============================================================================
     void getStateInformation (MemoryBlock& memory) override;
