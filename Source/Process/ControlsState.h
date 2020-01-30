@@ -13,9 +13,9 @@ public:
     ~ControlsState();
 
     //==============================================================================
-    enum class Transpose { On, Off };
-    enum class TimingDirection { On, Off };
-    enum class VelocityDirection { On, Off };
+    enum Transpose { On, Off };
+    enum TimingDirection { LTR, RTL, LTR_RTL, RTL_LTR };
+    enum VelocityDirection { HTS, STH, HTS_STH, STH_HTS };
 
     //==============================================================================
     bool isTransposeOn();
@@ -36,14 +36,10 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
-    bool isTimingDirectionOn();
-    bool isTimingDirectionOff();
-    void toggleTimingDirection();
+    void cycleTimingDirection();
 
     //==============================================================================
-    bool isVelocityDirectionOn();
-    bool isVelocityDirectionOff();
-    void toggleVelocityDirection();
+    void cycleVelocityDirection();
 
     //==============================================================================
     XmlElement* exportControlsStateXml();
@@ -52,8 +48,8 @@ public:
 private:
     //==============================================================================
     Transpose mTranspose = Transpose::Off;
-    TimingDirection mTimingDirection = TimingDirection::Off;
-    VelocityDirection mVelocityDirection = VelocityDirection::Off;
+    TimingDirection mTimingDirection = TimingDirection::LTR;
+    VelocityDirection mVelocityDirection = VelocityDirection::HTS;
 
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;

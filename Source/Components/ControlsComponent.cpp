@@ -25,8 +25,8 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
     mTimingDirectionButton.setTriggeredOnMouseDown (true);
 
-    mVelocityDirectionButton.onClick = [this]() { mControlsState.toggleVelocityDirection(); };
-    mTimingDirectionButton.onClick = [this]() { mControlsState.toggleTimingDirection(); };
+    mVelocityDirectionButton.onClick = [this]() { mControlsState.cycleVelocityDirection(); };
+    mTimingDirectionButton.onClick = [this]() { mControlsState.cycleTimingDirection(); };
 
     mVelocityDepthSlider.setRange (0, 100);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
@@ -131,8 +131,8 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
     {
         setVisible (true);
         String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-        String timing = mControlsState.isTimingDirectionOff() ? "Direction.svg" : "Direction.svg";
-        String velocity = mControlsState.isVelocityDirectionOff() ? "Direction.svg" : "Direction.svg";
+        String timing = "Direction.svg";
+        String velocity = "Direction.svg";
         mImages.setDrawableButtonImages (mTransposeButton, transpose);
         mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
         mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
@@ -147,12 +147,12 @@ void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 
 void ControlsComponent::handleToggleTimingDirection (const DataMessage* inMessage)
 {
-    String timing = mControlsState.isTimingDirectionOff() ? "Direction.svg" : "Direction.svg";
+    String timing = "Direction.svg";
     mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
 }
 
 void ControlsComponent::handleToggleVelocityDirection (const DataMessage* inMessage)
 {
-    String velocity = mControlsState.isVelocityDirectionOff() ? "Direction.svg" : "Direction.svg";
+    String velocity = "Direction.svg";
     mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
 }

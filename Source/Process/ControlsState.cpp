@@ -102,19 +102,16 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
-bool ControlsState::isTimingDirectionOn()
+void ControlsState::cycleTimingDirection()
 {
-    return mTimingDirection == TimingDirection::On;
-}
-
-bool ControlsState::isTimingDirectionOff()
-{
-    return mTimingDirection == TimingDirection::Off;
-}
-
-void ControlsState::toggleTimingDirection()
-{
-    mTimingDirection = isTimingDirectionOff() ? TimingDirection::On : TimingDirection::Off;
+    switch (mTimingDirection)
+    {
+        case (TimingDirection::LTR): { mTimingDirection = TimingDirection::RTL; } break;
+        case (TimingDirection::RTL): { mTimingDirection = TimingDirection::LTR_RTL; } break;
+        case (TimingDirection::LTR_RTL): { mTimingDirection = TimingDirection::RTL_LTR; } break;
+        case (TimingDirection::RTL_LTR): { mTimingDirection = TimingDirection::LTR; } break;
+        default: { } break;
+    };
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTimingDirection;
@@ -122,19 +119,16 @@ void ControlsState::toggleTimingDirection()
 }
 
 //==============================================================================
-bool ControlsState::isVelocityDirectionOn()
+void ControlsState::cycleVelocityDirection()
 {
-    return mVelocityDirection == VelocityDirection::On;
-}
-
-bool ControlsState::isVelocityDirectionOff()
-{
-    return mVelocityDirection == VelocityDirection::Off;
-}
-
-void ControlsState::toggleVelocityDirection()
-{
-    mVelocityDirection = isVelocityDirectionOff() ? VelocityDirection::On : VelocityDirection::Off;
+    switch (mVelocityDirection)
+    {
+        case (VelocityDirection::HTS): { mVelocityDirection = VelocityDirection::STH; } break;
+        case (VelocityDirection::STH): { mVelocityDirection = VelocityDirection::HTS_STH; } break;
+        case (VelocityDirection::HTS_STH): { mVelocityDirection = VelocityDirection::STH_HTS; } break;
+        case (VelocityDirection::STH_HTS): { mVelocityDirection = VelocityDirection::HTS; } break;
+        default: { } break;
+    };
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityDirection;
@@ -148,21 +142,13 @@ XmlElement* ControlsState::exportControlsStateXml()
     controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
     controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
     controlsStateXml->setAttribute ("isTransposeOn", isTransposeOn());
-    controlsStateXml->setAttribute ("isTimingDirectionOn", isTimingDirectionOn());
-    controlsStateXml->setAttribute ("isVelocityDirectionOn", isVelocityDirectionOn());
     return controlsStateXml;
 }
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
     bool isTransposeOn = inControlsStateXml->getBoolAttribute ("isTransposeOn");
-    bool isTimingDirectionOn = inControlsStateXml->getBoolAttribute ("isTimingDirectionOn");
-    bool isVelocityDirectionOn = inControlsStateXml->getBoolAttribute ("isVelocityDirectionOn");
-
     mTranspose = isTransposeOn ? Transpose::On : Transpose::Off;
-    mTimingDirection = isTimingDirectionOn ? TimingDirection::On : TimingDirection::Off;
-    mVelocityDirection = isVelocityDirectionOn ? VelocityDirection::On : VelocityDirection::Off;
-
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
 }
