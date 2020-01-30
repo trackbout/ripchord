@@ -44,6 +44,14 @@ private:
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;
 
+    int mVelocityDepth = 0;
+    int mVelocityVariance = 0;
+    bool mVelocityAlternate = false;
+
+    int mTimingDepth = 0;
+    int mTimingVariance = 0;
+    bool mTimingAlternate = false;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsState)
 };

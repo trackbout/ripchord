@@ -26,6 +26,10 @@ const float BUTTON_WIDTH = 120.f;
 const float CORNER_SIZE_RATIO = 0.15f;
 const float TEXT_INPUT_FONT_HEIGHT_RATIO = 0.6f;
 
+const float SLIDER_Y = 1.f;
+const float SLIDER_SIZE = 72.f;
+const float SLIDER_X_OFFSET = 19.f;
+
 const float KEYBOARD_BG_HEIGHT = 120.f;
 const float KEYBOARD_BG_WIDTH = EDITOR_WIDTH - DOUBLE_SPACE;
 const float OUTPUT_KEYBOARD_BG_Y = ITEM_HEIGHT + DOUBLE_SPACE;

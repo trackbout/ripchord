@@ -28,6 +28,10 @@ public:
         setColour (TextEditor::outlineColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::focusedOutlineColourId, COLOR_TRANSPARENT);
 
+        setColour (Slider::thumbColourId, COLOR_TRANSPARENT);
+        setColour (Slider::rotarySliderFillColourId, COLOR_PURPLE);
+        setColour (Slider::rotarySliderOutlineColourId, COLOR_WHITE);
+
         setColour (ScrollBar::thumbColourId, COLOR_GREY_LIGHT);
         setColour (CaretComponent::caretColourId, COLOR_BLUE);
     };
