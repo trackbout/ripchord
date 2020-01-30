@@ -49,9 +49,6 @@ private:
     void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
 
-    bool isTransposeShiftDisabled();
-    bool isTransposeToggleDisabled();
-
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)
 };

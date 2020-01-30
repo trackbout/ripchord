@@ -47,19 +47,21 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
 
     mShiftLeftButton.onClick = [this]()
     {
-        if (isTransposeShiftDisabled()) { return; }
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        if (mControlsState.getActiveTransposeNote() > 0) { return; }
         mControlsState.handleMouseClickOnShiftLeft();
     };
 
     mTransposeButton.onClick = [this]()
     {
-        if (isTransposeToggleDisabled()) { return; }
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
         mControlsState.toggleTranspose();
     };
 
     mShiftRightButton.onClick = [this]()
     {
-        if (isTransposeShiftDisabled()) { return; }
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        if (mControlsState.getActiveTransposeNote() > 0) { return; }
         mControlsState.handleMouseClickOnShiftRight();
     };
 
@@ -118,35 +120,12 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
 {
-    if (mGlobalState.isEditMode())
-    {
-        mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
-    }
-
-    if (mGlobalState.isPlayMode())
-    {
-        String svgPath = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-        mImages.setDrawableButtonImages (mTransposeButton, svgPath);
-    }
+    if (mGlobalState.isPlayMode()) { setVisible (true); }
+    if (mGlobalState.isEditMode()) { setVisible (false); }
 }
 
 void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 {
     String svgPath = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
     mImages.setDrawableButtonImages (mTransposeButton, svgPath);
-}
-
-bool ControlsComponent::isTransposeShiftDisabled()
-{
-    if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return true; }
-    if (mControlsState.getActiveTransposeNote() > 0) { return true; }
-    if (mGlobalState.isEditMode()) { return true; }
-    return false;
-}
-
-bool ControlsComponent::isTransposeToggleDisabled()
-{
-    if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return true; }
-    if (mGlobalState.isEditMode()) { return true; }
-    return false;
 }
