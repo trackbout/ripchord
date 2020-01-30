@@ -5,7 +5,8 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mPresetState (mMainProcess.getPresetState()),
-    mBrowserState (mMainProcess.getBrowserState())
+    mBrowserState (mMainProcess.getBrowserState()),
+    mMidiState (mMainProcess.getMidiState())
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -21,11 +22,13 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 
     mLeftArrowButton.onClick = [this]()
     {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
         mBrowserState.handleMouseClickOnLeftArrow (mPresetState.getName());
     };
 
     mRightArrowButton.onClick = [this]()
     {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
         mBrowserState.handleMouseClickOnRightArrow (mPresetState.getName());
     };
 

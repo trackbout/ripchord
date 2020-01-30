@@ -25,17 +25,8 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityAlternateButton.setTriggeredOnMouseDown (true);
     mTimingAlternateButton.setTriggeredOnMouseDown (true);
 
-    mVelocityAlternateButton.onClick = [this]()
-    {
-        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mControlsState.toggleVelocityAlternate();
-    };
-
-    mTimingAlternateButton.onClick = [this]()
-    {
-        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mControlsState.toggleTimingAlternate();
-    };
+    mVelocityAlternateButton.onClick = [this]() { mControlsState.toggleVelocityAlternate(); };
+    mTimingAlternateButton.onClick = [this]() { mControlsState.toggleTimingAlternate(); };
 
     mVelocityDepthSlider.setRange (0, 100);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);

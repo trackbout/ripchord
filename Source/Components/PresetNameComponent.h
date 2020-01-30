@@ -32,6 +32,7 @@ private:
     GlobalState& mGlobalState;
     PresetState& mPresetState;
     BrowserState& mBrowserState;
+    MidiState& mMidiState;
 
     Images mImages;
     DrawableButton mLeftArrowButton { "", DrawableButton::ImageStretched };
