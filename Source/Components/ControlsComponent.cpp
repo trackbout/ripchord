@@ -44,17 +44,17 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
         mControlsState.handleMouseClickOnShiftRight();
     };
 
-    addChildComponent (mVelocityDepth);
-    addChildComponent (mVelocityAlternate);
-    addChildComponent (mVelocityVariance);
+    addAndMakeVisible (mVelocityDepth);
+    addAndMakeVisible (mVelocityAlternate);
+    addAndMakeVisible (mVelocityVariance);
 
     addAndMakeVisible (mShiftLeftButton);
     addAndMakeVisible (mTransposeButton);
     addAndMakeVisible (mShiftRightButton);
 
-    addChildComponent (mTimingVariance);
-    addChildComponent (mTimingAlternate);
-    addChildComponent (mTimingDepth);
+    addAndMakeVisible (mTimingVariance);
+    addAndMakeVisible (mTimingAlternate);
+    addAndMakeVisible (mTimingDepth);
 }
 
 ControlsComponent::~ControlsComponent()
