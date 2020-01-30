@@ -10,14 +10,14 @@ ControlsState::~ControlsState()
 }
 
 //==============================================================================
-bool ControlsState::isTransposeOff()
-{
-    return mTranspose == Transpose::Off;
-}
-
 bool ControlsState::isTransposeOn()
 {
     return mTranspose == Transpose::On;
+}
+
+bool ControlsState::isTransposeOff()
+{
+    return mTranspose == Transpose::Off;
 }
 
 //==============================================================================
@@ -102,18 +102,67 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
+bool ControlsState::isTimingAlternateOn()
+{
+    return mTimingAlternate == TimingAlternate::On;
+}
+
+bool ControlsState::isTimingAlternateOff()
+{
+    return mTimingAlternate == TimingAlternate::Off;
+}
+
+void ControlsState::toggleTimingAlternate()
+{
+    mTimingAlternate = isTimingAlternateOff() ? TimingAlternate::On : TimingAlternate::Off;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTimingAlternate;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+bool ControlsState::isVelocityAlternateOn()
+{
+    return mVelocityAlternate == VelocityAlternate::On;
+}
+
+bool ControlsState::isVelocityAlternateOff()
+{
+    return mVelocityAlternate == VelocityAlternate::Off;
+}
+
+void ControlsState::toggleVelocityAlternate()
+{
+    mVelocityAlternate = isVelocityAlternateOff() ? VelocityAlternate::On : VelocityAlternate::Off;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kVelocityAlternate;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 XmlElement* ControlsState::exportControlsStateXml()
 {
     XmlElement* controlsStateXml = new XmlElement ("ControlsState");
     controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
     controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
     controlsStateXml->setAttribute ("isTransposeOn", isTransposeOn());
+    controlsStateXml->setAttribute ("isTimingAlternateOn", isTimingAlternateOn());
+    controlsStateXml->setAttribute ("isVelocityAlternateOn", isVelocityAlternateOn());
     return controlsStateXml;
 }
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
+    bool isTransposeOn = inControlsStateXml->getBoolAttribute ("isTransposeOn");
+    bool isTimingAlternateOn = inControlsStateXml->getBoolAttribute ("isTimingAlternateOn");
+    bool isVelocityAlternateOn = inControlsStateXml->getBoolAttribute ("isVelocityAlternateOn");
+
+    mTranspose = isTransposeOn ? Transpose::On : Transpose::Off;
+    mTimingAlternate = isTimingAlternateOn ? TimingAlternate::On : TimingAlternate::Off;
+    mVelocityAlternate = isVelocityAlternateOn ? VelocityAlternate::On : VelocityAlternate::Off;
+
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
-    mTranspose = inControlsStateXml->getBoolAttribute ("isTransposeOn") ? Transpose::On : Transpose::Off;
 }

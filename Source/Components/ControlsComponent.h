@@ -48,6 +48,8 @@ private:
 
     void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
+    void handleToggleTimingAlternate (const DataMessage* message);
+    void handleToggleVelocityAlternate (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)

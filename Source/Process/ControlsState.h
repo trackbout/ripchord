@@ -13,11 +13,13 @@ public:
     ~ControlsState();
 
     //==============================================================================
-    enum Transpose { Off, On };
+    enum class Transpose { On, Off };
+    enum class TimingAlternate { On, Off };
+    enum class VelocityAlternate { On, Off };
 
     //==============================================================================
-    bool isTransposeOff();
     bool isTransposeOn();
+    bool isTransposeOff();
 
     //==============================================================================
     int getTransposeBase();
@@ -34,23 +36,33 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
+    bool isTimingAlternateOn();
+    bool isTimingAlternateOff();
+    void toggleTimingAlternate();
+
+    //==============================================================================
+    bool isVelocityAlternateOn();
+    bool isVelocityAlternateOff();
+    void toggleVelocityAlternate();
+
+    //==============================================================================
     XmlElement* exportControlsStateXml();
     void importControlsStateXml (XmlElement* presetStateXml);
 
 private:
     //==============================================================================
     Transpose mTranspose = Transpose::Off;
+    TimingAlternate mTimingAlternate = TimingAlternate::Off;
+    VelocityAlternate mVelocityAlternate = VelocityAlternate::Off;
 
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;
 
-    int mVelocityDepth = 0;
-    int mVelocityVariance = 0;
-    bool mVelocityAlternate = false;
+    float mTimingDepth = 0.f;
+    float mTimingVariance = 0.f;
 
-    int mTimingDepth = 0;
-    int mTimingVariance = 0;
-    bool mTimingAlternate = false;
+    float mVelocityDepth = 0.f;
+    float mVelocityVariance = 0.f;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsState)

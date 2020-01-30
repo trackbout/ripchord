@@ -25,6 +25,18 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityAlternateButton.setTriggeredOnMouseDown (true);
     mTimingAlternateButton.setTriggeredOnMouseDown (true);
 
+    mVelocityAlternateButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mControlsState.toggleVelocityAlternate();
+    };
+
+    mTimingAlternateButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mControlsState.toggleTimingAlternate();
+    };
+
     mVelocityDepthSlider.setRange (0, 100);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
@@ -113,6 +125,8 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
+        case (MessageCode::kTimingAlternate): { handleToggleTimingAlternate (inMessage); } break;
+        case (MessageCode::kVelocityAlternate): { handleToggleVelocityAlternate (inMessage); } break;
         default: { } break;
     };
 }
@@ -120,12 +134,34 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
 {
-    if (mGlobalState.isPlayMode()) { setVisible (true); }
     if (mGlobalState.isEditMode()) { setVisible (false); }
+
+    if (mGlobalState.isPlayMode())
+    {
+        setVisible (true);
+        String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
+        String timing = mControlsState.isTimingAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
+        String velocity = mControlsState.isVelocityAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
+        mImages.setDrawableButtonImages (mTransposeButton, transpose);
+        mImages.setDrawableButtonImages (mTimingAlternateButton, timing);
+        mImages.setDrawableButtonImages (mVelocityAlternateButton, velocity);
+    }
 }
 
 void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 {
-    String svgPath = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-    mImages.setDrawableButtonImages (mTransposeButton, svgPath);
+    String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
+    mImages.setDrawableButtonImages (mTransposeButton, transpose);
+}
+
+void ControlsComponent::handleToggleTimingAlternate (const DataMessage* inMessage)
+{
+    String timing = mControlsState.isTimingAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
+    mImages.setDrawableButtonImages (mTimingAlternateButton, timing);
+}
+
+void ControlsComponent::handleToggleVelocityAlternate (const DataMessage* inMessage)
+{
+    String velocity = mControlsState.isVelocityAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
+    mImages.setDrawableButtonImages (mVelocityAlternateButton, velocity);
 }

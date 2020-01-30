@@ -20,6 +20,8 @@ enum MessageCode
     kToggleMenu,
 
     // Messages from ControlsState
+    kTimingAlternate,
+    kVelocityAlternate,
     kActiveTransposeNote,
     kToggleTranspose,
     kTransposeBase,
