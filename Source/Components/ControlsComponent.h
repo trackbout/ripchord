@@ -30,7 +30,7 @@ private:
     Images mImages;
 
     DrawableButton mVelocityDepthImage { "", DrawableButton::ImageStretched };
-    DrawableButton mVelocityAlternateButton { "", DrawableButton::ImageStretched };
+    DrawableButton mVelocityDirectionButton { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityVarianceImage { "", DrawableButton::ImageStretched };
 
     DrawableButton mShiftLeftButton { "", DrawableButton::ImageStretched };
@@ -38,7 +38,7 @@ private:
     DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
 
     DrawableButton mTimingVarianceImage { "", DrawableButton::ImageStretched };
-    DrawableButton mTimingAlternateButton { "", DrawableButton::ImageStretched };
+    DrawableButton mTimingDirectionButton { "", DrawableButton::ImageStretched };
     DrawableButton mTimingDepthImage { "", DrawableButton::ImageStretched };
 
     Slider mVelocityDepthSlider;
@@ -48,8 +48,8 @@ private:
 
     void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
-    void handleToggleTimingAlternate (const DataMessage* message);
-    void handleToggleVelocityAlternate (const DataMessage* message);
+    void handleToggleTimingDirection (const DataMessage* message);
+    void handleToggleVelocityDirection (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)

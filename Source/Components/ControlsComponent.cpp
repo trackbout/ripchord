@@ -11,7 +11,7 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mImages.setDrawableButtonImages (mVelocityDepthImage, "Velocity.svg");
-    mImages.setDrawableButtonImages (mVelocityAlternateButton, "Alternate.svg");
+    mImages.setDrawableButtonImages (mVelocityDirectionButton, "Direction.svg");
     mImages.setDrawableButtonImages (mVelocityVarianceImage, "Variance.svg");
 
     mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
@@ -19,14 +19,14 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
 
     mImages.setDrawableButtonImages (mTimingVarianceImage, "Variance.svg");
-    mImages.setDrawableButtonImages (mTimingAlternateButton, "Alternate.svg");
+    mImages.setDrawableButtonImages (mTimingDirectionButton, "Direction.svg");
     mImages.setDrawableButtonImages (mTimingDepthImage, "Timing.svg");
 
-    mVelocityAlternateButton.setTriggeredOnMouseDown (true);
-    mTimingAlternateButton.setTriggeredOnMouseDown (true);
+    mVelocityDirectionButton.setTriggeredOnMouseDown (true);
+    mTimingDirectionButton.setTriggeredOnMouseDown (true);
 
-    mVelocityAlternateButton.onClick = [this]() { mControlsState.toggleVelocityAlternate(); };
-    mTimingAlternateButton.onClick = [this]() { mControlsState.toggleTimingAlternate(); };
+    mVelocityDirectionButton.onClick = [this]() { mControlsState.toggleVelocityDirection(); };
+    mTimingDirectionButton.onClick = [this]() { mControlsState.toggleTimingDirection(); };
 
     mVelocityDepthSlider.setRange (0, 100);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
@@ -69,7 +69,7 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     };
 
     addAndMakeVisible (mVelocityDepthImage);
-    addAndMakeVisible (mVelocityAlternateButton);
+    addAndMakeVisible (mVelocityDirectionButton);
     addAndMakeVisible (mVelocityVarianceImage);
     addAndMakeVisible (mVelocityDepthSlider);
     addAndMakeVisible (mVelocityVarianceSlider);
@@ -79,7 +79,7 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mShiftRightButton);
 
     addAndMakeVisible (mTimingVarianceImage);
-    addAndMakeVisible (mTimingAlternateButton);
+    addAndMakeVisible (mTimingDirectionButton);
     addAndMakeVisible (mTimingDepthImage);
     addAndMakeVisible (mTimingVarianceSlider);
     addAndMakeVisible (mTimingDepthSlider);
@@ -93,7 +93,7 @@ ControlsComponent::~ControlsComponent()
 void ControlsComponent::resized()
 {
     mVelocityDepthImage.setBounds (VELOCITY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
-    mVelocityAlternateButton.setBounds (VELOCITY_ALTERNATE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mVelocityDirectionButton.setBounds (VELOCITY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityVarianceImage.setBounds (VELOCITY_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityDepthSlider.setBounds (VELOCITY_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
     mVelocityVarianceSlider.setBounds (VELOCITY_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
@@ -103,7 +103,7 @@ void ControlsComponent::resized()
     mShiftRightButton.setBounds (SHIFT_RIGHT_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 
     mTimingVarianceImage.setBounds (TIMING_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
-    mTimingAlternateButton.setBounds (TIMING_ALTERNATE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mTimingDirectionButton.setBounds (TIMING_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mTimingDepthImage.setBounds (TIMING_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mTimingVarianceSlider.setBounds (TIMING_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
     mTimingDepthSlider.setBounds (TIMING_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
@@ -116,8 +116,8 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
-        case (MessageCode::kTimingAlternate): { handleToggleTimingAlternate (inMessage); } break;
-        case (MessageCode::kVelocityAlternate): { handleToggleVelocityAlternate (inMessage); } break;
+        case (MessageCode::kTimingDirection): { handleToggleTimingDirection (inMessage); } break;
+        case (MessageCode::kVelocityDirection): { handleToggleVelocityDirection (inMessage); } break;
         default: { } break;
     };
 }
@@ -131,11 +131,11 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
     {
         setVisible (true);
         String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-        String timing = mControlsState.isTimingAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
-        String velocity = mControlsState.isVelocityAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
+        String timing = mControlsState.isTimingDirectionOff() ? "Direction.svg" : "Direction.svg";
+        String velocity = mControlsState.isVelocityDirectionOff() ? "Direction.svg" : "Direction.svg";
         mImages.setDrawableButtonImages (mTransposeButton, transpose);
-        mImages.setDrawableButtonImages (mTimingAlternateButton, timing);
-        mImages.setDrawableButtonImages (mVelocityAlternateButton, velocity);
+        mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
+        mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
     }
 }
 
@@ -145,14 +145,14 @@ void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mTransposeButton, transpose);
 }
 
-void ControlsComponent::handleToggleTimingAlternate (const DataMessage* inMessage)
+void ControlsComponent::handleToggleTimingDirection (const DataMessage* inMessage)
 {
-    String timing = mControlsState.isTimingAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
-    mImages.setDrawableButtonImages (mTimingAlternateButton, timing);
+    String timing = mControlsState.isTimingDirectionOff() ? "Direction.svg" : "Direction.svg";
+    mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
 }
 
-void ControlsComponent::handleToggleVelocityAlternate (const DataMessage* inMessage)
+void ControlsComponent::handleToggleVelocityDirection (const DataMessage* inMessage)
 {
-    String velocity = mControlsState.isVelocityAlternateOff() ? "Alternate.svg" : "AlternateON.svg";
-    mImages.setDrawableButtonImages (mVelocityAlternateButton, velocity);
+    String velocity = mControlsState.isVelocityDirectionOff() ? "Direction.svg" : "Direction.svg";
+    mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
 }

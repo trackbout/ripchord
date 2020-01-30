@@ -102,42 +102,42 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
-bool ControlsState::isTimingAlternateOn()
+bool ControlsState::isTimingDirectionOn()
 {
-    return mTimingAlternate == TimingAlternate::On;
+    return mTimingDirection == TimingDirection::On;
 }
 
-bool ControlsState::isTimingAlternateOff()
+bool ControlsState::isTimingDirectionOff()
 {
-    return mTimingAlternate == TimingAlternate::Off;
+    return mTimingDirection == TimingDirection::Off;
 }
 
-void ControlsState::toggleTimingAlternate()
+void ControlsState::toggleTimingDirection()
 {
-    mTimingAlternate = isTimingAlternateOff() ? TimingAlternate::On : TimingAlternate::Off;
+    mTimingDirection = isTimingDirectionOff() ? TimingDirection::On : TimingDirection::Off;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTimingAlternate;
+    message->messageCode = MessageCode::kTimingDirection;
     sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
-bool ControlsState::isVelocityAlternateOn()
+bool ControlsState::isVelocityDirectionOn()
 {
-    return mVelocityAlternate == VelocityAlternate::On;
+    return mVelocityDirection == VelocityDirection::On;
 }
 
-bool ControlsState::isVelocityAlternateOff()
+bool ControlsState::isVelocityDirectionOff()
 {
-    return mVelocityAlternate == VelocityAlternate::Off;
+    return mVelocityDirection == VelocityDirection::Off;
 }
 
-void ControlsState::toggleVelocityAlternate()
+void ControlsState::toggleVelocityDirection()
 {
-    mVelocityAlternate = isVelocityAlternateOff() ? VelocityAlternate::On : VelocityAlternate::Off;
+    mVelocityDirection = isVelocityDirectionOff() ? VelocityDirection::On : VelocityDirection::Off;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kVelocityAlternate;
+    message->messageCode = MessageCode::kVelocityDirection;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -148,20 +148,20 @@ XmlElement* ControlsState::exportControlsStateXml()
     controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
     controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
     controlsStateXml->setAttribute ("isTransposeOn", isTransposeOn());
-    controlsStateXml->setAttribute ("isTimingAlternateOn", isTimingAlternateOn());
-    controlsStateXml->setAttribute ("isVelocityAlternateOn", isVelocityAlternateOn());
+    controlsStateXml->setAttribute ("isTimingDirectionOn", isTimingDirectionOn());
+    controlsStateXml->setAttribute ("isVelocityDirectionOn", isVelocityDirectionOn());
     return controlsStateXml;
 }
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
     bool isTransposeOn = inControlsStateXml->getBoolAttribute ("isTransposeOn");
-    bool isTimingAlternateOn = inControlsStateXml->getBoolAttribute ("isTimingAlternateOn");
-    bool isVelocityAlternateOn = inControlsStateXml->getBoolAttribute ("isVelocityAlternateOn");
+    bool isTimingDirectionOn = inControlsStateXml->getBoolAttribute ("isTimingDirectionOn");
+    bool isVelocityDirectionOn = inControlsStateXml->getBoolAttribute ("isVelocityDirectionOn");
 
     mTranspose = isTransposeOn ? Transpose::On : Transpose::Off;
-    mTimingAlternate = isTimingAlternateOn ? TimingAlternate::On : TimingAlternate::Off;
-    mVelocityAlternate = isVelocityAlternateOn ? VelocityAlternate::On : VelocityAlternate::Off;
+    mTimingDirection = isTimingDirectionOn ? TimingDirection::On : TimingDirection::Off;
+    mVelocityDirection = isVelocityDirectionOn ? VelocityDirection::On : VelocityDirection::Off;
 
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
