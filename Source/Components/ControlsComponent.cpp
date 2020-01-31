@@ -51,7 +51,6 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mShiftLeftButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        if (mControlsState.getActiveTransposeNote() > 0) { return; }
         mControlsState.handleMouseClickOnShiftLeft();
     };
 
@@ -64,7 +63,6 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mShiftRightButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        if (mControlsState.getActiveTransposeNote() > 0) { return; }
         mControlsState.handleMouseClickOnShiftRight();
     };
 

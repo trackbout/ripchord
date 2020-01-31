@@ -80,12 +80,6 @@ void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
     if (mGlobalState.isPlayMode() && mControlsState.isTransposeOn())
     {
         turnOnTransposeKeys (mControlsState.getTransposeBase());
-
-        if (mControlsState.getActiveTransposeNote() > 0)
-        {
-            auto keyComponent = mKeyComponents.at (mControlsState.getActiveTransposeNote());
-            keyComponent->setNoteColor (COLOR_PURPLE);
-        }
     }
 }
 
@@ -217,6 +211,12 @@ void InputKeyboardComponent::turnOnTransposeKeys (const int transposeBase)
 
         keyComponent->setNoteColor (keyComponent->getDefaultColor (index));
         keyComponent->setMarkerColor (markerColor);
+    }
+
+    if (mControlsState.getActiveTransposeNote() > 0)
+    {
+        auto keyComponent = mKeyComponents.at (mControlsState.getActiveTransposeNote());
+        keyComponent->setNoteColor (COLOR_PURPLE);
     }
 }
 

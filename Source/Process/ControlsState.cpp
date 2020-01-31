@@ -77,6 +77,7 @@ void ControlsState::handleMouseClickOnShiftLeft()
     int nextTransposeBase = mTransposeBase - 1;
 
     mTransposeBase = nextTransposeBase;
+    mActiveTransposeNote = mActiveTransposeNote < 0 ? -1 : mActiveTransposeNote - 1;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTransposeBase;
@@ -93,6 +94,7 @@ void ControlsState::handleMouseClickOnShiftRight()
     int nextTransposeBase = mTransposeBase + 1;
 
     mTransposeBase = nextTransposeBase;
+    mActiveTransposeNote = mActiveTransposeNote < 0 ? -1 : mActiveTransposeNote + 1;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTransposeBase;
