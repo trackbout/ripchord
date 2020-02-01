@@ -28,19 +28,23 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityDirectionButton.onClick = [this]() { mControlsState.cycleVelocityDirection(); };
     mTimingDirectionButton.onClick = [this]() { mControlsState.cycleTimingDirection(); };
 
-    mVelocityDepthSlider.setRange (0, 100);
+    mVelocityDepthSlider.addListener (this);
+    mVelocityDepthSlider.setRange (0, 1);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mVelocityVarianceSlider.setRange (0, 100);
+    mVelocityVarianceSlider.addListener (this);
+    mVelocityVarianceSlider.setRange (0, 1);
     mVelocityVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mTimingDepthSlider.setRange (0, 100);
+    mTimingDepthSlider.addListener (this);
+    mTimingDepthSlider.setRange (0, 1);
     mTimingDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mTimingDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mTimingVarianceSlider.setRange (0, 100);
+    mTimingVarianceSlider.addListener (this);
+    mTimingVarianceSlider.setRange (0, 1);
     mTimingVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mTimingVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
@@ -105,6 +109,34 @@ void ControlsComponent::resized()
     mTimingDepthImage.setBounds (TIMING_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mTimingVarianceSlider.setBounds (TIMING_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
     mTimingDepthSlider.setBounds (TIMING_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
+}
+
+//==============================================================================
+void ControlsComponent::sliderValueChanged (Slider* inSlider)
+{
+    if (inSlider == &mVelocityDepthSlider)
+    {
+        auto lol = mVelocityDepthSlider.getValue();
+        DBG ("mVelocityDepthSlider: " << lol);
+    }
+
+    if (inSlider == &mVelocityVarianceSlider)
+    {
+        auto lol = mVelocityVarianceSlider.getValue();
+        DBG ("mVelocityVarianceSlider: " << lol);
+    }
+
+    if (inSlider == &mTimingVarianceSlider)
+    {
+        auto lol = mTimingVarianceSlider.getValue();
+        DBG ("mTimingVarianceSlider: " << lol);
+    }
+
+    if (inSlider == &mTimingDepthSlider)
+    {
+        auto lol = mTimingDepthSlider.getValue();
+        DBG ("mTimingDepthSlider: " << lol);
+    }
 }
 
 //==============================================================================

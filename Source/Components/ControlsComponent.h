@@ -7,7 +7,7 @@
 #include "DataMessageListener.h"
 
 //==============================================================================
-class ControlsComponent : public Component, public DataMessageListener
+class ControlsComponent : public Component, public DataMessageListener, public Slider::Listener
 {
 public:
     //==============================================================================
@@ -16,6 +16,9 @@ public:
 
     //==============================================================================
     void resized() override;
+
+    //==============================================================================
+    void sliderValueChanged (Slider* slider) override;
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
