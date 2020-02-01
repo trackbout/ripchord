@@ -37,9 +37,13 @@ public:
 
     //==============================================================================
     void cycleTimingDirection();
+    void handleTimingDepthSlider (float timingDepth);
+    void handleTimingVarianceSlider (float timingVariance);
 
     //==============================================================================
     void cycleVelocityDirection();
+    void handleVelocityDepthSlider (float velocityDepth);
+    void handleVelocityVarianceSlider (float velocityVariance);
 
     //==============================================================================
     XmlElement* exportControlsStateXml();

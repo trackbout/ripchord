@@ -116,26 +116,22 @@ void ControlsComponent::sliderValueChanged (Slider* inSlider)
 {
     if (inSlider == &mVelocityDepthSlider)
     {
-        auto lol = mVelocityDepthSlider.getValue();
-        DBG ("mVelocityDepthSlider: " << lol);
+        mControlsState.handleVelocityDepthSlider (mVelocityDepthSlider.getValue());
     }
 
     if (inSlider == &mVelocityVarianceSlider)
     {
-        auto lol = mVelocityVarianceSlider.getValue();
-        DBG ("mVelocityVarianceSlider: " << lol);
+        mControlsState.handleVelocityVarianceSlider (mVelocityVarianceSlider.getValue());
     }
 
     if (inSlider == &mTimingVarianceSlider)
     {
-        auto lol = mTimingVarianceSlider.getValue();
-        DBG ("mTimingVarianceSlider: " << lol);
+        mControlsState.handleTimingVarianceSlider (mTimingVarianceSlider.getValue());
     }
 
     if (inSlider == &mTimingDepthSlider)
     {
-        auto lol = mTimingDepthSlider.getValue();
-        DBG ("mTimingDepthSlider: " << lol);
+        mControlsState.handleTimingDepthSlider (mTimingDepthSlider.getValue());
     }
 }
 
@@ -146,8 +142,12 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
-        case (MessageCode::kTimingDirection): { handleToggleTimingDirection (inMessage); } break;
-        case (MessageCode::kVelocityDirection): { handleToggleVelocityDirection (inMessage); } break;
+        case (MessageCode::kTimingDepth): { handleTimingDepth (inMessage); } break;
+        case (MessageCode::kTimingVariance): { handleTimingVariance (inMessage); } break;
+        case (MessageCode::kTimingDirection): { handleTimingDirection (inMessage); } break;
+        case (MessageCode::kVelocityDepth): { handleVelocityDepth (inMessage); } break;
+        case (MessageCode::kVelocityVariance): { handleVelocityVariance (inMessage); } break;
+        case (MessageCode::kVelocityDirection): { handleVelocityDirection (inMessage); } break;
         default: { } break;
     };
 }
@@ -175,13 +175,37 @@ void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mTransposeButton, transpose);
 }
 
-void ControlsComponent::handleToggleTimingDirection (const DataMessage* inMessage)
+void ControlsComponent::handleTimingDepth (const DataMessage* inMessage)
+{
+    float timingDepth = inMessage->messageVar1;
+    DBG ("timingDepth: " << timingDepth);
+}
+
+void ControlsComponent::handleTimingVariance (const DataMessage* inMessage)
+{
+    float timingVariance = inMessage->messageVar1;
+    DBG ("timingVariance: " << timingVariance);
+}
+
+void ControlsComponent::handleTimingDirection (const DataMessage* inMessage)
 {
     String timing = "Direction.svg";
     mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
 }
 
-void ControlsComponent::handleToggleVelocityDirection (const DataMessage* inMessage)
+void ControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
+{
+    float velocityDepth = inMessage->messageVar1;
+    DBG ("velocityDepth: " << velocityDepth);
+}
+
+void ControlsComponent::handleVelocityVariance (const DataMessage* inMessage)
+{
+    float velocityVariance = inMessage->messageVar1;
+    DBG ("velocityVariance: " << velocityVariance);
+}
+
+void ControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
 {
     String velocity = "Direction.svg";
     mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);

@@ -120,6 +120,26 @@ void ControlsState::cycleTimingDirection()
     sendMessage (message, ListenerType::kSync);
 }
 
+void ControlsState::handleTimingDepthSlider (float inTimingDepth)
+{
+    mTimingDepth = inTimingDepth;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTimingDepth;
+    message->messageVar1 = inTimingDepth;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void ControlsState::handleTimingVarianceSlider (float inTimingVariance)
+{
+    mTimingVariance = inTimingVariance;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTimingVariance;
+    message->messageVar1 = inTimingVariance;
+    sendMessage (message, ListenerType::kSync);
+}
+
 //==============================================================================
 void ControlsState::cycleVelocityDirection()
 {
@@ -134,6 +154,26 @@ void ControlsState::cycleVelocityDirection()
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityDirection;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void ControlsState::handleVelocityDepthSlider (float inVelocityDepth)
+{
+    mVelocityDepth = inVelocityDepth;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kVelocityDepth;
+    message->messageVar1 = inVelocityDepth;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void ControlsState::handleVelocityVarianceSlider (float inVelocityVariance)
+{
+    mVelocityVariance = inVelocityVariance;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kVelocityVariance;
+    message->messageVar1 = inVelocityVariance;
     sendMessage (message, ListenerType::kSync);
 }
 

@@ -20,11 +20,15 @@ enum MessageCode
     kToggleMenu,
 
     // Messages from ControlsState
+    kTimingDepth,
+    kTimingVariance,
     kTimingDirection,
+    kVelocityDepth,
+    kVelocityVariance,
     kVelocityDirection,
-    kActiveTransposeNote,
-    kToggleTranspose,
     kTransposeBase,
+    kToggleTranspose,
+    kActiveTransposeNote,
 
     // Messages from BrowserState
     kPresetFileDeleted,
