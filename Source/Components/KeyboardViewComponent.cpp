@@ -21,9 +21,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
-    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg", "", "", "", "ModeEDIT.svg", "", "", "");
-    mImages.setDrawableButtonImages (mSaveButton, "Save.svg", "", "", "", "SaveON.svg", "", "", "");
-    mImages.setDrawableButtonImages (mSuccess, "Success.svg");
+    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
 
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]()
@@ -46,18 +44,22 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mControls.setBounds (SPACE, CONTROLS_Y, CONTROLS_WIDTH, CONTROLS_HEIGHT);
 
+    mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
+    mImages.setDrawableButtonImages (mSuccess, "Success.svg");
+
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
     addAndMakeVisible (mPresetsButton);
     addAndMakeVisible (mModeButton);
-    addChildComponent (mSaveButton);
-    addChildComponent (mSuccess);
 
     addAndMakeVisible (mOutputKeyboard);
     addAndMakeVisible (mInputKeyboard);
     addAndMakeVisible (mPresetName);
     addAndMakeVisible (mChordName);
     addAndMakeVisible (mControls);
+
+    addChildComponent (mSaveButton);
+    addChildComponent (mSuccess);
 }
 
 KeyboardViewComponent::~KeyboardViewComponent()
@@ -104,8 +106,8 @@ void KeyboardViewComponent::resized()
 
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
-    mSaveButton.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
-    mSuccess.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mSaveButton.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mSuccess.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
 }
 
 //==============================================================================
@@ -148,31 +150,32 @@ void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());
-    mModeButton.setToggleState (mGlobalState.isEditMode(), dontSendNotification);
+    mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");
+
     bool isPresetSaveable = mPresetState.isPresetModified() && mPresetState.isPresetValid();
-    mSaveButton.setToggleState (isPresetSaveable, dontSendNotification);
+    mImages.setDrawableButtonImages (mSaveButton, isPresetSaveable ? "SaveON.svg" : "Save.svg");
 }
 
 void KeyboardViewComponent::handlePresetFileNew (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
-    mSaveButton.setToggleState (false, dontSendNotification);
+    mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
 }
 
 void KeyboardViewComponent::handlePresetFileSaved (const DataMessage* inMessage)
 {
     mSuccess.setVisible (true);
-    mSaveButton.setToggleState (false, dontSendNotification);
+    mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
 }
 
 void KeyboardViewComponent::handlePresetFileLoaded (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
-    mSaveButton.setToggleState (false, dontSendNotification);
+    mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
 }
 
 void KeyboardViewComponent::handlePresetModified (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
-    mSaveButton.setToggleState (mPresetState.isPresetValid(), dontSendNotification);
+    mImages.setDrawableButtonImages (mSaveButton, mPresetState.isPresetValid() ? "SaveON.svg" : "Save.svg");
 }
