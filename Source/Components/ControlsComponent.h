@@ -32,8 +32,8 @@ private:
 
     Images mImages;
 
-    DrawableButton mVelocityDepthImage { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityDirectionButton { "", DrawableButton::ImageStretched };
+    DrawableButton mVelocityDepthImage { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityVarianceImage { "", DrawableButton::ImageStretched };
 
     DrawableButton mShiftLeftButton { "", DrawableButton::ImageStretched };
@@ -41,8 +41,8 @@ private:
     DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
 
     DrawableButton mTimingVarianceImage { "", DrawableButton::ImageStretched };
-    DrawableButton mTimingDirectionButton { "", DrawableButton::ImageStretched };
     DrawableButton mTimingDepthImage { "", DrawableButton::ImageStretched };
+    DrawableButton mTimingDirectionButton { "", DrawableButton::ImageStretched };
 
     Slider mVelocityDepthSlider;
     Slider mVelocityVarianceSlider;
