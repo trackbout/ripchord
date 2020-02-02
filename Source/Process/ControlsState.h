@@ -55,18 +55,17 @@ public:
 
 private:
     //==============================================================================
-    Transpose mTranspose = Transpose::Off;
-    String mTimingDirection = "LTR";
-    String mVelocityDirection = "HTS";
-
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;
+    Transpose mTranspose = Transpose::Off;
 
     float mTimingDepth = 0.f;
     float mTimingVariance = 0.f;
+    String mTimingDirection = "LTR";
 
     float mVelocityDepth = 0.f;
     float mVelocityVariance = 0.f;
+    String mVelocityDirection = "HTS";
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsState)

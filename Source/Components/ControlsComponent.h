@@ -53,11 +53,9 @@ private:
     void handleToggleTranspose (const DataMessage* message);
 
     void handleTimingDepth (const DataMessage* message);
-    void handleTimingVariance (const DataMessage* message);
     void handleTimingDirection (const DataMessage* message);
 
     void handleVelocityDepth (const DataMessage* message);
-    void handleVelocityVariance (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
 
     void updateTransposeButton();

@@ -148,10 +148,8 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kTimingDepth): { handleTimingDepth (inMessage); } break;
-        case (MessageCode::kTimingVariance): { handleTimingVariance (inMessage); } break;
         case (MessageCode::kTimingDirection): { handleTimingDirection (inMessage); } break;
         case (MessageCode::kVelocityDepth): { handleVelocityDepth (inMessage); } break;
-        case (MessageCode::kVelocityVariance): { handleVelocityVariance (inMessage); } break;
         case (MessageCode::kVelocityDirection): { handleVelocityDirection (inMessage); } break;
         default: { } break;
     };
@@ -181,12 +179,6 @@ void ControlsComponent::handleTimingDepth (const DataMessage* inMessage)
     updateTimingDirectionButton();
 }
 
-void ControlsComponent::handleTimingVariance (const DataMessage* inMessage)
-{
-    float timingVariance = inMessage->messageVar1;
-    DBG ("timingVariance: " << timingVariance);
-}
-
 void ControlsComponent::handleTimingDirection (const DataMessage* inMessage)
 {
     updateTimingDirectionButton();
@@ -195,12 +187,6 @@ void ControlsComponent::handleTimingDirection (const DataMessage* inMessage)
 void ControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
 {
     updateVelocityDirectionButton();
-}
-
-void ControlsComponent::handleVelocityVariance (const DataMessage* inMessage)
-{
-    float velocityVariance = inMessage->messageVar1;
-    DBG ("velocityVariance: " << velocityVariance);
 }
 
 void ControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
@@ -216,7 +202,7 @@ void ControlsComponent::updateTransposeButton()
 
 void ControlsComponent::updateTimingDirectionButton()
 {
-    String buttonImage;
+    String buttonImage = "Direction.svg";
     String timingDirection = mControlsState.getTimingDirection();
 
     if (mControlsState.getTimingDepth() == 0) { buttonImage = "Direction.svg"; }
@@ -230,7 +216,7 @@ void ControlsComponent::updateTimingDirectionButton()
 
 void ControlsComponent::updateVelocityDirectionButton()
 {
-    String buttonImage;
+    String buttonImage = "Direction.svg";
     String velocityDirection = mControlsState.getVelocityDirection();
 
     if (mControlsState.getVelocityDepth() == 0) { buttonImage = "Direction.svg"; }

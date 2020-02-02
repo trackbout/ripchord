@@ -203,16 +203,17 @@ void ControlsState::handleVelocityVarianceSlider (float inVelocityVariance)
 XmlElement* ControlsState::exportControlsStateXml()
 {
     XmlElement* controlsStateXml = new XmlElement ("ControlsState");
+
+    controlsStateXml->setAttribute ("transpose", isTransposeOn());
     controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
     controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
-    controlsStateXml->setAttribute ("isTransposeOn", isTransposeOn());
+
     return controlsStateXml;
 }
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
-    bool isTransposeOn = inControlsStateXml->getBoolAttribute ("isTransposeOn");
-    mTranspose = isTransposeOn ? Transpose::On : Transpose::Off;
+    mTranspose = inControlsStateXml->getBoolAttribute ("transpose") ? Transpose::On : Transpose::Off;
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
 }
