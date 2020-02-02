@@ -104,12 +104,12 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
-float ControlsState::getTimingDepth()
+int ControlsState::getTimingDepth()
 {
     return mTimingDepth;
 }
 
-float ControlsState::getTimingVariance()
+int ControlsState::getTimingVariance()
 {
     return mTimingVariance;
 }
@@ -131,33 +131,31 @@ void ControlsState::cycleTimingDirection()
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleTimingDepthSlider (float inTimingDepth)
+void ControlsState::handleTimingDepthSlider (int inTimingDepth)
 {
     mTimingDepth = inTimingDepth;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTimingDepth;
-    message->messageVar1 = inTimingDepth;
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleTimingVarianceSlider (float inTimingVariance)
+void ControlsState::handleTimingVarianceSlider (int inTimingVariance)
 {
     mTimingVariance = inTimingVariance;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTimingVariance;
-    message->messageVar1 = inTimingVariance;
     sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
-float ControlsState::getVelocityDepth()
+int ControlsState::getVelocityDepth()
 {
     return mVelocityDepth;
 }
 
-float ControlsState::getVelocityVariance()
+int ControlsState::getVelocityVariance()
 {
     return mVelocityVariance;
 }
@@ -179,23 +177,21 @@ void ControlsState::cycleVelocityDirection()
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleVelocityDepthSlider (float inVelocityDepth)
+void ControlsState::handleVelocityDepthSlider (int inVelocityDepth)
 {
     mVelocityDepth = inVelocityDepth;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityDepth;
-    message->messageVar1 = inVelocityDepth;
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleVelocityVarianceSlider (float inVelocityVariance)
+void ControlsState::handleVelocityVarianceSlider (int inVelocityVariance)
 {
     mVelocityVariance = inVelocityVariance;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityVariance;
-    message->messageVar1 = inVelocityVariance;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -208,6 +204,14 @@ XmlElement* ControlsState::exportControlsStateXml()
     controlsStateXml->setAttribute ("transposeBase", mTransposeBase);
     controlsStateXml->setAttribute ("activeTransposeNote", mActiveTransposeNote);
 
+    controlsStateXml->setAttribute ("timingDepth", mTimingDepth);
+    controlsStateXml->setAttribute ("timingVariance", mTimingVariance);
+    controlsStateXml->setAttribute ("timingDirection", mTimingDirection);
+
+    controlsStateXml->setAttribute ("velocityDepth", mVelocityDepth);
+    controlsStateXml->setAttribute ("velocityVariance", mVelocityVariance);
+    controlsStateXml->setAttribute ("velocityDirection", mVelocityDirection);
+
     return controlsStateXml;
 }
 
@@ -216,4 +220,12 @@ void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
     mTranspose = inControlsStateXml->getBoolAttribute ("transpose") ? Transpose::On : Transpose::Off;
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
+
+    mTimingDepth = inControlsStateXml->getIntAttribute ("timingDepth");
+    mTimingVariance = inControlsStateXml->getIntAttribute ("timingVariance");
+    mTimingDirection = inControlsStateXml->getStringAttribute ("timingDirection");
+
+    mVelocityDepth = inControlsStateXml->getIntAttribute ("velocityDepth");
+    mVelocityVariance = inControlsStateXml->getIntAttribute ("velocityVariance");
+    mVelocityDirection = inControlsStateXml->getStringAttribute ("velocityDirection");
 }

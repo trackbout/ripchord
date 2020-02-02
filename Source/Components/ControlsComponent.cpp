@@ -34,22 +34,22 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     };
 
     mVelocityDepthSlider.addListener (this);
-    mVelocityDepthSlider.setRange (0, 1);
+    mVelocityDepthSlider.setRange (0, 100000);
     mVelocityDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
     mVelocityVarianceSlider.addListener (this);
-    mVelocityVarianceSlider.setRange (0, 1);
+    mVelocityVarianceSlider.setRange (0, 100000);
     mVelocityVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
     mTimingDepthSlider.addListener (this);
-    mTimingDepthSlider.setRange (0, 1);
+    mTimingDepthSlider.setRange (0, 100000);
     mTimingDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mTimingDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
     mTimingVarianceSlider.addListener (this);
-    mTimingVarianceSlider.setRange (0, 1);
+    mTimingVarianceSlider.setRange (0, 100000);
     mTimingVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mTimingVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
@@ -166,6 +166,10 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
         updateTransposeButton();
         updateTimingDirectionButton();
         updateVelocityDirectionButton();
+        mTimingDepthSlider.setValue (mControlsState.getTimingDepth());
+        mTimingVarianceSlider.setValue (mControlsState.getTimingVariance());
+        mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth());
+        mVelocityVarianceSlider.setValue (mControlsState.getVelocityVariance());
     }
 }
 

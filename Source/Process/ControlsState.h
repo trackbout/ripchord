@@ -34,20 +34,20 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
-    float getTimingDepth();
-    float getTimingVariance();
+    int getTimingDepth();
+    int getTimingVariance();
     String getTimingDirection();
     void cycleTimingDirection();
-    void handleTimingDepthSlider (float timingDepth);
-    void handleTimingVarianceSlider (float timingVariance);
+    void handleTimingDepthSlider (int timingDepth);
+    void handleTimingVarianceSlider (int timingVariance);
 
     //==============================================================================
-    float getVelocityDepth();
-    float getVelocityVariance();
+    int getVelocityDepth();
+    int getVelocityVariance();
     String getVelocityDirection();
     void cycleVelocityDirection();
-    void handleVelocityDepthSlider (float velocityDepth);
-    void handleVelocityVarianceSlider (float velocityVariance);
+    void handleVelocityDepthSlider (int velocityDepth);
+    void handleVelocityVarianceSlider (int velocityVariance);
 
     //==============================================================================
     XmlElement* exportControlsStateXml();
@@ -59,12 +59,12 @@ private:
     int mActiveTransposeNote = -1;
     Transpose mTranspose = Transpose::Off;
 
-    float mTimingDepth = 0.f;
-    float mTimingVariance = 0.f;
+    int mTimingDepth = 0;
+    int mTimingVariance = 0;
     String mTimingDirection = "LTR";
 
-    float mVelocityDepth = 0.f;
-    float mVelocityVariance = 0.f;
+    int mVelocityDepth = 0;
+    int mVelocityVariance = 0;
     String mVelocityDirection = "HTS";
 
     //==============================================================================
