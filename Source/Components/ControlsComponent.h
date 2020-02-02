@@ -60,6 +60,10 @@ private:
     void handleVelocityVariance (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
 
+    void updateTransposeButton();
+    void updateTimingDirectionButton();
+    void updateVelocityDirectionButton();
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)
 };

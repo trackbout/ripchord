@@ -104,16 +104,27 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
+float ControlsState::getTimingDepth()
+{
+    return mTimingDepth;
+}
+
+float ControlsState::getTimingVariance()
+{
+    return mTimingVariance;
+}
+
+String ControlsState::getTimingDirection()
+{
+    return mTimingDirection;
+}
+
 void ControlsState::cycleTimingDirection()
 {
-    switch (mTimingDirection)
-    {
-        case (TimingDirection::LTR): { mTimingDirection = TimingDirection::RTL; } break;
-        case (TimingDirection::RTL): { mTimingDirection = TimingDirection::LTR_RTL; } break;
-        case (TimingDirection::LTR_RTL): { mTimingDirection = TimingDirection::RTL_LTR; } break;
-        case (TimingDirection::RTL_LTR): { mTimingDirection = TimingDirection::LTR; } break;
-        default: { } break;
-    };
+    if (mTimingDirection == "LTR") { mTimingDirection = "RTL"; }
+    else if (mTimingDirection == "RTL") { mTimingDirection = "LTR_RTL"; }
+    else if (mTimingDirection == "LTR_RTL") { mTimingDirection = "RTL_LTR"; }
+    else if (mTimingDirection == "RTL_LTR") { mTimingDirection = "LTR"; }
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTimingDirection;
@@ -141,16 +152,27 @@ void ControlsState::handleTimingVarianceSlider (float inTimingVariance)
 }
 
 //==============================================================================
+float ControlsState::getVelocityDepth()
+{
+    return mVelocityDepth;
+}
+
+float ControlsState::getVelocityVariance()
+{
+    return mVelocityVariance;
+}
+
+String ControlsState::getVelocityDirection()
+{
+    return mVelocityDirection;
+}
+
 void ControlsState::cycleVelocityDirection()
 {
-    switch (mVelocityDirection)
-    {
-        case (VelocityDirection::HTS): { mVelocityDirection = VelocityDirection::STH; } break;
-        case (VelocityDirection::STH): { mVelocityDirection = VelocityDirection::HTS_STH; } break;
-        case (VelocityDirection::HTS_STH): { mVelocityDirection = VelocityDirection::STH_HTS; } break;
-        case (VelocityDirection::STH_HTS): { mVelocityDirection = VelocityDirection::HTS; } break;
-        default: { } break;
-    };
+    if (mVelocityDirection == "HTS") { mVelocityDirection = "STH"; }
+    else if (mVelocityDirection == "STH") { mVelocityDirection = "HTS_STH"; }
+    else if (mVelocityDirection == "HTS_STH") { mVelocityDirection = "STH_HTS"; }
+    else if (mVelocityDirection == "STH_HTS") { mVelocityDirection = "HTS"; }
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityDirection;

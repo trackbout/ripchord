@@ -14,8 +14,6 @@ public:
 
     //==============================================================================
     enum Transpose { On, Off };
-    enum TimingDirection { LTR, RTL, LTR_RTL, RTL_LTR };
-    enum VelocityDirection { HTS, STH, HTS_STH, STH_HTS };
 
     //==============================================================================
     bool isTransposeOn();
@@ -36,11 +34,17 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
+    float getTimingDepth();
+    float getTimingVariance();
+    String getTimingDirection();
     void cycleTimingDirection();
     void handleTimingDepthSlider (float timingDepth);
     void handleTimingVarianceSlider (float timingVariance);
 
     //==============================================================================
+    float getVelocityDepth();
+    float getVelocityVariance();
+    String getVelocityDirection();
     void cycleVelocityDirection();
     void handleVelocityDepthSlider (float velocityDepth);
     void handleVelocityVarianceSlider (float velocityVariance);
@@ -52,8 +56,8 @@ public:
 private:
     //==============================================================================
     Transpose mTranspose = Transpose::Off;
-    TimingDirection mTimingDirection = TimingDirection::LTR;
-    VelocityDirection mVelocityDirection = VelocityDirection::HTS;
+    String mTimingDirection = "LTR";
+    String mVelocityDirection = "HTS";
 
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;

@@ -11,7 +11,6 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mImages.setDrawableButtonImages (mVelocityDepthImage, "Velocity.svg");
-    mImages.setDrawableButtonImages (mVelocityDirectionButton, "Direction.svg");
     mImages.setDrawableButtonImages (mVelocityVarianceImage, "Variance.svg");
 
     mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
@@ -19,14 +18,20 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
 
     mImages.setDrawableButtonImages (mTimingVarianceImage, "Variance.svg");
-    mImages.setDrawableButtonImages (mTimingDirectionButton, "Direction.svg");
     mImages.setDrawableButtonImages (mTimingDepthImage, "Timing.svg");
 
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
     mTimingDirectionButton.setTriggeredOnMouseDown (true);
 
-    mVelocityDirectionButton.onClick = [this]() { mControlsState.cycleVelocityDirection(); };
-    mTimingDirectionButton.onClick = [this]() { mControlsState.cycleTimingDirection(); };
+    mVelocityDirectionButton.onClick = [this]() {
+        if (mControlsState.getVelocityDepth() == 0) { return; }
+        mControlsState.cycleVelocityDirection();
+    };
+
+    mTimingDirectionButton.onClick = [this]() {
+        if (mControlsState.getTimingDepth() == 0) { return; }
+        mControlsState.cycleTimingDirection();
+    };
 
     mVelocityDepthSlider.addListener (this);
     mVelocityDepthSlider.setRange (0, 1);
@@ -160,25 +165,20 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
     if (mGlobalState.isPlayMode())
     {
         setVisible (true);
-        String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-        String timing = "Direction.svg";
-        String velocity = "Direction.svg";
-        mImages.setDrawableButtonImages (mTransposeButton, transpose);
-        mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
-        mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
+        updateTransposeButton();
+        updateTimingDirectionButton();
+        updateVelocityDirectionButton();
     }
 }
 
 void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 {
-    String transpose = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
-    mImages.setDrawableButtonImages (mTransposeButton, transpose);
+    updateTransposeButton();
 }
 
 void ControlsComponent::handleTimingDepth (const DataMessage* inMessage)
 {
-    float timingDepth = inMessage->messageVar1;
-    DBG ("timingDepth: " << timingDepth);
+    updateTimingDirectionButton();
 }
 
 void ControlsComponent::handleTimingVariance (const DataMessage* inMessage)
@@ -189,14 +189,12 @@ void ControlsComponent::handleTimingVariance (const DataMessage* inMessage)
 
 void ControlsComponent::handleTimingDirection (const DataMessage* inMessage)
 {
-    String timing = "Direction.svg";
-    mImages.setDrawableButtonImages (mTimingDirectionButton, timing);
+    updateTimingDirectionButton();
 }
 
 void ControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
 {
-    float velocityDepth = inMessage->messageVar1;
-    DBG ("velocityDepth: " << velocityDepth);
+    updateVelocityDirectionButton();
 }
 
 void ControlsComponent::handleVelocityVariance (const DataMessage* inMessage)
@@ -207,6 +205,39 @@ void ControlsComponent::handleVelocityVariance (const DataMessage* inMessage)
 
 void ControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
 {
-    String velocity = "Direction.svg";
-    mImages.setDrawableButtonImages (mVelocityDirectionButton, velocity);
+    updateVelocityDirectionButton();
+}
+
+void ControlsComponent::updateTransposeButton()
+{
+    String buttonImage = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
+    mImages.setDrawableButtonImages (mTransposeButton, buttonImage);
+}
+
+void ControlsComponent::updateTimingDirectionButton()
+{
+    String buttonImage;
+    String timingDirection = mControlsState.getTimingDirection();
+
+    if (mControlsState.getTimingDepth() == 0) { buttonImage = "Direction.svg"; }
+    else if (timingDirection == "LTR") { buttonImage = "DirectionAB.svg"; }
+    else if (timingDirection == "RTL") { buttonImage = "DirectionBA.svg"; }
+    else if (timingDirection == "LTR_RTL") { buttonImage = "DirectionABBA.svg"; }
+    else if (timingDirection == "RTL_LTR") { buttonImage = "DirectionBAAB.svg"; }
+
+    mImages.setDrawableButtonImages (mTimingDirectionButton, buttonImage);
+}
+
+void ControlsComponent::updateVelocityDirectionButton()
+{
+    String buttonImage;
+    String velocityDirection = mControlsState.getVelocityDirection();
+
+    if (mControlsState.getVelocityDepth() == 0) { buttonImage = "Direction.svg"; }
+    else if (velocityDirection == "HTS") { buttonImage = "DirectionAB.svg"; }
+    else if (velocityDirection == "STH") { buttonImage = "DirectionBA.svg"; }
+    else if (velocityDirection == "HTS_STH") { buttonImage = "DirectionABBA.svg"; }
+    else if (velocityDirection == "STH_HTS") { buttonImage = "DirectionBAAB.svg"; }
+
+    mImages.setDrawableButtonImages (mVelocityDirectionButton, buttonImage);
 }
