@@ -130,6 +130,7 @@
         <FILE id="RoeDLW" name="Images.h" compile="0" resource="0" file="Source/Modules/Images.h"/>
         <FILE id="p4SnGX" name="Midi.h" compile="0" resource="0" file="Source/Modules/Midi.h"/>
         <FILE id="w15eM1" name="Presets.h" compile="0" resource="0" file="Source/Modules/Presets.h"/>
+        <FILE id="quh3S0" name="Sorting.h" compile="0" resource="0" file="Source/Modules/Sorting.h"/>
         <FILE id="PrYJEs" name="Styles.h" compile="0" resource="0" file="Source/Modules/Styles.h"/>
         <FILE id="lbLBpc" name="System.h" compile="0" resource="0" file="Source/Modules/System.h"/>
         <FILE id="N34Pzs" name="TextInput.h" compile="0" resource="0" file="Source/Modules/TextInput.h"/>
