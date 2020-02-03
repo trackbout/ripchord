@@ -7,10 +7,3 @@ struct Output
 {
     juce::Array<int> triggers;
 };
-
-struct Altered
-{
-    int index;
-    float velocity;
-    int time;
-};

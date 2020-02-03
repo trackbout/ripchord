@@ -46,10 +46,14 @@ private:
     void handleNonNote (MidiMessage& message, int time);
 
     //==============================================================================
-    void noteOnToOutputNote (int channel, int inputNote, float velocity, int time,
+    float getChordNoteTiming (int index);
+    float getChordNoteVelocity (int index, float velocity);
+
+    //==============================================================================
+    void noteOnToOutputNote (int channel, int time, int inputNote, float velocity,
                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
-    void noteOffToOutputNote (int channel, int inputNote, float velocity, int time,
+    void noteOffToOutputNote (int channel, int time, int inputNote, float velocity,
                               int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
     //==============================================================================

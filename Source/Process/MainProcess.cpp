@@ -73,15 +73,19 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inTime)
 
     if (mPresetState.containsChord (inInputNote))
     {
-        for (int chordNote : mPresetState.getChordNotes (inInputNote))
+        juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
+
+        for (int index = 0; index < chordNotes.size(); index++)
         {
-            noteOnToOutputNote (inChannel, inInputNote, inVelocity, inTime,
+            int chordNote = chordNotes[index];
+
+            noteOnToOutputNote (inChannel, inTime, inInputNote, inVelocity,
                                 chordNote, currentlyOnOutputNotes, true);
         }
     }
     else
     {
-        noteOnToOutputNote (inChannel, inInputNote, inVelocity, inTime,
+        noteOnToOutputNote (inChannel, inTime, inInputNote, inVelocity,
                             inInputNote, currentlyOnOutputNotes, false);
     }
 
@@ -103,13 +107,13 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inTime)
     {
         for (int chordNote : mPresetState.getChordNotes (inInputNote))
         {
-            noteOffToOutputNote (inChannel, inInputNote, inVelocity, inTime,
+            noteOffToOutputNote (inChannel, inTime, inInputNote, inVelocity,
                                  chordNote, currentlyOnOutputNotes, true);
         }
     }
     else
     {
-        noteOffToOutputNote (inChannel, inInputNote, inVelocity, inTime,
+        noteOffToOutputNote (inChannel, inTime, inInputNote, inVelocity,
                              inInputNote, currentlyOnOutputNotes, false);
     }
 
@@ -123,7 +127,46 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 }
 
 //==============================================================================
-void MainProcess::noteOnToOutputNote (int inChannel, int inInputNote, float inVelocity, int inTime,
+float MainProcess::getChordNoteTiming (int inIndex)
+{
+    float timing = 0;
+
+    if (mControlsState.getTimingDepth() > 0)
+    {
+        // apply velocity depth
+        timing = timing;
+    }
+
+    if (mControlsState.getTimingVariance() > 0)
+    {
+        // apply velocity variance
+        timing = timing;
+    }
+
+    return timing;
+}
+
+float MainProcess::getChordNoteVelocity (int inIndex, float inVelocity)
+{
+    float velocity = inVelocity;
+
+    if (mControlsState.getVelocityDepth() > 0)
+    {
+        // apply velocity depth
+        velocity = velocity;
+    }
+
+    if (mControlsState.getVelocityVariance() > 0)
+    {
+        // apply velocity variance
+        velocity = velocity;
+    }
+
+    return velocity;
+}
+
+//==============================================================================
+void MainProcess::noteOnToOutputNote (int inChannel, int inTime, int inInputNote, float inVelocity,
                                       int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
     const int outputNote = inIsChord && mGlobalState.isPlayMode() ?
@@ -155,7 +198,7 @@ void MainProcess::noteOnToOutputNote (int inChannel, int inInputNote, float inVe
     }
 }
 
-void MainProcess::noteOffToOutputNote (int inChannel, int inInputNote, float inVelocity, int inTime,
+void MainProcess::noteOffToOutputNote (int inChannel, int inTime, int inInputNote, float inVelocity,
                                        int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes, bool inIsChord)
 {
     const int outputNote = inIsChord && mGlobalState.isPlayMode() ?

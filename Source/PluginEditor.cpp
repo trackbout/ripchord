@@ -7,8 +7,6 @@ RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordP
     mPluginProcessor (inRipchordPluginProcessor),
     mMainComponent { mPluginProcessor.getMainProcess() }
 {
-    addAndMakeVisible (mMainComponent);
-
     if (auto* boundsConstrainer = getConstrainer())
     {
         boundsConstrainer->setFixedAspectRatio (EDITOR_WIDTH / (float) EDITOR_HEIGHT);
@@ -18,6 +16,8 @@ RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordP
 
     setResizable (true, true);
     setSize (mPluginProcessor.getLastEditorWidth(), mPluginProcessor.getLastEditorHeight());
+
+    addAndMakeVisible (mMainComponent);
 }
 
 RipchordPluginEditor::~RipchordPluginEditor()

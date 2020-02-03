@@ -4,7 +4,7 @@
 //==============================================================================
 RipchordPluginProcessor::RipchordPluginProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-: AudioProcessor (BusesProperties()
+:   AudioProcessor (BusesProperties()
     #if ! JucePlugin_IsMidiEffect
         #if ! JucePlugin_IsSynth
             .withInput ("Input", AudioChannelSet::stereo(), true)
@@ -127,6 +127,7 @@ bool RipchordPluginProcessor::hasEditor() const
     return true;
 }
 
+//==============================================================================
 int RipchordPluginProcessor::getLastEditorWidth() const
 {
     if (mLastEditorWidth < 0) { return EDITOR_WIDTH; }
