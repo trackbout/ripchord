@@ -33,8 +33,10 @@ namespace Presets
         for (const auto& pair : inChords)
         {
             StringArray chordNotes;
+            juce::Array<int> sortedNotes = pair.second.notes;
+            sortedNotes.sort();
 
-            for (const int chordNote : pair.second.notes)
+            for (const int chordNote : sortedNotes)
             {
                 chordNotes.add (String (chordNote));
             }
@@ -72,6 +74,7 @@ namespace Presets
 
             if (notes.size() > 0)
             {
+                notes.sort();
                 chord.name = name;
                 chord.notes = notes;
                 chords[note] = chord;

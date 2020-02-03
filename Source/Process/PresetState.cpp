@@ -106,7 +106,7 @@ void PresetState::handleEditModeMouseDownOnOutput (const int inOutputNote)
     if (shouldAddNote)
     {
         Chord presetChord = getChord (mEditModeInputNote);
-        presetChord.notes.add (inOutputNote);
+        presetChord.notes.addUsingDefaultSort (inOutputNote);
         setChord (mEditModeInputNote, presetChord);
     }
     else
