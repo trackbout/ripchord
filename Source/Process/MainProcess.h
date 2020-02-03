@@ -46,10 +46,10 @@ private:
     void handleNonNote (MidiMessage& message, int time);
 
     //==============================================================================
-    void noteOnToOutputNote (int inputNote, int inputChannel, float inputVelocity, int time,
+    void noteOnToOutputNote (int channel, int inputNote, float velocity, int time,
                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
-    void noteOffToOutputNote (int inputNote, int inputChannel, float inputVelocity, int time,
+    void noteOffToOutputNote (int channel, int inputNote, float velocity, int time,
                               int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
 
     //==============================================================================
