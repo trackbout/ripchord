@@ -17,20 +17,20 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
     mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
 
-    mImages.setDrawableButtonImages (mTimingVarianceImage, "Variance.svg");
-    mImages.setDrawableButtonImages (mTimingDepthImage, "Timing.svg");
+    mImages.setDrawableButtonImages (mDelayVarianceImage, "Variance.svg");
+    mImages.setDrawableButtonImages (mDelayDepthImage, "Delay.svg");
 
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
-    mTimingDirectionButton.setTriggeredOnMouseDown (true);
+    mDelayDirectionButton.setTriggeredOnMouseDown (true);
 
     mVelocityDirectionButton.onClick = [this]() {
         if (mControlsState.getVelocityDepth() == 0) { return; }
         mControlsState.cycleVelocityDirection();
     };
 
-    mTimingDirectionButton.onClick = [this]() {
-        if (mControlsState.getTimingDepth() == 0) { return; }
-        mControlsState.cycleTimingDirection();
+    mDelayDirectionButton.onClick = [this]() {
+        if (mControlsState.getDelayDepth() == 0) { return; }
+        mControlsState.cycleDelayDirection();
     };
 
     mVelocityDepthSlider.addListener (this);
@@ -43,15 +43,15 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mVelocityVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mTimingDepthSlider.addListener (this);
-    mTimingDepthSlider.setRange (0, 100000);
-    mTimingDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
-    mTimingDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
+    mDelayDepthSlider.addListener (this);
+    mDelayDepthSlider.setRange (0, 100000);
+    mDelayDepthSlider.setSliderStyle (Slider::RotaryVerticalDrag);
+    mDelayDepthSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mTimingVarianceSlider.addListener (this);
-    mTimingVarianceSlider.setRange (0, 100000);
-    mTimingVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
-    mTimingVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
+    mDelayVarianceSlider.addListener (this);
+    mDelayVarianceSlider.setRange (0, 100000);
+    mDelayVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
+    mDelayVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
     mShiftLeftButton.setTriggeredOnMouseDown (true);
     mTransposeButton.setTriggeredOnMouseDown (true);
@@ -85,11 +85,11 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mTransposeButton);
     addAndMakeVisible (mShiftRightButton);
 
-    addAndMakeVisible (mTimingVarianceImage);
-    addAndMakeVisible (mTimingDirectionButton);
-    addAndMakeVisible (mTimingDepthImage);
-    addAndMakeVisible (mTimingVarianceSlider);
-    addAndMakeVisible (mTimingDepthSlider);
+    addAndMakeVisible (mDelayVarianceImage);
+    addAndMakeVisible (mDelayDirectionButton);
+    addAndMakeVisible (mDelayDepthImage);
+    addAndMakeVisible (mDelayVarianceSlider);
+    addAndMakeVisible (mDelayDepthSlider);
 }
 
 ControlsComponent::~ControlsComponent()
@@ -109,11 +109,11 @@ void ControlsComponent::resized()
     mTransposeButton.setBounds (TRANSPOSE_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mShiftRightButton.setBounds (SHIFT_RIGHT_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 
-    mTimingVarianceImage.setBounds (TIMING_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
-    mTimingDepthImage.setBounds (TIMING_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
-    mTimingVarianceSlider.setBounds (TIMING_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
-    mTimingDepthSlider.setBounds (TIMING_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
-    mTimingDirectionButton.setBounds (TIMING_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mDelayVarianceImage.setBounds (DELAY_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mDelayDepthImage.setBounds (DELAY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mDelayVarianceSlider.setBounds (DELAY_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
+    mDelayDepthSlider.setBounds (DELAY_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
+    mDelayDirectionButton.setBounds (DELAY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 }
 
 //==============================================================================
@@ -129,14 +129,14 @@ void ControlsComponent::sliderValueChanged (Slider* inSlider)
         mControlsState.handleVelocityVarianceSlider (mVelocityVarianceSlider.getValue());
     }
 
-    if (inSlider == &mTimingVarianceSlider)
+    if (inSlider == &mDelayVarianceSlider)
     {
-        mControlsState.handleTimingVarianceSlider (mTimingVarianceSlider.getValue());
+        mControlsState.handleDelayVarianceSlider (mDelayVarianceSlider.getValue());
     }
 
-    if (inSlider == &mTimingDepthSlider)
+    if (inSlider == &mDelayDepthSlider)
     {
-        mControlsState.handleTimingDepthSlider (mTimingDepthSlider.getValue());
+        mControlsState.handleDelayDepthSlider (mDelayDepthSlider.getValue());
     }
 }
 
@@ -147,8 +147,8 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
-        case (MessageCode::kTimingDepth): { handleTimingDepth (inMessage); } break;
-        case (MessageCode::kTimingDirection): { handleTimingDirection (inMessage); } break;
+        case (MessageCode::kDelayDepth): { handleDelayDepth (inMessage); } break;
+        case (MessageCode::kDelayDirection): { handleDelayDirection (inMessage); } break;
         case (MessageCode::kVelocityDepth): { handleVelocityDepth (inMessage); } break;
         case (MessageCode::kVelocityDirection): { handleVelocityDirection (inMessage); } break;
         default: { } break;
@@ -164,10 +164,10 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
     {
         setVisible (true);
         updateTransposeButton();
-        updateTimingDirectionButton();
+        updateDelayDirectionButton();
         updateVelocityDirectionButton();
-        mTimingDepthSlider.setValue (mControlsState.getTimingDepth());
-        mTimingVarianceSlider.setValue (mControlsState.getTimingVariance());
+        mDelayDepthSlider.setValue (mControlsState.getDelayDepth());
+        mDelayVarianceSlider.setValue (mControlsState.getDelayVariance());
         mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth());
         mVelocityVarianceSlider.setValue (mControlsState.getVelocityVariance());
     }
@@ -178,14 +178,14 @@ void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
     updateTransposeButton();
 }
 
-void ControlsComponent::handleTimingDepth (const DataMessage* inMessage)
+void ControlsComponent::handleDelayDepth (const DataMessage* inMessage)
 {
-    updateTimingDirectionButton();
+    updateDelayDirectionButton();
 }
 
-void ControlsComponent::handleTimingDirection (const DataMessage* inMessage)
+void ControlsComponent::handleDelayDirection (const DataMessage* inMessage)
 {
-    updateTimingDirectionButton();
+    updateDelayDirectionButton();
 }
 
 void ControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
@@ -204,18 +204,18 @@ void ControlsComponent::updateTransposeButton()
     mImages.setDrawableButtonImages (mTransposeButton, buttonImage);
 }
 
-void ControlsComponent::updateTimingDirectionButton()
+void ControlsComponent::updateDelayDirectionButton()
 {
     String buttonImage = "Direction.svg";
-    String timingDirection = mControlsState.getTimingDirection();
+    String delayDirection = mControlsState.getDelayDirection();
 
-    if (mControlsState.getTimingDepth() == 0) { buttonImage = "Direction.svg"; }
-    else if (timingDirection == "LTR") { buttonImage = "DirectionAB.svg"; }
-    else if (timingDirection == "RTL") { buttonImage = "DirectionBA.svg"; }
-    else if (timingDirection == "LTR_RTL") { buttonImage = "DirectionABBA.svg"; }
-    else if (timingDirection == "RTL_LTR") { buttonImage = "DirectionBAAB.svg"; }
+    if (mControlsState.getDelayDepth() == 0) { buttonImage = "Direction.svg"; }
+    else if (delayDirection == "LTR") { buttonImage = "DirectionAB.svg"; }
+    else if (delayDirection == "RTL") { buttonImage = "DirectionBA.svg"; }
+    else if (delayDirection == "LTR_RTL") { buttonImage = "DirectionABBA.svg"; }
+    else if (delayDirection == "RTL_LTR") { buttonImage = "DirectionBAAB.svg"; }
 
-    mImages.setDrawableButtonImages (mTimingDirectionButton, buttonImage);
+    mImages.setDrawableButtonImages (mDelayDirectionButton, buttonImage);
 }
 
 void ControlsComponent::updateVelocityDirectionButton()

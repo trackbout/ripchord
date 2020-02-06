@@ -34,12 +34,12 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
-    int getTimingDepth();
-    int getTimingVariance();
-    String getTimingDirection();
-    void cycleTimingDirection();
-    void handleTimingDepthSlider (int timingDepth);
-    void handleTimingVarianceSlider (int timingVariance);
+    int getDelayDepth();
+    int getDelayVariance();
+    String getDelayDirection();
+    void cycleDelayDirection();
+    void handleDelayDepthSlider (int delayDepth);
+    void handleDelayVarianceSlider (int delayVariance);
 
     //==============================================================================
     int getVelocityDepth();
@@ -59,9 +59,9 @@ private:
     int mActiveTransposeNote = -1;
     Transpose mTranspose = Transpose::Off;
 
-    int mTimingDepth = 0;
-    int mTimingVariance = 0;
-    String mTimingDirection = "LTR";
+    int mDelayDepth = 0;
+    int mDelayVariance = 0;
+    String mDelayDirection = "LTR";
 
     int mVelocityDepth = 0;
     int mVelocityVariance = 0;

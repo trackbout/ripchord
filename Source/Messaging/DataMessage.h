@@ -20,9 +20,9 @@ enum MessageCode
     kToggleMenu,
 
     // Messages from ControlsState
-    kTimingDepth,
-    kTimingVariance,
-    kTimingDirection,
+    kDelayDepth,
+    kDelayVariance,
+    kDelayDirection,
     kVelocityDepth,
     kVelocityVariance,
     kVelocityDirection,

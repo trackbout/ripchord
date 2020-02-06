@@ -40,26 +40,26 @@ private:
     DrawableButton mTransposeButton { "", DrawableButton::ImageStretched };
     DrawableButton mShiftRightButton { "", DrawableButton::ImageStretched };
 
-    DrawableButton mTimingVarianceImage { "", DrawableButton::ImageStretched };
-    DrawableButton mTimingDepthImage { "", DrawableButton::ImageStretched };
-    DrawableButton mTimingDirectionButton { "", DrawableButton::ImageStretched };
+    DrawableButton mDelayVarianceImage { "", DrawableButton::ImageStretched };
+    DrawableButton mDelayDepthImage { "", DrawableButton::ImageStretched };
+    DrawableButton mDelayDirectionButton { "", DrawableButton::ImageStretched };
 
     Slider mVelocityDepthSlider;
     Slider mVelocityVarianceSlider;
-    Slider mTimingDepthSlider;
-    Slider mTimingVarianceSlider;
+    Slider mDelayDepthSlider;
+    Slider mDelayVarianceSlider;
 
     void handleToggleMode (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
 
-    void handleTimingDepth (const DataMessage* message);
-    void handleTimingDirection (const DataMessage* message);
+    void handleDelayDepth (const DataMessage* message);
+    void handleDelayDirection (const DataMessage* message);
 
     void handleVelocityDepth (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
 
     void updateTransposeButton();
-    void updateTimingDirectionButton();
+    void updateDelayDirectionButton();
     void updateVelocityDirectionButton();
 
     //==============================================================================
