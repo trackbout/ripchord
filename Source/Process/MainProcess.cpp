@@ -137,18 +137,18 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 //==============================================================================
 float MainProcess::getChordNoteDelay (int inIndex)
 {
-    float delay = 0;
+    float delay = 0.f;
+    float delayDepth = mControlsState.getDelayDepth() / 100000.f;
+    float delayVariance = mControlsState.getDelayVariance() / 100000.f;
 
-    if (mControlsState.getDelayDepth() > 0)
+    if (delayDepth > 0.f)
     {
-        // apply delay depth
-        delay = delay;
+        DBG ("delayDepth: " << delayDepth);
     }
 
-    if (mControlsState.getDelayVariance() > 0)
+    if (delayVariance > 0.f)
     {
-        // apply delay variance
-        delay = delay;
+        DBG ("delayVariance: " << delayVariance);
     }
 
     return delay;
@@ -157,17 +157,17 @@ float MainProcess::getChordNoteDelay (int inIndex)
 float MainProcess::getChordNoteVelocity (int inIndex, float inVelocity)
 {
     float velocity = inVelocity;
+    float velocityDepth = mControlsState.getVelocityDepth() / 100000.f;
+    float velocityVariance = mControlsState.getVelocityVariance() / 100000.f;
 
-    if (mControlsState.getVelocityDepth() > 0)
+    if (velocityDepth > 0.f)
     {
-        // apply velocity depth
-        velocity = velocity;
+        DBG ("velocityDepth: " << velocityDepth);
     }
 
-    if (mControlsState.getVelocityVariance() > 0)
+    if (velocityVariance > 0.f)
     {
-        // apply velocity variance
-        velocity = velocity;
+        DBG ("velocityVariance: " << velocityVariance);
     }
 
     return velocity;

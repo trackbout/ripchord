@@ -17,13 +17,6 @@ public:
     ~MainProcess();
 
     //==============================================================================
-    void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
-
-    //==============================================================================
-    void handlePlayModeMouseUpOnInput (int inputNote);
-    void handlePlayModeMouseDownOnInput (int inputNote);
-
-    //==============================================================================
     GlobalState& getGlobalState() { return mGlobalState; }
     ControlsState& getControlsState() { return mControlsState; }
     BrowserState& getBrowserState() { return mBrowserState; }
@@ -31,10 +24,24 @@ public:
     MidiState& getMidiState() { return mMidiState; }
 
     //==============================================================================
+    void handleMidiBuffer (MidiBuffer& midiBuffer, int numberOfSamples);
+
+    //==============================================================================
+    void handlePlayModeMouseUpOnInput (int inputNote);
+    void handlePlayModeMouseDownOnInput (int inputNote);
+
+    //==============================================================================
     XmlElement* exportSessionXml();
     void importSessionXml (XmlElement* sessionXml);
 
 private:
+    //==============================================================================
+    GlobalState mGlobalState;
+    ControlsState mControlsState;
+    BrowserState mBrowserState;
+    PresetState mPresetState;
+    MidiState mMidiState;
+
     //==============================================================================
     MidiBuffer mMouseClickBuffer;
     MidiBuffer mTransformedMidiBuffer;
@@ -58,13 +65,6 @@ private:
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);
-
-    //==============================================================================
-    GlobalState mGlobalState;
-    ControlsState mControlsState;
-    BrowserState mBrowserState;
-    PresetState mPresetState;
-    MidiState mMidiState;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainProcess)
