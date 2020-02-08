@@ -10,7 +10,7 @@ MainProcess::~MainProcess()
 }
 
 //==============================================================================
-void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumberOfSamples)
+void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
 {
     if (mMouseClickBuffer.getNumEvents() > 0)
     {
