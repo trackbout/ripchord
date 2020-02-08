@@ -137,11 +137,11 @@ void MainProcess::handleNonNote (MidiMessage& inMessage, int inTime)
 //==============================================================================
 float MainProcess::getChordNoteDelay (int inIndex)
 {
-    float delay = 0.f;
-    float delayDepth = mControlsState.getDelayDepth() / 100000.f;
+    int delay = 0;
+    int delayDepth = mControlsState.getDelayDepth() / 100;
     float delayVariance = mControlsState.getDelayVariance() / 100000.f;
 
-    if (delayDepth > 0.f)
+    if (delayDepth > 0)
     {
         DBG ("delayDepth: " << delayDepth);
     }
