@@ -48,20 +48,20 @@ private:
 
     //==============================================================================
     void transformMidiBuffer (MidiBuffer& midiBuffer);
-    void handleNoteOn (MidiMessage& message, int time);
-    void handleNoteOff (MidiMessage& message, int time);
-    void handleNonNote (MidiMessage& message, int time);
+    void handleNoteOn (MidiMessage& message, int sampleNumber);
+    void handleNoteOff (MidiMessage& message, int sampleNumber);
+    void handleNonNote (MidiMessage& message, int sampleNumber);
 
     //==============================================================================
     float getChordNoteDelay (int index);
     float getChordNoteVelocity (int index, float velocity);
 
     //==============================================================================
-    void noteOnToOutputNote (int channel, int time, int inputNote, float velocity, float delay,
-                             int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
+    void noteOnToOutputNote (int channel, int sampleNumber, int inputNote, float velocity, float delay,
+                             int outputNote, bool isChord, std::map<int, Output>& currentlyOnOutputNotes);
 
-    void noteOffToOutputNote (int channel, int time, int inputNote, float velocity, float delay,
-                              int outputNote, std::map<int, Output>& currentlyOnOutputNotes, bool isChord);
+    void noteOffToOutputNote (int channel, int sampleNumber, int inputNote, float velocity, float delay,
+                              int outputNote, bool isChord, std::map<int, Output>& currentlyOnOutputNotes);
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);
