@@ -57,10 +57,10 @@ private:
     float getChordNoteVelocity (int index, float velocity);
 
     //==============================================================================
-    void noteOnToOutputNote (int channel, int sampleNumber, int inputNote, float velocity, float delay,
+    void noteOnToOutputNote (int channel, int sampleNumber, int inputNote, float velocity,
                              int outputNote, bool isChord, std::map<int, Output>& currentlyOnOutputNotes);
 
-    void noteOffToOutputNote (int channel, int sampleNumber, int inputNote, float velocity, float delay,
+    void noteOffToOutputNote (int channel, int sampleNumber, int inputNote, float velocity,
                               int outputNote, bool isChord, std::map<int, Output>& currentlyOnOutputNotes);
 
     //==============================================================================

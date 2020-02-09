@@ -78,16 +78,14 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
         for (int index = 0; index < chordNotes.size(); index++)
         {
             int chordNote = chordNotes[index];
-            float delay = getChordNoteDelay (index);
-            float velocity = getChordNoteVelocity (index, inVelocity);
 
-            noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, velocity, delay,
+            noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
                                 chordNote, true, currentlyOnOutputNotes);
         }
     }
     else
     {
-        noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity, 0.f,
+        noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
                             inInputNote, false, currentlyOnOutputNotes);
     }
 
@@ -112,16 +110,14 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
         for (int index = 0; index < chordNotes.size(); index++)
         {
             int chordNote = chordNotes[index];
-            float delay = getChordNoteDelay (index);
-            float velocity = getChordNoteVelocity (index, inVelocity);
 
-            noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, velocity, delay,
+            noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
                                  chordNote, true, currentlyOnOutputNotes);
         }
     }
     else
     {
-        noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity, 0.f,
+        noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
                              inInputNote, false, currentlyOnOutputNotes);
     }
 
@@ -174,7 +170,7 @@ float MainProcess::getChordNoteVelocity (int inIndex, float inVelocity)
 }
 
 //==============================================================================
-void MainProcess::noteOnToOutputNote (int inChannel, int inSampleNumber, int inInputNote, float inVelocity, float inDelay,
+void MainProcess::noteOnToOutputNote (int inChannel, int inSampleNumber, int inInputNote, float inVelocity,
                                       int inOutputNote, bool inIsChord, std::map<int, Output>& inCurrentlyOnOutputNotes)
 {
     const int outputNote = inIsChord && mGlobalState.isPlayMode() ?
@@ -206,7 +202,7 @@ void MainProcess::noteOnToOutputNote (int inChannel, int inSampleNumber, int inI
     }
 }
 
-void MainProcess::noteOffToOutputNote (int inChannel, int inSampleNumber, int inInputNote, float inVelocity, float inDelay,
+void MainProcess::noteOffToOutputNote (int inChannel, int inSampleNumber, int inInputNote, float inVelocity,
                                        int inOutputNote, bool inIsChord, std::map<int, Output>& inCurrentlyOnOutputNotes)
 {
     const int outputNote = inIsChord && mGlobalState.isPlayMode() ?
