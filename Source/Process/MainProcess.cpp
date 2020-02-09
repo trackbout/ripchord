@@ -79,8 +79,11 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
         {
             int chordNote = chordNotes[index];
 
-            noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
-                                chordNote, true, currentlyOnOutputNotes);
+            if (index == 0)
+            {
+                noteOnToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
+                                    chordNote, true, currentlyOnOutputNotes);
+            }
         }
     }
     else
@@ -111,8 +114,11 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
         {
             int chordNote = chordNotes[index];
 
-            noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
-                                 chordNote, true, currentlyOnOutputNotes);
+            if (index == 0)
+            {
+                noteOffToOutputNote (inChannel, inSampleNumber, inInputNote, inVelocity,
+                                     chordNote, true, currentlyOnOutputNotes);
+            }
         }
     }
     else
