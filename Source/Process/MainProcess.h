@@ -53,10 +53,6 @@ private:
     void handleNonNote (MidiMessage& message, int sampleNumber);
 
     //==============================================================================
-    float getChordNoteDelay (int index);
-    float getChordNoteVelocity (int index, float velocity);
-
-    //==============================================================================
     void sendOutputNoteOn (NoteEvent noteEvent, std::map<int, Origin>& currentlyOnOutputNotes);
     void sendOutputNoteOff (NoteEvent noteEvent, std::map<int, Origin>& currentlyOnOutputNotes);
 
