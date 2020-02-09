@@ -78,6 +78,14 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
 }
 
 //==============================================================================
+void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndex, float inDelayDepth, float inDelayVariance)
+{
+    DBG ("inIndex: " << inIndex);
+    DBG ("inDelayDepth: " << inDelayDepth);
+    DBG ("inDelayVariance: " << inDelayVariance);
+}
+
+//==============================================================================
 juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Origin> outputNotes)
 {
     juce::Array<int> outputNotesArray;

@@ -104,14 +104,14 @@ void ControlsState::handleMouseClickOnShiftRight()
 }
 
 //==============================================================================
-int ControlsState::getDelayDepth()
+float ControlsState::getDelayDepth()
 {
-    return mDelayDepth;
+    return mDelayDepth / 100000.f;
 }
 
-int ControlsState::getDelayVariance()
+float ControlsState::getDelayVariance()
 {
-    return mDelayVariance;
+    return mDelayVariance / 100000.f;
 }
 
 String ControlsState::getDelayDirection()
@@ -150,14 +150,14 @@ void ControlsState::handleDelayVarianceSlider (int inDelayVariance)
 }
 
 //==============================================================================
-int ControlsState::getVelocityDepth()
+float ControlsState::getVelocityDepth()
 {
-    return mVelocityDepth;
+    return mVelocityDepth / 100000.f;
 }
 
-int ControlsState::getVelocityVariance()
+float ControlsState::getVelocityVariance()
 {
-    return mVelocityVariance;
+    return mVelocityVariance / 100000.f;
 }
 
 String ControlsState::getVelocityDirection()

@@ -166,10 +166,10 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
         updateTransposeButton();
         updateDelayDirectionButton();
         updateVelocityDirectionButton();
-        mDelayDepthSlider.setValue (mControlsState.getDelayDepth());
-        mDelayVarianceSlider.setValue (mControlsState.getDelayVariance());
-        mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth());
-        mVelocityVarianceSlider.setValue (mControlsState.getVelocityVariance());
+        mDelayDepthSlider.setValue (mControlsState.getDelayDepth() * 100000);
+        mDelayVarianceSlider.setValue (mControlsState.getDelayVariance() * 100000);
+        mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth() * 100000);
+        mVelocityVarianceSlider.setValue (mControlsState.getVelocityVariance() * 100000);
     }
 }
 

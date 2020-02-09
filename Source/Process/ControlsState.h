@@ -34,16 +34,16 @@ public:
     void handleMouseClickOnShiftRight();
 
     //==============================================================================
-    int getDelayDepth();
-    int getDelayVariance();
+    float getDelayDepth();
+    float getDelayVariance();
     String getDelayDirection();
     void cycleDelayDirection();
     void handleDelayDepthSlider (int delayDepth);
     void handleDelayVarianceSlider (int delayVariance);
 
     //==============================================================================
-    int getVelocityDepth();
-    int getVelocityVariance();
+    float getVelocityDepth();
+    float getVelocityVariance();
     String getVelocityDirection();
     void cycleVelocityDirection();
     void handleVelocityDepthSlider (int velocityDepth);

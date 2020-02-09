@@ -78,20 +78,20 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
 
         for (int index = 0; index < chordNotes.size(); index++)
         {
-            int delayDepth = mControlsState.getDelayDepth() / 100;
-            float delayVariance = mControlsState.getDelayVariance() / 100000.f;
+            float delayDepth = mControlsState.getDelayDepth();
+            float delayVariance = mControlsState.getDelayVariance();
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
+            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
 
-            if ((delayDepth == 0 && delayVariance == 0) || index == 0)
+            if (index == 0 || (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
-                NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
                 sendOutputNoteOn (noteEvent, currentlyOnOutputNotes);
             }
             else
             {
-                // ADD TO QUEU
+                mMidiState.addNoteEventToQueu (noteEvent, index, delayDepth, delayVariance);
             }
         }
     }
@@ -122,20 +122,20 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
 
         for (int index = 0; index < chordNotes.size(); index++)
         {
-            int delayDepth = mControlsState.getDelayDepth() / 100;
-            float delayVariance = mControlsState.getDelayVariance() / 100000.f;
+            float delayDepth = mControlsState.getDelayDepth();
+            float delayVariance = mControlsState.getDelayVariance();
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
+            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
 
-            if ((delayDepth == 0 && delayVariance == 0) || index == 0)
+            if (index == 0 || (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
-                NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
                 sendOutputNoteOff (noteEvent, currentlyOnOutputNotes);
             }
             else
             {
-                // ADD TO QUEU
+                mMidiState.addNoteEventToQueu (noteEvent, index, delayDepth, delayVariance);
             }
         }
     }

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Midi.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
+#include "Midi.h"
 
 //==============================================================================
 class MidiState : public DataMessageBroadcaster
@@ -28,6 +28,9 @@ public:
     //==============================================================================
     void setActiveTransposeNoteIfAllowed (const int inputNote);
 
+    //==============================================================================
+    void addNoteEventToQueu (NoteEvent noteEvent, int index, float delayDepth, float delayVariance);
+
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
@@ -36,6 +39,9 @@ private:
     //==============================================================================
     juce::Array<int> getOutputNotesArray (std::map<int, Origin> outputNotes);
     juce::Array<int> getWeightedOutputNotesArray (std::map<int, Origin> outputNotes);
+
+    //==============================================================================
+    juce::Array<NoteEvent> mNoteEventQueu;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)
