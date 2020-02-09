@@ -67,7 +67,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, Output> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
@@ -81,17 +81,14 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
 
-            if (index == 0)
-            {
-                sendOutputNoteOn (inChannel, inSampleNumber, inInputNote, inVelocity,
-                                  chordNote, currentlyOnOutputNotes);
-            }
+            sendOutputNoteOn (inChannel, inSampleNumber, inVelocity,
+                              inInputNote, chordNote, currentlyOnOutputNotes);
         }
     }
     else
     {
-        sendOutputNoteOn (inChannel, inSampleNumber, inInputNote, inVelocity,
-                          inInputNote, currentlyOnOutputNotes);
+        sendOutputNoteOn (inChannel, inSampleNumber, inVelocity,
+                          inInputNote, inInputNote, currentlyOnOutputNotes);
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -104,7 +101,7 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     juce::Array<int> currentlyOnInputNotes = mMidiState.getCurrentlyOnInputNotes();
-    std::map<int, Output> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+    std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
 
     currentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
@@ -118,17 +115,14 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
 
-            if (index == 0)
-            {
-                sendOutputNoteOff (inChannel, inSampleNumber, inInputNote, inVelocity,
-                                   chordNote, currentlyOnOutputNotes);
-            }
+            sendOutputNoteOff (inChannel, inSampleNumber, inVelocity,
+                               inInputNote, chordNote, currentlyOnOutputNotes);
         }
     }
     else
     {
-        sendOutputNoteOff (inChannel, inSampleNumber, inInputNote, inVelocity,
-                           inInputNote, currentlyOnOutputNotes);
+        sendOutputNoteOff (inChannel, inSampleNumber, inVelocity,
+                           inInputNote, inInputNote, currentlyOnOutputNotes);
     }
 
     mMidiState.setCurrentlyOnInputNotes (currentlyOnInputNotes);
@@ -180,8 +174,8 @@ float MainProcess::getChordNoteVelocity (int inIndex, float inVelocity)
 }
 
 //==============================================================================
-void MainProcess::sendOutputNoteOn (int inChannel, int inSampleNumber, int inInputNote, float inVelocity,
-                                    int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
+void MainProcess::sendOutputNoteOn (int inChannel, int inSampleNumber, float inVelocity,
+                                    int inInputNote, int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (inOutputNote);
 
@@ -210,8 +204,8 @@ void MainProcess::sendOutputNoteOn (int inChannel, int inSampleNumber, int inInp
     }
 }
 
-void MainProcess::sendOutputNoteOff (int inChannel, int inSampleNumber, int inInputNote, float inVelocity,
-                                     int inOutputNote, std::map<int, Output>& inCurrentlyOnOutputNotes)
+void MainProcess::sendOutputNoteOff (int inChannel, int inSampleNumber, float inVelocity,
+                                     int inInputNote, int inOutputNote, std::map<int, Origin>& inCurrentlyOnOutputNotes)
 {
     bool containsTrigger = mMidiState.containsOutputNoteTrigger (inOutputNote, inInputNote);
     const int triggerCount = mMidiState.getOutputNoteTriggerCount (inOutputNote);

@@ -15,11 +15,11 @@ public:
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
-    std::map<int, Output> getCurrentlyOnOutputNotes();
+    std::map<int, Origin> getCurrentlyOnOutputNotes();
 
     //==============================================================================
     void setCurrentlyOnInputNotes (juce::Array<int> inputNotes);
-    void setCurrentlyOnOutputNotes (std::map<int, Output> outputNotes);
+    void setCurrentlyOnOutputNotes (std::map<int, Origin> outputNotes);
 
     //==============================================================================
     bool containsOutputNoteTrigger (const int outputNote, const int inputNote);
@@ -31,11 +31,11 @@ public:
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
-    std::map<int, Output> mCurrentlyOnOutputNotes;
+    std::map<int, Origin> mCurrentlyOnOutputNotes;
 
     //==============================================================================
-    juce::Array<int> getOutputNotesArray (std::map<int, Output> outputNotes);
-    juce::Array<int> getWeightedOutputNotesArray (std::map<int, Output> outputNotes);
+    juce::Array<int> getOutputNotesArray (std::map<int, Origin> outputNotes);
+    juce::Array<int> getWeightedOutputNotesArray (std::map<int, Origin> outputNotes);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)

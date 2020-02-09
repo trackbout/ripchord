@@ -57,11 +57,11 @@ private:
     float getChordNoteVelocity (int index, float velocity);
 
     //==============================================================================
-    void sendOutputNoteOn (int channel, int sampleNumber, int inputNote, float velocity,
-                           int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
+    void sendOutputNoteOn (int channel, int sampleNumber, float velocity,
+                           int inputNote, int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
-    void sendOutputNoteOff (int channel, int sampleNumber, int inputNote, float velocity,
-                            int outputNote, std::map<int, Output>& currentlyOnOutputNotes);
+    void sendOutputNoteOff (int channel, int sampleNumber, float velocity,
+                            int inputNote, int outputNote, std::map<int, Origin>& currentlyOnOutputNotes);
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);

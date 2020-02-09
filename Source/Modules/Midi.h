@@ -3,7 +3,7 @@
 const int DOUBLE_TRIGGER_WEIGHT = 1000;
 
 //==============================================================================
-struct Output
+struct Origin
 {
     juce::Array<int> triggers;
 };
