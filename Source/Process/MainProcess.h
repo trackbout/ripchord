@@ -53,8 +53,8 @@ private:
     void handleNonNote (MidiMessage& message, int sampleNumber);
 
     //==============================================================================
-    void sendOutputNoteOn (NoteEvent noteEvent, std::map<int, Origin>& currentlyOnOutputNotes);
-    void sendOutputNoteOff (NoteEvent noteEvent, std::map<int, Origin>& currentlyOnOutputNotes);
+    void sendOutputNoteOn (NoteEvent noteEvent);
+    void sendOutputNoteOff (NoteEvent noteEvent);
 
     //==============================================================================
     void handleNoteEventQueu();

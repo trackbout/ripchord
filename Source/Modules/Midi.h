@@ -3,8 +3,6 @@
 const float MIN_DELAY_DEPTH = 0.001;
 const float MIN_DELAY_VARIANCE = 0.001;
 
-const int DOUBLE_TRIGGER_WEIGHT = 1000;
-
 //==============================================================================
 struct Origin
 {

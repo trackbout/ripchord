@@ -47,8 +47,9 @@ enum MessageCode
     kPresetNameTextChanged,
 
     // Messages from MidiState
+    kOutputNoteOn,
+    kOutputNoteOff,
     kCurrentlyOnInputNotes,
-    kCurrentlyOnOutputNotes,
     kActiveTransposeNoteAllowed
 };
 

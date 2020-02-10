@@ -44,7 +44,8 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
-        case (MessageCode::kCurrentlyOnOutputNotes): { handleCurrentlyOnOutputNotes (inMessage); } break;
+        case (MessageCode::kOutputNoteOff): { handleOutputNoteOff (inMessage); } break;
+        case (MessageCode::kOutputNoteOn): { handleOutputNoteOn (inMessage); } break;
         default: { } break;
     };
 }
@@ -82,38 +83,26 @@ void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMe
     }
 }
 
-void OutputKeyboardComponent::handleCurrentlyOnOutputNotes (const DataMessage* inMessage)
+void OutputKeyboardComponent::handleOutputNoteOff (const DataMessage* inMessage)
 {
-    juce::Array<int> prevCurrentlyOnOutputNotes = inMessage->messageArray1;
-    juce::Array<int> nextCurrentlyOnOutputNotes = inMessage->messageArray2;
+    int outputNote = inMessage->messageVar1;
+    juce::Array<int> triggers = inMessage->messageArray1;
 
-    for (int& outputNote : prevCurrentlyOnOutputNotes)
-    {
-        auto keyComponent = mKeyComponents.at (outputNote);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
-    }
+    auto keyComponent = mKeyComponents.at (outputNote);
+    keyComponent->setNoteAndMarkerColor (triggers.size() == 1 ? COLOR_BLUE : keyComponent->getDefaultColor (outputNote));
 
-    for (int& outputNote : nextCurrentlyOnOutputNotes)
+    if (mGlobalState.isEditMode())
     {
-        if (outputNote > DOUBLE_TRIGGER_WEIGHT)
-        {
-            auto keyComponent = mKeyComponents.at (outputNote - DOUBLE_TRIGGER_WEIGHT);
-            keyComponent->setNoteAndMarkerColor (COLOR_BLUE_DARK);
-        }
-        else
-        {
-            auto keyComponent = mKeyComponents.at (outputNote);
-            keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
-        }
+        juce::Array<int> chordNotes = mPresetState.getChordNotes (mPresetState.getEditModeInputNote());
+        if (chordNotes.contains (outputNote)) { keyComponent->setNoteAndMarkerColor (COLOR_GREEN); }
     }
+}
 
-    for (int& outputNote : mPresetState.getChordNotes (mPresetState.getEditModeInputNote()))
-    {
-        if (!nextCurrentlyOnOutputNotes.contains (outputNote) &&
-            !nextCurrentlyOnOutputNotes.contains (outputNote + DOUBLE_TRIGGER_WEIGHT))
-        {
-            auto keyComponent = mKeyComponents.at (outputNote);
-            keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
-        }
-    }
+void OutputKeyboardComponent::handleOutputNoteOn (const DataMessage* inMessage)
+{
+    int outputNote = inMessage->messageVar1;
+    juce::Array<int> triggers = inMessage->messageArray1;
+
+    auto keyComponent = mKeyComponents.at (outputNote);
+    keyComponent->setNoteAndMarkerColor (triggers.size() == 2 ? COLOR_BLUE_DARK : COLOR_BLUE);
 }

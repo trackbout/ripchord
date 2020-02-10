@@ -15,9 +15,13 @@ juce::Array<int> MidiState::getCurrentlyOnInputNotes()
     return mCurrentlyOnInputNotes;
 }
 
-std::map<int, Origin> MidiState::getCurrentlyOnOutputNotes()
+juce::Array<int> MidiState::getOutputNoteTriggers (const int inOutputNote)
 {
-    return mCurrentlyOnOutputNotes;
+    juce::Array<int> triggers;
+    if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return triggers; }
+    auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
+    triggers = pair->second.triggers;
+    return triggers;
 }
 
 //==============================================================================
@@ -36,36 +40,27 @@ void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
     sendMessage (message, ListenerType::kAsync);
 }
 
-void MidiState::setCurrentlyOnOutputNotes (std::map<int, Origin> inOutputNotes)
+void MidiState::setOutputNoteOn (int inOutputNote, juce::Array<int>& inTriggers)
 {
-    juce::Array<int> prevCurrentlyOnOutputNotes = getOutputNotesArray (mCurrentlyOnOutputNotes);
-    juce::Array<int> nextCurrentlyOnOutputNotes = getWeightedOutputNotesArray (inOutputNotes);
-
-    mCurrentlyOnOutputNotes.clear();
-    mCurrentlyOnOutputNotes = inOutputNotes;
+    mCurrentlyOnOutputNotes[inOutputNote].triggers = inTriggers;
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kCurrentlyOnOutputNotes;
-    message->messageArray1 = prevCurrentlyOnOutputNotes;
-    message->messageArray2 = nextCurrentlyOnOutputNotes;
+    message->messageCode = MessageCode::kOutputNoteOn;
+    message->messageVar1 = inOutputNote;
+    message->messageArray1 = inTriggers;
     sendMessage (message, ListenerType::kAsync);
 }
 
-//==============================================================================
-bool MidiState::containsOutputNoteTrigger (const int inOutputNote, const int inInputNote)
+void MidiState::setOutputNoteOff (int inOutputNote, juce::Array<int>& inTriggers)
 {
-    if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return false; }
-    auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
-    juce::Array<int> triggers = pair->second.triggers;
-    return triggers.indexOf (inInputNote) > -1;
-}
+    if (inTriggers.size() == 1) { mCurrentlyOnOutputNotes[inOutputNote].triggers = inTriggers; }
+    if (inTriggers.size() == 0) { mCurrentlyOnOutputNotes.erase (inOutputNote); }
 
-const int MidiState::getOutputNoteTriggerCount (const int inOutputNote)
-{
-    if (mCurrentlyOnOutputNotes.count (inOutputNote) < 1) { return 0; }
-    auto pair = mCurrentlyOnOutputNotes.find (inOutputNote);
-    juce::Array<int> triggers = pair->second.triggers;
-    return triggers.size();
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kOutputNoteOff;
+    message->messageVar1 = inOutputNote;
+    message->messageArray1 = inTriggers;
+    sendMessage (message, ListenerType::kAsync);
 }
 
 //==============================================================================
@@ -77,7 +72,12 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
     sendMessage (message, ListenerType::kSync);
 }
 
-//==============================================================================
+void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
+{
+    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * 50);
+    mNoteEventQueu.add (inNoteEvent);
+}
+
 juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
 {
     juce::Array<int> indexesToRemove;
@@ -100,42 +100,4 @@ juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
     }
 
     return notesToSend;
-}
-
-void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
-{
-    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * 50);
-    mNoteEventQueu.add (inNoteEvent);
-}
-
-//==============================================================================
-juce::Array<int> MidiState::getOutputNotesArray (std::map<int, Origin> outputNotes)
-{
-    juce::Array<int> outputNotesArray;
-
-    for (const auto& pair : outputNotes)
-    {
-      outputNotesArray.add (pair.first);
-    }
-
-    return outputNotesArray;
-}
-
-juce::Array<int> MidiState::getWeightedOutputNotesArray (std::map<int, Origin> outputNotes)
-{
-    juce::Array<int> weightedOutputNotesArray;
-
-    for (const auto& pair : outputNotes)
-    {
-        if (pair.second.triggers.size() == 2)
-        {
-            weightedOutputNotesArray.add ((pair.first) + DOUBLE_TRIGGER_WEIGHT);
-        }
-        else
-        {
-            weightedOutputNotesArray.add (pair.first);
-        }
-    }
-
-    return weightedOutputNotesArray;
 }
