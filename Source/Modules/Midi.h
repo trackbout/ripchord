@@ -18,6 +18,7 @@ struct NoteEvent {
     int inputNote;
     int outputNote;
     bool isNoteOn;
+    int64 timeToSend;
 
     NoteEvent
     (

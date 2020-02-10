@@ -29,7 +29,8 @@ public:
     void setActiveTransposeNoteIfAllowed (const int inputNote);
 
     //==============================================================================
-    void addNoteEventToQueu (NoteEvent noteEvent, int index, float delayDepth, float delayVariance);
+    juce::Array<NoteEvent> getNoteEventsToSend();
+    void addNoteEventToQueu (NoteEvent noteEvent, int indexInChord, float delayDepth, float delayVariance);
 
 private:
     //==============================================================================

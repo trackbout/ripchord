@@ -22,6 +22,8 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
         transformMidiBuffer (inMidiBuffer);
     }
 
+    handleNoteEventQueu();
+
     inMidiBuffer.clear();
     inMidiBuffer.swapWith (mTransformedMidiBuffer);
 }
@@ -202,6 +204,18 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent, std::map<int, Origin
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote, inNoteEvent.velocity);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
         inCurrentlyOnOutputNotes.erase (inNoteEvent.outputNote);
+    }
+}
+
+//==============================================================================
+void MainProcess::handleNoteEventQueu()
+{
+    for (NoteEvent& noteEvent : mMidiState.getNoteEventsToSend())
+    {
+        std::map<int, Origin> currentlyOnOutputNotes = mMidiState.getCurrentlyOnOutputNotes();
+        if (noteEvent.isNoteOn) { sendOutputNoteOn (noteEvent, currentlyOnOutputNotes); }
+        if (!noteEvent.isNoteOn) { sendOutputNoteOff (noteEvent, currentlyOnOutputNotes); }
+        mMidiState.setCurrentlyOnOutputNotes (currentlyOnOutputNotes);
     }
 }
 

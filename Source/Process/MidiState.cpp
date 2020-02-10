@@ -78,11 +78,34 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
 }
 
 //==============================================================================
-void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndex, float inDelayDepth, float inDelayVariance)
+juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
 {
-    DBG ("inIndex: " << inIndex);
-    DBG ("inDelayDepth: " << inDelayDepth);
-    DBG ("inDelayVariance: " << inDelayVariance);
+    juce::Array<int> indexesToRemove;
+    juce::Array<NoteEvent> notesToSend;
+
+    for (int index = 0; index < mNoteEventQueu.size(); index++)
+    {
+        NoteEvent noteEvent = mNoteEventQueu.getUnchecked (index);
+
+        if (noteEvent.timeToSend <= Time::getCurrentTime().toMilliseconds())
+        {
+            notesToSend.add (noteEvent);
+            indexesToRemove.add (index);
+        }
+    }
+
+    for (int index : indexesToRemove)
+    {
+        mNoteEventQueu.remove (index);
+    }
+
+    return notesToSend;
+}
+
+void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
+{
+    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * 50);
+    mNoteEventQueu.add (inNoteEvent);
 }
 
 //==============================================================================

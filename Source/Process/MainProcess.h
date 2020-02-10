@@ -57,6 +57,9 @@ private:
     void sendOutputNoteOff (NoteEvent noteEvent, std::map<int, Origin>& currentlyOnOutputNotes);
 
     //==============================================================================
+    void handleNoteEventQueu();
+
+    //==============================================================================
     void handleActiveTransposeNote (int inputNote);
 
     //==============================================================================
