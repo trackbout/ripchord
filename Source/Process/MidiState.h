@@ -18,7 +18,8 @@ public:
     juce::Array<int> getOutputNoteTriggers (const int outputNote);
 
     //==============================================================================
-    void setCurrentlyOnInputNotes (juce::Array<int> inputNotes);
+    void setInputNoteOn (int inputNote);
+    void setInputNoteOff (int inputNote);
     void setOutputNoteOn (int outputNote, juce::Array<int>& triggers);
     void setOutputNoteOff (int outputNote, juce::Array<int>& triggers);
 

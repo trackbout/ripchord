@@ -36,7 +36,8 @@ private:
     void handlePresetFileLoaded (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleEditModeOutputNotes (const DataMessage* message);
-    void handleCurrentlyOnInputNotes (const DataMessage* message);
+    void handleInputNoteOff (const DataMessage* message);
+    void handleInputNoteOn (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChordNameComponent)

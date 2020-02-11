@@ -25,18 +25,23 @@ juce::Array<int> MidiState::getOutputNoteTriggers (const int inOutputNote)
 }
 
 //==============================================================================
-void MidiState::setCurrentlyOnInputNotes (juce::Array<int> inInputNotes)
+void MidiState::setInputNoteOn (int inInputNote)
 {
-    juce::Array<int> prevCurrentlyOnInputNotes = mCurrentlyOnInputNotes;
-    juce::Array<int> nextCurrentlyOnInputNotes = inInputNotes;
-
-    mCurrentlyOnInputNotes.clear();
-    mCurrentlyOnInputNotes = nextCurrentlyOnInputNotes;
+    mCurrentlyOnInputNotes.addIfNotAlreadyThere (inInputNote);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kCurrentlyOnInputNotes;
-    message->messageArray1 = prevCurrentlyOnInputNotes;
-    message->messageArray2 = nextCurrentlyOnInputNotes;
+    message->messageCode = MessageCode::kInputNoteOn;
+    message->messageVar1 = inInputNote;
+    sendMessage (message, ListenerType::kAsync);
+}
+
+void MidiState::setInputNoteOff (int inInputNote)
+{
+    mCurrentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kInputNoteOff;
+    message->messageVar1 = inInputNote;
     sendMessage (message, ListenerType::kAsync);
 }
 

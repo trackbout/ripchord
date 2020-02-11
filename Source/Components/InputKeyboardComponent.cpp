@@ -54,11 +54,12 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
-        case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
         case (MessageCode::kActiveTransposeNoteAllowed): { handleActiveTransposeNoteAllowed (inMessage); } break;
         case (MessageCode::kActiveTransposeNote): { handleActiveTransposeNote (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kTransposeBase): { handleTransposeBase (inMessage); } break;
+        case (MessageCode::kInputNoteOff): { handleInputNoteOff (inMessage); } break;
+        case (MessageCode::kInputNoteOn): { handleInputNoteOn (inMessage); } break;
         default: { } break;
     };
 }
@@ -125,36 +126,6 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
     }
 }
 
-void InputKeyboardComponent::handleCurrentlyOnInputNotes (const DataMessage* inMessage)
-{
-    juce::Array<int> prevCurrentlyOnInputNotes = inMessage->messageArray1;
-    juce::Array<int> nextCurrentlyOnInputNotes = inMessage->messageArray2;
-    juce::Array<int> presetInputNotes = mPresetState.getPresetInputNotes();
-    const int editModeInputNote = mPresetState.getEditModeInputNote();
-
-    for (int& inputNote : prevCurrentlyOnInputNotes)
-    {
-        auto keyComponent = mKeyComponents.at (inputNote);
-        bool containsChord = presetInputNotes.contains (inputNote);
-        Colour defaultColor = keyComponent->getDefaultColor (inputNote);
-        Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
-        keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
-        keyComponent->setMarkerColor (containsChord ? markerColor : defaultColor);
-    }
-
-    for (int& inputNote : nextCurrentlyOnInputNotes)
-    {
-        auto keyComponent = mKeyComponents.at (inputNote);
-        keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
-    }
-
-    if (!nextCurrentlyOnInputNotes.contains (editModeInputNote) && editModeInputNote > 0)
-    {
-        auto keyComponent = mKeyComponents.at (editModeInputNote);
-        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
-    }
-}
-
 void InputKeyboardComponent::handleActiveTransposeNoteAllowed (const DataMessage* inMessage)
 {
     if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
@@ -199,6 +170,33 @@ void InputKeyboardComponent::handleTransposeBase (const DataMessage* inMessage)
 
     turnOffTransposeKeys (prevTransposeBase);
     turnOnTransposeKeys (nextTransposeBase);
+}
+
+void InputKeyboardComponent::handleInputNoteOff (const DataMessage* inMessage)
+{
+    int inputNote = inMessage->messageVar1;
+    int editModeInputNote = mPresetState.getEditModeInputNote();
+
+    auto keyComponent = mKeyComponents.at (inputNote);
+    bool containsChord = mPresetState.getPresetInputNotes().contains (inputNote);
+    Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
+    Colour defaultColor = keyComponent->getDefaultColor (inputNote);
+    keyComponent->setMarkerColor (containsChord ? markerColor : defaultColor);
+    keyComponent->setNoteColor (defaultColor);
+
+    if (editModeInputNote > 0 && inputNote == editModeInputNote)
+    {
+        auto keyComponent = mKeyComponents.at (editModeInputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void InputKeyboardComponent::handleInputNoteOn (const DataMessage* inMessage)
+{
+    int inputNote = inMessage->messageVar1;
+
+    auto keyComponent = mKeyComponents.at (inputNote);
+    keyComponent->setNoteAndMarkerColor (COLOR_BLUE);
 }
 
 //==============================================================================

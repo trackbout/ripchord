@@ -61,7 +61,8 @@ void ChordNameComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
-        case (MessageCode::kCurrentlyOnInputNotes): { handleCurrentlyOnInputNotes (inMessage); } break;
+        case (MessageCode::kInputNoteOff): { handleInputNoteOff (inMessage); } break;
+        case (MessageCode::kInputNoteOn): { handleInputNoteOn (inMessage); } break;
         default: { } break;
     };
 }
@@ -95,22 +96,26 @@ void ChordNameComponent::handleEditModeOutputNotes (const DataMessage* inMessage
     mChordNameInput.setVisible (nextEditModeOutputNotes.size() > 0);
 }
 
-void ChordNameComponent::handleCurrentlyOnInputNotes (const DataMessage* inMessage)
+void ChordNameComponent::handleInputNoteOff (const DataMessage* inMessage)
 {
     if (mGlobalState.isEditMode()) { return; }
 
-    juce::Array<int> nextCurrentlyOnInputNotes = inMessage->messageArray2;
+    int inputNote = inMessage->messageVar1;
 
-    for (int& inputNote : nextCurrentlyOnInputNotes)
-    {
-        if (mPresetState.containsChord (inputNote))
-        {
-            mChordNameLabel.setText (mPresetState.getChordName (inputNote), dontSendNotification);
-        }
-    }
-
-    if (nextCurrentlyOnInputNotes.size() == 0)
+    if (mPresetState.containsChord (inputNote))
     {
         mChordNameLabel.setText ("", dontSendNotification);
+    }
+}
+
+void ChordNameComponent::handleInputNoteOn (const DataMessage* inMessage)
+{
+    if (mGlobalState.isEditMode()) { return; }
+
+    int inputNote = inMessage->messageVar1;
+
+    if (mPresetState.containsChord (inputNote))
+    {
+        mChordNameLabel.setText (mPresetState.getChordName (inputNote), dontSendNotification);
     }
 }

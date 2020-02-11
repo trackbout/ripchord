@@ -40,6 +40,8 @@ private:
     void handleActiveTransposeNote (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
     void handleTransposeBase (const DataMessage* message);
+    void handleInputNoteOff (const DataMessage* message);
+    void handleInputNoteOn (const DataMessage* message);
 
     //==============================================================================
     void turnOnTransposeKeys (const int transposeBase);
