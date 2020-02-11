@@ -33,6 +33,7 @@ private:
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);
     void handleEditModeOutputNotes (const DataMessage* message);
+    void handleResetOutputKeyboard (const DataMessage* message);
     void handleOutputNoteOff (const DataMessage* message);
     void handleOutputNoteOn (const DataMessage* message);
 

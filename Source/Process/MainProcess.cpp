@@ -84,7 +84,8 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
             NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
 
-            if (index == 0 || (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
+            if (mGlobalState.isEditMode() || index == 0 ||
+                (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
                 sendOutputNoteOn (noteEvent);
             }
@@ -122,7 +123,8 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
             NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote, isNoteOn };
 
-            if (index == 0 || (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
+            if (mGlobalState.isEditMode() || index == 0 ||
+                (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
                 sendOutputNoteOff (noteEvent);
             }
@@ -186,6 +188,8 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
 //==============================================================================
 void MainProcess::handleNoteEventQueu()
 {
+    if (mGlobalState.isEditMode()) { return; }
+
     for (NoteEvent& noteEvent : mMidiState.getNoteEventsToSend())
     {
         if (noteEvent.isNoteOn) { sendOutputNoteOn (noteEvent); }

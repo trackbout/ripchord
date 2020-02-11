@@ -51,6 +51,7 @@ enum MessageCode
     kInputNoteOff,
     kOutputNoteOn,
     kOutputNoteOff,
+    kResetOutputKeyboard,
     kActiveTransposeNoteAllowed
 };
 

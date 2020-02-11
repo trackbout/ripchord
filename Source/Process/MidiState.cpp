@@ -102,7 +102,23 @@ juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
     for (int index : indexesToRemove)
     {
         mNoteEventQueu.remove (index);
+
+        if (mNoteEventQueu.size() == 0 &&
+            mCurrentlyOnInputNotes.size() == 0 &&
+            mCurrentlyOnOutputNotes.size() > 0)
+        {
+            resetOutputKeyboard();
+        }
     }
 
     return notesToSend;
+}
+
+void MidiState::resetOutputKeyboard()
+{
+    mCurrentlyOnOutputNotes.clear();
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kResetOutputKeyboard;
+    sendMessage (message, ListenerType::kAsync);
 }
