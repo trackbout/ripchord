@@ -35,8 +35,9 @@ void MidiState::setInputNoteOn (int inInputNote)
     sendMessage (message, ListenerType::kAsync);
 }
 
-void MidiState::setInputNoteOff (int inInputNote)
+void MidiState::setInputNoteOff (int inInputNote, bool inContainsChord)
 {
+    if (inContainsChord) { clearAbortedNoteEvents (inInputNote); }
     mCurrentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
     DataMessage* message = new DataMessage();
@@ -108,6 +109,23 @@ NoteEvent MidiState::getNextNoteEvent()
 }
 
 //==============================================================================
+void MidiState::clearAbortedNoteEvents (int inInputNote)
+{
+    bool hasAbortedNoteEvents = mNoteEventQueue.size() > 0;
+
+    while (hasAbortedNoteEvents)
+    {
+        if (mNoteEventQueue.front().inputNote == inInputNote && mNoteEventQueue.size() > 0)
+        {
+            mNoteEventQueue.pop();
+        }
+        else
+        {
+            hasAbortedNoteEvents = false;
+        }
+    }
+}
+
 void MidiState::resetOutputKeyboard()
 {
     if (mNoteEventQueue.size() > 0) { return; }

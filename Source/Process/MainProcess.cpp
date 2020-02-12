@@ -68,9 +68,10 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
+    bool containsChord = mPresetState.containsChord (inInputNote);
     mMidiState.setInputNoteOn (inInputNote);
 
-    if (mPresetState.containsChord (inInputNote))
+    if (containsChord)
     {
         juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
 
@@ -106,9 +107,10 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
     int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
-    mMidiState.setInputNoteOff (inInputNote);
+    bool containsChord = mPresetState.containsChord (inInputNote);
+    mMidiState.setInputNoteOff (inInputNote, containsChord);
 
-    if (mPresetState.containsChord (inInputNote))
+    if (containsChord)
     {
         juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
 
@@ -117,8 +119,8 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
-            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
 
+            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
             sendOutputNoteOff (noteEvent);
         }
     }

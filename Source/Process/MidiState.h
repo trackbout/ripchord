@@ -20,7 +20,7 @@ public:
 
     //==============================================================================
     void setInputNoteOn (int inputNote);
-    void setInputNoteOff (int inputNote);
+    void setInputNoteOff (int inputNote, bool containsChord);
     void setOutputNoteOn (int outputNote, juce::Array<int>& triggers);
     void setOutputNoteOff (int outputNote, juce::Array<int>& triggers);
 
@@ -36,6 +36,7 @@ private:
     std::map<int, Origin> mCurrentlyOnOutputNotes;
     std::queue<NoteEvent> mNoteEventQueue;
 
+    void clearAbortedNoteEvents (int inputNote);
     void resetOutputKeyboard();
 
     //==============================================================================
