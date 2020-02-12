@@ -102,13 +102,6 @@ juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
     for (int index : indexesToRemove)
     {
         mNoteEventQueu.remove (index);
-
-        if (mNoteEventQueu.size() == 0 &&
-            mCurrentlyOnInputNotes.size() == 0 &&
-            mCurrentlyOnOutputNotes.size() > 0)
-        {
-            resetOutputKeyboard();
-        }
     }
 
     return notesToSend;
