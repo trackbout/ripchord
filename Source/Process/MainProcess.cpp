@@ -22,7 +22,7 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
         transformMidiBuffer (inMidiBuffer);
     }
 
-    handleNoteEventQueu();
+    handleNoteEventQueue();
 
     inMidiBuffer.clear();
     inMidiBuffer.swapWith (mTransformedMidiBuffer);
@@ -90,7 +90,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             }
             else
             {
-                mMidiState.addNoteEventToQueu (noteEvent, index, delayDepth, delayVariance);
+                mMidiState.addNoteEventToQueue (noteEvent, index, delayDepth, delayVariance);
             }
         }
     }
@@ -174,13 +174,11 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
 }
 
 //==============================================================================
-void MainProcess::handleNoteEventQueu()
+void MainProcess::handleNoteEventQueue()
 {
-    if (mGlobalState.isEditMode()) { return; }
-
-    for (NoteEvent& noteEvent : mMidiState.getNoteEventsToSend())
+    if (mGlobalState.isPlayMode() && mMidiState.timeToSendNextNoteEvent())
     {
-        sendOutputNoteOn (noteEvent);
+        sendOutputNoteOn (mMidiState.getNextNoteEvent());
     }
 }
 

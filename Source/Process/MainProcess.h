@@ -57,7 +57,7 @@ private:
     void sendOutputNoteOff (NoteEvent noteEvent);
 
     //==============================================================================
-    void handleNoteEventQueu();
+    void handleNoteEventQueue();
 
     //==============================================================================
     void handleActiveTransposeNote (int inputNote);

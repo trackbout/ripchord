@@ -77,42 +77,43 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
     sendMessage (message, ListenerType::kSync);
 }
 
-void MidiState::addNoteEventToQueu (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
+void MidiState::addNoteEventToQueue (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
 {
-    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * 50);
-    mNoteEventQueu.add (inNoteEvent);
+    int delayMS = inDelayDepth * MAX_DELAY_DEPTH_MS;
+    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * delayMS);
+    mNoteEventQueue.push (inNoteEvent);
 }
 
-juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
+bool MidiState::timeToSendNextNoteEvent()
 {
-    juce::Array<int> indexesToRemove;
-    juce::Array<NoteEvent> notesToSend;
+    if (mNoteEventQueue.size() == 0) { return false; }
+    if (mNoteEventQueue.front().timeToSend > Time::getCurrentTime().toMilliseconds()) { return false; }
 
-    for (int index = 0; index < mNoteEventQueu.size(); index++)
+    if (!mCurrentlyOnInputNotes.contains (mNoteEventQueue.front().inputNote))
     {
-        NoteEvent noteEvent = mNoteEventQueu.getUnchecked (index);
-
-        if (noteEvent.timeToSend <= Time::getCurrentTime().toMilliseconds())
-        {
-            indexesToRemove.add (index);
-
-            if (mCurrentlyOnInputNotes.contains (noteEvent.inputNote))
-            {
-                notesToSend.add (noteEvent);
-            }
-        }
+        mNoteEventQueue.pop();
+        resetOutputKeyboard();
+        return false;
     }
 
-    for (int index : indexesToRemove)
-    {
-        mNoteEventQueu.remove (index);
-    }
-
-    return notesToSend;
+    return true;
 }
 
+NoteEvent MidiState::getNextNoteEvent()
+{
+    NoteEvent noteEvent = mNoteEventQueue.front();
+    mNoteEventQueue.pop();
+    resetOutputKeyboard();
+    return noteEvent;
+}
+
+//==============================================================================
 void MidiState::resetOutputKeyboard()
 {
+    if (mNoteEventQueue.size() > 0) { return; }
+    if (mCurrentlyOnInputNotes.size() > 0) { return; }
+    if (mCurrentlyOnOutputNotes.size() == 0) { return; }
+
     mCurrentlyOnOutputNotes.clear();
 
     DataMessage* message = new DataMessage();

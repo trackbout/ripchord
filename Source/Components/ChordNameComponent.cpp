@@ -100,9 +100,15 @@ void ChordNameComponent::handleInputNoteOff (const DataMessage* inMessage)
 {
     if (mGlobalState.isEditMode()) { return; }
 
-    int inputNote = inMessage->messageVar1;
+    for (int& inputNote : mMidiState.getCurrentlyOnInputNotes())
+    {
+        if (mPresetState.containsChord (inputNote))
+        {
+            mChordNameLabel.setText (mPresetState.getChordName (inputNote), dontSendNotification);
+        }
+    }
 
-    if (mPresetState.containsChord (inputNote))
+    if (mMidiState.getCurrentlyOnInputNotes().size() == 0)
     {
         mChordNameLabel.setText ("", dontSendNotification);
     }

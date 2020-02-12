@@ -4,6 +4,7 @@
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 #include "Midi.h"
+#include <queue>
 
 //==============================================================================
 class MidiState : public DataMessageBroadcaster
@@ -25,15 +26,17 @@ public:
 
     //==============================================================================
     void setActiveTransposeNoteIfAllowed (const int inputNote);
-    void addNoteEventToQueu (NoteEvent noteEvent, int indexInChord, float delayDepth, float delayVariance);
-    juce::Array<NoteEvent> getNoteEventsToSend();
-    void resetOutputKeyboard();
+    void addNoteEventToQueue (NoteEvent noteEvent, int indexInChord, float delayDepth, float delayVariance);
+    bool timeToSendNextNoteEvent();
+    NoteEvent getNextNoteEvent();
 
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;
-    juce::Array<NoteEvent> mNoteEventQueu;
+    std::queue<NoteEvent> mNoteEventQueue;
+
+    void resetOutputKeyboard();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)
