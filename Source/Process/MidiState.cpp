@@ -94,8 +94,12 @@ juce::Array<NoteEvent> MidiState::getNoteEventsToSend()
 
         if (noteEvent.timeToSend <= Time::getCurrentTime().toMilliseconds())
         {
-            notesToSend.add (noteEvent);
             indexesToRemove.add (index);
+
+            if (mCurrentlyOnInputNotes.contains (noteEvent.inputNote))
+            {
+                notesToSend.add (noteEvent);
+            }
         }
     }
 

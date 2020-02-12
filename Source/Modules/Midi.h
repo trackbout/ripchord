@@ -15,7 +15,6 @@ struct NoteEvent {
     float velocity;
     int inputNote;
     int outputNote;
-    bool isNoteOn;
     int64 timeToSend;
 
     NoteEvent
@@ -24,15 +23,13 @@ struct NoteEvent {
         int& inSampleNumber,
         float& inVelocity,
         int& inInputNote,
-        int& inOutputNote,
-        bool& inIsNoteOn
+        int& inOutputNote
     )
     :   channel (inChannel),
         sampleNumber (inSampleNumber),
         velocity (inVelocity),
         inputNote (inInputNote),
-        outputNote (inOutputNote),
-        isNoteOn (inIsNoteOn)
+        outputNote (inOutputNote)
     {
     }
 };
