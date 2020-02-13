@@ -49,8 +49,7 @@
         <FILE id="Lf4gNK" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="RYi5cT" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
-        <FILE id="odFnmN" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
-        <FILE id="nkNVik" name="VarianceON.svg" compile="0" resource="1" file="Source/Assets/VarianceON.svg"/>
+        <FILE id="ncRzW7" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
         <FILE id="eMr4X3" name="Velocity.svg" compile="0" resource="1" file="Source/Assets/Velocity.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">

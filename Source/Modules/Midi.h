@@ -3,7 +3,6 @@
 const float MIN_DELAY_DEPTH = 0.01;
 const float MAX_DELAY_DEPTH_MS = 100;
 const float MIN_DELAY_VARIANCE = 0.01;
-const float MIN_DELAY_VARIANCE_MS = 100;
 
 //==============================================================================
 struct Origin

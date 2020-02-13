@@ -85,7 +85,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
 
             if (mGlobalState.isEditMode() || index == 0 ||
-                (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
+               (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
                 sendOutputNoteOn (noteEvent);
             }
