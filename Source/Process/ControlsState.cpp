@@ -196,6 +196,22 @@ void ControlsState::handleVelocityVarianceSlider (int inVelocityVariance)
 }
 
 //==============================================================================
+juce::Array<int> ControlsState::getSortedChordNotes (juce::Array<int> inChordNotes)
+{
+    if (mDelayVariance >= MIN_DELAY_VARIANCE && mDelayDepth < MIN_DELAY_DEPTH)
+    {
+        std::default_random_engine randomize (std::random_device{}());
+        std::shuffle (inChordNotes.begin(), inChordNotes.end(), randomize);
+    }
+    else
+    {
+        inChordNotes.sort (mForward);
+    }
+
+    return inChordNotes;
+}
+
+//==============================================================================
 XmlElement* ControlsState::exportControlsStateXml()
 {
     XmlElement* controlsStateXml = new XmlElement ("ControlsState");

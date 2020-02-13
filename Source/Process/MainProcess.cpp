@@ -73,7 +73,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
 
     if (containsChord)
     {
-        juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
+        juce::Array<int> chordNotes = mControlsState.getSortedChordNotes (mPresetState.getChordNotes (inInputNote));
 
         for (int index = 0; index < chordNotes.size(); index++)
         {

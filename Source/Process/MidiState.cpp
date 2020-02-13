@@ -80,8 +80,9 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
 
 void MidiState::addNoteEventToQueue (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
 {
-    int delayMS = inDelayDepth * MAX_DELAY_DEPTH_MS;
-    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + (inIndexInChord * delayMS);
+    int delayVarianceMS = inDelayVariance * (rand() % 100 + 1);
+    int delayDepthMS = inDelayDepth * MAX_DELAY_DEPTH_MS * inIndexInChord;
+    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + delayDepthMS + delayVarianceMS;
     mNoteEventQueue.push (inNoteEvent);
 }
 

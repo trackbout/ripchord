@@ -3,6 +3,10 @@
 #include "JuceHeader.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
+#include "Sorting.h"
+#include "Midi.h"
+#include <algorithm>
+#include <random>
 
 //==============================================================================
 class ControlsState : public DataMessageBroadcaster
@@ -50,11 +54,17 @@ public:
     void handleVelocityVarianceSlider (int velocityVariance);
 
     //==============================================================================
+    juce::Array<int> getSortedChordNotes (juce::Array<int> chordNotes);
+
+    //==============================================================================
     XmlElement* exportControlsStateXml();
     void importControlsStateXml (XmlElement* presetStateXml);
 
 private:
     //==============================================================================
+    Forward mForward;
+    Reverse mReverse;
+
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;
     Transpose mTranspose = Transpose::Off;
