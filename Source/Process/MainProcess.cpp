@@ -73,15 +73,16 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
 
     if (containsChord)
     {
-        juce::Array<int> chordNotes = mControlsState.getSortedChordNotes (mPresetState.getChordNotes (inInputNote));
+        juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
+        juce::Array<int> sortedChordNotes = mControlsState.getSortedChordNotes (inInputNote, chordNotes);
 
-        for (int index = 0; index < chordNotes.size(); index++)
+        for (int index = 0; index < sortedChordNotes.size(); index++)
         {
             float delayDepth = mControlsState.getDelayDepth();
             float delayVariance = mControlsState.getDelayVariance();
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
-            int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
-            int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
+            int transposedNote = mControlsState.getTransposedNote (sortedChordNotes[index], activeTransposeNote);
+            int chordNote = mGlobalState.isPlayMode() ? transposedNote : sortedChordNotes[index];
             NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
 
             if (mGlobalState.isEditMode() || index == 0 ||

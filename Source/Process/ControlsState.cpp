@@ -196,16 +196,44 @@ void ControlsState::handleVelocityVarianceSlider (int inVelocityVariance)
 }
 
 //==============================================================================
-juce::Array<int> ControlsState::getSortedChordNotes (juce::Array<int> inChordNotes)
+juce::Array<int> ControlsState::getSortedChordNotes (int inInputNote, juce::Array<int> inChordNotes)
 {
     if (mDelayVariance >= MIN_DELAY_VARIANCE && mDelayDepth < MIN_DELAY_DEPTH)
     {
         std::default_random_engine randomize (std::random_device{}());
         std::shuffle (inChordNotes.begin(), inChordNotes.end(), randomize);
+        return inChordNotes;
     }
-    else
+
+    if (mDelayDirection == "LTR") { inChordNotes.sort (mForward); }
+    if (mDelayDirection == "RTL") { inChordNotes.sort (mReverse); }
+
+    if (mDelayDirection == "LTR_RTL")
     {
-        inChordNotes.sort (mForward);
+        if (inInputNote == mLastDelayNote)
+        {
+            inChordNotes.sort (mReverse);
+            mLastDelayNote = 0;
+        }
+        else
+        {
+            inChordNotes.sort (mForward);
+            mLastDelayNote = inInputNote;
+        }
+    }
+
+    if (mDelayDirection == "RTL_LTR")
+    {
+        if (inInputNote == mLastDelayNote)
+        {
+            inChordNotes.sort (mForward);
+            mLastDelayNote = 0;
+        }
+        else
+        {
+            inChordNotes.sort (mReverse);
+            mLastDelayNote = inInputNote;
+        }
     }
 
     return inChordNotes;

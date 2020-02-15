@@ -54,7 +54,7 @@ public:
     void handleVelocityVarianceSlider (int velocityVariance);
 
     //==============================================================================
-    juce::Array<int> getSortedChordNotes (juce::Array<int> chordNotes);
+    juce::Array<int> getSortedChordNotes (int inputNote, juce::Array<int> chordNotes);
 
     //==============================================================================
     XmlElement* exportControlsStateXml();
@@ -71,10 +71,12 @@ private:
 
     int mDelayDepth = 0;
     int mDelayVariance = 0;
+    int mLastDelayNote = 0;
     String mDelayDirection = "LTR";
 
     int mVelocityDepth = 0;
     int mVelocityVariance = 0;
+    int mLastVelocityNote = 0;
     String mVelocityDirection = "HTS";
 
     //==============================================================================
