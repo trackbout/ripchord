@@ -196,6 +196,59 @@ void ControlsState::handleVelocityVarianceSlider (int inVelocityVariance)
 }
 
 //==============================================================================
+NoteEvent ControlsState::setVelocity (NoteEvent inNoteEvent, int inIndex, int inCount)
+{
+    float velocityDepth = getVelocityDepth();
+    float velocityVariance = getVelocityVariance();
+    if (velocityDepth == 0 && velocityVariance == 0) { return inNoteEvent; }
+
+    float velocity = inNoteEvent.velocity;
+    float headroom = MAX_VELOCITY - inNoteEvent.velocity;
+    float variance = ((rand() % 20 - 10) / 10.0f) * (velocityVariance / 4.0f);
+    float baseVelocity = velocityDepth < headroom ? inNoteEvent.velocity : MAX_VELOCITY - velocityDepth;
+
+    if (mVelocityDirection == "HTS")
+    {
+        velocity = baseVelocity + ((abs (inIndex - inCount)) * (velocityDepth / inCount));
+    }
+
+    if (mVelocityDirection == "STH")
+    {
+        velocity = baseVelocity + ((inIndex + 1) * (velocityDepth / inCount));
+    }
+
+    if (mVelocityDirection == "HTS_STH")
+    {
+        if (inNoteEvent.inputNote == mLastVelocityNote)
+        {
+            velocity = baseVelocity + ((inIndex + 1) * (velocityDepth / inCount));
+            if ((inIndex + 1) == inCount) { mLastVelocityNote = 0; }
+        }
+        else
+        {
+            velocity = baseVelocity + ((abs (inIndex - inCount)) * (velocityDepth / inCount));
+            if ((inIndex + 1) == inCount) { mLastVelocityNote = inNoteEvent.inputNote; }
+        }
+    }
+
+    if (mVelocityDirection == "STH_HTS")
+    {
+        if (inNoteEvent.inputNote == mLastVelocityNote)
+        {
+            velocity = baseVelocity + ((abs (inIndex - inCount)) * (velocityDepth / inCount));
+            if ((inIndex + 1) == inCount) { mLastVelocityNote = 0; }
+        }
+        else
+        {
+            velocity = baseVelocity + ((inIndex + 1) * (velocityDepth / inCount));
+            if ((inIndex + 1) == inCount) { mLastVelocityNote = inNoteEvent.inputNote; }
+        }
+    }
+
+    inNoteEvent.velocity = std::max (MIN_VELOCITY, std::min ((velocity + variance), MAX_VELOCITY));
+    return inNoteEvent;
+}
+
 juce::Array<int> ControlsState::getSortedChordNotes (int inInputNote, juce::Array<int> inChordNotes)
 {
     if (mDelayVariance >= MIN_DELAY_VARIANCE && mDelayDepth < MIN_DELAY_DEPTH)

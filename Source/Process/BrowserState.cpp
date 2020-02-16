@@ -5,6 +5,7 @@ BrowserState::BrowserState()
 {
     refreshPresetFiles();
     mFilteredPresets = mAllPresets;
+    PRESET_FOLDER.createDirectory();
 }
 
 BrowserState::~BrowserState()

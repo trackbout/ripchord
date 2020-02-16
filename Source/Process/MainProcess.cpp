@@ -83,7 +83,8 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (sortedChordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : sortedChordNotes[index];
-            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent initial { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent noteEvent = mControlsState.setVelocity (initial, index, sortedChordNotes.size());
 
             if (mGlobalState.isEditMode() || index == 0 ||
                (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))

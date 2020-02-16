@@ -54,6 +54,7 @@ public:
     void handleVelocityVarianceSlider (int velocityVariance);
 
     //==============================================================================
+    NoteEvent setVelocity (NoteEvent noteEvent, int index, int count);
     juce::Array<int> getSortedChordNotes (int inputNote, juce::Array<int> chordNotes);
 
     //==============================================================================
