@@ -94,7 +94,6 @@ bool MidiState::timeToSendNextNoteEvent()
     if (!mCurrentlyOnInputNotes.contains (mNoteEventQueue.front().inputNote))
     {
         mNoteEventQueue.pop();
-        resetOutputKeyboard();
         return false;
     }
 
@@ -105,7 +104,6 @@ NoteEvent MidiState::getNextNoteEvent()
 {
     NoteEvent noteEvent = mNoteEventQueue.front();
     mNoteEventQueue.pop();
-    resetOutputKeyboard();
     return noteEvent;
 }
 
@@ -125,17 +123,4 @@ void MidiState::clearAbortedNoteEvents (int inInputNote)
             hasAbortedNoteEvents = false;
         }
     }
-}
-
-void MidiState::resetOutputKeyboard()
-{
-    if (mNoteEventQueue.size() > 0) { return; }
-    if (mCurrentlyOnInputNotes.size() > 0) { return; }
-    if (mCurrentlyOnOutputNotes.size() == 0) { return; }
-
-    mCurrentlyOnOutputNotes.clear();
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kResetOutputKeyboard;
-    sendMessage (message, ListenerType::kAsync);
 }

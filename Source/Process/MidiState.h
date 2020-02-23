@@ -37,7 +37,6 @@ private:
     std::queue<NoteEvent> mNoteEventQueue;
 
     void clearAbortedNoteEvents (int inputNote);
-    void resetOutputKeyboard();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)

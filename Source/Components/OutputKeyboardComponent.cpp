@@ -42,9 +42,9 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
-        case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
-        case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kResetOutputKeyboard): { handleResetOutputKeyboard (inMessage); } break;
+        case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
+        case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kOutputNoteOff): { handleOutputNoteOff (inMessage); } break;
         case (MessageCode::kOutputNoteOn): { handleOutputNoteOn (inMessage); } break;
         default: { } break;
@@ -66,6 +66,11 @@ void OutputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessa
     resetKeyColors();
 }
 
+void OutputKeyboardComponent::handleResetOutputKeyboard (const DataMessage* inMessage)
+{
+    resetKeyColors();
+}
+
 void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
 {
     juce::Array<int> prevEditModeOutputNotes = inMessage->messageArray1;
@@ -82,11 +87,6 @@ void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMe
         auto keyComponent = mKeyComponents.at (outputNote);
         keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
     }
-}
-
-void OutputKeyboardComponent::handleResetOutputKeyboard (const DataMessage* inMessage)
-{
-    resetKeyColors();
 }
 
 void OutputKeyboardComponent::handleOutputNoteOff (const DataMessage* inMessage)
