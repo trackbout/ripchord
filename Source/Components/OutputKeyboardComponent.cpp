@@ -69,6 +69,22 @@ void OutputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessa
 void OutputKeyboardComponent::handleClearStuckNotes (const DataMessage* inMessage)
 {
     resetKeyColors();
+
+    if (mGlobalState.isEditMode())
+    {
+        const int editModeInputNote = mPresetState.getEditModeInputNote();
+
+        if (editModeInputNote > 0)
+        {
+            juce::Array<int> chordNotes = mPresetState.getChordNotes (editModeInputNote);
+
+            for (int& chordNote : chordNotes)
+            {
+                auto keyComponent = mKeyComponents.at (chordNote);
+                keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+            }
+        }
+    }
 }
 
 void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
