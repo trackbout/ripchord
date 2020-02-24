@@ -108,6 +108,33 @@ NoteEvent MidiState::getNextNoteEvent()
 }
 
 //==============================================================================
+bool MidiState::hasStuckNotes()
+{
+    if (mCurrentlyOnOutputNotes.size() == 0) { return false; }
+    if (mCurrentlyOnInputNotes.size() > 0) { return false; }
+    return true;
+}
+
+juce::Array<int> MidiState::clearStuckNotes()
+{
+    juce::Array<int> stuckNotes;
+    std::queue<NoteEvent> emptyQueue;
+
+    for (const auto& pair : mCurrentlyOnOutputNotes)
+    {
+      stuckNotes.add (pair.first);
+    }
+
+    mCurrentlyOnOutputNotes.clear();
+    std::swap (mNoteEventQueue, emptyQueue);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kClearStuckNotes;
+    sendMessage (message, ListenerType::kAsync);
+
+    return stuckNotes;
+}
+
 void MidiState::clearAbortedNoteEvents (int inInputNote)
 {
     bool hasAbortedNoteEvents = mNoteEventQueue.size() > 0;

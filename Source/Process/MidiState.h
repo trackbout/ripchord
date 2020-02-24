@@ -33,6 +33,8 @@ public:
     NoteEvent getNextNoteEvent();
 
     //==============================================================================
+    bool hasStuckNotes();
+    juce::Array<int> clearStuckNotes();
     void clearAbortedNoteEvents (int inputNote);
 
 private:

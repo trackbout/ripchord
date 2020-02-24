@@ -22,6 +22,12 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
         transformMidiBuffer (inMidiBuffer);
     }
 
+    if (mMidiState.hasStuckNotes())
+    {
+        juce::Array<int> stuckNotes = mMidiState.clearStuckNotes();
+        for (int& note : stuckNotes) { sendStuckNoteOff (note); }
+    }
+
     handleNoteEventQueue();
 
     inMidiBuffer.clear();
@@ -31,7 +37,7 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
 //==============================================================================
 void MainProcess::handlePlayModeMouseUpOnInput (int inInputNote)
 {
-    mMouseClickBuffer.addEvent (MidiMessage::noteOff (1, inInputNote, 0.8f), 0);
+    mMouseClickBuffer.addEvent (MidiMessage::noteOff (1, inInputNote), 0);
 }
 
 void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
@@ -65,7 +71,7 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
 void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
 {
-    int inChannel = inMessage.getChannel();
+    mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     mMidiState.setInputNoteOn (inInputNote);
@@ -82,7 +88,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (sortedChordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : sortedChordNotes[index];
-            NoteEvent initial { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent initial { mLastChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
             NoteEvent noteEvent = mControlsState.setVelocity (initial, index, sortedChordNotes.size());
 
             if (mGlobalState.isEditMode() || index == 0 ||
@@ -98,14 +104,14 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     }
     else
     {
-        NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOn (noteEvent);
     }
 }
 
 void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
 {
-    int inChannel = inMessage.getChannel();
+    mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     mMidiState.setInputNoteOff (inInputNote);
@@ -121,13 +127,13 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
 
-            NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
             sendOutputNoteOff (noteEvent);
         }
     }
     else
     {
-        NoteEvent noteEvent { inChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOff (noteEvent);
     }
 }
@@ -144,7 +150,7 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
 
     if (triggers.size() == 1)
     {
-        const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote, inNoteEvent.velocity);
+        const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
     }
 
@@ -165,7 +171,7 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
 
     if (triggers.size() == 1)
     {
-        const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote, inNoteEvent.velocity);
+        const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
     }
 
@@ -174,6 +180,11 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
         triggers.removeFirstMatchingValue (inNoteEvent.inputNote);
         mMidiState.setOutputNoteOff (inNoteEvent.outputNote, triggers);
     }
+}
+
+void MainProcess::sendStuckNoteOff (int inOutputNote)
+{
+    mTransformedMidiBuffer.addEvent (MidiMessage::noteOff (mLastChannel, inOutputNote), 0);
 }
 
 //==============================================================================
