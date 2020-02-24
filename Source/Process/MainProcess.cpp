@@ -68,10 +68,9 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
-    bool containsChord = mPresetState.containsChord (inInputNote);
     mMidiState.setInputNoteOn (inInputNote);
 
-    if (containsChord)
+    if (mPresetState.containsChord (inInputNote))
     {
         juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
         juce::Array<int> sortedChordNotes = mControlsState.getSortedChordNotes (inInputNote, chordNotes);
@@ -109,11 +108,11 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
     int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
-    bool containsChord = mPresetState.containsChord (inInputNote);
-    mMidiState.setInputNoteOff (inInputNote, containsChord);
+    mMidiState.setInputNoteOff (inInputNote);
 
-    if (containsChord)
+    if (mPresetState.containsChord (inInputNote))
     {
+        mMidiState.clearAbortedNoteEvents (inInputNote);
         juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
 
         for (int index = 0; index < chordNotes.size(); index++)

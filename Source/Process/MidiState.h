@@ -20,7 +20,9 @@ public:
 
     //==============================================================================
     void setInputNoteOn (int inputNote);
-    void setInputNoteOff (int inputNote, bool containsChord);
+    void setInputNoteOff (int inputNote);
+
+    //==============================================================================
     void setOutputNoteOn (int outputNote, juce::Array<int>& triggers);
     void setOutputNoteOff (int outputNote, juce::Array<int>& triggers);
 
@@ -30,13 +32,14 @@ public:
     bool timeToSendNextNoteEvent();
     NoteEvent getNextNoteEvent();
 
+    //==============================================================================
+    void clearAbortedNoteEvents (int inputNote);
+
 private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;
     std::queue<NoteEvent> mNoteEventQueue;
-
-    void clearAbortedNoteEvents (int inputNote);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)

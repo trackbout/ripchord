@@ -35,9 +35,8 @@ void MidiState::setInputNoteOn (int inInputNote)
     sendMessage (message, ListenerType::kAsync);
 }
 
-void MidiState::setInputNoteOff (int inInputNote, bool inContainsChord)
+void MidiState::setInputNoteOff (int inInputNote)
 {
-    if (inContainsChord) { clearAbortedNoteEvents (inInputNote); }
     mCurrentlyOnInputNotes.removeFirstMatchingValue (inInputNote);
 
     DataMessage* message = new DataMessage();
@@ -46,6 +45,7 @@ void MidiState::setInputNoteOff (int inInputNote, bool inContainsChord)
     sendMessage (message, ListenerType::kAsync);
 }
 
+//==============================================================================
 void MidiState::setOutputNoteOn (int inOutputNote, juce::Array<int>& inTriggers)
 {
     mCurrentlyOnOutputNotes[inOutputNote].triggers = inTriggers;
