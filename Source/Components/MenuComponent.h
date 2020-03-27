@@ -33,6 +33,7 @@ private:
 
     Images mImages;
     DrawableButton mNewButton { "", DrawableButton::ImageStretched };
+    DrawableButton mMidiButton { "", DrawableButton::ImageStretched };
     DrawableButton mImportButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportButton { "", DrawableButton::ImageStretched };
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };

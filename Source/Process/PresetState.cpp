@@ -174,6 +174,21 @@ void PresetState::handleMouseClickOnNew()
     sendMessage (message, ListenerType::kSync);
 }
 
+void PresetState::handleMouseClickOnMidi()
+{
+    FileChooser chooser ("Select a MIDI file...", PRESET_FOLDER, "*.mid");
+
+    if (chooser.browseForFileToOpen())
+    {
+        File chosenFile = chooser.getResult();
+
+        if (chosenFile.existsAsFile())
+        {
+            loadMidiFile (chosenFile);
+        }
+    }
+}
+
 void PresetState::handleMouseClickOnSave()
 {
     if (!isPresetValid() || !mIsPresetModified) { return; }
@@ -195,7 +210,7 @@ void PresetState::handleMouseClickOnSave()
 
 void PresetState::handleMouseClickOnImport()
 {
-    FileChooser chooser ("Import preset file...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
+    FileChooser chooser ("Select a preset file...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
 
     if (chooser.browseForFileToOpen())
     {
@@ -241,6 +256,18 @@ Chord PresetState::getChord (const int inInputNote)
 void PresetState::setChord (const int inInputNote, Chord inChord)
 {
     mChords[inInputNote] = inChord;
+}
+
+void PresetState::loadMidiFile (File inMidiFile)
+{
+    MidiFile midiFile;
+    FileInputStream midiFileStream (inMidiFile);
+    midiFile.readFrom (midiFileStream);
+    const MidiMessageSequence* midiTrack = midiFile.getTrack(0);
+
+    for (MidiMessageSequence::MidiEventHolder* event : *midiTrack) {
+        DBG (event->message.getDescription());
+    }
 }
 
 void PresetState::loadPresetFile (File inPresetFile)

@@ -36,6 +36,7 @@ public:
 
     //==============================================================================
     void handleMouseClickOnNew();
+    void handleMouseClickOnMidi();
     void handleMouseClickOnSave();
     void handleMouseClickOnImport();
     void handleMouseClickOnExport();
@@ -59,6 +60,7 @@ private:
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
 
+    void loadMidiFile (File midiFile);
     void loadPresetFile (File presetFile);
     void resetPresetState();
 

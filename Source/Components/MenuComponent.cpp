@@ -9,11 +9,13 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     mImages.setDrawableButtonImages (mNewButton, "New.svg");
+    mImages.setDrawableButtonImages (mMidiButton, "MIDI.svg");
     mImages.setDrawableButtonImages (mImportButton, "Import.svg");
     mImages.setDrawableButtonImages (mExportButton, "Export.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "Community.svg");
 
     mNewButton.setTriggeredOnMouseDown (true);
+    mMidiButton.setTriggeredOnMouseDown (true);
     mImportButton.setTriggeredOnMouseDown (true);
     mExportButton.setTriggeredOnMouseDown (true);
     mCommunityButton.setTriggeredOnMouseDown (true);
@@ -21,6 +23,12 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mNewButton.onClick = [this]()
     {
         mPresetState.handleMouseClickOnNew();
+        mGlobalState.toggleMenu();
+    };
+
+    mMidiButton.onClick = [this]()
+    {
+        mPresetState.handleMouseClickOnMidi();
         mGlobalState.toggleMenu();
     };
 
@@ -45,6 +53,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     };
 
     addAndMakeVisible (mNewButton);
+    addAndMakeVisible (mMidiButton);
     addAndMakeVisible (mImportButton);
     addAndMakeVisible (mExportButton);
     addAndMakeVisible (mCommunityButton);
@@ -71,6 +80,7 @@ void MenuComponent::resized()
     int buttonHeight = menuHeight / ACTIONS_MENU_BUTTON_COUNT;
 
     mNewButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mMidiButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mImportButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mExportButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mCommunityButton.setBounds (menuArea.removeFromTop (buttonHeight));
