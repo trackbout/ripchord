@@ -260,14 +260,15 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
 
 void PresetState::loadMidiFile (File inMidiFile)
 {
-    MidiFile midiFile;
-    FileInputStream midiFileStream (inMidiFile);
-    midiFile.readFrom (midiFileStream);
-    const MidiMessageSequence* midiTrack = midiFile.getTrack(0);
+    resetPresetState();
+    mName = inMidiFile.getFileNameWithoutExtension();
+    mChords = Presets::getChordsFromMidiFile (inMidiFile);
 
-    for (MidiMessageSequence::MidiEventHolder* event : *midiTrack) {
-        DBG (event->message.getDescription());
-    }
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileLoaded;
+    message->messageVar1 = mName;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::loadPresetFile (File inPresetFile)
