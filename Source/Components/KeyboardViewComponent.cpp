@@ -35,8 +35,14 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
         if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleMode(); }
     };
 
+    mEditLeftButton.setTriggeredOnMouseDown (true);
+    mEditLeftButton.onClick = [this]() { DBG ("EDIT LEFT"); };
+
     mSaveButton.setTriggeredOnMouseDown (true);
     mSaveButton.onClick = [this]() { mPresetState.handleMouseClickOnSave(); };
+
+    mEditRightButton.setTriggeredOnMouseDown (true);
+    mEditRightButton.onClick = [this]() { DBG ("EDIT RIGHT"); };
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
@@ -44,6 +50,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mControls.setBounds (SPACE, CONTROLS_Y, CONTROLS_WIDTH, CONTROLS_HEIGHT);
 
+    mImages.setDrawableButtonImages (mEditRightButton, "ShiftRight.svg", "", "EditRightON.svg", "");
+    mImages.setDrawableButtonImages (mEditLeftButton, "ShiftLeft.svg", "", "EditLeftON.svg", "");
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
     mImages.setDrawableButtonImages (mSuccess, "Success.svg");
 
@@ -58,6 +66,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mChordName);
     addAndMakeVisible (mControls);
 
+    addChildComponent (mEditRightButton);
+    addChildComponent (mEditLeftButton);
     addChildComponent (mSaveButton);
     addChildComponent (mSuccess);
 }
@@ -106,6 +116,8 @@ void KeyboardViewComponent::resized()
 
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mEditRightButton.setBounds (Styles::getRelativeBounds (mainArea, EDIT_RIGHT_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mEditLeftButton.setBounds (Styles::getRelativeBounds (mainArea, EDIT_LEFT_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mSaveButton.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mSuccess.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
 }
@@ -150,6 +162,8 @@ void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());
+    mEditLeftButton.setVisible (mGlobalState.isEditMode());
+    mEditRightButton.setVisible (mGlobalState.isEditMode());
     mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");
 
     bool isPresetSaveable = mPresetState.isPresetModified() && mPresetState.isPresetValid();

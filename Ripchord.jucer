@@ -21,6 +21,8 @@
               file="Source/Assets/DirectionABBA.svg"/>
         <FILE id="yyjdMp" name="DirectionBAAB.svg" compile="0" resource="1"
               file="Source/Assets/DirectionBAAB.svg"/>
+        <FILE id="JW8WZR" name="EditLeftON.svg" compile="0" resource="1" file="Source/Assets/EditLeftON.svg"/>
+        <FILE id="aKMBLR" name="EditRightON.svg" compile="0" resource="1" file="Source/Assets/EditRightON.svg"/>
         <FILE id="Ipr37B" name="Export.svg" compile="0" resource="1" file="Source/Assets/Export.svg"/>
         <FILE id="fbAjCT" name="ExportOFF.svg" compile="0" resource="1" file="Source/Assets/ExportOFF.svg"/>
         <FILE id="FaOXrc" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
@@ -37,8 +39,8 @@
         <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
         <FILE id="js20p0" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
         <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
-        <FILE id="F7kbOU" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
-        <FILE id="rtFr3r" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
+        <FILE id="GwjAG2" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
+        <FILE id="RUDmho" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
         <FILE id="OfjFtw" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>
         <FILE id="qEXb44" name="ShiftLeftON.svg" compile="0" resource="1" file="Source/Assets/ShiftLeftON.svg"/>
         <FILE id="ObzRWa" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
@@ -46,7 +48,7 @@
               file="Source/Assets/ShiftRightON.svg"/>
         <FILE id="GQnmAg" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
         <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
-        <FILE id="HXPZ9G" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
+        <FILE id="HJfXJg" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="Lf4gNK" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="RYi5cT" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
         <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>

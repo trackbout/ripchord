@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ShiftRightON</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-86.000000, -103.000000)">
+            <g id="ShiftRightON" transform="translate(86.000000, 103.000000)">
+                <rect fill="#57BA7B" x="0" y="0" width="34" height="34" rx="5"></rect>
+                <polygon fill="#FFFFFF" fill-rule="nonzero" points="10 8.81395349 18.4357298 17 10 25.1860465 12.8997821 28 24.2352941 17 12.8997821 6"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
