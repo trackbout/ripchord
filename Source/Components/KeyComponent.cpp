@@ -4,7 +4,7 @@
 KeyComponent::KeyComponent (const int inNoteNumber)
 :   mNoteNumber (inNoteNumber)
 {
-    Colour defaultColor = getDefaultColor (mNoteNumber);
+    Colour defaultColor = getDefaultColor();
     mNoteColor = defaultColor;
     mMarkerColor = defaultColor;
 }
@@ -67,7 +67,7 @@ const int KeyComponent::getNoteNumber()
     return mNoteNumber;
 }
 
-Colour KeyComponent::getDefaultColor (const int inNoteNumber)
+Colour KeyComponent::getDefaultColor()
 {
-    return Styles::isBlackKey (inNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
+    return Styles::isBlackKey (mNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
 }

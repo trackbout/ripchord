@@ -29,7 +29,7 @@ public:
 
     //==============================================================================
     const int getNoteNumber();
-    Colour getDefaultColor (const int noteNumber);
+    Colour getDefaultColor();
 
 private:
     //==============================================================================

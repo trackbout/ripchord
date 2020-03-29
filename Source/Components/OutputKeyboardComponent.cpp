@@ -95,7 +95,7 @@ void OutputKeyboardComponent::handleEditModeOutputNotes (const DataMessage* inMe
     for (int& outputNote : prevEditModeOutputNotes)
     {
         auto keyComponent = mKeyComponents.at (outputNote);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (outputNote));
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor());
     }
 
     for (int& outputNote : nextEditModeOutputNotes)
@@ -111,7 +111,7 @@ void OutputKeyboardComponent::handleOutputNoteOff (const DataMessage* inMessage)
     juce::Array<int> triggers = inMessage->messageArray1;
 
     auto keyComponent = mKeyComponents.at (outputNote);
-    keyComponent->setNoteAndMarkerColor (triggers.size() == 1 ? COLOR_BLUE : keyComponent->getDefaultColor (outputNote));
+    keyComponent->setNoteAndMarkerColor (triggers.size() == 1 ? COLOR_BLUE : keyComponent->getDefaultColor());
 
     if (mGlobalState.isEditMode())
     {

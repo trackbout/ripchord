@@ -37,7 +37,7 @@ void KeyboardComponent::resetKeyColors()
     for (int note = mFirstKey; note <= mLastKey; note++)
     {
         auto keyComponent = mKeyComponents.at (note);
-        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor (note));
+        keyComponent->setNoteAndMarkerColor (keyComponent->getDefaultColor());
     }
 }
 

@@ -75,7 +75,7 @@ void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)
     for (int& inputNote : presetInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
-        keyComponent->setNoteColor (keyComponent->getDefaultColor (inputNote));
+        keyComponent->setNoteColor (keyComponent->getDefaultColor());
         keyComponent->setMarkerColor (markerColor);
     }
 
@@ -114,7 +114,7 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
     if (prevEditModeInputNote > 0)
     {
         auto keyComponent = mKeyComponents.at (prevEditModeInputNote);
-        auto defaultColor = keyComponent->getDefaultColor (prevEditModeInputNote);
+        auto defaultColor = keyComponent->getDefaultColor();
 
         if (prevEditModeInputNoteContainsChord) { keyComponent->setNoteColor (defaultColor); }
         else { keyComponent->setNoteAndMarkerColor (defaultColor); }
@@ -137,14 +137,14 @@ void InputKeyboardComponent::handleEditModeShiftArrow (const DataMessage* inMess
     if (prevEditModeInputNote > 0)
     {
         auto keyComponent = mKeyComponents.at (prevEditModeInputNote);
-        auto defaultColor = keyComponent->getDefaultColor (prevEditModeInputNote);
+        auto defaultColor = keyComponent->getDefaultColor();
         keyComponent->setNoteAndMarkerColor (defaultColor);
     }
 
     for (int& inputNote : prevPresetInputNotes)
     {
         auto keyComponent = mKeyComponents.at (inputNote);
-        auto defaultColor = keyComponent->getDefaultColor (inputNote);
+        auto defaultColor = keyComponent->getDefaultColor();
         keyComponent->setNoteAndMarkerColor (defaultColor);
     }
 
@@ -175,7 +175,7 @@ void InputKeyboardComponent::handleActiveTransposeNote (const DataMessage* inMes
     if (nextActiveTransposeNote == -1)
     {
         auto keyComponent = mKeyComponents.at (prevActiveTransposeNote);
-        keyComponent->setNoteColor (keyComponent->getDefaultColor (prevActiveTransposeNote));
+        keyComponent->setNoteColor (keyComponent->getDefaultColor());
     }
 
     if (nextActiveTransposeNote > 0)
@@ -186,7 +186,7 @@ void InputKeyboardComponent::handleActiveTransposeNote (const DataMessage* inMes
         if (prevActiveTransposeNote > 0)
         {
             auto keyComponent = mKeyComponents.at (prevActiveTransposeNote);
-            keyComponent->setNoteColor (keyComponent->getDefaultColor (prevActiveTransposeNote));
+            keyComponent->setNoteColor (keyComponent->getDefaultColor());
         }
     }
 }
@@ -215,7 +215,7 @@ void InputKeyboardComponent::handleInputNoteOff (const DataMessage* inMessage)
     auto keyComponent = mKeyComponents.at (inputNote);
     bool containsChord = mPresetState.getPresetInputNotes().contains (inputNote);
     Colour markerColor = mGlobalState.isEditMode() ? COLOR_GREEN : COLOR_BLUE;
-    Colour defaultColor = keyComponent->getDefaultColor (inputNote);
+    Colour defaultColor = keyComponent->getDefaultColor();
     keyComponent->setMarkerColor (containsChord ? markerColor : defaultColor);
     keyComponent->setNoteColor (defaultColor);
 
@@ -242,7 +242,7 @@ void InputKeyboardComponent::turnOnTransposeKeys (const int transposeBase)
         auto keyComponent = mKeyComponents.at (index);
         Colour markerColor = index == transposeBase + 12 ? COLOR_RED : COLOR_PURPLE;
 
-        keyComponent->setNoteColor (keyComponent->getDefaultColor (index));
+        keyComponent->setNoteColor (keyComponent->getDefaultColor());
         keyComponent->setMarkerColor (markerColor);
     }
 
@@ -261,7 +261,7 @@ void InputKeyboardComponent::turnOffTransposeKeys (const int transposeBase)
     {
         auto keyComponent = mKeyComponents.at (index);
         bool isPresetNote = presetInputNotes.contains (index);
-        Colour defaultColor = keyComponent->getDefaultColor (index);
+        Colour defaultColor = keyComponent->getDefaultColor();
 
         keyComponent->setNoteColor (defaultColor);
         keyComponent->setMarkerColor (isPresetNote ? COLOR_BLUE : defaultColor);
