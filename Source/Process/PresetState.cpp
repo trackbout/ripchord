@@ -237,6 +237,70 @@ void PresetState::handleMouseClickOnExport()
     }
 }
 
+void PresetState::handleMouseClickOnEditLeft()
+{
+    juce::Array<int> inputNotes = getPresetInputNotes();
+    if (inputNotes.isEmpty() || inputNotes.contains (21) || mEditModeInputNote == 21) { return; }
+
+    std::map<int, Chord> nextChords;
+
+    for (int inputNote : inputNotes)
+    {
+        nextChords[inputNote - 1] = getChord (inputNote);
+    }
+
+    const int prevEditModeInputNote = mEditModeInputNote;
+    const int nextEditModeInputNote = mEditModeInputNote > 0 ? mEditModeInputNote - 1 : 0;
+
+    mChords.clear();
+    mChords = nextChords;
+    mEditModeInputNote = nextEditModeInputNote;
+
+    juce::Array<int> prevPresetInputNotes = inputNotes;
+    juce::Array<int> nextPresetInputNotes = getPresetInputNotes();
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kEditModeShiftArrow;
+    message->messageVar1 = prevEditModeInputNote;
+    message->messageVar2 = nextEditModeInputNote;
+    message->messageArray1 = prevPresetInputNotes;
+    message->messageArray2 = nextPresetInputNotes;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void PresetState::handleMouseClickOnEditRight()
+{
+    juce::Array<int> inputNotes = getPresetInputNotes();
+    if (inputNotes.isEmpty() || inputNotes.contains (108) || mEditModeInputNote == 108) { return; }
+
+    std::map<int, Chord> nextChords;
+
+    for (int inputNote : inputNotes)
+    {
+        nextChords[inputNote + 1] = getChord (inputNote);
+    }
+
+    const int prevEditModeInputNote = mEditModeInputNote;
+    const int nextEditModeInputNote = mEditModeInputNote > 0 ? mEditModeInputNote + 1 : 0;
+
+    mChords.clear();
+    mChords = nextChords;
+    mEditModeInputNote = nextEditModeInputNote;
+
+    juce::Array<int> prevPresetInputNotes = inputNotes;
+    juce::Array<int> nextPresetInputNotes = getPresetInputNotes();
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kEditModeShiftArrow;
+    message->messageVar1 = prevEditModeInputNote;
+    message->messageVar2 = nextEditModeInputNote;
+    message->messageArray1 = prevPresetInputNotes;
+    message->messageArray2 = nextPresetInputNotes;
+    sendMessage (message, ListenerType::kSync);
+}
+
 void PresetState::handleMouseClickOnPreset (File inPresetFile)
 {
     if (inPresetFile.existsAsFile())

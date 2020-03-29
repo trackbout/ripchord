@@ -36,13 +36,21 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     };
 
     mEditLeftButton.setTriggeredOnMouseDown (true);
-    mEditLeftButton.onClick = [this]() { DBG ("EDIT LEFT"); };
+    mEditLeftButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mPresetState.handleMouseClickOnEditLeft();
+    };
 
     mSaveButton.setTriggeredOnMouseDown (true);
     mSaveButton.onClick = [this]() { mPresetState.handleMouseClickOnSave(); };
 
     mEditRightButton.setTriggeredOnMouseDown (true);
-    mEditRightButton.onClick = [this]() { DBG ("EDIT RIGHT"); };
+    mEditRightButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mPresetState.handleMouseClickOnEditRight();
+    };
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
@@ -154,6 +162,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetNameTextChanged): { handlePresetModified (inMessage); } break;
         case (MessageCode::kChordNameTextChanged): { handlePresetModified (inMessage); } break;
+        case (MessageCode::kEditModeShiftArrow): { handlePresetModified (inMessage); } break;
         default: { } break;
     };
 }

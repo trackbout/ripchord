@@ -43,6 +43,7 @@ enum MessageCode
     kPresetFileLoaded,
     kEditModeInputNote,
     kEditModeOutputNotes,
+    kEditModeShiftArrow,
     kChordNameTextChanged,
     kPresetNameTextChanged,
 

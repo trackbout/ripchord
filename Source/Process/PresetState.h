@@ -40,6 +40,8 @@ public:
     void handleMouseClickOnSave();
     void handleMouseClickOnImport();
     void handleMouseClickOnExport();
+    void handleMouseClickOnEditLeft();
+    void handleMouseClickOnEditRight();
     void handleMouseClickOnPreset (File presetFile);
 
     //==============================================================================

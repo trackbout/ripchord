@@ -54,6 +54,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
+        case (MessageCode::kEditModeShiftArrow): { handleEditModeShiftArrow (inMessage); } break;
         case (MessageCode::kActiveTransposeNoteAllowed): { handleActiveTransposeNoteAllowed (inMessage); } break;
         case (MessageCode::kActiveTransposeNote): { handleActiveTransposeNote (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
@@ -117,6 +118,40 @@ void InputKeyboardComponent::handleEditModeInputNote (const DataMessage* inMessa
 
         if (prevEditModeInputNoteContainsChord) { keyComponent->setNoteColor (defaultColor); }
         else { keyComponent->setNoteAndMarkerColor (defaultColor); }
+    }
+
+    if (nextEditModeInputNote > 0)
+    {
+        auto keyComponent = mKeyComponents.at (nextEditModeInputNote);
+        keyComponent->setNoteAndMarkerColor (COLOR_GREEN);
+    }
+}
+
+void InputKeyboardComponent::handleEditModeShiftArrow (const DataMessage* inMessage)
+{
+    const int prevEditModeInputNote = inMessage->messageVar1;
+    const int nextEditModeInputNote = inMessage->messageVar2;
+    juce::Array<int> prevPresetInputNotes = inMessage->messageArray1;
+    juce::Array<int> nextPresetInputNotes = inMessage->messageArray2;
+
+    if (prevEditModeInputNote > 0)
+    {
+        auto keyComponent = mKeyComponents.at (prevEditModeInputNote);
+        auto defaultColor = keyComponent->getDefaultColor (prevEditModeInputNote);
+        keyComponent->setNoteAndMarkerColor (defaultColor);
+    }
+
+    for (int& inputNote : prevPresetInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        auto defaultColor = keyComponent->getDefaultColor (inputNote);
+        keyComponent->setNoteAndMarkerColor (defaultColor);
+    }
+
+    for (int& inputNote : nextPresetInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->setMarkerColor (COLOR_GREEN);
     }
 
     if (nextEditModeInputNote > 0)

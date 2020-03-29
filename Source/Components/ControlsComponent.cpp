@@ -23,12 +23,14 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
     mDelayDirectionButton.setTriggeredOnMouseDown (true);
 
-    mVelocityDirectionButton.onClick = [this]() {
+    mVelocityDirectionButton.onClick = [this]()
+    {
         if (mControlsState.getVelocityDepth() == 0) { return; }
         mControlsState.cycleVelocityDirection();
     };
 
-    mDelayDirectionButton.onClick = [this]() {
+    mDelayDirectionButton.onClick = [this]()
+    {
         if (mControlsState.getDelayDepth() == 0) { return; }
         mControlsState.cycleDelayDirection();
     };
