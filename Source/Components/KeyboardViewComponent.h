@@ -42,6 +42,8 @@ private:
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
+    DrawableButton mAllWhiteButton { "", DrawableButton::ImageStretched };
+    DrawableButton mAllBlackButton { "", DrawableButton::ImageStretched };
     DrawableButton mEditRightButton { "", DrawableButton::ImageStretched };
     DrawableButton mEditLeftButton { "", DrawableButton::ImageStretched };
     DrawableButton mSaveButton { "", DrawableButton::ImageStretched };

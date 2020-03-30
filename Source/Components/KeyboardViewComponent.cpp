@@ -35,6 +35,12 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
         if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleMode(); }
     };
 
+    mAllWhiteButton.setTriggeredOnMouseDown (true);
+    mAllWhiteButton.onClick = [this]()
+    {
+        DBG ("WHITE");
+    };
+
     mEditLeftButton.setTriggeredOnMouseDown (true);
     mEditLeftButton.onClick = [this]()
     {
@@ -52,12 +58,20 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
         mPresetState.handleMouseClickOnEditRight();
     };
 
+    mAllBlackButton.setTriggeredOnMouseDown (true);
+    mAllBlackButton.onClick = [this]()
+    {
+        DBG ("BLACK");
+    };
+
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mInputKeyboard.setBounds (KEYBOARD_X, INPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);
     mPresetName.setBounds (TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mControls.setBounds (SPACE, CONTROLS_Y, CONTROLS_WIDTH, CONTROLS_HEIGHT);
 
+    mImages.setDrawableButtonImages (mAllWhiteButton, "AllWhite.svg", "", "AllWhiteON.svg", "");
+    mImages.setDrawableButtonImages (mAllBlackButton, "AllBlack.svg", "", "AllBlackON.svg", "");
     mImages.setDrawableButtonImages (mEditRightButton, "ShiftRight.svg", "", "EditRightON.svg", "");
     mImages.setDrawableButtonImages (mEditLeftButton, "ShiftLeft.svg", "", "EditLeftON.svg", "");
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
@@ -74,6 +88,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mChordName);
     addAndMakeVisible (mControls);
 
+    addChildComponent (mAllWhiteButton);
+    addChildComponent (mAllBlackButton);
     addChildComponent (mEditRightButton);
     addChildComponent (mEditLeftButton);
     addChildComponent (mSaveButton);
@@ -124,6 +140,8 @@ void KeyboardViewComponent::resized()
 
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mAllWhiteButton.setBounds (Styles::getRelativeBounds (mainArea, ALL_WHITE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mAllBlackButton.setBounds (Styles::getRelativeBounds (mainArea, ALL_BLACK_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mEditRightButton.setBounds (Styles::getRelativeBounds (mainArea, EDIT_RIGHT_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mEditLeftButton.setBounds (Styles::getRelativeBounds (mainArea, EDIT_LEFT_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mSaveButton.setBounds (Styles::getRelativeBounds (mainArea, SAVE_X, SAVE_Y, ITEM_HEIGHT, ITEM_HEIGHT));
@@ -171,6 +189,8 @@ void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
 {
     mSuccess.setVisible (false);
     mSaveButton.setVisible (mGlobalState.isEditMode());
+    mAllWhiteButton.setVisible (mGlobalState.isEditMode());
+    mAllBlackButton.setVisible (mGlobalState.isEditMode());
     mEditLeftButton.setVisible (mGlobalState.isEditMode());
     mEditRightButton.setVisible (mGlobalState.isEditMode());
     mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");

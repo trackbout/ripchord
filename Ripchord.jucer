@@ -10,6 +10,10 @@
   <MAINGROUP id="gjMAdL" name="Ripchord">
     <GROUP id="{B7141C90-8679-6CA6-DFD2-5E27422D1A61}" name="Source">
       <GROUP id="{3E841B27-D72E-1E3E-82C9-FBBC01EC00A2}" name="Assets">
+        <FILE id="SVyyy2" name="AllBlack.svg" compile="0" resource="1" file="Source/Assets/AllBlack.svg"/>
+        <FILE id="HU0fYy" name="AllBlackON.svg" compile="0" resource="1" file="Source/Assets/AllBlackON.svg"/>
+        <FILE id="suJGS0" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
+        <FILE id="YYxN5q" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
         <FILE id="xFkfuJ" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
         <FILE id="GH78sP" name="Community.svg" compile="0" resource="1" file="Source/Assets/Community.svg"/>
         <FILE id="nBXhg0" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
