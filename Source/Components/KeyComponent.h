@@ -21,6 +21,7 @@ public:
     //==============================================================================
     std::function<void (const int noteNumber)> onMouseUp;
     std::function<void (const int noteNumber)> onMouseDown;
+    std::function<void (const int noteNumber, const MouseEvent& event)> onRightClick;
 
     //==============================================================================
     void setNoteColor (Colour color);

@@ -30,6 +30,12 @@ void InputKeyboardComponent::resized()
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->onMouseUp = [this](const int inInputNote) { handleMouseUp (inInputNote); };
         keyComponent->onMouseDown = [this](const int inInputNote) { handleMouseDown (inInputNote); };
+
+        keyComponent->onRightClick = [this](const int inInputNote, const MouseEvent& inEvent)
+        {
+            if (mGlobalState.isPlayMode()) { return; }
+            DBG ("onRightClick");
+        };
     }
 }
 

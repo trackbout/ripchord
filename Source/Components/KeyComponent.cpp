@@ -38,7 +38,14 @@ void KeyComponent::mouseUp (const MouseEvent& inEvent)
 
 void KeyComponent::mouseDown (const MouseEvent& inEvent)
 {
-    if (onMouseDown) { onMouseDown (mNoteNumber); }
+    if (ModifierKeys::getCurrentModifiers().isPopupMenu())
+    {
+        if (onRightClick) { onRightClick (mNoteNumber, inEvent); }
+    }
+    else
+    {
+        if (onMouseDown) { onMouseDown (mNoteNumber); }
+    }
 }
 
 //==============================================================================
