@@ -15,7 +15,6 @@ public:
     ~RightClickComponent();
 
     //==============================================================================
-    void paint (Graphics&) override;
     void resized() override;
 
     //==============================================================================
@@ -35,9 +34,10 @@ private:
     DrawableButton mCutButton { "", DrawableButton::ImageStretched };
     DrawableButton mCopyButton { "", DrawableButton::ImageStretched };
     DrawableButton mPasteButton { "", DrawableButton::ImageStretched };
+    DrawableButton mRightClickBg { "", DrawableButton::ImageStretched };
 
     //==============================================================================
-    void handleToggleMenu (const DataMessage* message);
+    void handleToggleRightClick (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RightClickComponent)

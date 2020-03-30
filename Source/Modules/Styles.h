@@ -118,6 +118,14 @@ const float ACTIONS_MENU_HEIGHT = ACTIONS_MENU_BUTTON_HEIGHT * ACTIONS_MENU_BUTT
 const float ACTIONS_MENU_X = EDITOR_WIDTH * 0.5f - ACTIONS_MENU_WIDTH * 0.5f;
 const float ACTIONS_MENU_Y = EDITOR_HEIGHT * 0.5f - ACTIONS_MENU_HEIGHT * 0.5f;
 
+const int RIGHT_CLICK_ITEM_COUNT = 3;
+const float RIGHT_CLICK_ITEM_HEIGHT = 24.f;
+const float RIGHT_CLICK_ITEM_WIDTH = 80.f;
+const float RIGHT_CLICK_MENU_HEIGHT = RIGHT_CLICK_ITEM_HEIGHT * RIGHT_CLICK_ITEM_COUNT;
+const float RIGHT_CLICK_MENU_WIDTH = RIGHT_CLICK_ITEM_WIDTH;
+const float RIGHT_CLICK_MENU_Y = EDITOR_HEIGHT - 200;
+const float RIGHT_CLICK_MENU_X = 200;
+
 //==============================================================================
 namespace Styles
 {

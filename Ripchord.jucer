@@ -16,6 +16,8 @@
         <FILE id="YYxN5q" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
         <FILE id="xFkfuJ" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
         <FILE id="GH78sP" name="Community.svg" compile="0" resource="1" file="Source/Assets/Community.svg"/>
+        <FILE id="qp2r6R" name="Copy.svg" compile="0" resource="1" file="Source/Assets/Copy.svg"/>
+        <FILE id="YV6Nol" name="Cut.svg" compile="0" resource="1" file="Source/Assets/Cut.svg"/>
         <FILE id="nBXhg0" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
         <FILE id="gmhA0D" name="Delete.svg" compile="0" resource="1" file="Source/Assets/Delete.svg"/>
         <FILE id="pALy37" name="Direction.svg" compile="0" resource="1" file="Source/Assets/Direction.svg"/>
@@ -40,9 +42,11 @@
         <FILE id="Y9HbRE" name="New.svg" compile="0" resource="1" file="Source/Assets/New.svg"/>
         <FILE id="ZjL5So" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="nBHwff" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
+        <FILE id="zJOBwd" name="Paste.svg" compile="0" resource="1" file="Source/Assets/Paste.svg"/>
         <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
         <FILE id="js20p0" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
         <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
+        <FILE id="Mwewns" name="RightClick.svg" compile="0" resource="1" file="Source/Assets/RightClick.svg"/>
         <FILE id="GwjAG2" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="RUDmho" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
         <FILE id="OfjFtw" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>
