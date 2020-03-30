@@ -67,10 +67,14 @@
               file="Source/Components/KeyboardViewComponent.cpp"/>
         <FILE id="FVJTpd" name="KeyboardViewComponent.h" compile="0" resource="0"
               file="Source/Components/KeyboardViewComponent.h"/>
-        <FILE id="dlQPGa" name="ControlsComponent.cpp" compile="1" resource="0"
-              file="Source/Components/ControlsComponent.cpp"/>
-        <FILE id="hPkuDX" name="ControlsComponent.h" compile="0" resource="0"
-              file="Source/Components/ControlsComponent.h"/>
+        <FILE id="dlQPGa" name="PlayControlsComponent.cpp" compile="1" resource="0"
+              file="Source/Components/PlayControlsComponent.cpp"/>
+        <FILE id="hPkuDX" name="PlayControlsComponent.h" compile="0" resource="0"
+              file="Source/Components/PlayControlsComponent.h"/>
+        <FILE id="Ke83UW" name="EditControlsComponent.cpp" compile="1" resource="0"
+              file="Source/Components/EditControlsComponent.cpp"/>
+        <FILE id="jO1wNT" name="EditControlsComponent.h" compile="0" resource="0"
+              file="Source/Components/EditControlsComponent.h"/>
         <FILE id="vTGUGv" name="ChordNameComponent.cpp" compile="1" resource="0"
               file="Source/Components/ChordNameComponent.cpp"/>
         <FILE id="Q7PhgU" name="ChordNameComponent.h" compile="0" resource="0"

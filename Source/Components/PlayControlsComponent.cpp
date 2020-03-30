@@ -1,7 +1,7 @@
-#include "ControlsComponent.h"
+#include "PlayControlsComponent.h"
 
 //==============================================================================
-ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
+PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mControlsState (mMainProcess.getControlsState()),
@@ -94,12 +94,12 @@ ControlsComponent::ControlsComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mDelayDepthSlider);
 }
 
-ControlsComponent::~ControlsComponent()
+PlayControlsComponent::~PlayControlsComponent()
 {
 }
 
 //==============================================================================
-void ControlsComponent::resized()
+void PlayControlsComponent::resized()
 {
     mVelocityDirectionButton.setBounds (VELOCITY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityDepthImage.setBounds (VELOCITY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
@@ -119,7 +119,7 @@ void ControlsComponent::resized()
 }
 
 //==============================================================================
-void ControlsComponent::sliderValueChanged (Slider* inSlider)
+void PlayControlsComponent::sliderValueChanged (Slider* inSlider)
 {
     if (inSlider == &mVelocityDepthSlider)
     {
@@ -143,7 +143,7 @@ void ControlsComponent::sliderValueChanged (Slider* inSlider)
 }
 
 //==============================================================================
-void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
+void PlayControlsComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
@@ -158,7 +158,7 @@ void ControlsComponent::handleNewMessage (const DataMessage* inMessage)
 }
 
 //==============================================================================
-void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
+void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
 {
     if (mGlobalState.isEditMode()) { setVisible (false); }
 
@@ -175,38 +175,38 @@ void ControlsComponent::handleToggleMode (const DataMessage* inMessage)
     }
 }
 
-void ControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
+void PlayControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 {
     updateTransposeButton();
 }
 
-void ControlsComponent::handleDelayDepth (const DataMessage* inMessage)
+void PlayControlsComponent::handleDelayDepth (const DataMessage* inMessage)
 {
     updateDelayDirectionButton();
 }
 
-void ControlsComponent::handleDelayDirection (const DataMessage* inMessage)
+void PlayControlsComponent::handleDelayDirection (const DataMessage* inMessage)
 {
     updateDelayDirectionButton();
 }
 
-void ControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
+void PlayControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
 {
     updateVelocityDirectionButton();
 }
 
-void ControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
+void PlayControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
 {
     updateVelocityDirectionButton();
 }
 
-void ControlsComponent::updateTransposeButton()
+void PlayControlsComponent::updateTransposeButton()
 {
     String buttonImage = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
     mImages.setDrawableButtonImages (mTransposeButton, buttonImage);
 }
 
-void ControlsComponent::updateDelayDirectionButton()
+void PlayControlsComponent::updateDelayDirectionButton()
 {
     String buttonImage = "Direction.svg";
     String delayDirection = mControlsState.getDelayDirection();
@@ -220,7 +220,7 @@ void ControlsComponent::updateDelayDirectionButton()
     mImages.setDrawableButtonImages (mDelayDirectionButton, buttonImage);
 }
 
-void ControlsComponent::updateVelocityDirectionButton()
+void PlayControlsComponent::updateVelocityDirectionButton()
 {
     String buttonImage = "Direction.svg";
     String velocityDirection = mControlsState.getVelocityDirection();

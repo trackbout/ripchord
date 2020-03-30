@@ -7,9 +7,10 @@
 #include "DataMessageListener.h"
 #include "OutputKeyboardComponent.h"
 #include "InputKeyboardComponent.h"
+#include "PlayControlsComponent.h"
+#include "EditControlsComponent.h"
 #include "PresetNameComponent.h"
 #include "ChordNameComponent.h"
-#include "ControlsComponent.h"
 
 //==============================================================================
 class KeyboardViewComponent : public Component, public DataMessageListener
@@ -33,7 +34,6 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
-    PresetState& mPresetState;
     MidiState& mMidiState;
 
     Label mOutputKeyboardLabel { "", "output" };
@@ -42,24 +42,15 @@ private:
     Images mImages;
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
-    DrawableButton mAllWhiteButton { "", DrawableButton::ImageStretched };
-    DrawableButton mAllBlackButton { "", DrawableButton::ImageStretched };
-    DrawableButton mEditRightButton { "", DrawableButton::ImageStretched };
-    DrawableButton mEditLeftButton { "", DrawableButton::ImageStretched };
-    DrawableButton mSaveButton { "", DrawableButton::ImageStretched };
-    DrawableButton mSuccess { "", DrawableButton::ImageStretched };
 
     OutputKeyboardComponent mOutputKeyboard;
     InputKeyboardComponent mInputKeyboard;
+    PlayControlsComponent mPlayControls;
+    EditControlsComponent mEditControls;
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
-    ControlsComponent mControls;
 
     void handleToggleMode (const DataMessage* message);
-    void handlePresetFileNew (const DataMessage* message);
-    void handlePresetFileSaved (const DataMessage* message);
-    void handlePresetFileLoaded (const DataMessage* message);
-    void handlePresetModified (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

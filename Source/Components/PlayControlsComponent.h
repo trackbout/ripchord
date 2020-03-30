@@ -7,12 +7,12 @@
 #include "DataMessageListener.h"
 
 //==============================================================================
-class ControlsComponent : public Component, public DataMessageListener, public Slider::Listener
+class PlayControlsComponent : public Component, public DataMessageListener, public Slider::Listener
 {
 public:
     //==============================================================================
-    ControlsComponent (MainProcess&);
-    ~ControlsComponent();
+    PlayControlsComponent (MainProcess&);
+    ~PlayControlsComponent();
 
     //==============================================================================
     void resized() override;
@@ -63,5 +63,5 @@ private:
     void updateVelocityDirectionButton();
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ControlsComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlayControlsComponent)
 };
