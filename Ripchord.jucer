@@ -106,6 +106,10 @@
               file="Source/Components/PresetDeleteComponent.cpp"/>
         <FILE id="Xq1GJS" name="PresetDeleteComponent.h" compile="0" resource="0"
               file="Source/Components/PresetDeleteComponent.h"/>
+        <FILE id="E1Kwyk" name="RightClickComponent.cpp" compile="1" resource="0"
+              file="Source/Components/RightClickComponent.cpp"/>
+        <FILE id="sLuZcM" name="RightClickComponent.h" compile="0" resource="0"
+              file="Source/Components/RightClickComponent.h"/>
         <FILE id="ZOMEiV" name="MenuComponent.cpp" compile="1" resource="0"
               file="Source/Components/MenuComponent.cpp"/>
         <FILE id="IpVUvC" name="MenuComponent.h" compile="0" resource="0" file="Source/Components/MenuComponent.h"/>

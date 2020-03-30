@@ -17,6 +17,7 @@ enum MessageCode
     // Messages from GlobalState
     kToggleMode,
     kToggleView,
+    kToggleRight,
     kToggleMenu,
 
     // Messages from ControlsState

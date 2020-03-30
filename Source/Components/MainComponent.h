@@ -8,6 +8,7 @@
 #include "DataMessageListener.h"
 #include "KeyboardViewComponent.h"
 #include "PresetViewComponent.h"
+#include "RightClickComponent.h"
 #include "MenuComponent.h"
 
 //==============================================================================
@@ -33,6 +34,7 @@ private:
 
     KeyboardViewComponent mKeyboardViewComponent;
     PresetViewComponent mPresetViewComponent;
+    RightClickComponent mRightClickComponent;
     MenuComponent mMenuComponent;
 
     Images mImages;
@@ -41,6 +43,7 @@ private:
 
     void handleToggleView (const DataMessage* message);
     void handleToggleMenu (const DataMessage* message);
+    void handleToggleRightClick (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);
 

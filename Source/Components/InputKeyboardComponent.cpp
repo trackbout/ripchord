@@ -34,7 +34,7 @@ void InputKeyboardComponent::resized()
         keyComponent->onRightClick = [this](const int inInputNote, const MouseEvent& inEvent)
         {
             if (mGlobalState.isPlayMode()) { return; }
-            DBG ("onRightClick");
+            mGlobalState.toggleRightClick();
         };
     }
 }

@@ -7,6 +7,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mPresetState (mMainProcess.getPresetState()),
     mKeyboardViewComponent (inMainProcess),
     mPresetViewComponent (inMainProcess),
+    mRightClickComponent (inMainProcess),
     mMenuComponent (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -20,6 +21,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
     mMenuComponent.handleBackgroundClick = [this]() { mGlobalState.toggleMenu(); };
+    mRightClickComponent.handleBackgroundClick = [this]() { mGlobalState.toggleRightClick(); };
 
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mKeyboardViewComponent);
@@ -27,6 +29,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mMenuButton);
     addChildComponent (mMenuComponent);
+    addChildComponent (mRightClickComponent);
 
     mShouldReconstruct = true;
 }
@@ -53,6 +56,7 @@ void MainComponent::resized()
     auto mainArea = getLocalBounds();
     mKeyboardViewComponent.setBounds (mainArea);
     mPresetViewComponent.setBounds (mainArea);
+    mRightClickComponent.setBounds (mainArea);
     mMenuComponent.setBounds (mainArea);
 
     auto titleArea = Styles::getRelativeBounds (mainArea, SPACE - 4, HEADER_Y, BUTTON_WIDTH + 10, ITEM_HEIGHT - 2);
@@ -70,6 +74,7 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
+        case (MessageCode::kToggleRight): { handleToggleRightClick (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
@@ -85,6 +90,11 @@ void MainComponent::handleToggleView (const DataMessage* inMessage)
 void MainComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     mMenuComponent.setVisible (mGlobalState.isMenuVisible());
+}
+
+void MainComponent::handleToggleRightClick (const DataMessage* inMessage)
+{
+    mRightClickComponent.setVisible (mGlobalState.isRightClickOn());
 }
 
 void MainComponent::handlePresetFileNew (const DataMessage* inMessage)

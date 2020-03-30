@@ -15,6 +15,7 @@ public:
     //==============================================================================
     enum Mode { Play, Edit };
     enum View { Keyboard, Preset };
+    enum Right { RightOff, RightOn };
     enum Menu { Hidden, Visible };
 
     //==============================================================================
@@ -28,6 +29,11 @@ public:
     bool isPresetView();
 
     //==============================================================================
+    void toggleRightClick();
+    bool isRightClickOff();
+    bool isRightClickOn();
+
+    //==============================================================================
     void toggleMenu();
     bool isMenuHidden();
     bool isMenuVisible();
@@ -36,6 +42,7 @@ private:
     //==============================================================================
     Mode mMode = Mode::Play;
     View mView = View::Keyboard;
+    Right mRight = Right::RightOff;
     Menu mMenu = Menu::Hidden;
 
     //==============================================================================

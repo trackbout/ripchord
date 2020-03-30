@@ -50,6 +50,26 @@ bool GlobalState::isPresetView()
 }
 
 //==============================================================================
+void GlobalState::toggleRightClick()
+{
+    mRight = isRightClickOff() ? Right::RightOn : Right::RightOff;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleRight;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool GlobalState::isRightClickOff()
+{
+    return mRight == Right::RightOff;
+}
+
+bool GlobalState::isRightClickOn()
+{
+    return mRight == Right::RightOn;
+}
+
+//==============================================================================
 void GlobalState::toggleMenu()
 {
     mMenu = isMenuHidden() ? Menu::Visible : Menu::Hidden;
