@@ -20,8 +20,6 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mMenuButton, "Gear.svg");
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
-    mMenuComponent.handleBackgroundClick = [this]() { mGlobalState.toggleMenu(); };
-    mRightClickComponent.handleBackgroundClick = [this]() { mGlobalState.toggleRightClick(); };
 
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mKeyboardViewComponent);

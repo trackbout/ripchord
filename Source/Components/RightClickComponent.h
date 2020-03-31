@@ -18,8 +18,10 @@ public:
     void resized() override;
 
     //==============================================================================
+    void setCoordinates();
+
+    //==============================================================================
     void mouseDown (const MouseEvent& event) override;
-    std::function<void()> handleBackgroundClick;
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
@@ -29,6 +31,9 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     PresetState& mPresetState;
+
+    float mXcoordinate;
+    float mYcoordinate;
 
     Images mImages;
     DrawableButton mCutButton { "", DrawableButton::ImageStretched };

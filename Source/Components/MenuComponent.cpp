@@ -89,7 +89,7 @@ void MenuComponent::resized()
 //==============================================================================
 void MenuComponent::mouseDown (const MouseEvent& inEvent)
 {
-    if (handleBackgroundClick) { handleBackgroundClick(); }
+    mGlobalState.toggleMenu();
 }
 
 //==============================================================================

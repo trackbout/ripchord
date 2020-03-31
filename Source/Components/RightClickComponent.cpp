@@ -59,9 +59,15 @@ void RightClickComponent::resized()
 }
 
 //==============================================================================
+void RightClickComponent::setCoordinates()
+{
+
+}
+
+//==============================================================================
 void RightClickComponent::mouseDown (const MouseEvent& inEvent)
 {
-    if (handleBackgroundClick) { handleBackgroundClick(); }
+    mGlobalState.toggleRightClick();
 }
 
 //==============================================================================

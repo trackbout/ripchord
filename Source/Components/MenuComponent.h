@@ -20,7 +20,6 @@ public:
 
     //==============================================================================
     void mouseDown (const MouseEvent& event) override;
-    std::function<void()> handleBackgroundClick;
 
     //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
