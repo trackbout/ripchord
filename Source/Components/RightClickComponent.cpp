@@ -19,16 +19,19 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
 
     mCutButton.onClick = [this]()
     {
+        mGlobalState.toggleRightClick();
         DBG ("CUT");
     };
 
     mCopyButton.onClick = [this]()
     {
+        mGlobalState.toggleRightClick();
         DBG ("COPY");
     };
 
     mPasteButton.onClick = [this]()
     {
+        mGlobalState.toggleRightClick();
         DBG ("PASTE");
     };
 
@@ -45,8 +48,25 @@ RightClickComponent::~RightClickComponent()
 //==============================================================================
 void RightClickComponent::resized()
 {
+    paintWithCoordinates();
+}
+
+//==============================================================================
+void RightClickComponent::mouseDown (const MouseEvent& inEvent)
+{
+    mGlobalState.toggleRightClick();
+}
+
+//==============================================================================
+void RightClickComponent::paintWithCoordinates()
+{
     auto mainArea = getLocalBounds();
-    auto menuArea = Styles::getRelativeBounds (mainArea, RIGHT_CLICK_MENU_X, RIGHT_CLICK_MENU_Y,
+    int mouseDownKey = mGlobalState.getMouseDownKey();
+    int xOffset = mouseDownKey < 104 ? KEYBOARD_X : KEYBOARD_X - RIGHT_CLICK_MENU_WIDTH;
+    int mouseDownX = mGlobalState.getMouseDownX() + xOffset;
+    int mouseDownY = mGlobalState.getMouseDownY() + INPUT_KEYBOARD_Y - RIGHT_CLICK_MENU_HEIGHT;
+
+    auto menuArea = Styles::getRelativeBounds (mainArea, mouseDownX, mouseDownY,
                                                RIGHT_CLICK_MENU_WIDTH, RIGHT_CLICK_MENU_HEIGHT);
 
     int menuHeight = menuArea.getHeight();
@@ -56,18 +76,6 @@ void RightClickComponent::resized()
     mCutButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mCopyButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mPasteButton.setBounds (menuArea.removeFromTop (buttonHeight));
-}
-
-//==============================================================================
-void RightClickComponent::setCoordinates()
-{
-
-}
-
-//==============================================================================
-void RightClickComponent::mouseDown (const MouseEvent& inEvent)
-{
-    mGlobalState.toggleRightClick();
 }
 
 //==============================================================================
@@ -82,5 +90,8 @@ void RightClickComponent::handleNewMessage (const DataMessage* inMessage)
 
 void RightClickComponent::handleToggleRightClick (const DataMessage* inMessage)
 {
-
+    if (mGlobalState.isRightClickOn())
+    {
+        paintWithCoordinates();
+    }
 }

@@ -18,9 +18,6 @@ public:
     void resized() override;
 
     //==============================================================================
-    void setCoordinates();
-
-    //==============================================================================
     void mouseDown (const MouseEvent& event) override;
 
     //==============================================================================
@@ -32,14 +29,14 @@ private:
     GlobalState& mGlobalState;
     PresetState& mPresetState;
 
-    float mXcoordinate;
-    float mYcoordinate;
-
     Images mImages;
     DrawableButton mCutButton { "", DrawableButton::ImageStretched };
     DrawableButton mCopyButton { "", DrawableButton::ImageStretched };
     DrawableButton mPasteButton { "", DrawableButton::ImageStretched };
     DrawableButton mRightClickBg { "", DrawableButton::ImageStretched };
+
+    //==============================================================================
+    void paintWithCoordinates();
 
     //==============================================================================
     void handleToggleRightClick (const DataMessage* message);

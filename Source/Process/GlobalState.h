@@ -38,12 +38,26 @@ public:
     bool isMenuHidden();
     bool isMenuVisible();
 
+    //==============================================================================
+    int getMouseDownX();
+    int getMouseDownY();
+    int getMouseDownKey();
+
+    //==============================================================================
+    void setMouseDownX (int x);
+    void setMouseDownY (int y);
+    void setMouseDownKey (int noteNumber);
+
 private:
     //==============================================================================
     Mode mMode = Mode::Play;
     View mView = View::Keyboard;
     Right mRight = Right::RightOff;
     Menu mMenu = Menu::Hidden;
+
+    int mMouseDownX;
+    int mMouseDownY;
+    int mMouseDownKey;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GlobalState)

@@ -88,3 +88,35 @@ bool GlobalState::isMenuVisible()
 {
     return mMenu == Menu::Visible;
 }
+
+//==============================================================================
+int GlobalState::getMouseDownX()
+{
+    return mMouseDownX;
+}
+
+int GlobalState::getMouseDownY()
+{
+    return mMouseDownY;
+}
+
+int GlobalState::getMouseDownKey()
+{
+    return mMouseDownKey;
+}
+
+//==============================================================================
+void GlobalState::setMouseDownX (int inX)
+{
+    mMouseDownX = inX;
+}
+
+void GlobalState::setMouseDownY (int inY)
+{
+    mMouseDownY = inY;
+}
+
+void GlobalState::setMouseDownKey (int inNoteNumber)
+{
+    mMouseDownKey = inNoteNumber;
+}

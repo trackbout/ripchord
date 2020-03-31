@@ -34,6 +34,10 @@ void InputKeyboardComponent::resized()
         keyComponent->onRightClick = [this](const int inInputNote, const MouseEvent& inEvent)
         {
             if (mGlobalState.isPlayMode()) { return; }
+            MouseEvent event = inEvent.getEventRelativeTo (this);
+            mGlobalState.setMouseDownX (event.getMouseDownX());
+            mGlobalState.setMouseDownY (event.getMouseDownY());
+            mGlobalState.setMouseDownKey (inInputNote);
             mGlobalState.toggleRightClick();
         };
     }

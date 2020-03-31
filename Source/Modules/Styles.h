@@ -123,8 +123,6 @@ const float RIGHT_CLICK_ITEM_HEIGHT = 24.f;
 const float RIGHT_CLICK_ITEM_WIDTH = 80.f;
 const float RIGHT_CLICK_MENU_HEIGHT = RIGHT_CLICK_ITEM_HEIGHT * RIGHT_CLICK_ITEM_COUNT;
 const float RIGHT_CLICK_MENU_WIDTH = RIGHT_CLICK_ITEM_WIDTH;
-const float RIGHT_CLICK_MENU_Y = EDITOR_HEIGHT - 200;
-const float RIGHT_CLICK_MENU_X = 200;
 
 //==============================================================================
 namespace Styles
