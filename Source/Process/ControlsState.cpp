@@ -69,7 +69,7 @@ void ControlsState::toggleTranspose()
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleMouseClickOnShiftLeft()
+void ControlsState::handleMouseDownOnShiftLeft()
 {
     if (mTransposeBase == 21 || isTransposeOff()) { return; }
 
@@ -86,7 +86,7 @@ void ControlsState::handleMouseClickOnShiftLeft()
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleMouseClickOnShiftRight()
+void ControlsState::handleMouseDownOnShiftRight()
 {
     if (mTransposeBase == 84 || isTransposeOff()) { return; }
 

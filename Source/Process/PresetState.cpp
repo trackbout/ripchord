@@ -166,7 +166,40 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 }
 
 //==============================================================================
-void PresetState::handleMouseClickOnNew()
+void PresetState::handleMouseDownOnCut (const int inInputNote)
+{
+    mClipboardChord = getChord (inInputNote);
+    mChords.erase (inInputNote);
+    mEditModeInputNote = 0;
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetCutOrPaste;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
+}
+
+void PresetState::handleMouseDownOnCopy (const int inInputNote)
+{
+    mClipboardChord = getChord (inInputNote);
+}
+
+void PresetState::handleMouseDownOnPaste (const int inInputNote)
+{
+    if (mClipboardChord.notes.isEmpty()) { return; }
+
+    setChord (inInputNote, mClipboardChord);
+    mEditModeInputNote = 0;
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetCutOrPaste;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void PresetState::handleMouseDownOnNew()
 {
     resetPresetState();
     DataMessage* message = new DataMessage();
@@ -174,7 +207,7 @@ void PresetState::handleMouseClickOnNew()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseClickOnMidi()
+void PresetState::handleMouseDownOnMidi()
 {
     FileChooser chooser ("Select a MIDI file...", PRESET_FOLDER, "*.mid");
 
@@ -189,7 +222,7 @@ void PresetState::handleMouseClickOnMidi()
     }
 }
 
-void PresetState::handleMouseClickOnSave()
+void PresetState::handleMouseDownOnSave()
 {
     if (!isPresetValid() || !mIsPresetModified) { return; }
 
@@ -208,7 +241,7 @@ void PresetState::handleMouseClickOnSave()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseClickOnImport()
+void PresetState::handleMouseDownOnImport()
 {
     FileChooser chooser ("Select a preset file...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
 
@@ -223,7 +256,7 @@ void PresetState::handleMouseClickOnImport()
     }
 }
 
-void PresetState::handleMouseClickOnExport()
+void PresetState::handleMouseDownOnExport()
 {
     if (!isPresetValid()) { return; }
 
@@ -237,7 +270,7 @@ void PresetState::handleMouseClickOnExport()
     }
 }
 
-void PresetState::handleMouseClickOnEditLeft()
+void PresetState::handleMouseDownOnEditLeft()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty() || inputNotes.contains (21) || mEditModeInputNote == 21) { return; }
@@ -269,7 +302,7 @@ void PresetState::handleMouseClickOnEditLeft()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseClickOnEditRight()
+void PresetState::handleMouseDownOnEditRight()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty() || inputNotes.contains (108) || mEditModeInputNote == 108) { return; }
@@ -301,7 +334,7 @@ void PresetState::handleMouseClickOnEditRight()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseClickOnPreset (File inPresetFile)
+void PresetState::handleMouseDownOnPreset (File inPresetFile)
 {
     if (inPresetFile.existsAsFile())
     {

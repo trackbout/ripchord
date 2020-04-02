@@ -16,7 +16,7 @@ public:
     void resized() override;
 
     //==============================================================================
-    std::function<void()> onMouseClick;
+    std::function<void()> onMouseDown;
 
 private:
     //==============================================================================

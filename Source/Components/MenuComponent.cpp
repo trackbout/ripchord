@@ -22,26 +22,26 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mNewButton.onClick = [this]()
     {
-        mPresetState.handleMouseClickOnNew();
+        mPresetState.handleMouseDownOnNew();
         mGlobalState.toggleMenu();
     };
 
     mMidiButton.onClick = [this]()
     {
-        mPresetState.handleMouseClickOnMidi();
+        mPresetState.handleMouseDownOnMidi();
         mGlobalState.toggleMenu();
     };
 
     mImportButton.onClick = [this]()
     {
-        mPresetState.handleMouseClickOnImport();
+        mPresetState.handleMouseDownOnImport();
         mGlobalState.toggleMenu();
     };
 
     mExportButton.onClick = [this]()
     {
         if (!mPresetState.isPresetValid()) { return; }
-        mPresetState.handleMouseClickOnExport();
+        mPresetState.handleMouseDownOnExport();
         mGlobalState.toggleMenu();
     };
 

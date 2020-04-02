@@ -42,6 +42,7 @@ enum MessageCode
     kPresetFileNew,
     kPresetFileSaved,
     kPresetFileLoaded,
+    kPresetCutOrPaste,
     kEditModeInputNote,
     kEditModeOutputNotes,
     kEditModeShiftArrow,

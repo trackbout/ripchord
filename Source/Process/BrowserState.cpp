@@ -84,7 +84,7 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
 }
 
 //==============================================================================
-void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
+void BrowserState::handleMouseDownOnDelete (const int inIndexValue)
 {
     File file = mAllPresetFiles[inIndexValue];
 
@@ -103,7 +103,7 @@ void BrowserState::handleMouseClickOnDelete (const int inIndexValue)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
+void BrowserState::handleMouseDownOnFavorite (const int inIndexValue)
 {
     Preset preset = mAllPresets[inIndexValue];
     File file = mAllPresetFiles[inIndexValue];
@@ -129,7 +129,7 @@ void BrowserState::handleMouseClickOnFavorite (const int inIndexValue)
 }
 
 //==============================================================================
-void BrowserState::handleMouseClickOnLeftArrow (String inPresetName)
+void BrowserState::handleMouseDownOnLeftArrow (String inPresetName)
 {
     int index = getFilteredIndex (inPresetName);
 
@@ -145,7 +145,7 @@ void BrowserState::handleMouseClickOnLeftArrow (String inPresetName)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleMouseClickOnRightArrow (String inPresetName)
+void BrowserState::handleMouseDownOnRightArrow (String inPresetName)
 {
     int index = getFilteredIndex (inPresetName);
 
@@ -162,7 +162,7 @@ void BrowserState::handleMouseClickOnRightArrow (String inPresetName)
 }
 
 //==============================================================================
-void BrowserState::handleMouseClickOnFavorites()
+void BrowserState::handleMouseDownOnFavorites()
 {
     mIsFavoritesOn = !mIsFavoritesOn;
 

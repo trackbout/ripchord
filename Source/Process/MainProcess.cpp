@@ -12,10 +12,10 @@ MainProcess::~MainProcess()
 //==============================================================================
 void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
 {
-    if (mMouseClickBuffer.getNumEvents() > 0)
+    if (mMouseDownBuffer.getNumEvents() > 0)
     {
-        transformMidiBuffer (mMouseClickBuffer);
-        mMouseClickBuffer.clear();
+        transformMidiBuffer (mMouseDownBuffer);
+        mMouseDownBuffer.clear();
     }
     else
     {
@@ -37,12 +37,12 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
 //==============================================================================
 void MainProcess::handlePlayModeMouseUpOnInput (int inInputNote)
 {
-    mMouseClickBuffer.addEvent (MidiMessage::noteOff (1, inInputNote), 0);
+    mMouseDownBuffer.addEvent (MidiMessage::noteOff (1, inInputNote), 0);
 }
 
 void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
 {
-    mMouseClickBuffer.addEvent (MidiMessage::noteOn (1, inInputNote, 0.8f), 0);
+    mMouseDownBuffer.addEvent (MidiMessage::noteOn (1, inInputNote, 0.8f), 0);
 }
 
 //==============================================================================

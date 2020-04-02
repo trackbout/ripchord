@@ -63,6 +63,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
+        case (MessageCode::kPresetCutOrPaste): { handlePresetCutOrPaste (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeInputNote (inMessage); } break;
         case (MessageCode::kEditModeShiftArrow): { handleEditModeShiftArrow (inMessage); } break;
         case (MessageCode::kActiveTransposeNoteAllowed): { handleActiveTransposeNoteAllowed (inMessage); } break;
@@ -112,6 +113,19 @@ void InputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessag
     {
         auto keyComponent = mKeyComponents.at (inputNote);
         keyComponent->setMarkerColor (COLOR_BLUE);
+    }
+}
+
+void InputKeyboardComponent::handlePresetCutOrPaste (const DataMessage* inMessage)
+{
+    resetKeyColors();
+
+    juce::Array<int> presetInputNotes = inMessage->messageArray1;
+
+    for (int& inputNote : presetInputNotes)
+    {
+        auto keyComponent = mKeyComponents.at (inputNote);
+        keyComponent->setMarkerColor (COLOR_GREEN);
     }
 }
 

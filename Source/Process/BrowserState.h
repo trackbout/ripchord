@@ -22,15 +22,15 @@ public:
     juce::Array<Preset> getFilteredPresets();
 
     //==============================================================================
-    void handleMouseClickOnDelete (const int indexValue);
-    void handleMouseClickOnFavorite (const int indexValue);
+    void handleMouseDownOnDelete (const int indexValue);
+    void handleMouseDownOnFavorite (const int indexValue);
 
     //==============================================================================
-    void handleMouseClickOnLeftArrow (String presetName);
-    void handleMouseClickOnRightArrow (String presetName);
+    void handleMouseDownOnLeftArrow (String presetName);
+    void handleMouseDownOnRightArrow (String presetName);
 
     //==============================================================================
-    void handleMouseClickOnFavorites();
+    void handleMouseDownOnFavorites();
     void handlePresetFilterTextChanged (String filterText);
 
 private:

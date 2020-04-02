@@ -23,13 +23,13 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
     mLeftArrowButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mBrowserState.handleMouseClickOnLeftArrow (mPresetState.getName());
+        mBrowserState.handleMouseDownOnLeftArrow (mPresetState.getName());
     };
 
     mRightArrowButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mBrowserState.handleMouseClickOnRightArrow (mPresetState.getName());
+        mBrowserState.handleMouseDownOnRightArrow (mPresetState.getName());
     };
 
     mPresetNameLabel.setJustificationType (Justification::centred);
@@ -132,5 +132,5 @@ void PresetNameComponent::handleCurrentIndexChanged (const DataMessage* inMessag
     if (nextIndex < 0) { return; }
 
     File presetFile = mBrowserState.getAllPresetFiles()[nextIndex];
-    mPresetState.handleMouseClickOnPreset (presetFile);
+    mPresetState.handleMouseDownOnPreset (presetFile);
 }

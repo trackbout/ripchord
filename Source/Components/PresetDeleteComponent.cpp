@@ -10,7 +10,7 @@ PresetDeleteComponent::PresetDeleteComponent()
     mDeleteButton.setTriggeredOnMouseDown (true);
 
     mCancelButton.onClick = [this]() { setVisible (false); };
-    mDeleteButton.onClick = [this]() { if (onMouseClick) { onMouseClick(); } };
+    mDeleteButton.onClick = [this]() { if (onMouseDown) { onMouseDown(); } };
 
     addAndMakeVisible (mCancelButton);
     addAndMakeVisible (mDeleteButton);

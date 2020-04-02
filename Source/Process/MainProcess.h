@@ -44,7 +44,7 @@ private:
 
     //==============================================================================
     int mLastChannel;
-    MidiBuffer mMouseClickBuffer;
+    MidiBuffer mMouseDownBuffer;
     MidiBuffer mTransformedMidiBuffer;
 
     //==============================================================================

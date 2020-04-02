@@ -20,19 +20,19 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
     mCutButton.onClick = [this]()
     {
         mGlobalState.toggleRightClick();
-        DBG ("CUT");
+        mPresetState.handleMouseDownOnCut (mGlobalState.getMouseDownKey());
     };
 
     mCopyButton.onClick = [this]()
     {
         mGlobalState.toggleRightClick();
-        DBG ("COPY");
+        mPresetState.handleMouseDownOnCopy (mGlobalState.getMouseDownKey());
     };
 
     mPasteButton.onClick = [this]()
     {
         mGlobalState.toggleRightClick();
-        DBG ("PASTE");
+        mPresetState.handleMouseDownOnPaste (mGlobalState.getMouseDownKey());
     };
 
     addAndMakeVisible (mRightClickBg);

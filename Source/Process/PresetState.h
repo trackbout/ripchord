@@ -35,14 +35,19 @@ public:
     void handlePresetNameTextChanged (String presetName);
 
     //==============================================================================
-    void handleMouseClickOnNew();
-    void handleMouseClickOnMidi();
-    void handleMouseClickOnSave();
-    void handleMouseClickOnImport();
-    void handleMouseClickOnExport();
-    void handleMouseClickOnEditLeft();
-    void handleMouseClickOnEditRight();
-    void handleMouseClickOnPreset (File presetFile);
+    void handleMouseDownOnCut (const int inputNote);
+    void handleMouseDownOnCopy (const int inputNote);
+    void handleMouseDownOnPaste (const int inputNote);
+
+    //==============================================================================
+    void handleMouseDownOnNew();
+    void handleMouseDownOnMidi();
+    void handleMouseDownOnSave();
+    void handleMouseDownOnImport();
+    void handleMouseDownOnExport();
+    void handleMouseDownOnEditLeft();
+    void handleMouseDownOnEditRight();
+    void handleMouseDownOnPreset (File presetFile);
 
     //==============================================================================
     XmlElement* exportPresetStateXml();
@@ -54,6 +59,7 @@ private:
     std::map<int, Chord> mChords;
 
     Chord mEmptyChord;
+    Chord mClipboardChord;
     int mEditModeInputNote = 0;
 
     String mPresetFileName;

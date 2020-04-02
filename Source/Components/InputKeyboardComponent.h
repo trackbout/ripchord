@@ -34,6 +34,7 @@ private:
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);
+    void handlePresetCutOrPaste (const DataMessage* message);
     void handleEditModeInputNote (const DataMessage* message);
     void handleEditModeShiftArrow (const DataMessage* message);
     void handleCurrentlyOnInputNotes (const DataMessage* message);

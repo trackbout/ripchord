@@ -62,7 +62,7 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mShiftLeftButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mControlsState.handleMouseClickOnShiftLeft();
+        mControlsState.handleMouseDownOnShiftLeft();
     };
 
     mTransposeButton.onClick = [this]()
@@ -74,7 +74,7 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mShiftRightButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mControlsState.handleMouseClickOnShiftRight();
+        mControlsState.handleMouseDownOnShiftRight();
     };
 
     addAndMakeVisible (mVelocityDepthImage);

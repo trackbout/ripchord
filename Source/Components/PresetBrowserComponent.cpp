@@ -73,17 +73,17 @@ void PresetBrowserComponent::refreshBrowser()
         presetComponent->onClick = [this](const int indexValue)
         {
             Array<File> allPresetFiles = mBrowserState.getAllPresetFiles();
-            mPresetState.handleMouseClickOnPreset (allPresetFiles[indexValue]);
+            mPresetState.handleMouseDownOnPreset (allPresetFiles[indexValue]);
         };
 
         presetComponent->onDelete = [this](const int indexValue)
         {
-            mBrowserState.handleMouseClickOnDelete (indexValue);
+            mBrowserState.handleMouseDownOnDelete (indexValue);
         };
 
         presetComponent->onFavorite = [this](const int indexValue)
         {
-            mBrowserState.handleMouseClickOnFavorite (indexValue);
+            mBrowserState.handleMouseDownOnFavorite (indexValue);
         };
 
         addAndMakeVisible (presetComponent);

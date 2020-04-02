@@ -34,8 +34,8 @@ public:
 
     //==============================================================================
     void toggleTranspose();
-    void handleMouseClickOnShiftLeft();
-    void handleMouseClickOnShiftRight();
+    void handleMouseDownOnShiftLeft();
+    void handleMouseDownOnShiftRight();
 
     //==============================================================================
     float getDelayDepth();

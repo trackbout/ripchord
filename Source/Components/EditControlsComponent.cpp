@@ -27,17 +27,17 @@ EditControlsComponent::EditControlsComponent (MainProcess& inMainProcess)
     mEditLeftButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseClickOnEditLeft();
+        mPresetState.handleMouseDownOnEditLeft();
     };
 
     mSaveButton.setTriggeredOnMouseDown (true);
-    mSaveButton.onClick = [this]() { mPresetState.handleMouseClickOnSave(); };
+    mSaveButton.onClick = [this]() { mPresetState.handleMouseDownOnSave(); };
 
     mEditRightButton.setTriggeredOnMouseDown (true);
     mEditRightButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseClickOnEditRight();
+        mPresetState.handleMouseDownOnEditRight();
     };
 
     mAllBlackButton.setTriggeredOnMouseDown (true);
@@ -78,6 +78,7 @@ void EditControlsComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
+        case (MessageCode::kPresetCutOrPaste): { handlePresetModified (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetNameTextChanged): { handlePresetModified (inMessage); } break;
         case (MessageCode::kChordNameTextChanged): { handlePresetModified (inMessage); } break;

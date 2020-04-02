@@ -25,7 +25,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
-    mFavoritesButton.onClick = [this]() { mBrowserState.handleMouseClickOnFavorites(); };
+    mFavoritesButton.onClick = [this]() { mBrowserState.handleMouseDownOnFavorites(); };
 
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
