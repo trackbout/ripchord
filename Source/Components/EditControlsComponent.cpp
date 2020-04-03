@@ -78,9 +78,9 @@ void EditControlsComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetModified): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetFileSaved): { handlePresetFileSaved (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
-        case (MessageCode::kPresetCutOrPaste): { handlePresetModified (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetNameTextChanged): { handlePresetModified (inMessage); } break;
         case (MessageCode::kChordNameTextChanged): { handlePresetModified (inMessage); } break;
@@ -109,6 +109,12 @@ void EditControlsComponent::handlePresetFileNew (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
 }
 
+void EditControlsComponent::handlePresetModified (const DataMessage* inMessage)
+{
+    mSuccess.setVisible (false);
+    mImages.setDrawableButtonImages (mSaveButton, mPresetState.isPresetValid() ? "SaveON.svg" : "Save.svg");
+}
+
 void EditControlsComponent::handlePresetFileSaved (const DataMessage* inMessage)
 {
     mSuccess.setVisible (true);
@@ -119,10 +125,4 @@ void EditControlsComponent::handlePresetFileLoaded (const DataMessage* inMessage
 {
     mSuccess.setVisible (false);
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
-}
-
-void EditControlsComponent::handlePresetModified (const DataMessage* inMessage)
-{
-    mSuccess.setVisible (false);
-    mImages.setDrawableButtonImages (mSaveButton, mPresetState.isPresetValid() ? "SaveON.svg" : "Save.svg");
 }

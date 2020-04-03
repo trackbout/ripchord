@@ -40,9 +40,9 @@ enum MessageCode
 
     // Messages from PresetState
     kPresetFileNew,
+    kPresetModified,
     kPresetFileSaved,
     kPresetFileLoaded,
-    kPresetCutOrPaste,
     kEditModeInputNote,
     kEditModeOutputNotes,
     kEditModeShiftArrow,

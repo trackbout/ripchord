@@ -174,7 +174,7 @@ void PresetState::handleMouseDownOnCut (const int inInputNote)
 
     mIsPresetModified = true;
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetCutOrPaste;
+    message->messageCode = MessageCode::kPresetModified;
     message->messageArray1 = getPresetInputNotes();
     sendMessage (message, ListenerType::kSync);
 }
@@ -193,7 +193,7 @@ void PresetState::handleMouseDownOnPaste (const int inInputNote)
 
     mIsPresetModified = true;
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetCutOrPaste;
+    message->messageCode = MessageCode::kPresetModified;
     message->messageArray1 = getPresetInputNotes();
     sendMessage (message, ListenerType::kSync);
 }
@@ -336,12 +336,26 @@ void PresetState::handleMouseDownOnEditRight()
 
 void PresetState::handleMouseDownOnAllWhite()
 {
-    DBG("white");
+
+    mEditModeInputNote = 0;
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetModified;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::handleMouseDownOnAllBlack()
 {
-    DBG("black");
+
+    mEditModeInputNote = 0;
+
+    mIsPresetModified = true;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetModified;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::handleMouseDownOnPreset (File inPresetFile)

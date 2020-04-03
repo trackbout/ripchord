@@ -41,8 +41,8 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
+        case (MessageCode::kPresetModified): { handlePresetModified (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
-        case (MessageCode::kPresetCutOrPaste): { handlePresetCutOrPaste (inMessage); } break;
         case (MessageCode::kClearStuckNotes): { handleClearStuckNotes (inMessage); } break;
         case (MessageCode::kEditModeOutputNotes): { handleEditModeOutputNotes (inMessage); } break;
         case (MessageCode::kEditModeInputNote): { handleEditModeOutputNotes (inMessage); } break;
@@ -62,12 +62,12 @@ void OutputKeyboardComponent::handlePresetFileNew (const DataMessage* inMessage)
     resetKeyColors();
 }
 
-void OutputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessage)
+void OutputKeyboardComponent::handlePresetModified (const DataMessage* inMessage)
 {
     resetKeyColors();
 }
 
-void OutputKeyboardComponent::handlePresetCutOrPaste (const DataMessage* inMessage)
+void OutputKeyboardComponent::handlePresetFileLoaded (const DataMessage* inMessage)
 {
     resetKeyColors();
 }
