@@ -163,6 +163,50 @@ namespace Presets
         return whiteNoteNumbers.at (inIndex);
     }
 
+    static inline int getBlackNoteNumber (int inIndex)
+    {
+        std::map<int, int> blackNoteNumbers;
+
+        blackNoteNumbers[0] = 22;
+        blackNoteNumbers[1] = 25;
+        blackNoteNumbers[2] = 27;
+        blackNoteNumbers[3] = 30;
+        blackNoteNumbers[4] = 32;
+        blackNoteNumbers[5] = 34;
+        blackNoteNumbers[6] = 37;
+        blackNoteNumbers[7] = 39;
+        blackNoteNumbers[8] = 42;
+        blackNoteNumbers[9] = 44;
+        blackNoteNumbers[10] = 46;
+        blackNoteNumbers[11] = 49;
+        blackNoteNumbers[12] = 51;
+        blackNoteNumbers[13] = 54;
+        blackNoteNumbers[14] = 56;
+        blackNoteNumbers[15] = 58;
+        blackNoteNumbers[16] = 61;
+        blackNoteNumbers[17] = 63;
+        blackNoteNumbers[18] = 66;
+        blackNoteNumbers[19] = 68;
+        blackNoteNumbers[20] = 70;
+        blackNoteNumbers[21] = 73;
+        blackNoteNumbers[22] = 75;
+        blackNoteNumbers[23] = 78;
+        blackNoteNumbers[24] = 80;
+        blackNoteNumbers[25] = 82;
+        blackNoteNumbers[26] = 85;
+        blackNoteNumbers[27] = 87;
+        blackNoteNumbers[28] = 90;
+        blackNoteNumbers[29] = 92;
+        blackNoteNumbers[30] = 94;
+        blackNoteNumbers[31] = 97;
+        blackNoteNumbers[32] = 99;
+        blackNoteNumbers[33] = 102;
+        blackNoteNumbers[34] = 104;
+        blackNoteNumbers[35] = 106;
+
+        return blackNoteNumbers.at (inIndex);
+    }
+
     static inline String getNoteNameFromNumber (int inNoteNumber)
     {
         std::map<int, String> noteNames;

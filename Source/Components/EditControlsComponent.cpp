@@ -20,7 +20,8 @@ EditControlsComponent::EditControlsComponent (MainProcess& inMainProcess)
     mAllWhiteButton.setTriggeredOnMouseDown (true);
     mAllWhiteButton.onClick = [this]()
     {
-        DBG ("WHITE");
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mPresetState.handleMouseDownOnAllWhite();
     };
 
     mEditLeftButton.setTriggeredOnMouseDown (true);
@@ -43,7 +44,8 @@ EditControlsComponent::EditControlsComponent (MainProcess& inMainProcess)
     mAllBlackButton.setTriggeredOnMouseDown (true);
     mAllBlackButton.onClick = [this]()
     {
-        DBG ("BLACK");
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        mPresetState.handleMouseDownOnAllBlack();
     };
 
     addAndMakeVisible (mAllWhiteButton);

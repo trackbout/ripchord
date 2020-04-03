@@ -334,6 +334,16 @@ void PresetState::handleMouseDownOnEditRight()
     sendMessage (message, ListenerType::kSync);
 }
 
+void PresetState::handleMouseDownOnAllWhite()
+{
+    DBG("white");
+}
+
+void PresetState::handleMouseDownOnAllBlack()
+{
+    DBG("black");
+}
+
 void PresetState::handleMouseDownOnPreset (File inPresetFile)
 {
     if (inPresetFile.existsAsFile())

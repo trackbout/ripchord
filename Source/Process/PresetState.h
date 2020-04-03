@@ -47,6 +47,8 @@ public:
     void handleMouseDownOnExport();
     void handleMouseDownOnEditLeft();
     void handleMouseDownOnEditRight();
+    void handleMouseDownOnAllWhite();
+    void handleMouseDownOnAllBlack();
     void handleMouseDownOnPreset (File presetFile);
 
     //==============================================================================
