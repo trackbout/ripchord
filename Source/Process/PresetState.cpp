@@ -336,7 +336,27 @@ void PresetState::handleMouseDownOnEditRight()
 
 void PresetState::handleMouseDownOnAllWhite()
 {
+    juce::Array<int> inputNotes = getPresetInputNotes();
+    if (inputNotes.isEmpty()) { return; }
 
+    inputNotes.sort();
+    int lowestNote = inputNotes[0];
+    while (Keyboard::isBlackKey(lowestNote)) { lowestNote++; }
+    if (lowestNote > 108) { return; }
+
+    int whiteNoteIndex = Keyboard::getWhiteNoteIndex (lowestNote);
+    std::map<int, Chord> nextChords;
+
+    for (int inputNote : inputNotes)
+    {
+        if (whiteNoteIndex > 51) { return; }
+        int nextWhiteNote = Keyboard::getWhiteNoteNumber (whiteNoteIndex);
+        nextChords[nextWhiteNote] = getChord (inputNote);
+        whiteNoteIndex++;
+    }
+
+    mChords.clear();
+    mChords = nextChords;
     mEditModeInputNote = 0;
 
     mIsPresetModified = true;
@@ -348,7 +368,27 @@ void PresetState::handleMouseDownOnAllWhite()
 
 void PresetState::handleMouseDownOnAllBlack()
 {
+    juce::Array<int> inputNotes = getPresetInputNotes();
+    if (inputNotes.isEmpty()) { return; }
 
+    inputNotes.sort();
+    int lowestNote = inputNotes[0];
+    while (!Keyboard::isBlackKey(lowestNote)) { lowestNote++; }
+    if (lowestNote > 106) { return; }
+
+    int blackNoteIndex = Keyboard::getBlackNoteIndex (lowestNote);
+    std::map<int, Chord> nextChords;
+
+    for (int inputNote : inputNotes)
+    {
+        if (blackNoteIndex > 35) { return; }
+        int nextBlackNote = Keyboard::getBlackNoteNumber (blackNoteIndex);
+        nextChords[nextBlackNote] = getChord (inputNote);
+        blackNoteIndex++;
+    }
+
+    mChords.clear();
+    mChords = nextChords;
     mEditModeInputNote = 0;
 
     mIsPresetModified = true;
