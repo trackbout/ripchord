@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "Presets.h"
+#include "Keyboard.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 

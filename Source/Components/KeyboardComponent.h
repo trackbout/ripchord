@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "KeyComponent.h"
+#include "Keyboard.h"
 
 //==============================================================================
 class KeyboardComponent : public Component
