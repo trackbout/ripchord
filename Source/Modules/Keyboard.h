@@ -22,6 +22,112 @@ namespace Keyboard
     }
 
     //==============================================================================
+    static inline int getWhiteNoteIndex (int inNote)
+    {
+        std::map<int, int> whiteNoteIndexes;
+
+        whiteNoteIndexes[21] = 0;
+        whiteNoteIndexes[23] = 1;
+        whiteNoteIndexes[24] = 2;
+        whiteNoteIndexes[26] = 3;
+        whiteNoteIndexes[28] = 4;
+        whiteNoteIndexes[29] = 5;
+        whiteNoteIndexes[31] = 6;
+        whiteNoteIndexes[33] = 7;
+        whiteNoteIndexes[35] = 8;
+        whiteNoteIndexes[36] = 9;
+        whiteNoteIndexes[38] = 10;
+        whiteNoteIndexes[40] = 11;
+        whiteNoteIndexes[41] = 12;
+        whiteNoteIndexes[43] = 13;
+        whiteNoteIndexes[45] = 14;
+        whiteNoteIndexes[47] = 15;
+        whiteNoteIndexes[48] = 16;
+        whiteNoteIndexes[50] = 17;
+        whiteNoteIndexes[52] = 18;
+        whiteNoteIndexes[53] = 19;
+        whiteNoteIndexes[55] = 20;
+        whiteNoteIndexes[57] = 21;
+        whiteNoteIndexes[59] = 22;
+        whiteNoteIndexes[60] = 23;
+        whiteNoteIndexes[62] = 24;
+        whiteNoteIndexes[64] = 25;
+        whiteNoteIndexes[65] = 26;
+        whiteNoteIndexes[67] = 27;
+        whiteNoteIndexes[69] = 28;
+        whiteNoteIndexes[71] = 29;
+        whiteNoteIndexes[72] = 30;
+        whiteNoteIndexes[74] = 31;
+        whiteNoteIndexes[76] = 32;
+        whiteNoteIndexes[77] = 33;
+        whiteNoteIndexes[79] = 34;
+        whiteNoteIndexes[81] = 35;
+        whiteNoteIndexes[83] = 36;
+        whiteNoteIndexes[84] = 37;
+        whiteNoteIndexes[86] = 38;
+        whiteNoteIndexes[88] = 39;
+        whiteNoteIndexes[89] = 40;
+        whiteNoteIndexes[91] = 41;
+        whiteNoteIndexes[93] = 42;
+        whiteNoteIndexes[95] = 43;
+        whiteNoteIndexes[96] = 44;
+        whiteNoteIndexes[98] = 45;
+        whiteNoteIndexes[100] = 46;
+        whiteNoteIndexes[101] = 47;
+        whiteNoteIndexes[103] = 48;
+        whiteNoteIndexes[105] = 49;
+        whiteNoteIndexes[107] = 50;
+        whiteNoteIndexes[108] = 51;
+
+        return whiteNoteIndexes.at (inNote);
+    }
+
+    //==============================================================================
+    static inline int getBlackNoteIndex (int inNote)
+    {
+        std::map<int, int> blackNoteIndexes;
+
+        blackNoteIndexes[22] = 0;
+        blackNoteIndexes[25] = 1;
+        blackNoteIndexes[27] = 2;
+        blackNoteIndexes[30] = 3;
+        blackNoteIndexes[32] = 4;
+        blackNoteIndexes[34] = 5;
+        blackNoteIndexes[37] = 6;
+        blackNoteIndexes[39] = 7;
+        blackNoteIndexes[42] = 8;
+        blackNoteIndexes[44] = 9;
+        blackNoteIndexes[46] = 10;
+        blackNoteIndexes[49] = 11;
+        blackNoteIndexes[51] = 12;
+        blackNoteIndexes[54] = 13;
+        blackNoteIndexes[56] = 14;
+        blackNoteIndexes[58] = 15;
+        blackNoteIndexes[61] = 16;
+        blackNoteIndexes[63] = 17;
+        blackNoteIndexes[66] = 18;
+        blackNoteIndexes[68] = 19;
+        blackNoteIndexes[70] = 20;
+        blackNoteIndexes[73] = 21;
+        blackNoteIndexes[75] = 22;
+        blackNoteIndexes[78] = 23;
+        blackNoteIndexes[80] = 24;
+        blackNoteIndexes[82] = 25;
+        blackNoteIndexes[85] = 26;
+        blackNoteIndexes[87] = 27;
+        blackNoteIndexes[90] = 28;
+        blackNoteIndexes[92] = 29;
+        blackNoteIndexes[94] = 30;
+        blackNoteIndexes[97] = 31;
+        blackNoteIndexes[99] = 32;
+        blackNoteIndexes[102] = 33;
+        blackNoteIndexes[104] = 34;
+        blackNoteIndexes[106] = 35;
+
+        return blackNoteIndexes.at (inNote);
+    }
+
+    //==============================================================================
     static inline int getWhiteNoteNumber (int inIndex)
     {
         std::map<int, int> whiteNoteNumbers;
