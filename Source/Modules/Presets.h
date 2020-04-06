@@ -131,11 +131,29 @@ namespace Presets
         std::map<int, Chord> chords;
 
         MidiFile midiFile;
+        MidiMessageSequence events;
+        const int largeNumberOfEvents = 160;
         FileInputStream midiFileStream (inMidiFile);
         midiFile.readFrom (midiFileStream);
         const MidiMessageSequence* midiTrack = midiFile.getTrack (0);
 
-        for (MidiMessageSequence::MidiEventHolder* event : *midiTrack) {
+        for (MidiMessageSequence::MidiEventHolder* event : *midiTrack)
+        {
+            if (event->message.isNoteOnOrOff())
+            {
+                events.addEvent (event->message);
+            }
+        }
+
+        if (events.getNumEvents() > largeNumberOfEvents)
+        {
+            chordIndex = 0;
+        }
+
+        for (MidiMessageSequence::MidiEventHolder* event : events)
+        {
+            if (chordIndex > 51) { return chords; }
+
             const MidiMessage message = event->message;
 
             if (message.isNoteOn())
