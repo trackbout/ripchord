@@ -124,7 +124,14 @@ void DataMessageManager::updateAsyncListeners (DataMessageBroadcaster* inBroadca
         {
             if (pair->first == inBroadcaster)
             {
-                pair->second->handleNewMessage (inMessage);
+                try
+                {
+                  pair->second->handleNewMessage (inMessage);
+                }
+                catch (...)
+                {
+                  std::cout << "async message error \n";
+                }
             }
 
             ++pair;
