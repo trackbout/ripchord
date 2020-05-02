@@ -42,8 +42,8 @@ public:
 
     //==============================================================================
     void handleMouseDownOnNew();
-    void handleMouseDownOnMidi();
     void handleMouseDownOnSave();
+    void handleMouseDownOnMidi();
     void handleMouseDownOnImport();
     void handleMouseDownOnExport();
     void handleMouseDownOnEditLeft();
@@ -71,9 +71,12 @@ private:
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
 
+    void resetPresetState();
     void loadMidiFile (File midiFile);
     void loadPresetFile (File presetFile);
-    void resetPresetState();
+
+    std::map<int, Chord> saveMidiFile (File midiFile);
+    std::map<int, Chord> savePresetFile (File presetFile);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

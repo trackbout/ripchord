@@ -5,6 +5,7 @@
 
 //==============================================================================
 const String PRESET_EXTENSION = ".rpc";
+const File DESKTOP_FOLDER = System::getDesktopPath();
 const File PRESET_FOLDER = System::getUserDataPath (ProjectInfo::companyName,
                                                     ProjectInfo::projectName).getChildFile ("Presets");
 

@@ -207,21 +207,6 @@ void PresetState::handleMouseDownOnNew()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnMidi()
-{
-    FileChooser chooser ("Select a MIDI file...", PRESET_FOLDER, "*.mid");
-
-    if (chooser.browseForFileToOpen())
-    {
-        File chosenFile = chooser.getResult();
-
-        if (chosenFile.existsAsFile())
-        {
-            loadMidiFile (chosenFile);
-        }
-    }
-}
-
 void PresetState::handleMouseDownOnSave()
 {
     if (!isPresetValid() || !mIsPresetModified) { return; }
@@ -241,17 +226,50 @@ void PresetState::handleMouseDownOnSave()
     sendMessage (message, ListenerType::kSync);
 }
 
+void PresetState::handleMouseDownOnMidi()
+{
+    FileChooser chooser ("Select a MIDI file(s)...", DESKTOP_FOLDER, "*.mid");
+
+    if (chooser.browseForMultipleFilesToOpen())
+    {
+        juce::Array<File> chosenFiles = chooser.getResults();
+
+        for (int index = 0; index < chosenFiles.size(); index++)
+        {
+            File chosenFile = chosenFiles.getUnchecked (index);
+
+            if (index + 1 == chosenFiles.size())
+            {
+                loadMidiFile (chosenFile);
+            }
+            else
+            {
+                saveMidiFile (chosenFile);
+            }
+        }
+    }
+}
+
 void PresetState::handleMouseDownOnImport()
 {
-    FileChooser chooser ("Select a preset file...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
+    FileChooser chooser ("Select a preset file(s)...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
 
-    if (chooser.browseForFileToOpen())
+    if (chooser.browseForMultipleFilesToOpen())
     {
-        File chosenFile = chooser.getResult();
+        juce::Array<File> chosenFiles = chooser.getResults();
 
-        if (chosenFile.existsAsFile())
+        for (int index = 0; index < chosenFiles.size(); index++)
         {
-            loadPresetFile (chosenFile);
+            File chosenFile = chosenFiles.getUnchecked (index);
+
+            if (index + 1 == chosenFiles.size())
+            {
+                loadPresetFile (chosenFile);
+            }
+            else
+            {
+                savePresetFile (chosenFile);
+            }
         }
     }
 }
@@ -260,7 +278,7 @@ void PresetState::handleMouseDownOnExport()
 {
     if (!isPresetValid()) { return; }
 
-    FileChooser chooser ("Copy preset to...", PRESET_FOLDER, "*" + PRESET_EXTENSION);
+    FileChooser chooser ("Copy preset to...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
 
     if (chooser.browseForFileToSave (true))
     {
@@ -419,11 +437,21 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
     mChords[inInputNote] = inChord;
 }
 
+void PresetState::resetPresetState()
+{
+    mName.clear();
+    mChords.clear();
+    mPresetFileName.clear();
+    mIsPresetModified = false;
+    mEditModeInputNote = 0;
+}
+
 void PresetState::loadMidiFile (File inMidiFile)
 {
     resetPresetState();
     mName = inMidiFile.getFileNameWithoutExtension();
-    mChords = Presets::getChordsFromMidiFile (inMidiFile);
+    mPresetFileName = mName + PRESET_EXTENSION;
+    mChords = saveMidiFile (inMidiFile);
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileLoaded;
@@ -435,19 +463,9 @@ void PresetState::loadMidiFile (File inMidiFile)
 void PresetState::loadPresetFile (File inPresetFile)
 {
     resetPresetState();
-    mPresetFileName = inPresetFile.getFileName();
     mName = inPresetFile.getFileNameWithoutExtension();
-
-    std::unique_ptr<XmlElement> inRootXml = parseXML (inPresetFile);
-    XmlElement* presetXml = inRootXml->getFirstChildElement();
-    mChords = Presets::getChordsFromPresetXml (presetXml);
-
-    File prevPresetFile = PRESET_FOLDER.getChildFile (mPresetFileName);
-    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
-
-    XmlElement rootXml ("ripchord");
-    rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
-    rootXml.writeTo (PRESET_FOLDER.getChildFile (mPresetFileName));
+    mPresetFileName = mName + PRESET_EXTENSION;
+    mChords = savePresetFile (inPresetFile);
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileLoaded;
@@ -456,13 +474,36 @@ void PresetState::loadPresetFile (File inPresetFile)
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::resetPresetState()
+std::map<int, Chord> PresetState::saveMidiFile (File inMidiFile)
 {
-    mName.clear();
-    mChords.clear();
-    mPresetFileName.clear();
-    mIsPresetModified = false;
-    mEditModeInputNote = 0;
+    String presetFileName = inMidiFile.getFileNameWithoutExtension() + PRESET_EXTENSION;
+    std::map<int, Chord> chords = Presets::getChordsFromMidiFile (inMidiFile);
+
+    File prevPresetFile = PRESET_FOLDER.getChildFile (presetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (chords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (presetFileName));
+
+    return chords;
+}
+
+std::map<int, Chord> PresetState::savePresetFile (File inPresetFile)
+{
+    String presetFileName = inPresetFile.getFileName();
+    std::unique_ptr<XmlElement> inRootXml = parseXML (inPresetFile);
+    XmlElement* presetXml = inRootXml->getFirstChildElement();
+    std::map<int, Chord> chords = Presets::getChordsFromPresetXml (presetXml);
+
+    File prevPresetFile = PRESET_FOLDER.getChildFile (presetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (chords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (presetFileName));
+
+    return chords;
 }
 
 //==============================================================================

@@ -3,6 +3,12 @@
 //==============================================================================
 namespace System
 {
+    static inline File getDesktopPath()
+    {
+        File directory (File::getSpecialLocation (File::userDesktopDirectory));
+        return directory;
+    }
+
     static inline File getUserDataPath (StringRef inCompanyName, StringRef inAppName)
     {
         #if JUCE_MAC || JUCE_IOS
