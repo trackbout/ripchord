@@ -74,6 +74,8 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
+    if (inInputNote < 21 || inInputNote > 108) { return; }
+
     mMidiState.setInputNoteOn (inInputNote);
 
     if (mPresetState.containsChord (inInputNote))
@@ -114,6 +116,8 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
     mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
+    if (inInputNote < 21 || inInputNote > 108) { return; }
+
     mMidiState.setInputNoteOff (inInputNote);
 
     if (mPresetState.containsChord (inInputNote))
