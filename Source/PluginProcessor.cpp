@@ -111,7 +111,7 @@ bool RipchordPluginProcessor::isBusesLayoutSupported (const BusesLayout& inLayou
 
 void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, MidiBuffer& inMidiBuffer)
 {
-    mMainProcess.handleMidiBuffer (inMidiBuffer);
+    mMainProcess.handleMidiBuffer (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate());
 }
 
 //==============================================================================

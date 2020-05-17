@@ -10,8 +10,11 @@ MainProcess::~MainProcess()
 }
 
 //==============================================================================
-void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer)
+void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate)
 {
+    mNumSamples = inNumSamples;
+    mSampleRate = inSampleRate;
+
     if (mMouseDownBuffer.getNumEvents() > 0)
     {
         transformMidiBuffer (mMouseDownBuffer);
@@ -52,7 +55,7 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
     MidiMessage message;
     mTransformedMidiBuffer.clear();
 
-    for (MidiBuffer::Iterator index (inMidiBuffer); index.getNextEvent (message, sampleNumber);)
+    for (MidiBuffer::Iterator iterator (inMidiBuffer); iterator.getNextEvent (message, sampleNumber);)
     {
         if (mGlobalState.isPlayMode() &&
             mControlsState.isTransposeOn() &&
