@@ -21,6 +21,17 @@ void MidiState::setCurrentChannel (int inChannel)
 }
 
 //==============================================================================
+void MidiState::setCurrentNumSamples (int inNumSamples)
+{
+    mCurrentNumSamples = inNumSamples;
+}
+
+void MidiState::setCurrentSampleRate (double inSampleRate)
+{
+    mCurrentSampleRate = inSampleRate;
+}
+
+//==============================================================================
 juce::Array<int> MidiState::getCurrentlyOnInputNotes()
 {
     return mCurrentlyOnInputNotes;

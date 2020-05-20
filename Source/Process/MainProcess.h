@@ -47,10 +47,6 @@ private:
     MidiBuffer mTransformedMidiBuffer;
 
     //==============================================================================
-    int mNumSamples;
-    double mSampleRate;
-
-    //==============================================================================
     void transformMidiBuffer (MidiBuffer& midiBuffer);
     void handleNoteOn (MidiMessage& message);
     void handleNoteOff (MidiMessage& message);

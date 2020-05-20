@@ -13,10 +13,14 @@ public:
     //==============================================================================
     MidiState();
     ~MidiState();
-    
+
     //==============================================================================
     int getCurrentChannel();
     void setCurrentChannel (int channel);
+
+    //==============================================================================
+    void setCurrentNumSamples (int numSamples);
+    void setCurrentSampleRate (double sampleRate);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -44,6 +48,8 @@ public:
 private:
     //==============================================================================
     int mCurrentChannel;
+    int mCurrentNumSamples;
+    double mCurrentSampleRate;
 
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
