@@ -13,6 +13,10 @@ public:
     //==============================================================================
     MidiState();
     ~MidiState();
+    
+    //==============================================================================
+    int getCurrentChannel();
+    void setCurrentChannel (int channel);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -38,6 +42,9 @@ public:
     void clearAbortedNoteEvents (int inputNote);
 
 private:
+    //==============================================================================
+    int mCurrentChannel;
+
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;

@@ -49,7 +49,6 @@ private:
     //==============================================================================
     int mNumSamples;
     double mSampleRate;
-    int mLastChannel;
 
     //==============================================================================
     void transformMidiBuffer (MidiBuffer& midiBuffer);

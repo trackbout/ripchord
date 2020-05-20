@@ -57,6 +57,8 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
     for (MidiBuffer::Iterator iterator (inMidiBuffer); iterator.getNextEvent (message, samplePosition);)
     {
+        mMidiState.setCurrentChannel (message.getChannel());
+
         if (mGlobalState.isPlayMode() &&
             mControlsState.isTransposeOn() &&
             mControlsState.isTransposeNote (message.getNoteNumber()))
@@ -74,7 +76,7 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 
 void MainProcess::handleNoteOn (MidiMessage& inMessage)
 {
-    mLastChannel = inMessage.getChannel();
+    int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     int inSamplePosition = round (inMessage.getTimeStamp());
@@ -94,7 +96,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage)
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (sortedChordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : sortedChordNotes[index];
-            NoteEvent initial { mLastChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
+            NoteEvent initial { inChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
             NoteEvent noteEvent = mControlsState.setVelocity (initial, index, sortedChordNotes.size());
 
             if (mGlobalState.isEditMode() || index == 0 ||
@@ -110,14 +112,14 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage)
     }
     else
     {
-        NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { inChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOn (noteEvent);
     }
 }
 
 void MainProcess::handleNoteOff (MidiMessage& inMessage)
 {
-    mLastChannel = inMessage.getChannel();
+    int inChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
     int inSamplePosition = round (inMessage.getTimeStamp());
@@ -136,13 +138,13 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage)
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
 
-            NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
+            NoteEvent noteEvent { inChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
             sendOutputNoteOff (noteEvent);
         }
     }
     else
     {
-        NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { inChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOff (noteEvent);
     }
 }
@@ -194,7 +196,8 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
 
 void MainProcess::sendStuckNoteOff (int inOutputNote)
 {
-    mTransformedMidiBuffer.addEvent (MidiMessage::noteOff (mLastChannel, inOutputNote), 0);
+    int channel = mMidiState.getCurrentChannel();
+    mTransformedMidiBuffer.addEvent (MidiMessage::noteOff (channel, inOutputNote), 0);
 }
 
 //==============================================================================

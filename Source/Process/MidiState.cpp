@@ -10,6 +10,17 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
+int MidiState::getCurrentChannel()
+{
+    return mCurrentChannel;
+}
+
+void MidiState::setCurrentChannel (int inChannel)
+{
+    mCurrentChannel = inChannel;
+}
+
+//==============================================================================
 juce::Array<int> MidiState::getCurrentlyOnInputNotes()
 {
     return mCurrentlyOnInputNotes;
