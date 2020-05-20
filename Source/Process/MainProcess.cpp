@@ -51,11 +51,11 @@ void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
 //==============================================================================
 void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 {
-    int sampleNumber;
+    int samplePosition;
     MidiMessage message;
     mTransformedMidiBuffer.clear();
 
-    for (MidiBuffer::Iterator iterator (inMidiBuffer); iterator.getNextEvent (message, sampleNumber);)
+    for (MidiBuffer::Iterator iterator (inMidiBuffer); iterator.getNextEvent (message, samplePosition);)
     {
         if (mGlobalState.isPlayMode() &&
             mControlsState.isTransposeOn() &&
@@ -65,18 +65,19 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
         }
         else
         {
-            if (message.isNoteOn()) { handleNoteOn (message, sampleNumber); }
-            if (message.isNoteOff()) { handleNoteOff (message, sampleNumber); }
-            if (!message.isNoteOnOrOff()) { handleNonNote (message, sampleNumber); }
+            if (message.isNoteOn()) { handleNoteOn (message); }
+            if (message.isNoteOff()) { handleNoteOff (message); }
+            if (!message.isNoteOnOrOff()) { handleNonNote (message); }
         }
     }
 }
 
-void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
+void MainProcess::handleNoteOn (MidiMessage& inMessage)
 {
     mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
+    int inSamplePosition = round (inMessage.getTimeStamp());
     if (inInputNote < 21 || inInputNote > 108) { return; }
 
     mMidiState.setInputNoteOn (inInputNote);
@@ -93,7 +94,7 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
             int activeTransposeNote = mControlsState.getActiveTransposeNote();
             int transposedNote = mControlsState.getTransposedNote (sortedChordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : sortedChordNotes[index];
-            NoteEvent initial { mLastChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent initial { mLastChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
             NoteEvent noteEvent = mControlsState.setVelocity (initial, index, sortedChordNotes.size());
 
             if (mGlobalState.isEditMode() || index == 0 ||
@@ -109,16 +110,17 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage, int inSampleNumber)
     }
     else
     {
-        NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOn (noteEvent);
     }
 }
 
-void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
+void MainProcess::handleNoteOff (MidiMessage& inMessage)
 {
     mLastChannel = inMessage.getChannel();
     int inInputNote = inMessage.getNoteNumber();
     float inVelocity = inMessage.getFloatVelocity();
+    int inSamplePosition = round (inMessage.getTimeStamp());
     if (inInputNote < 21 || inInputNote > 108) { return; }
 
     mMidiState.setInputNoteOff (inInputNote);
@@ -134,20 +136,21 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage, int inSampleNumber)
             int transposedNote = mControlsState.getTransposedNote (chordNotes[index], activeTransposeNote);
             int chordNote = mGlobalState.isPlayMode() ? transposedNote : chordNotes[index];
 
-            NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, chordNote };
+            NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
             sendOutputNoteOff (noteEvent);
         }
     }
     else
     {
-        NoteEvent noteEvent { mLastChannel, inSampleNumber, inVelocity, inInputNote, inInputNote };
+        NoteEvent noteEvent { mLastChannel, inSamplePosition, inVelocity, inInputNote, inInputNote };
         sendOutputNoteOff (noteEvent);
     }
 }
 
-void MainProcess::handleNonNote (MidiMessage& inMessage, int inSampleNumber)
+void MainProcess::handleNonNote (MidiMessage& inMessage)
 {
-    mTransformedMidiBuffer.addEvent (inMessage, inSampleNumber);
+    int inSamplePosition = round (inMessage.getTimeStamp());
+    mTransformedMidiBuffer.addEvent (inMessage, inSamplePosition);
 }
 
 //==============================================================================
@@ -158,13 +161,13 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
     if (triggers.size() == 1)
     {
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
-        mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
+        mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
     }
 
     if (triggers.size() < 2)
     {
         const auto& message = MidiMessage::noteOn (inNoteEvent.channel, inNoteEvent.outputNote, inNoteEvent.velocity);
-        mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
+        mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
 
         triggers.add (inNoteEvent.inputNote);
         mMidiState.setOutputNoteOn (inNoteEvent.outputNote, triggers);
@@ -179,7 +182,7 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
     if (triggers.size() == 1)
     {
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
-        mTransformedMidiBuffer.addEvent (message, inNoteEvent.sampleNumber);
+        mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
     }
 
     if (triggers.size() <= 2)

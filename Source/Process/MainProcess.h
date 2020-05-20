@@ -53,9 +53,9 @@ private:
 
     //==============================================================================
     void transformMidiBuffer (MidiBuffer& midiBuffer);
-    void handleNoteOn (MidiMessage& message, int sampleNumber);
-    void handleNoteOff (MidiMessage& message, int sampleNumber);
-    void handleNonNote (MidiMessage& message, int sampleNumber);
+    void handleNoteOn (MidiMessage& message);
+    void handleNoteOff (MidiMessage& message);
+    void handleNonNote (MidiMessage& message);
 
     //==============================================================================
     void sendOutputNoteOn (NoteEvent noteEvent);

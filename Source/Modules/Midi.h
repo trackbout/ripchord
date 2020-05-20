@@ -15,7 +15,7 @@ struct Origin
 
 struct NoteEvent {
     int channel;
-    int sampleNumber;
+    int samplePosition;
     float velocity;
     int inputNote;
     int outputNote;
@@ -24,13 +24,13 @@ struct NoteEvent {
     NoteEvent
     (
         int& inChannel,
-        int& inSampleNumber,
+        int& inSamplePosition,
         float& inVelocity,
         int& inInputNote,
         int& inOutputNote
     )
     :   channel (inChannel),
-        sampleNumber (inSampleNumber),
+        samplePosition (inSamplePosition),
         velocity (inVelocity),
         inputNote (inInputNote),
         outputNote (inOutputNote)
