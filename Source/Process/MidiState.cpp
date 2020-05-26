@@ -10,6 +10,18 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
+void MidiState::handleBuffer (int inNumSamples, double inSampleRate)
+{
+    mCurrentNumSamples = inNumSamples;
+    mCurrentSampleRate = inSampleRate;
+
+    for (auto& pair : mSampleCounters)
+    {
+        mSampleCounters[pair.first] = pair.second + inNumSamples;
+    }
+}
+
+//==============================================================================
 int MidiState::getCurrentChannel()
 {
     return mCurrentChannel;
@@ -18,17 +30,6 @@ int MidiState::getCurrentChannel()
 void MidiState::setCurrentChannel (int inChannel)
 {
     mCurrentChannel = inChannel;
-}
-
-//==============================================================================
-void MidiState::setCurrentNumSamples (int inNumSamples)
-{
-    mCurrentNumSamples = inNumSamples;
-}
-
-void MidiState::setCurrentSampleRate (double inSampleRate)
-{
-    mCurrentSampleRate = inSampleRate;
 }
 
 //==============================================================================
@@ -92,14 +93,18 @@ void MidiState::setOutputNoteOff (int inOutputNote, juce::Array<int>& inTriggers
 }
 
 //==============================================================================
-void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
+void MidiState::addSampleCounter (int inInputNote)
 {
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kActiveTransposeNoteAllowed;
-    message->messageVar1 = inputNote;
-    sendMessage (message, ListenerType::kSync);
+    mSampleCounters[inInputNote] = 0;
 }
 
+void MidiState::removeSampleCounter (int inInputNote)
+{
+    if (mSampleCounters.count (inInputNote) < 1) { return; }
+    mSampleCounters.erase (inInputNote);
+}
+
+//==============================================================================
 void MidiState::addNoteEventToQueue (NoteEvent inNoteEvent, int inIndexInChord, float inDelayDepth, float inDelayVariance)
 {
     int delayVarianceMS = inDelayVariance * (rand() % 100 + 1);
@@ -108,6 +113,24 @@ void MidiState::addNoteEventToQueue (NoteEvent inNoteEvent, int inIndexInChord, 
     mNoteEventQueue.push (inNoteEvent);
 }
 
+void MidiState::removeNoteEventsFromQueue (int inInputNote)
+{
+    bool hasAbortedNoteEvents = mNoteEventQueue.size() > 0;
+
+    while (hasAbortedNoteEvents)
+    {
+        if (mNoteEventQueue.front().inputNote == inInputNote && mNoteEventQueue.size() > 0)
+        {
+            mNoteEventQueue.pop();
+        }
+        else
+        {
+            hasAbortedNoteEvents = false;
+        }
+    }
+}
+
+//==============================================================================
 bool MidiState::timeToSendNextNoteEvent()
 {
     if (mNoteEventQueue.size() == 0) { return false; }
@@ -157,19 +180,11 @@ juce::Array<int> MidiState::clearStuckNotes()
     return stuckNotes;
 }
 
-void MidiState::clearAbortedNoteEvents (int inInputNote)
+//==============================================================================
+void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
 {
-    bool hasAbortedNoteEvents = mNoteEventQueue.size() > 0;
-
-    while (hasAbortedNoteEvents)
-    {
-        if (mNoteEventQueue.front().inputNote == inInputNote && mNoteEventQueue.size() > 0)
-        {
-            mNoteEventQueue.pop();
-        }
-        else
-        {
-            hasAbortedNoteEvents = false;
-        }
-    }
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kActiveTransposeNoteAllowed;
+    message->messageVar1 = inputNote;
+    sendMessage (message, ListenerType::kSync);
 }

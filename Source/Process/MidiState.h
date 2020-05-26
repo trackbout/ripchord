@@ -15,12 +15,11 @@ public:
     ~MidiState();
 
     //==============================================================================
-    int getCurrentChannel();
-    void setCurrentChannel (int channel);
+    void handleBuffer (int numSamples, double sampleRate);
 
     //==============================================================================
-    void setCurrentNumSamples (int numSamples);
-    void setCurrentSampleRate (double sampleRate);
+    int getCurrentChannel();
+    void setCurrentChannel (int channel);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -35,15 +34,23 @@ public:
     void setOutputNoteOff (int outputNote, juce::Array<int>& triggers);
 
     //==============================================================================
-    void setActiveTransposeNoteIfAllowed (const int inputNote);
+    void addSampleCounter (int inputNote);
+    void removeSampleCounter (int inputNote);
+
+    //==============================================================================
     void addNoteEventToQueue (NoteEvent noteEvent, int indexInChord, float delayDepth, float delayVariance);
+    void removeNoteEventsFromQueue (int inputNote);
+
+    //==============================================================================
     bool timeToSendNextNoteEvent();
     NoteEvent getNextNoteEvent();
 
     //==============================================================================
     bool hasStuckNotes();
     juce::Array<int> clearStuckNotes();
-    void clearAbortedNoteEvents (int inputNote);
+
+    //==============================================================================
+    void setActiveTransposeNoteIfAllowed (const int inputNote);
 
 private:
     //==============================================================================
@@ -54,6 +61,9 @@ private:
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;
     std::map<int, Origin> mCurrentlyOnOutputNotes;
+
+    //==============================================================================
+    std::map<int, int> mSampleCounters;
     std::queue<NoteEvent> mNoteEventQueue;
 
     //==============================================================================

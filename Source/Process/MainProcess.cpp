@@ -12,8 +12,7 @@ MainProcess::~MainProcess()
 //==============================================================================
 void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate)
 {
-    mMidiState.setCurrentNumSamples (inNumSamples);
-    mMidiState.setCurrentSampleRate (inSampleRate);
+    mMidiState.handleBuffer (inNumSamples, inSampleRate);
 
     if (mMouseDownBuffer.getNumEvents() > 0)
     {
@@ -99,6 +98,11 @@ void MainProcess::handleNoteOn (MidiMessage& inMessage)
             NoteEvent initial { inChannel, inSamplePosition, inVelocity, inInputNote, chordNote };
             NoteEvent noteEvent = mControlsState.setVelocity (initial, index, sortedChordNotes.size());
 
+            if (index == 0 && (delayDepth >= MIN_DELAY_DEPTH || delayVariance >= MIN_DELAY_VARIANCE))
+            {
+                mMidiState.addSampleCounter (noteEvent.inputNote);
+            }
+
             if (mGlobalState.isEditMode() || index == 0 ||
                (delayDepth < MIN_DELAY_DEPTH && delayVariance < MIN_DELAY_VARIANCE))
             {
@@ -129,7 +133,8 @@ void MainProcess::handleNoteOff (MidiMessage& inMessage)
 
     if (mPresetState.containsChord (inInputNote))
     {
-        mMidiState.clearAbortedNoteEvents (inInputNote);
+        mMidiState.removeSampleCounter (inInputNote);
+        mMidiState.removeNoteEventsFromQueue (inInputNote);
         juce::Array<int> chordNotes = mPresetState.getChordNotes (inInputNote);
 
         for (int index = 0; index < chordNotes.size(); index++)
