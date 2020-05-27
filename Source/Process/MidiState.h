@@ -55,8 +55,6 @@ public:
 private:
     //==============================================================================
     int mCurrentChannel;
-    int mCurrentNumSamples;
-    double mCurrentSampleRate;
 
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;

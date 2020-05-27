@@ -19,7 +19,7 @@ struct NoteEvent {
     float velocity;
     int inputNote;
     int outputNote;
-    int64 timeToSend;
+    int delayInMS;
 
     NoteEvent
     (

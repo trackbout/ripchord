@@ -12,12 +12,11 @@ MidiState::~MidiState()
 //==============================================================================
 void MidiState::handleBuffer (int inNumSamples, double inSampleRate)
 {
-    mCurrentNumSamples = inNumSamples;
-    mCurrentSampleRate = inSampleRate;
+    int ms = round (1000/(inSampleRate/inNumSamples));
 
     for (auto& pair : mSampleCounters)
     {
-        mSampleCounters[pair.first] = pair.second + inNumSamples;
+        mSampleCounters[pair.first] = pair.second + ms;
     }
 }
 
@@ -109,7 +108,7 @@ void MidiState::addNoteEventToQueue (NoteEvent inNoteEvent, int inIndexInChord, 
 {
     int delayVarianceMS = inDelayVariance * (rand() % 100 + 1);
     int delayDepthMS = inDelayDepth * MAX_DELAY_DEPTH_MS * inIndexInChord;
-    inNoteEvent.timeToSend = Time::getCurrentTime().toMilliseconds() + delayDepthMS + delayVarianceMS;
+    inNoteEvent.delayInMS = delayDepthMS + delayVarianceMS;
     mNoteEventQueue.push (inNoteEvent);
 }
 
@@ -134,7 +133,10 @@ void MidiState::removeNoteEventsFromQueue (int inInputNote)
 bool MidiState::timeToSendNextNoteEvent()
 {
     if (mNoteEventQueue.size() == 0) { return false; }
-    if (mNoteEventQueue.front().timeToSend > Time::getCurrentTime().toMilliseconds()) { return false; }
+
+    NoteEvent nextNoteEvent = mNoteEventQueue.front();
+    int elapsedMS = mSampleCounters.at (nextNoteEvent.inputNote);
+    if (nextNoteEvent.delayInMS > elapsedMS) { return false; }
 
     if (!mCurrentlyOnInputNotes.contains (mNoteEventQueue.front().inputNote))
     {
