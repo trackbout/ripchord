@@ -135,6 +135,8 @@ bool MidiState::timeToSendNextNoteEvent()
     if (mNoteEventQueue.size() == 0) { return false; }
 
     NoteEvent nextNoteEvent = mNoteEventQueue.front();
+    if (mSampleCounters.count (nextNoteEvent.inputNote) == 0) { return false; }
+
     int elapsedMS = mSampleCounters.at (nextNoteEvent.inputNote);
     if (nextNoteEvent.delayInMS > elapsedMS) { return false; }
 
