@@ -159,8 +159,8 @@ NoteEvent MidiState::getNextNoteEvent()
 //==============================================================================
 bool MidiState::hasStuckNotes()
 {
-    if (mCurrentlyOnOutputNotes.size() == 0) { return false; }
     if (mCurrentlyOnInputNotes.size() > 0) { return false; }
+    if (mCurrentlyOnOutputNotes.size() == 0) { return false; }
     return true;
 }
 
@@ -182,6 +182,19 @@ juce::Array<int> MidiState::clearStuckNotes()
     sendMessage (message, ListenerType::kAsync);
 
     return stuckNotes;
+}
+
+//==============================================================================
+bool MidiState::hasOrphanedSampleCounters()
+{
+    if (mCurrentlyOnInputNotes.size() > 0) { return false; }
+    if (mSampleCounters.size() == 0) { return false; }
+    return true;
+}
+
+void MidiState::clearOrphanedSampleCounters()
+{
+    mSampleCounters.clear();
 }
 
 //==============================================================================

@@ -50,6 +50,10 @@ public:
     juce::Array<int> clearStuckNotes();
 
     //==============================================================================
+    bool hasOrphanedSampleCounters();
+    void clearOrphanedSampleCounters();
+
+    //==============================================================================
     void setActiveTransposeNoteIfAllowed (const int inputNote);
 
 private:

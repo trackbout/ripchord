@@ -30,6 +30,11 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, 
         for (int& note : stuckNotes) { sendStuckNoteOff (note); }
     }
 
+    if (mMidiState.hasOrphanedSampleCounters())
+    {
+        mMidiState.clearOrphanedSampleCounters();
+    }
+
     handleNoteEventQueue();
 
     inMidiBuffer.clear();
