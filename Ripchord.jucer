@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="cWQoqq" name="Ripchord" projectType="audioplug" jucerVersion="5.4.7"
-              version="2.2.1" companyName="Trackbout" companyWebsite="https://trackbout.com"
+              version="2.2.2" companyName="Trackbout" companyWebsite="https://trackbout.com"
               pluginCharacteristicsValue="pluginEditorRequiresKeys,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginFormats="buildAU,buildStandalone,buildVST3" pluginName="Ripchord"
               pluginDesc="Ripchord" pluginManufacturer="Trackbout" pluginManufacturerCode="TkBt"
