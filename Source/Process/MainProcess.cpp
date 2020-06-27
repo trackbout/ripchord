@@ -55,12 +55,11 @@ void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
 //==============================================================================
 void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
 {
-    int samplePosition;
-    MidiMessage message;
     mTransformedMidiBuffer.clear();
 
-    for (MidiBuffer::Iterator iterator (inMidiBuffer); iterator.getNextEvent (message, samplePosition);)
+    for (const MidiMessageMetadata messageData : inMidiBuffer)
     {
+        MidiMessage message = messageData.getMessage();
         mMidiState.setCurrentChannel (message.getChannel());
 
         if (mGlobalState.isPlayMode() &&
