@@ -12,7 +12,7 @@ MainProcess::~MainProcess()
 //==============================================================================
 void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate)
 {
-    mMidiState.handleBuffer (inNumSamples, inSampleRate);
+    mMidiState.updateSampleCounters (inNumSamples, inSampleRate);
 
     if (mMouseDownBuffer.getNumEvents() > 0)
     {
@@ -24,18 +24,8 @@ void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, 
         transformMidiBuffer (inMidiBuffer);
     }
 
-    if (mMidiState.hasStuckNotes())
-    {
-        juce::Array<int> stuckNotes = mMidiState.clearStuckNotes();
-        for (int& note : stuckNotes) { sendStuckNoteOff (note); }
-    }
-
-    if (mMidiState.hasOrphanedSampleCounters())
-    {
-        mMidiState.clearOrphanedSampleCounters();
-    }
-
     handleNoteEventQueue();
+    mMidiState.scrubMidiState (mTransformedMidiBuffer);
 
     inMidiBuffer.clear();
     inMidiBuffer.swapWith (mTransformedMidiBuffer);
@@ -201,12 +191,6 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
         triggers.removeFirstMatchingValue (inNoteEvent.inputNote);
         mMidiState.setOutputNoteOff (inNoteEvent.outputNote, triggers);
     }
-}
-
-void MainProcess::sendStuckNoteOff (int inOutputNote)
-{
-    int channel = mMidiState.getCurrentChannel();
-    mTransformedMidiBuffer.addEvent (MidiMessage::noteOff (channel, inOutputNote), 0);
 }
 
 //==============================================================================

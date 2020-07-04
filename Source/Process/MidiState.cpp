@@ -10,7 +10,7 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
-void MidiState::handleBuffer (int inNumSamples, double inSampleRate)
+void MidiState::updateSampleCounters (int inNumSamples, double inSampleRate)
 {
     int ms = round (1000/(inSampleRate/inNumSamples));
 
@@ -18,12 +18,6 @@ void MidiState::handleBuffer (int inNumSamples, double inSampleRate)
     {
         mSampleCounters[pair.first] = pair.second + ms;
     }
-}
-
-//==============================================================================
-int MidiState::getCurrentChannel()
-{
-    return mCurrentChannel;
 }
 
 void MidiState::setCurrentChannel (int inChannel)
@@ -157,51 +151,44 @@ NoteEvent MidiState::getNextNoteEvent()
 }
 
 //==============================================================================
-bool MidiState::hasStuckNotes()
-{
-    if (mCurrentlyOnInputNotes.size() > 0) { return false; }
-    if (mCurrentlyOnOutputNotes.size() == 0) { return false; }
-    return true;
-}
-
-juce::Array<int> MidiState::clearStuckNotes()
-{
-    juce::Array<int> stuckNotes;
-    std::queue<NoteEvent> emptyQueue;
-
-    for (const auto& pair : mCurrentlyOnOutputNotes)
-    {
-      stuckNotes.add (pair.first);
-    }
-
-    mCurrentlyOnOutputNotes.clear();
-    std::swap (mNoteEventQueue, emptyQueue);
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kClearStuckNotes;
-    sendMessage (message, ListenerType::kAsync);
-
-    return stuckNotes;
-}
-
-//==============================================================================
-bool MidiState::hasOrphanedSampleCounters()
-{
-    if (mCurrentlyOnInputNotes.size() > 0) { return false; }
-    if (mSampleCounters.size() == 0) { return false; }
-    return true;
-}
-
-void MidiState::clearOrphanedSampleCounters()
-{
-    mSampleCounters.clear();
-}
-
-//==============================================================================
 void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
 {
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kActiveTransposeNoteAllowed;
     message->messageVar1 = inputNote;
     sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void MidiState::scrubMidiState (MidiBuffer& inMidiBuffer)
+{
+    if (mCurrentlyOnInputNotes.size() > 0)
+    {
+        return;
+    }
+
+    if (mSampleCounters.size() > 0)
+    {
+        mSampleCounters.clear();
+    }
+
+    if (mNoteEventQueue.size() > 0)
+    {
+        std::queue<NoteEvent> emptyQueue;
+        std::swap (mNoteEventQueue, emptyQueue);
+    }
+
+    if (mCurrentlyOnOutputNotes.size() > 0)
+    {
+        for (const auto& pair : mCurrentlyOnOutputNotes)
+        {
+            inMidiBuffer.addEvent (MidiMessage::noteOff (mCurrentChannel, pair.first), 0);
+        }
+
+        mCurrentlyOnOutputNotes.clear();
+
+        DataMessage* message = new DataMessage();
+        message->messageCode = MessageCode::kClearStuckNotes;
+        sendMessage (message, ListenerType::kAsync);
+    }
 }

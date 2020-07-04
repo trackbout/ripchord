@@ -15,10 +15,7 @@ public:
     ~MidiState();
 
     //==============================================================================
-    void handleBuffer (int numSamples, double sampleRate);
-
-    //==============================================================================
-    int getCurrentChannel();
+    void updateSampleCounters (int numSamples, double sampleRate);
     void setCurrentChannel (int channel);
 
     //==============================================================================
@@ -46,12 +43,7 @@ public:
     NoteEvent getNextNoteEvent();
 
     //==============================================================================
-    bool hasStuckNotes();
-    juce::Array<int> clearStuckNotes();
-
-    //==============================================================================
-    bool hasOrphanedSampleCounters();
-    void clearOrphanedSampleCounters();
+    void scrubMidiState (MidiBuffer& midiBuffer);
 
     //==============================================================================
     void setActiveTransposeNoteIfAllowed (const int inputNote);

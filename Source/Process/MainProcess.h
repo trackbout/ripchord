@@ -55,7 +55,6 @@ private:
     //==============================================================================
     void sendOutputNoteOn (NoteEvent noteEvent);
     void sendOutputNoteOff (NoteEvent noteEvent);
-    void sendStuckNoteOff (int outputNote);
 
     //==============================================================================
     void handleNoteEventQueue();
