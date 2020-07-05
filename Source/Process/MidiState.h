@@ -15,8 +15,8 @@ public:
     ~MidiState();
 
     //==============================================================================
-    void updateSampleCounters (int numSamples, double sampleRate);
     void setCurrentChannel (int channel);
+    void handleSampleCount (int numSamples, double sampleRate);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();

@@ -201,7 +201,7 @@ void PresetState::handleMouseDownOnPaste (const int inInputNote)
 //==============================================================================
 void PresetState::handleMouseDownOnNew()
 {
-    resetPresetState();
+    resetPresetState (false);
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileNew;
     sendMessage (message, ListenerType::kSync);
@@ -286,6 +286,14 @@ void PresetState::handleMouseDownOnExport()
         rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
         rootXml.writeTo (chooser.getResult());
     }
+}
+
+void PresetState::handleMouseDownOnDuplicate()
+{
+    resetPresetState (true);
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileNew;
+    sendMessage (message, ListenerType::kSync);
 }
 
 void PresetState::handleMouseDownOnEditLeft()
@@ -437,10 +445,11 @@ void PresetState::setChord (const int inInputNote, Chord inChord)
     mChords[inInputNote] = inChord;
 }
 
-void PresetState::resetPresetState()
+void PresetState::resetPresetState (bool inKeepChords)
 {
+    if (!inKeepChords) { mChords.clear(); }
+
     mName.clear();
-    mChords.clear();
     mPresetFileName.clear();
     mIsPresetModified = false;
     mEditModeInputNote = 0;
@@ -448,7 +457,7 @@ void PresetState::resetPresetState()
 
 void PresetState::loadMidiFile (File inMidiFile)
 {
-    resetPresetState();
+    resetPresetState (false);
     mName = inMidiFile.getFileNameWithoutExtension();
     mPresetFileName = mName + PRESET_EXTENSION;
     mChords = saveMidiFile (inMidiFile);
@@ -462,7 +471,7 @@ void PresetState::loadMidiFile (File inMidiFile)
 
 void PresetState::loadPresetFile (File inPresetFile)
 {
-    resetPresetState();
+    resetPresetState (false);
     mName = inPresetFile.getFileNameWithoutExtension();
     mPresetFileName = mName + PRESET_EXTENSION;
     mChords = savePresetFile (inPresetFile);

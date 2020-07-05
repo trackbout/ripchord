@@ -46,6 +46,7 @@ public:
     void handleMouseDownOnMidi();
     void handleMouseDownOnImport();
     void handleMouseDownOnExport();
+    void handleMouseDownOnDuplicate();
     void handleMouseDownOnEditLeft();
     void handleMouseDownOnEditRight();
     void handleMouseDownOnAllWhite();
@@ -71,7 +72,7 @@ private:
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
 
-    void resetPresetState();
+    void resetPresetState (bool keepChords);
     void loadMidiFile (File midiFile);
     void loadPresetFile (File presetFile);
 

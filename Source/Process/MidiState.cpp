@@ -10,19 +10,19 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
-void MidiState::updateSampleCounters (int inNumSamples, double inSampleRate)
-{
-    int ms = round (1000/(inSampleRate/inNumSamples));
-
-    for (auto& pair : mSampleCounters)
-    {
-        mSampleCounters[pair.first] = pair.second + ms;
-    }
-}
-
 void MidiState::setCurrentChannel (int inChannel)
 {
     mCurrentChannel = inChannel;
+}
+
+void MidiState::handleSampleCount (int inNumSamples, double inSampleRate)
+{
+    int milliseconds = round (1000/(inSampleRate/inNumSamples));
+
+    for (auto& pair : mSampleCounters)
+    {
+        mSampleCounters[pair.first] = pair.second + milliseconds;
+    }
 }
 
 //==============================================================================

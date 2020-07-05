@@ -32,10 +32,12 @@ private:
 
     Images mImages;
     DrawableButton mNewButton { "", DrawableButton::ImageStretched };
+    DrawableButton mDuplicateButton { "", DrawableButton::ImageStretched };
     DrawableButton mMidiButton { "", DrawableButton::ImageStretched };
     DrawableButton mImportButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportButton { "", DrawableButton::ImageStretched };
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };
+    DrawableButton mFooter { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     void handleToggleMenu (const DataMessage* message);

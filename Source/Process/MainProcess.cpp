@@ -12,7 +12,7 @@ MainProcess::~MainProcess()
 //==============================================================================
 void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate)
 {
-    mMidiState.updateSampleCounters (inNumSamples, inSampleRate);
+    mMidiState.handleSampleCount (inNumSamples, inSampleRate);
 
     if (mMouseDownBuffer.getNumEvents() > 0)
     {
