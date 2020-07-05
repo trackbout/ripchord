@@ -10,17 +10,17 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mImages.setDrawableButtonImages (mNewButton, "New.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "Duplicate.svg");
-    mImages.setDrawableButtonImages (mMidiButton, "MIDI.svg");
-    mImages.setDrawableButtonImages (mImportButton, "Import.svg");
-    mImages.setDrawableButtonImages (mExportButton, "Export.svg");
+    mImages.setDrawableButtonImages (mImportMidiButton, "ImportMidi.svg");
+    mImages.setDrawableButtonImages (mImportPresetButton, "ImportPreset.svg");
+    mImages.setDrawableButtonImages (mExportPresetButton, "ExportPreset.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "Community.svg");
     mImages.setDrawableButtonImages (mFooter, "Footer.svg");
 
     mNewButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
-    mMidiButton.setTriggeredOnMouseDown (true);
-    mImportButton.setTriggeredOnMouseDown (true);
-    mExportButton.setTriggeredOnMouseDown (true);
+    mImportMidiButton.setTriggeredOnMouseDown (true);
+    mImportPresetButton.setTriggeredOnMouseDown (true);
+    mExportPresetButton.setTriggeredOnMouseDown (true);
     mCommunityButton.setTriggeredOnMouseDown (true);
 
     mNewButton.onClick = [this]()
@@ -31,23 +31,24 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mDuplicateButton.onClick = [this]()
     {
+        if (!mPresetState.isPresetValid()) { return; }
         mPresetState.handleMouseDownOnDuplicate();
         mGlobalState.toggleMenu();
     };
 
-    mMidiButton.onClick = [this]()
+    mImportMidiButton.onClick = [this]()
     {
         mPresetState.handleMouseDownOnMidi();
         mGlobalState.toggleMenu();
     };
 
-    mImportButton.onClick = [this]()
+    mImportPresetButton.onClick = [this]()
     {
         mPresetState.handleMouseDownOnImport();
         mGlobalState.toggleMenu();
     };
 
-    mExportButton.onClick = [this]()
+    mExportPresetButton.onClick = [this]()
     {
         if (!mPresetState.isPresetValid()) { return; }
         mPresetState.handleMouseDownOnExport();
@@ -63,9 +64,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mNewButton);
     addAndMakeVisible (mDuplicateButton);
-    addAndMakeVisible (mMidiButton);
-    addAndMakeVisible (mImportButton);
-    addAndMakeVisible (mExportButton);
+    addAndMakeVisible (mImportMidiButton);
+    addAndMakeVisible (mImportPresetButton);
+    addAndMakeVisible (mExportPresetButton);
     addAndMakeVisible (mCommunityButton);
     addAndMakeVisible (mFooter);
 }
@@ -92,9 +93,9 @@ void MenuComponent::resized()
 
     mNewButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mDuplicateButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mMidiButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mImportButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mExportButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mImportMidiButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mImportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mExportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mCommunityButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mFooter.setBounds (menuArea.removeFromTop (buttonHeight));
 }
@@ -118,6 +119,7 @@ void MenuComponent::handleNewMessage (const DataMessage* inMessage)
 void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     if (mGlobalState.isMenuHidden()) { return; }
-    bool isExportable = mPresetState.isPresetValid();
-    mImages.setDrawableButtonImages (mExportButton, isExportable ? "Export.svg" : "ExportOFF.svg");
+    bool hasValidPreset = mPresetState.isPresetValid();
+    mImages.setDrawableButtonImages (mDuplicateButton, hasValidPreset ? "Duplicate.svg" : "DuplicateOFF.svg");
+    mImages.setDrawableButtonImages (mExportPresetButton, hasValidPreset ? "ExportPreset.svg" : "ExportPresetOFF.svg");
 }

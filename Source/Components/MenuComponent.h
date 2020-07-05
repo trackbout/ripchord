@@ -33,9 +33,9 @@ private:
     Images mImages;
     DrawableButton mNewButton { "", DrawableButton::ImageStretched };
     DrawableButton mDuplicateButton { "", DrawableButton::ImageStretched };
-    DrawableButton mMidiButton { "", DrawableButton::ImageStretched };
-    DrawableButton mImportButton { "", DrawableButton::ImageStretched };
-    DrawableButton mExportButton { "", DrawableButton::ImageStretched };
+    DrawableButton mImportMidiButton { "", DrawableButton::ImageStretched };
+    DrawableButton mImportPresetButton { "", DrawableButton::ImageStretched };
+    DrawableButton mExportPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };
     DrawableButton mFooter { "", DrawableButton::ImageStretched };
 

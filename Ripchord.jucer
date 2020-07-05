@@ -27,18 +27,23 @@
               file="Source/Assets/DirectionABBA.svg"/>
         <FILE id="yyjdMp" name="DirectionBAAB.svg" compile="0" resource="1"
               file="Source/Assets/DirectionBAAB.svg"/>
-        <FILE id="H6tjFm" name="Duplicate.svg" compile="0" resource="1" file="Source/Assets/Duplicate.svg"/>
+        <FILE id="qLg6Of" name="Duplicate.svg" compile="0" resource="1" file="Source/Assets/Duplicate.svg"/>
+        <FILE id="rbWgXu" name="DuplicateOFF.svg" compile="0" resource="1"
+              file="Source/Assets/DuplicateOFF.svg"/>
         <FILE id="JW8WZR" name="EditLeftON.svg" compile="0" resource="1" file="Source/Assets/EditLeftON.svg"/>
         <FILE id="aKMBLR" name="EditRightON.svg" compile="0" resource="1" file="Source/Assets/EditRightON.svg"/>
-        <FILE id="MrBsXM" name="Export.svg" compile="0" resource="1" file="Source/Assets/Export.svg"/>
-        <FILE id="zptfob" name="ExportOFF.svg" compile="0" resource="1" file="Source/Assets/ExportOFF.svg"/>
+        <FILE id="whurwb" name="ExportPreset.svg" compile="0" resource="1"
+              file="Source/Assets/ExportPreset.svg"/>
+        <FILE id="SWyhn7" name="ExportPresetOFF.svg" compile="0" resource="1"
+              file="Source/Assets/ExportPresetOFF.svg"/>
         <FILE id="FaOXrc" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="TxbeaI" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
         <FILE id="t2kFQM" name="Footer.svg" compile="0" resource="1" file="Source/Assets/Footer.svg"/>
         <FILE id="YGlnp3" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
-        <FILE id="VsDAm8" name="Import.svg" compile="0" resource="1" file="Source/Assets/Import.svg"/>
+        <FILE id="m03VUP" name="ImportMidi.svg" compile="0" resource="1" file="Source/Assets/ImportMidi.svg"/>
+        <FILE id="ZM0LFY" name="ImportPreset.svg" compile="0" resource="1"
+              file="Source/Assets/ImportPreset.svg"/>
         <FILE id="EHeoFM" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="k0GIZL" name="MIDI.svg" compile="0" resource="1" file="Source/Assets/MIDI.svg"/>
         <FILE id="f7IOzM" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
         <FILE id="sBKOde" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
         <FILE id="W412mR" name="New.svg" compile="0" resource="1" file="Source/Assets/New.svg"/>
