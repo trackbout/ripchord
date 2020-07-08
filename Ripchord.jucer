@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="cWQoqq" name="Ripchord" projectType="audioplug" jucerVersion="5.4.7"
-              version="2.2.2" companyName="Trackbout" companyWebsite="https://trackbout.com"
+<JUCERPROJECT id="cWQoqq" name="Ripchord" projectType="audioplug" version="2.3.0"
+              companyName="Trackbout" companyWebsite="https://trackbout.com"
               pluginCharacteristicsValue="pluginEditorRequiresKeys,pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginFormats="buildAU,buildStandalone,buildVST3" pluginName="Ripchord"
               pluginDesc="Ripchord" pluginManufacturer="Trackbout" pluginManufacturerCode="TkBt"
               pluginCode="RpCh" pluginAUMainType="'aumi'" pluginVST3Category="Generator"
-              reportAppUsage="0" displaySplashScreen="0" splashScreenColour="Dark">
+              reportAppUsage="0" displaySplashScreen="0" splashScreenColour="Dark"
+              jucerFormatVersion="1">
   <MAINGROUP id="gjMAdL" name="Ripchord">
     <GROUP id="{B7141C90-8679-6CA6-DFD2-5E27422D1A61}" name="Source">
       <GROUP id="{3E841B27-D72E-1E3E-82C9-FBBC01EC00A2}" name="Assets">
