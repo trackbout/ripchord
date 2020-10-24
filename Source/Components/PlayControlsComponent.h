@@ -32,6 +32,8 @@ private:
 
     Images mImages;
 
+    DrawableButton mRecordedButton { "", DrawableButton::ImageStretched };
+
     DrawableButton mVelocityDirectionButton { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityDepthImage { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityVarianceImage { "", DrawableButton::ImageStretched };
@@ -43,6 +45,8 @@ private:
     DrawableButton mDelayVarianceImage { "", DrawableButton::ImageStretched };
     DrawableButton mDelayDepthImage { "", DrawableButton::ImageStretched };
     DrawableButton mDelayDirectionButton { "", DrawableButton::ImageStretched };
+
+    DrawableButton mRecordButton { "", DrawableButton::ImageStretched };
 
     Slider mVelocityDepthSlider;
     Slider mVelocityVarianceSlider;

@@ -10,18 +10,23 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    mImages.setDrawableButtonImages (mRecordedButton, "Recorded.svg");
     mImages.setDrawableButtonImages (mVelocityDepthImage, "Velocity.svg");
     mImages.setDrawableButtonImages (mVelocityVarianceImage, "Variance.svg");
-
     mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
     mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
     mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
-
     mImages.setDrawableButtonImages (mDelayVarianceImage, "Variance.svg");
     mImages.setDrawableButtonImages (mDelayDepthImage, "Delay.svg");
+    mImages.setDrawableButtonImages (mRecordButton, "Record.svg");
 
+    mRecordedButton.setTriggeredOnMouseDown (true);
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
+    mShiftLeftButton.setTriggeredOnMouseDown (true);
+    mTransposeButton.setTriggeredOnMouseDown (true);
+    mShiftRightButton.setTriggeredOnMouseDown (true);
     mDelayDirectionButton.setTriggeredOnMouseDown (true);
+    mRecordButton.setTriggeredOnMouseDown (true);
 
     mVelocityDirectionButton.onClick = [this]()
     {
@@ -55,10 +60,6 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mDelayVarianceSlider.setSliderStyle (Slider::RotaryVerticalDrag);
     mDelayVarianceSlider.setTextBoxStyle (Slider::NoTextBox, true, 0, 0);
 
-    mShiftLeftButton.setTriggeredOnMouseDown (true);
-    mTransposeButton.setTriggeredOnMouseDown (true);
-    mShiftRightButton.setTriggeredOnMouseDown (true);
-
     mShiftLeftButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
@@ -77,6 +78,18 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
         mControlsState.handleMouseDownOnShiftRight();
     };
 
+    mRecordedButton.onClick = [this]()
+    {
+        DBG ("LOL");
+    };
+
+    mRecordButton.onClick = [this]()
+    {
+        DBG ("WUT");
+    };
+
+    addAndMakeVisible (mRecordedButton);
+
     addAndMakeVisible (mVelocityDepthImage);
     addAndMakeVisible (mVelocityDirectionButton);
     addAndMakeVisible (mVelocityVarianceImage);
@@ -92,6 +105,8 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mDelayDepthImage);
     addAndMakeVisible (mDelayVarianceSlider);
     addAndMakeVisible (mDelayDepthSlider);
+
+    addAndMakeVisible (mRecordButton);
 }
 
 PlayControlsComponent::~PlayControlsComponent()
@@ -101,6 +116,8 @@ PlayControlsComponent::~PlayControlsComponent()
 //==============================================================================
 void PlayControlsComponent::resized()
 {
+    mRecordedButton.setBounds (RECORDED_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+
     mVelocityDirectionButton.setBounds (VELOCITY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityDepthImage.setBounds (VELOCITY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityVarianceImage.setBounds (VELOCITY_VARIANCE_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
@@ -116,6 +133,8 @@ void PlayControlsComponent::resized()
     mDelayVarianceSlider.setBounds (DELAY_VARIANCE_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
     mDelayDepthSlider.setBounds (DELAY_DEPTH_X - SLIDER_X_OFFSET, SLIDER_Y, SLIDER_SIZE, SLIDER_SIZE);
     mDelayDirectionButton.setBounds (DELAY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+
+    mRecordButton.setBounds (RECORD_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 }
 
 //==============================================================================
