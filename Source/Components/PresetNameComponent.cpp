@@ -69,10 +69,7 @@ void PresetNameComponent::resized()
     mLeftArrowButton.setBounds (area.removeFromLeft (arrowWidth));
     mRightArrowButton.setBounds (area.removeFromRight (arrowWidth));
     mPresetNameLabel.setBounds (area);
-
-    auto& input = mPresetNameInput;
-    float extra = input.getHeight() - input.getFont().getHeight() - input.getBorder().getTopAndBottom();
-    mPresetNameInput.setIndents (5, (int) (extra * 0.5f));
+    mPresetNameInput.setIndents (5, -1);
 }
 
 //==============================================================================
