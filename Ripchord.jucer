@@ -33,13 +33,16 @@
               file="Source/Assets/DuplicateOFF.svg"/>
         <FILE id="JW8WZR" name="EditLeftON.svg" compile="0" resource="1" file="Source/Assets/EditLeftON.svg"/>
         <FILE id="aKMBLR" name="EditRightON.svg" compile="0" resource="1" file="Source/Assets/EditRightON.svg"/>
-        <FILE id="whurwb" name="ExportPreset.svg" compile="0" resource="1"
+        <FILE id="SvAbbD" name="ExportMidi.svg" compile="0" resource="1" file="Source/Assets/ExportMidi.svg"/>
+        <FILE id="UxTCoa" name="ExportMidiOFF.svg" compile="0" resource="1"
+              file="Source/Assets/ExportMidiOFF.svg"/>
+        <FILE id="dSrlW4" name="ExportPreset.svg" compile="0" resource="1"
               file="Source/Assets/ExportPreset.svg"/>
-        <FILE id="SWyhn7" name="ExportPresetOFF.svg" compile="0" resource="1"
+        <FILE id="dJgixQ" name="ExportPresetOFF.svg" compile="0" resource="1"
               file="Source/Assets/ExportPresetOFF.svg"/>
         <FILE id="FaOXrc" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="TxbeaI" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
-        <FILE id="t2kFQM" name="Footer.svg" compile="0" resource="1" file="Source/Assets/Footer.svg"/>
+        <FILE id="lIB2AM" name="Footer.svg" compile="0" resource="1" file="Source/Assets/Footer.svg"/>
         <FILE id="YGlnp3" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
         <FILE id="m03VUP" name="ImportMidi.svg" compile="0" resource="1" file="Source/Assets/ImportMidi.svg"/>
         <FILE id="ZM0LFY" name="ImportPreset.svg" compile="0" resource="1"
