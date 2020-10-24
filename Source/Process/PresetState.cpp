@@ -226,7 +226,7 @@ void PresetState::handleMouseDownOnSave()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnMidi()
+void PresetState::handleMouseDownOnImportMidi()
 {
     FileChooser chooser ("Select a MIDI file(s)...", DESKTOP_FOLDER, "*.mid");
 
@@ -250,7 +250,21 @@ void PresetState::handleMouseDownOnMidi()
     }
 }
 
-void PresetState::handleMouseDownOnImport()
+void PresetState::handleMouseDownOnExportMidi()
+{
+    if (!isPresetValid()) { return; }
+
+    FileChooser chooser ("Copy preset to...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
+
+    if (chooser.browseForFileToSave (true))
+    {
+        XmlElement rootXml ("ripchord");
+        rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
+        rootXml.writeTo (chooser.getResult());
+    }
+}
+
+void PresetState::handleMouseDownOnImportPreset()
 {
     FileChooser chooser ("Select a preset file(s)...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
 
@@ -274,7 +288,7 @@ void PresetState::handleMouseDownOnImport()
     }
 }
 
-void PresetState::handleMouseDownOnExport()
+void PresetState::handleMouseDownOnExportPreset()
 {
     if (!isPresetValid()) { return; }
 

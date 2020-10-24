@@ -43,9 +43,10 @@ public:
     //==============================================================================
     void handleMouseDownOnNew();
     void handleMouseDownOnSave();
-    void handleMouseDownOnMidi();
-    void handleMouseDownOnImport();
-    void handleMouseDownOnExport();
+    void handleMouseDownOnImportMidi();
+    void handleMouseDownOnExportMidi();
+    void handleMouseDownOnImportPreset();
+    void handleMouseDownOnExportPreset();
     void handleMouseDownOnDuplicate();
     void handleMouseDownOnEditLeft();
     void handleMouseDownOnEditRight();
