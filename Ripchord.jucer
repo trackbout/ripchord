@@ -57,6 +57,12 @@
         <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
         <FILE id="js20p0" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
         <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
+        <FILE id="IC5Huf" name="Record.svg" compile="0" resource="1" file="Source/Assets/Record.svg"/>
+        <FILE id="gJoNuJ" name="RecordIN.svg" compile="0" resource="1" file="Source/Assets/RecordIN.svg"/>
+        <FILE id="LGQTkr" name="RecordON.svg" compile="0" resource="1" file="Source/Assets/RecordON.svg"/>
+        <FILE id="hS08KG" name="Recorded.svg" compile="0" resource="1" file="Source/Assets/Recorded.svg"/>
+        <FILE id="mcx25O" name="RecordedIN.svg" compile="0" resource="1" file="Source/Assets/RecordedIN.svg"/>
+        <FILE id="wkbRsX" name="RecordedON.svg" compile="0" resource="1" file="Source/Assets/RecordedON.svg"/>
         <FILE id="Mwewns" name="RightClick.svg" compile="0" resource="1" file="Source/Assets/RightClick.svg"/>
         <FILE id="GwjAG2" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="RUDmho" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
