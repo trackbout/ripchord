@@ -21,6 +21,7 @@ enum MessageCode
     kToggleMenu,
 
     // Messages from ControlsState
+    kToggleRecord,
     kDelayDepth,
     kDelayVariance,
     kDelayDirection,

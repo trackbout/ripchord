@@ -54,6 +54,7 @@ private:
     Slider mDelayVarianceSlider;
 
     void handleToggleMode (const DataMessage* message);
+    void handleToggleRecord (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
 
     void handleDelayDepth (const DataMessage* message);
@@ -62,6 +63,7 @@ private:
     void handleVelocityDepth (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
 
+    void updateRecordButton();
     void updateTransposeButton();
     void updateDelayDirectionButton();
     void updateVelocityDirectionButton();

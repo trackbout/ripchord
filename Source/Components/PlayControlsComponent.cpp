@@ -20,7 +20,6 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mDelayDepthImage, "Delay.svg");
     mImages.setDrawableButtonImages (mRecordButton, "Record.svg");
 
-    mRecordedButton.setTriggeredOnMouseDown (true);
     mVelocityDirectionButton.setTriggeredOnMouseDown (true);
     mShiftLeftButton.setTriggeredOnMouseDown (true);
     mTransposeButton.setTriggeredOnMouseDown (true);
@@ -78,14 +77,9 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
         mControlsState.handleMouseDownOnShiftRight();
     };
 
-    mRecordedButton.onClick = [this]()
-    {
-        DBG ("LOL");
-    };
-
     mRecordButton.onClick = [this]()
     {
-        DBG ("WUT");
+        mControlsState.toggleRecord();
     };
 
     addAndMakeVisible (mRecordedButton);
@@ -167,6 +161,7 @@ void PlayControlsComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
+        case (MessageCode::kToggleRecord): { handleToggleRecord (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kDelayDepth): { handleDelayDepth (inMessage); } break;
         case (MessageCode::kDelayDirection): { handleDelayDirection (inMessage); } break;
@@ -184,6 +179,7 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
     if (mGlobalState.isPlayMode())
     {
         setVisible (true);
+        updateRecordButton();
         updateTransposeButton();
         updateDelayDirectionButton();
         updateVelocityDirectionButton();
@@ -192,6 +188,11 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
         mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth() * 100000);
         mVelocityVarianceSlider.setValue (mControlsState.getVelocityVariance() * 100000);
     }
+}
+
+void PlayControlsComponent::handleToggleRecord (const DataMessage* inMessage)
+{
+    updateRecordButton();
 }
 
 void PlayControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
@@ -217,6 +218,12 @@ void PlayControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
 void PlayControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
 {
     updateVelocityDirectionButton();
+}
+
+void PlayControlsComponent::updateRecordButton()
+{
+    String buttonImage = mControlsState.isRecordOff() ? "Record.svg" : "RecordIN.svg";
+    mImages.setDrawableButtonImages (mRecordButton, buttonImage);
 }
 
 void PlayControlsComponent::updateTransposeButton()

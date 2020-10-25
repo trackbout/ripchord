@@ -10,14 +10,56 @@ ControlsState::~ControlsState()
 }
 
 //==============================================================================
+bool ControlsState::isRecordIn()
+{
+    return mRecord == Record::RecordIn;
+}
+
+bool ControlsState::isRecordOn()
+{
+    return mRecord == Record::RecordOn;
+}
+
+bool ControlsState::isRecordOff()
+{
+    return mRecord == Record::RecordOff;
+}
+
+//==============================================================================
+bool ControlsState::isRecordedIn()
+{
+    return mRecorded == Recorded::RecordedIn;
+}
+
+bool ControlsState::isRecordedOn()
+{
+    return mRecorded == Recorded::RecordedOn;
+}
+
+bool ControlsState::isRecordedOff()
+{
+    return mRecorded == Recorded::RecordedOff;
+}
+
+//==============================================================================
+void ControlsState::toggleRecord()
+{
+    mRecord = isRecordOff() ? Record::RecordIn : Record::RecordOff;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleRecord;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 bool ControlsState::isTransposeOn()
 {
-    return mTranspose == Transpose::On;
+    return mTranspose == Transpose::TransposeOn;
 }
 
 bool ControlsState::isTransposeOff()
 {
-    return mTranspose == Transpose::Off;
+    return mTranspose == Transpose::TransposeOff;
 }
 
 //==============================================================================
@@ -60,7 +102,7 @@ int ControlsState::getTransposedNote (const int inOutputNote, const int inActive
 //==============================================================================
 void ControlsState::toggleTranspose()
 {
-    mTranspose = isTransposeOff() ? Transpose::On : Transpose::Off;
+    mTranspose = isTransposeOff() ? Transpose::TransposeOn : Transpose::TransposeOff;
     if (mActiveTransposeNote > 0) { mActiveTransposeNote = -1; }
 
     DataMessage* message = new DataMessage();
@@ -314,7 +356,7 @@ XmlElement* ControlsState::exportControlsStateXml()
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
-    mTranspose = inControlsStateXml->getBoolAttribute ("transpose") ? Transpose::On : Transpose::Off;
+    mTranspose = inControlsStateXml->getBoolAttribute ("transpose") ? Transpose::TransposeOn : Transpose::TransposeOff;
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
 
