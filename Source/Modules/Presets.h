@@ -133,16 +133,22 @@ namespace Presets
 
         MidiFile midiFile;
         MidiMessageSequence events;
-        const int largeNumberOfEvents = 160;
         FileInputStream midiFileStream (inMidiFile);
         midiFile.readFrom (midiFileStream);
-        const MidiMessageSequence* midiTrack = midiFile.getTrack (0);
 
-        for (MidiMessageSequence::MidiEventHolder* event : *midiTrack)
+        const int largeNumberOfEvents = 160;
+        const int numberOfTracks = midiFile.getNumTracks();
+
+        for (int index = 0; index < numberOfTracks; index++)
         {
-            if (event->message.isNoteOnOrOff())
+            const MidiMessageSequence* midiTrack = midiFile.getTrack (index);
+
+            for (MidiMessageSequence::MidiEventHolder* event : *midiTrack)
             {
-                events.addEvent (event->message);
+                if (event->message.isNoteOnOrOff())
+                {
+                    events.addEvent (event->message);
+                }
             }
         }
 
