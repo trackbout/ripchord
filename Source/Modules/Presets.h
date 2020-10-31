@@ -126,7 +126,7 @@ namespace Presets
 
     static inline std::map<int, Chord> getChordsFromMidiFile (File inMidiFile)
     {
-        int chordIndex = 23;
+        int noteNumber = 60;
         juce::Array<int> currentNotes;
         juce::Array<String> chordNames;
         std::map<int, Chord> chords;
@@ -148,12 +148,12 @@ namespace Presets
 
         if (events.getNumEvents() > largeNumberOfEvents)
         {
-            chordIndex = 0;
+            noteNumber = 21;
         }
 
         for (MidiMessageSequence::MidiEventHolder* event : events)
         {
-            if (chordIndex > 51) { return chords; }
+            if (noteNumber > 108) { return chords; }
 
             const MidiMessage message = event->message;
 
@@ -173,8 +173,8 @@ namespace Presets
                     chord.name = chordName;
                     chord.notes = currentNotes;
                     chordNames.add (chordName);
-                    chords[Keyboard::getWhiteNoteNumber (chordIndex)] = chord;
-                    chordIndex = chordIndex + 1;
+                    chords[noteNumber] = chord;
+                    noteNumber = noteNumber + 1;
                 }
 
                 currentNotes.clear();
