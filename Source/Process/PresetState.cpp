@@ -1,4 +1,5 @@
 #include "PresetState.h"
+#include "Midi.h"
 
 //==============================================================================
 PresetState::PresetState()
@@ -254,13 +255,16 @@ void PresetState::handleMouseDownOnExportMidi()
 {
     if (!isPresetValid()) { return; }
 
-    FileChooser chooser ("Copy preset to...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
+    FileChooser chooser ("Export MIDI as...", DESKTOP_FOLDER, "*.mid");
 
     if (chooser.browseForFileToSave (true))
     {
-        XmlElement rootXml ("ripchord");
-        rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
-        rootXml.writeTo (chooser.getResult());
+        MidiFile midiFile;
+        chooser.getResult().File::deleteFile();
+        FileOutputStream stream (chooser.getResult());
+        midiFile.setTicksPerQuarterNote (TICKS_PER_QUARTER_NOTE);
+        midiFile.addTrack (Presets::getMidiSequenceFromChords (mChords));
+        midiFile.writeTo (stream);
     }
 }
 
@@ -292,13 +296,14 @@ void PresetState::handleMouseDownOnExportPreset()
 {
     if (!isPresetValid()) { return; }
 
-    FileChooser chooser ("Copy preset to...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
+    FileChooser chooser ("Export preset as...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
 
     if (chooser.browseForFileToSave (true))
     {
         XmlElement rootXml ("ripchord");
+        FileOutputStream stream (chooser.getResult());
         rootXml.addChildElement (Presets::getPresetXmlFromChords (mChords));
-        rootXml.writeTo (chooser.getResult());
+        rootXml.writeTo (stream);
     }
 }
 
