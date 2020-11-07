@@ -7,7 +7,7 @@ const float MIN_DELAY_DEPTH = 0.01f;
 const float MAX_DELAY_DEPTH_MS = 100;
 const float MIN_DELAY_VARIANCE = 0.01f;
 
-const float TICKS_PER_QUARTER_NOTE = 96.0f;
+const float TICKS_PER_QUARTER_NOTE = 960.0f;
 
 //==============================================================================
 struct Origin
