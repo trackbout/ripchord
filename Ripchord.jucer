@@ -96,6 +96,10 @@
               file="Source/Components/EditControlsComponent.cpp"/>
         <FILE id="jO1wNT" name="EditControlsComponent.h" compile="0" resource="0"
               file="Source/Components/EditControlsComponent.h"/>
+        <FILE id="M5LMNA" name="RecordedMidiComponent.cpp" compile="1" resource="0"
+              file="Source/Components/RecordedMidiComponent.cpp"/>
+        <FILE id="SD2nYx" name="RecordedMidiComponent.h" compile="0" resource="0"
+              file="Source/Components/RecordedMidiComponent.h"/>
         <FILE id="vTGUGv" name="ChordNameComponent.cpp" compile="1" resource="0"
               file="Source/Components/ChordNameComponent.cpp"/>
         <FILE id="Q7PhgU" name="ChordNameComponent.h" compile="0" resource="0"
