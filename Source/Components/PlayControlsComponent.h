@@ -5,6 +5,7 @@
 #include "Styles.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
+#include "RecordedMidiComponent.h"
 
 //==============================================================================
 class PlayControlsComponent : public Component, public DataMessageListener, public Slider::Listener
@@ -32,7 +33,7 @@ private:
 
     Images mImages;
 
-    DrawableButton mRecordedButton { "", DrawableButton::ImageStretched };
+    RecordedMidiComponent mRecordedMidi;
 
     DrawableButton mVelocityDirectionButton { "", DrawableButton::ImageStretched };
     DrawableButton mVelocityDepthImage { "", DrawableButton::ImageStretched };

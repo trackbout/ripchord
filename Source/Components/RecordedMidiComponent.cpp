@@ -1,8 +1,11 @@
 #include "RecordedMidiComponent.h"
 
 //==============================================================================
-RecordedMidiComponent::RecordedMidiComponent()
+RecordedMidiComponent::RecordedMidiComponent (MainProcess& inMainProcess)
+:   mMainProcess (inMainProcess)
 {
+    mImages.setDrawableButtonImages (mRecordedButton, "Recorded.svg");
+    addAndMakeVisible (mRecordedButton);
 }
 
 RecordedMidiComponent::~RecordedMidiComponent()
@@ -10,10 +13,13 @@ RecordedMidiComponent::~RecordedMidiComponent()
 }
 
 //==============================================================================
-void RecordedMidiComponent::paint (Graphics& inGraphics)
-{
-}
-
 void RecordedMidiComponent::resized()
 {
+    mRecordedButton.setBounds (getLocalBounds());
+}
+
+//==============================================================================
+void RecordedMidiComponent::setButtonImage (const String inImagePath)
+{
+    mImages.setDrawableButtonImages (mRecordedButton, inImagePath);
 }

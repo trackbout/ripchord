@@ -5,13 +5,13 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mControlsState (mMainProcess.getControlsState()),
-    mMidiState (mMainProcess.getMidiState())
+    mMidiState (mMainProcess.getMidiState()),
+    mRecordedMidi (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mControlsState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mMidiState.DataMessageBroadcaster::addListener (this, ListenerType::kAsync);
 
-    mImages.setDrawableButtonImages (mRecordedButton, "Recorded.svg");
     mImages.setDrawableButtonImages (mVelocityDepthImage, "Velocity.svg");
     mImages.setDrawableButtonImages (mVelocityVarianceImage, "Variance.svg");
     mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
@@ -84,7 +84,7 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
         mControlsState.toggleRecord();
     };
 
-    addAndMakeVisible (mRecordedButton);
+    addAndMakeVisible (mRecordedMidi);
 
     addAndMakeVisible (mVelocityDepthImage);
     addAndMakeVisible (mVelocityDirectionButton);
@@ -112,7 +112,7 @@ PlayControlsComponent::~PlayControlsComponent()
 //==============================================================================
 void PlayControlsComponent::resized()
 {
-    mRecordedButton.setBounds (RECORDED_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
+    mRecordedMidi.setBounds (RECORDED_BUTTON_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
 
     mVelocityDirectionButton.setBounds (VELOCITY_DIRECTION_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
     mVelocityDepthImage.setBounds (VELOCITY_DEPTH_X, SPACE, ITEM_HEIGHT, ITEM_HEIGHT);
@@ -250,11 +250,11 @@ void PlayControlsComponent::updateRecordedButton()
 {
     if (mControlsState.isRecordIn() && mMidiState.isPlaying())
     {
-        mImages.setDrawableButtonImages (mRecordedButton, "RecordedIN.svg");
+        mRecordedMidi.setButtonImage ("RecordedIN.svg");
     }
     else
     {
-        mImages.setDrawableButtonImages (mRecordedButton, "Recorded.svg");
+        mRecordedMidi.setButtonImage ("Recorded.svg");
     }
 }
 
