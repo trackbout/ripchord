@@ -17,6 +17,9 @@ public:
     void resized() override;
 
     //==============================================================================
+    void mouseDown (const MouseEvent& event) override;
+
+    //==============================================================================
     void setButtonImage (const String imagePath);
 
 private:
