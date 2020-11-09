@@ -7,8 +7,8 @@
 //==============================================================================
 const String PRESET_EXTENSION = ".rpc";
 const File DESKTOP_FOLDER = System::getDesktopPath();
-const File PRESET_FOLDER = System::getUserDataPath (ProjectInfo::companyName,
-                                                    ProjectInfo::projectName).getChildFile ("Presets");
+const File COMPANY_FOLDER = System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
+const File PRESET_FOLDER = COMPANY_FOLDER.getChildFile ("Presets");
 
 //==============================================================================
 struct Preset

@@ -10,7 +10,7 @@ MainProcess::~MainProcess()
 }
 
 //==============================================================================
-void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate, bool inIsPlaying)
+void MainProcess::handleProcessBlock (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate, bool inIsPlaying)
 {
     mMidiState.handleSampleCount (inNumSamples, inSampleRate, inIsPlaying);
 
