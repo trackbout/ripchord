@@ -34,7 +34,7 @@ void RecordedMidiComponent::mouseDown (const MouseEvent& inEvent)
     midiFile.setTicksPerQuarterNote (TICKS_PER_QUARTER_NOTE);
     midiFile.addTrack (sequence);
 
-    File temp = COMPANY_FOLDER.getChildFile ("ripchord.mid");
+    File temp = COMPANY_FOLDER.getChildFile ("Ripchord.mid");
 
     if (auto stream = std::unique_ptr<FileOutputStream> (temp.createOutputStream()))
     {
