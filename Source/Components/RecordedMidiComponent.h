@@ -25,6 +25,7 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+    MidiState& mMidiState;
 
     Images mImages;
 

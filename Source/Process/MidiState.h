@@ -49,6 +49,12 @@ public:
     //==============================================================================
     void setActiveTransposeNoteIfAllowed (const int inputNote);
 
+    //==============================================================================
+    void clearRecordedSequence();
+    bool isRecordedSequenceEmpty();
+    MidiMessageSequence getRecordedSequence();
+    void addToRecordedSequence (MidiMessage midiMessage);
+
 private:
     //==============================================================================
     bool mIsPlaying;
@@ -61,6 +67,9 @@ private:
     //==============================================================================
     std::map<int, int> mSampleCounters;
     std::queue<NoteEvent> mNoteEventQueue;
+
+    //==============================================================================
+    MidiMessageSequence mRecordedSequence;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiState)

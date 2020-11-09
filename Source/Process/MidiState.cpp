@@ -32,6 +32,7 @@ void MidiState::handleSampleCount (int inNumSamples, double inSampleRate, bool i
     if (mIsPlaying != inIsPlaying)
     {
         mIsPlaying = inIsPlaying;
+        if (mIsPlaying) { clearRecordedSequence(); }
 
         DataMessage* message = new DataMessage();
         message->messageCode = MessageCode::kIsPlaying;
@@ -171,6 +172,28 @@ void MidiState::setActiveTransposeNoteIfAllowed (const int inputNote)
     message->messageCode = MessageCode::kActiveTransposeNoteAllowed;
     message->messageVar1 = inputNote;
     sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void MidiState::clearRecordedSequence()
+{
+    mRecordedSequence.clear();
+}
+
+bool MidiState::isRecordedSequenceEmpty()
+{
+    return mRecordedSequence.getNumEvents() > 0;
+}
+
+MidiMessageSequence MidiState::getRecordedSequence()
+{
+    return mRecordedSequence;
+}
+
+void MidiState::addToRecordedSequence (MidiMessage inMidiMessage)
+{
+    inMidiMessage.setTimeStamp (Time::getMillisecondCounterHiRes());
+    mRecordedSequence.addEvent (inMidiMessage);
 }
 
 //==============================================================================

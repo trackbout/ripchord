@@ -2,7 +2,8 @@
 
 //==============================================================================
 RecordedMidiComponent::RecordedMidiComponent (MainProcess& inMainProcess)
-:   mMainProcess (inMainProcess)
+:   mMainProcess (inMainProcess),
+    mMidiState (mMainProcess.getMidiState())
 {
     mImages.setDrawableButtonImages (mRecordedButton, "Recorded.svg");
     mRecordedButton.setInterceptsMouseClicks (false, false);
@@ -22,13 +23,9 @@ void RecordedMidiComponent::resized()
 //==============================================================================
 void RecordedMidiComponent::mouseDown (const MouseEvent& inEvent)
 {
-    MidiMessageSequence sequence;
-    sequence.addEvent (MidiMessage::noteOn (1, 54, 0.8f), 0.0f);
-    sequence.addEvent (MidiMessage::noteOn (1, 59, 0.8f), 0.0f);
-    sequence.addEvent (MidiMessage::noteOn (1, 62, 0.8f), 0.0f);
-    sequence.addEvent (MidiMessage::noteOff (1, 54), TICKS_PER_QUARTER_NOTE * 4.0f);
-    sequence.addEvent (MidiMessage::noteOff (1, 59), TICKS_PER_QUARTER_NOTE * 4.0f);
-    sequence.addEvent (MidiMessage::noteOff (1, 62), TICKS_PER_QUARTER_NOTE * 4.0f);
+    if (mMidiState.isRecordedSequenceEmpty()) { return; }
+
+    MidiMessageSequence sequence = mMidiState.getRecordedSequence();
 
     MidiFile midiFile;
     midiFile.setTicksPerQuarterNote (TICKS_PER_QUARTER_NOTE);

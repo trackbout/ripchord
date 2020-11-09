@@ -31,6 +31,7 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mRecordButton.onClick = [this]()
     {
         if (mMidiState.isPlaying()) { return; }
+        if (mControlsState.isRecordOff()) { mMidiState.clearRecordedSequence(); }
         mControlsState.toggleRecord();
     };
 
@@ -251,6 +252,10 @@ void PlayControlsComponent::updateRecordedButton()
     if (mControlsState.isRecordIn() && mMidiState.isPlaying())
     {
         mRecordedMidi.setButtonImage ("RecordedIN.svg");
+    }
+    else if (!mMidiState.isPlaying() && !mMidiState.isRecordedSequenceEmpty())
+    {
+        mRecordedMidi.setButtonImage ("RecordedON.svg");
     }
     else
     {
