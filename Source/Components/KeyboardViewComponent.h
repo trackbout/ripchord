@@ -34,6 +34,7 @@ private:
     //==============================================================================
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
+    ControlsState& mControlsState;
     MidiState& mMidiState;
 
     Label mOutputKeyboardLabel { "", "output" };

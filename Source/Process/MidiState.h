@@ -15,8 +15,9 @@ public:
     ~MidiState();
 
     //==============================================================================
+    bool isPlaying();
     void setCurrentChannel (int channel);
-    void handleSampleCount (int numSamples, double sampleRate);
+    void handleSampleCount (int numSamples, double sampleRate, bool isPlaying);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -50,6 +51,7 @@ public:
 
 private:
     //==============================================================================
+    bool mIsPlaying;
     int mCurrentChannel;
 
     //==============================================================================

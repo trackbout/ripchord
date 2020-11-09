@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Midi.h"
 
 //==============================================================================
 RipchordPluginProcessor::RipchordPluginProcessor()
@@ -111,7 +112,22 @@ bool RipchordPluginProcessor::isBusesLayoutSupported (const BusesLayout& inLayou
 
 void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, MidiBuffer& inMidiBuffer)
 {
-    mMainProcess.handleMidiBuffer (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate());
+    auto playhead = getPlayHead();
+
+    if (playhead != nullptr)
+    {
+        AudioPlayHead::CurrentPositionInfo info;
+
+        if (playhead->getCurrentPosition(info))
+        {
+            const bool isPlaying = info.isPlaying || info.isRecording;
+            mMainProcess.handleMidiBuffer (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), isPlaying);
+        }
+        else
+        {
+            mMainProcess.handleMidiBuffer (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), false);
+        }
+    }
 }
 
 //==============================================================================

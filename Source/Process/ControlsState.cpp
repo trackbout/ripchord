@@ -15,33 +15,11 @@ bool ControlsState::isRecordIn()
     return mRecord == Record::RecordIn;
 }
 
-bool ControlsState::isRecordOn()
-{
-    return mRecord == Record::RecordOn;
-}
-
 bool ControlsState::isRecordOff()
 {
     return mRecord == Record::RecordOff;
 }
 
-//==============================================================================
-bool ControlsState::isRecordedIn()
-{
-    return mRecorded == Recorded::RecordedIn;
-}
-
-bool ControlsState::isRecordedOn()
-{
-    return mRecorded == Recorded::RecordedOn;
-}
-
-bool ControlsState::isRecordedOff()
-{
-    return mRecorded == Recorded::RecordedOff;
-}
-
-//==============================================================================
 void ControlsState::toggleRecord()
 {
     mRecord = isRecordOff() ? Record::RecordIn : Record::RecordOff;
@@ -60,6 +38,17 @@ bool ControlsState::isTransposeOn()
 bool ControlsState::isTransposeOff()
 {
     return mTranspose == Transpose::TransposeOff;
+}
+
+void ControlsState::toggleTranspose()
+{
+    mTranspose = isTransposeOff() ? Transpose::TransposeOn : Transpose::TransposeOff;
+    if (mActiveTransposeNote > 0) { mActiveTransposeNote = -1; }
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTranspose;
+    message->messageVar1 = mTransposeBase;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
@@ -100,17 +89,6 @@ int ControlsState::getTransposedNote (const int inOutputNote, const int inActive
 }
 
 //==============================================================================
-void ControlsState::toggleTranspose()
-{
-    mTranspose = isTransposeOff() ? Transpose::TransposeOn : Transpose::TransposeOff;
-    if (mActiveTransposeNote > 0) { mActiveTransposeNote = -1; }
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleTranspose;
-    message->messageVar1 = mTransposeBase;
-    sendMessage (message, ListenerType::kSync);
-}
-
 void ControlsState::handleMouseDownOnShiftLeft()
 {
     if (mTransposeBase == 21 || isTransposeOff()) { return; }

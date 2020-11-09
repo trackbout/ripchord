@@ -10,9 +10,9 @@ MainProcess::~MainProcess()
 }
 
 //==============================================================================
-void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate)
+void MainProcess::handleMidiBuffer (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate, bool inIsPlaying)
 {
-    mMidiState.handleSampleCount (inNumSamples, inSampleRate);
+    mMidiState.handleSampleCount (inNumSamples, inSampleRate, inIsPlaying);
 
     if (mMouseDownBuffer.getNumEvents() > 0)
     {

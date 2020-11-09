@@ -17,26 +17,18 @@ public:
     ~ControlsState();
 
     //==============================================================================
-    enum Record { RecordOn, RecordIn, RecordOff };
-    enum Recorded { RecordedOn, RecordedIn, RecordedOff };
+    enum Record { RecordIn, RecordOff };
     enum Transpose { TransposeOn, TransposeOff };
 
     //==============================================================================
     bool isRecordIn();
-    bool isRecordOn();
     bool isRecordOff();
-
-    //==============================================================================
-    bool isRecordedIn();
-    bool isRecordedOn();
-    bool isRecordedOff();
-
-    //==============================================================================
     void toggleRecord();
 
     //==============================================================================
     bool isTransposeOn();
     bool isTransposeOff();
+    void toggleTranspose();
 
     //==============================================================================
     int getTransposeBase();
@@ -48,7 +40,6 @@ public:
     int getTransposedNote (const int outputNote, const int activeTransposeNote);
 
     //==============================================================================
-    void toggleTranspose();
     void handleMouseDownOnShiftLeft();
     void handleMouseDownOnShiftRight();
 
@@ -82,7 +73,6 @@ private:
     Reverse mReverse;
 
     Record mRecord = Record::RecordOff;
-    Recorded mRecorded = Recorded::RecordedOff;
 
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;

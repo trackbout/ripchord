@@ -4,6 +4,7 @@
 KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
+    mControlsState (mMainProcess.getControlsState()),
     mMidiState (mMainProcess.getMidiState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
@@ -25,13 +26,17 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]()
     {
-        if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleView(); }
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        if (mControlsState.isRecordIn() && mMidiState.isPlaying()) { return; }
+        mGlobalState.toggleView();
     };
 
     mModeButton.setTriggeredOnMouseDown (true);
     mModeButton.onClick = [this]()
     {
-        if (mMidiState.getCurrentlyOnInputNotes().size() < 1) { mGlobalState.toggleMode(); }
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        if (mControlsState.isRecordIn() && mMidiState.isPlaying()) { return; }
+        mGlobalState.toggleMode();
     };
 
     mOutputKeyboard.setBounds (KEYBOARD_X, OUTPUT_KEYBOARD_Y, KEYBOARD_WIDTH, KEYBOARD_HEIGHT);

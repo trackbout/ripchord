@@ -10,18 +10,32 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
+bool MidiState::isPlaying()
+{
+    return mIsPlaying;
+}
+
 void MidiState::setCurrentChannel (int inChannel)
 {
     mCurrentChannel = inChannel;
 }
 
-void MidiState::handleSampleCount (int inNumSamples, double inSampleRate)
+void MidiState::handleSampleCount (int inNumSamples, double inSampleRate, bool inIsPlaying)
 {
     int milliseconds = round (1000/(inSampleRate/inNumSamples));
 
     for (auto& pair : mSampleCounters)
     {
         mSampleCounters[pair.first] = pair.second + milliseconds;
+    }
+
+    if (mIsPlaying != inIsPlaying)
+    {
+        mIsPlaying = inIsPlaying;
+
+        DataMessage* message = new DataMessage();
+        message->messageCode = MessageCode::kIsPlaying;
+        sendMessage (message, ListenerType::kAsync);
     }
 }
 

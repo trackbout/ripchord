@@ -24,7 +24,7 @@ public:
     MidiState& getMidiState() { return mMidiState; }
 
     //==============================================================================
-    void handleMidiBuffer (MidiBuffer& midiBuffer, int numSamples, double sampleRate);
+    void handleMidiBuffer (MidiBuffer& midiBuffer, int numSamples, double sampleRate, bool isPlaying);
 
     //==============================================================================
     void handlePlayModeMouseUpOnInput (int inputNote);
