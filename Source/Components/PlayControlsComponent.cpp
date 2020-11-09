@@ -183,8 +183,7 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
     if (mGlobalState.isPlayMode())
     {
         setVisible (true);
-        updateRecordButton();
-        updateRecordedButton();
+        updateRecordButtons();
         updateTransposeButton();
         updateDelayDirectionButton();
         updateVelocityDirectionButton();
@@ -197,13 +196,12 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
 
 void PlayControlsComponent::handleIsPlaying (const DataMessage* inMessage)
 {
-    updateRecordButton();
-    updateRecordedButton();
+    updateRecordButtons();
 }
 
 void PlayControlsComponent::handleToggleRecord (const DataMessage* inMessage)
 {
-    updateRecordButton();
+    updateRecordButtons();
 }
 
 void PlayControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
@@ -231,7 +229,7 @@ void PlayControlsComponent::handleVelocityDirection (const DataMessage* inMessag
     updateVelocityDirectionButton();
 }
 
-void PlayControlsComponent::updateRecordButton()
+void PlayControlsComponent::updateRecordButtons()
 {
     if (mControlsState.isRecordOff())
     {
@@ -245,10 +243,7 @@ void PlayControlsComponent::updateRecordButton()
     {
         mImages.setDrawableButtonImages (mRecordButton, "RecordIN.svg");
     }
-}
 
-void PlayControlsComponent::updateRecordedButton()
-{
     if (mControlsState.isRecordIn() && mMidiState.isPlaying())
     {
         mRecordedMidi.setButtonImage ("RecordedIN.svg");

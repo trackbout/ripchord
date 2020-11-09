@@ -15,12 +15,17 @@ bool MidiState::isPlaying()
     return mIsPlaying;
 }
 
+double MidiState::getCurrentBpm()
+{
+    return mCurrentBpm;
+}
+
 void MidiState::setCurrentChannel (int inChannel)
 {
     mCurrentChannel = inChannel;
 }
 
-void MidiState::handleSampleCount (int inNumSamples, double inSampleRate, bool inIsPlaying)
+void MidiState::handleTransport (int inNumSamples, double inSampleRate, bool inIsPlaying, double inBpm)
 {
     int milliseconds = round (1000/(inSampleRate/inNumSamples));
 
@@ -32,11 +37,21 @@ void MidiState::handleSampleCount (int inNumSamples, double inSampleRate, bool i
     if (mIsPlaying != inIsPlaying)
     {
         mIsPlaying = inIsPlaying;
-        if (mIsPlaying) { clearRecordedSequence(); }
+
+        if (mIsPlaying)
+        {
+            clearRecordedSequence();
+            mStartTime = Time::getMillisecondCounterHiRes();
+        }
 
         DataMessage* message = new DataMessage();
         message->messageCode = MessageCode::kIsPlaying;
         sendMessage (message, ListenerType::kAsync);
+    }
+
+    if (mCurrentBpm != inBpm)
+    {
+        mCurrentBpm = inBpm;
     }
 }
 
@@ -182,7 +197,7 @@ void MidiState::clearRecordedSequence()
 
 bool MidiState::isRecordedSequenceEmpty()
 {
-    return mRecordedSequence.getNumEvents() > 0;
+    return mRecordedSequence.getNumEvents() == 0;
 }
 
 MidiMessageSequence MidiState::getRecordedSequence()
@@ -192,7 +207,9 @@ MidiMessageSequence MidiState::getRecordedSequence()
 
 void MidiState::addToRecordedSequence (MidiMessage inMidiMessage)
 {
-    inMidiMessage.setTimeStamp (Time::getMillisecondCounterHiRes());
+    float const msPerTick = (MS_PER_MINUTE / mCurrentBpm) / TICKS_PER_QUARTER_NOTE;
+    double timeStampInMs = Time::getMillisecondCounterHiRes() - mStartTime;
+    inMidiMessage.setTimeStamp (timeStampInMs / msPerTick);
     mRecordedSequence.addEvent (inMidiMessage);
 }
 

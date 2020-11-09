@@ -16,8 +16,9 @@ public:
 
     //==============================================================================
     bool isPlaying();
+    double getCurrentBpm();
     void setCurrentChannel (int channel);
-    void handleSampleCount (int numSamples, double sampleRate, bool isPlaying);
+    void handleTransport (int numSamples, double sampleRate, bool isPlaying, double bpm);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -58,6 +59,8 @@ public:
 private:
     //==============================================================================
     bool mIsPlaying;
+    double mStartTime;
+    double mCurrentBpm;
     int mCurrentChannel;
 
     //==============================================================================

@@ -10,9 +10,9 @@ MainProcess::~MainProcess()
 }
 
 //==============================================================================
-void MainProcess::handleProcessBlock (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate, bool inIsPlaying)
+void MainProcess::handleProcessBlock (MidiBuffer& inMidiBuffer, int inNumSamples, double inSampleRate, bool inIsPlaying, double inBpm)
 {
-    mMidiState.handleSampleCount (inNumSamples, inSampleRate, inIsPlaying);
+    mMidiState.handleTransport (inNumSamples, inSampleRate, inIsPlaying, inBpm);
 
     if (mMouseDownBuffer.getNumEvents() > 0)
     {
@@ -34,12 +34,24 @@ void MainProcess::handleProcessBlock (MidiBuffer& inMidiBuffer, int inNumSamples
 //==============================================================================
 void MainProcess::handlePlayModeMouseUpOnInput (int inInputNote)
 {
-    mMouseDownBuffer.addEvent (MidiMessage::noteOff (1, inInputNote), 0);
+    const auto& message = MidiMessage::noteOff (1, inInputNote);
+    mMouseDownBuffer.addEvent (message, 0);
+
+    if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+    {
+        mMidiState.addToRecordedSequence (message);
+    }
 }
 
 void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
 {
-    mMouseDownBuffer.addEvent (MidiMessage::noteOn (1, inInputNote, 0.8f), 0);
+    const auto& message = MidiMessage::noteOn (1, inInputNote, 0.8f);
+    mMouseDownBuffer.addEvent (message, 0);
+
+    if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+    {
+        mMidiState.addToRecordedSequence (message);
+    }
 }
 
 //==============================================================================
@@ -163,6 +175,11 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
     {
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
+
+        if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+        {
+            mMidiState.addToRecordedSequence (message);
+        }
     }
 
     if (triggers.size() < 2)
@@ -172,6 +189,11 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
 
         triggers.add (inNoteEvent.inputNote);
         mMidiState.setOutputNoteOn (inNoteEvent.outputNote, triggers);
+
+        if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+        {
+            mMidiState.addToRecordedSequence (message);
+        }
     }
 }
 
@@ -184,6 +206,11 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
     {
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
+
+        if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+        {
+            mMidiState.addToRecordedSequence (message);
+        }
     }
 
     if (triggers.size() <= 2)

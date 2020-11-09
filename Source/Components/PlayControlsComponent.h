@@ -65,8 +65,7 @@ private:
     void handleVelocityDepth (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
 
-    void updateRecordButton();
-    void updateRecordedButton();
+    void updateRecordButtons();
     void updateTransposeButton();
     void updateDelayDirectionButton();
     void updateVelocityDirectionButton();

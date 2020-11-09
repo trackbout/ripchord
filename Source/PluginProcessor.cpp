@@ -120,17 +120,18 @@ void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, M
 
         if (playhead->getCurrentPosition(info))
         {
+            const double bpm = info.bpm;
             const bool isPlaying = info.isPlaying || info.isRecording;
-            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), isPlaying);
+            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), isPlaying, bpm);
         }
         else
         {
-            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), false);
+            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), false, 0.0);
         }
     }
     else
     {
-        mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), false);
+        mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), false, 0.0);
     }
 }
 
