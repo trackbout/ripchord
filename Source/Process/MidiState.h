@@ -61,10 +61,10 @@ public:
 
 private:
     //==============================================================================
-    bool mIsRecording;
-    double mStartTime;
-    double mCurrentBpm;
-    int mCurrentChannel;
+    bool mIsRecording = false;
+    double mStartTime = 0.0;
+    double mCurrentBpm = 100.0;
+    int mCurrentChannel = 1;
 
     //==============================================================================
     juce::Array<int> mCurrentlyOnInputNotes;

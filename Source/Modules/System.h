@@ -3,12 +3,6 @@
 //==============================================================================
 namespace System
 {
-    static inline File getDesktopPath()
-    {
-        File directory (File::getSpecialLocation (File::userDesktopDirectory));
-        return directory;
-    }
-
     static inline File getUserDataPath (StringRef inCompanyName, StringRef inAppName)
     {
         #if JUCE_MAC || JUCE_IOS
@@ -39,3 +33,9 @@ namespace System
         return pluginPropertiesOptions;
     }
 }
+
+const String TEMP_FILE_NAME = "Ripchord.mid";
+const File TEMP_FOLDER = File::getSpecialLocation (File::SpecialLocationType::tempDirectory);
+const File DESKTOP_FOLDER = File::getSpecialLocation (File::userDesktopDirectory);
+const File RIPCHORD_FOLDER = System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
+const File PRESET_FOLDER = RIPCHORD_FOLDER.getChildFile ("Presets");

@@ -6,9 +6,6 @@
 
 //==============================================================================
 const String PRESET_EXTENSION = ".rpc";
-const File DESKTOP_FOLDER = System::getDesktopPath();
-const File COMPANY_FOLDER = System::getUserDataPath (ProjectInfo::companyName, ProjectInfo::projectName);
-const File PRESET_FOLDER = COMPANY_FOLDER.getChildFile ("Presets");
 
 //==============================================================================
 struct Preset
@@ -31,7 +28,7 @@ namespace Presets
     //==============================================================================
     static inline bool isValidFileName (String inFileName)
     {
-        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 _-";
+        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 #_-()";
 
         for (int index = 0; index < inFileName.length(); index++)
         {

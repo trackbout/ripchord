@@ -46,9 +46,7 @@ void ChordNameComponent::resized()
     mChordNameLabel.setBounds (area);
     mChordNameInput.setBounds (area);
 
-    auto& input = mChordNameInput;
-    float extra = input.getHeight() - input.getFont().getHeight() - input.getBorder().getTopAndBottom();
-    mChordNameInput.setIndents (5, (int) (extra * 0.5f));
+    mChordNameInput.setIndents (5, -1);
 }
 
 //==============================================================================
@@ -69,7 +67,7 @@ void ChordNameComponent::handleNewMessage (const DataMessage* inMessage)
 
 void ChordNameComponent::handleToggleMode (const DataMessage* inMessage)
 {
-    mChordNameLabel.setVisible (mGlobalState.isPlayMode());
+    mChordNameLabel.setVisible (true);
     mChordNameInput.setVisible (false);
 }
 
@@ -93,13 +91,13 @@ void ChordNameComponent::handleEditModeInputNote (const DataMessage* inMessage)
 void ChordNameComponent::handleEditModeOutputNotes (const DataMessage* inMessage)
 {
     juce::Array<int> nextEditModeOutputNotes = inMessage->messageArray2;
-    mChordNameInput.setVisible (nextEditModeOutputNotes.size() > 0);
+    const bool isInputVisible = nextEditModeOutputNotes.size() > 0;
+    mChordNameLabel.setVisible (!isInputVisible);
+    mChordNameInput.setVisible (isInputVisible);
 }
 
 void ChordNameComponent::handleInputNoteOff (const DataMessage* inMessage)
 {
-    if (mGlobalState.isEditMode()) { return; }
-
     for (int& inputNote : mMidiState.getCurrentlyOnInputNotes())
     {
         if (mPresetState.containsChord (inputNote))
@@ -116,8 +114,6 @@ void ChordNameComponent::handleInputNoteOff (const DataMessage* inMessage)
 
 void ChordNameComponent::handleInputNoteOn (const DataMessage* inMessage)
 {
-    if (mGlobalState.isEditMode()) { return; }
-
     int inputNote = inMessage->messageVar1;
 
     if (mPresetState.containsChord (inputNote))

@@ -25,6 +25,11 @@ void RecordedMidiComponent::mouseDown (const MouseEvent& inEvent)
 {
     if (mMidiState.isRecording() || mMidiState.isRecordedSequenceEmpty()) { return; }
 
+    if (TEMP_FOLDER.getChildFile (TEMP_FILE_NAME).existsAsFile())
+    {
+        TEMP_FOLDER.getChildFile (TEMP_FILE_NAME).deleteFile();
+    }
+
     int microsPerQuarterNote = (MS_PER_MINUTE / mMidiState.getCurrentBpm()) * 1000.f;
     MidiMessage tempoEvent = MidiMessage::tempoMetaEvent (microsPerQuarterNote);
     tempoEvent.setTimeStamp (0);
@@ -38,12 +43,12 @@ void RecordedMidiComponent::mouseDown (const MouseEvent& inEvent)
     midiFile.setTicksPerQuarterNote (TICKS_PER_QUARTER_NOTE);
     midiFile.addTrack (recordedSequence);
 
-    File temp = COMPANY_FOLDER.getChildFile ("Ripchord.mid");
+    File temp = TEMP_FOLDER.getChildFile (TEMP_FILE_NAME);
 
     if (auto stream = std::unique_ptr<FileOutputStream> (temp.createOutputStream()))
     {
         midiFile.writeTo (*stream, 0);
-        performExternalDragDropOfFiles ({ temp.getFullPathName() }, false, nullptr, [=](void){ temp.deleteFile(); });
+        performExternalDragDropOfFiles ({ temp.getFullPathName() }, false);
     }
 }
 
