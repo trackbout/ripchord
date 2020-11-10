@@ -23,7 +23,7 @@ void RecordedMidiComponent::resized()
 //==============================================================================
 void RecordedMidiComponent::mouseDown (const MouseEvent& inEvent)
 {
-    if (mMidiState.isRecordedSequenceEmpty()) { return; }
+    if (mMidiState.isRecording() || mMidiState.isRecordedSequenceEmpty()) { return; }
 
     int microsPerQuarterNote = (MS_PER_MINUTE / mMidiState.getCurrentBpm()) * 1000.f;
     MidiMessage tempoEvent = MidiMessage::tempoMetaEvent (microsPerQuarterNote);

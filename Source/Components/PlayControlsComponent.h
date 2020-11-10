@@ -55,7 +55,7 @@ private:
     Slider mDelayVarianceSlider;
 
     void handleToggleMode (const DataMessage* message);
-    void handleIsPlaying (const DataMessage* message);
+    void handleIsRecording (const DataMessage* message);
     void handleToggleRecord (const DataMessage* message);
     void handleToggleTranspose (const DataMessage* message);
 

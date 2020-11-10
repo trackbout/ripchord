@@ -27,7 +27,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetsButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        if (mControlsState.isRecordIn() && mMidiState.isPlaying()) { return; }
+        if (mMidiState.isRecording()) { return; }
         mGlobalState.toggleView();
     };
 
@@ -35,7 +35,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mModeButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        if (mControlsState.isRecordIn() && mMidiState.isPlaying()) { return; }
+        if (mMidiState.isRecording()) { return; }
         mGlobalState.toggleMode();
     };
 

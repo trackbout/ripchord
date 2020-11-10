@@ -15,10 +15,13 @@ public:
     ~MidiState();
 
     //==============================================================================
-    bool isPlaying();
+    bool isRecording();
+    void stopRecording();
+
+    //==============================================================================
     double getCurrentBpm();
     void setCurrentChannel (int channel);
-    void handleTransport (int numSamples, double sampleRate, bool isPlaying, double bpm);
+    void handleTransport (int numSamples, double sampleRate, double bpm);
 
     //==============================================================================
     juce::Array<int> getCurrentlyOnInputNotes();
@@ -58,7 +61,7 @@ public:
 
 private:
     //==============================================================================
-    bool mIsPlaying;
+    bool mIsRecording;
     double mStartTime;
     double mCurrentBpm;
     int mCurrentChannel;

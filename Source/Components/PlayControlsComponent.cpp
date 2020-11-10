@@ -30,8 +30,8 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
 
     mRecordButton.onClick = [this]()
     {
-        if (mMidiState.isPlaying()) { return; }
         if (mControlsState.isRecordOff()) { mMidiState.clearRecordedSequence(); }
+        if (mMidiState.isRecording()) { mMidiState.stopRecording(); }
         mControlsState.toggleRecord();
     };
 
@@ -164,7 +164,7 @@ void PlayControlsComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
-        case (MessageCode::kIsPlaying): { handleIsPlaying (inMessage); } break;
+        case (MessageCode::kIsRecording): { handleIsRecording (inMessage); } break;
         case (MessageCode::kToggleRecord): { handleToggleRecord (inMessage); } break;
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kDelayDepth): { handleDelayDepth (inMessage); } break;
@@ -194,7 +194,7 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
     }
 }
 
-void PlayControlsComponent::handleIsPlaying (const DataMessage* inMessage)
+void PlayControlsComponent::handleIsRecording (const DataMessage* inMessage)
 {
     updateRecordButtons();
 }
@@ -235,7 +235,7 @@ void PlayControlsComponent::updateRecordButtons()
     {
         mImages.setDrawableButtonImages (mRecordButton, "Record.svg");
     }
-    else if (mMidiState.isPlaying())
+    else if (mMidiState.isRecording())
     {
         mImages.setDrawableButtonImages (mRecordButton, "RecordON.svg");
     }
@@ -244,11 +244,11 @@ void PlayControlsComponent::updateRecordButtons()
         mImages.setDrawableButtonImages (mRecordButton, "RecordIN.svg");
     }
 
-    if (mControlsState.isRecordIn() && mMidiState.isPlaying())
+    if (mMidiState.isRecording())
     {
         mRecordedMidi.setButtonImage ("RecordedIN.svg");
     }
-    else if (!mMidiState.isPlaying() && !mMidiState.isRecordedSequenceEmpty())
+    else if (!mMidiState.isRecordedSequenceEmpty())
     {
         mRecordedMidi.setButtonImage ("RecordedON.svg");
     }

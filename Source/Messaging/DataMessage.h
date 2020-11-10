@@ -51,7 +51,7 @@ enum MessageCode
     kPresetNameTextChanged,
 
     // Messages from MidiState
-    kIsPlaying,
+    kIsRecording,
     kInputNoteOn,
     kInputNoteOff,
     kOutputNoteOn,

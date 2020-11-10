@@ -10,11 +10,17 @@ MidiState::~MidiState()
 }
 
 //==============================================================================
-bool MidiState::isPlaying()
+bool MidiState::isRecording()
 {
-    return mIsPlaying;
+    return mIsRecording;
 }
 
+void MidiState::stopRecording()
+{
+    mIsRecording = false;
+}
+
+//==============================================================================
 double MidiState::getCurrentBpm()
 {
     return mCurrentBpm;
@@ -25,28 +31,13 @@ void MidiState::setCurrentChannel (int inChannel)
     mCurrentChannel = inChannel;
 }
 
-void MidiState::handleTransport (int inNumSamples, double inSampleRate, bool inIsPlaying, double inBpm)
+void MidiState::handleTransport (int inNumSamples, double inSampleRate, double inBpm)
 {
     int milliseconds = round (1000/(inSampleRate/inNumSamples));
 
     for (auto& pair : mSampleCounters)
     {
         mSampleCounters[pair.first] = pair.second + milliseconds;
-    }
-
-    if (mIsPlaying != inIsPlaying)
-    {
-        mIsPlaying = inIsPlaying;
-
-        if (mIsPlaying)
-        {
-            clearRecordedSequence();
-            mStartTime = Time::getMillisecondCounterHiRes();
-        }
-
-        DataMessage* message = new DataMessage();
-        message->messageCode = MessageCode::kIsPlaying;
-        sendMessage (message, ListenerType::kAsync);
     }
 
     if (mCurrentBpm != inBpm)
@@ -207,6 +198,16 @@ MidiMessageSequence MidiState::getRecordedSequence()
 
 void MidiState::addToRecordedSequence (MidiMessage inMidiMessage)
 {
+    if (!mIsRecording)
+    {
+        mIsRecording = true;
+        mStartTime = Time::getMillisecondCounterHiRes();
+
+        DataMessage* message = new DataMessage();
+        message->messageCode = MessageCode::kIsRecording;
+        sendMessage (message, ListenerType::kAsync);
+    }
+
     float const msPerTick = (MS_PER_MINUTE / mCurrentBpm) / TICKS_PER_QUARTER_NOTE;
     double timeStampInMs = Time::getMillisecondCounterHiRes() - mStartTime;
     inMidiMessage.setTimeStamp (timeStampInMs / msPerTick);
