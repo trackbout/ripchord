@@ -13,10 +13,16 @@ public:
     ~GlobalState();
 
     //==============================================================================
+    enum Power { On, Off };
     enum Mode { Play, Edit };
     enum View { Keyboard, Preset };
     enum Right { RightOff, RightOn };
     enum Menu { Hidden, Visible };
+
+    //==============================================================================
+    void togglePower();
+    bool isPowerOn();
+    bool isPowerOff();
 
     //==============================================================================
     void toggleMode();
@@ -50,6 +56,7 @@ public:
 
 private:
     //==============================================================================
+    Power mPower = Power::On;
     Mode mMode = Mode::Play;
     View mView = View::Keyboard;
     Right mRight = Right::RightOff;

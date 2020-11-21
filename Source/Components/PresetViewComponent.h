@@ -34,9 +34,11 @@ private:
     TextEditor mPresetFilterInput;
     PresetBrowserComponent mPresetBrowser;
 
+    DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
     DrawableButton mFavoritesButton { "", DrawableButton::ImageStretched };
     DrawableButton mKeyboardsButton { "", DrawableButton::ImageStretched };
 
+    void handleToggleView (const DataMessage* message);
     void handleToggleFavorites (const DataMessage* message);
     void handlePresetFilterTextChanged (const DataMessage* message);
 

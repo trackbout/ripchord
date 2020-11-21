@@ -20,8 +20,17 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
+    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
     mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
+
+    mPowerButton.setTriggeredOnMouseDown (true);
+    mPowerButton.onClick = [this]()
+    {
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
+        if (mMidiState.isRecording()) { return; }
+        mGlobalState.togglePower();
+    };
 
     mPresetsButton.setTriggeredOnMouseDown (true);
     mPresetsButton.onClick = [this]()
@@ -48,6 +57,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
+
+    addAndMakeVisible (mPowerButton);
     addAndMakeVisible (mPresetsButton);
     addAndMakeVisible (mModeButton);
 
@@ -102,8 +113,9 @@ void KeyboardViewComponent::resized()
     mPresetName.setTransform (AffineTransform::scale (scaleFactor));
     mChordName.setTransform (AffineTransform::scale (scaleFactor));
 
-    mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
 }
 
 //==============================================================================
@@ -131,9 +143,15 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kTogglePower): { handleTogglePower (inMessage); } break;
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         default: { } break;
     };
+}
+
+void KeyboardViewComponent::handleTogglePower (const DataMessage* inMessage)
+{
+    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
 }
 
 void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)

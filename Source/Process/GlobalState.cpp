@@ -10,6 +10,26 @@ GlobalState::~GlobalState()
 }
 
 //==============================================================================
+void GlobalState::togglePower()
+{
+    mPower = isPowerOn() ? Power::Off : Power::On;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTogglePower;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool GlobalState::isPowerOn()
+{
+    return mPower == Power::On;
+}
+
+bool GlobalState::isPowerOff()
+{
+    return mPower == Power::Off;
+}
+
+//==============================================================================
 void GlobalState::toggleMode()
 {
     mMode = isPlayMode() ? Mode::Edit : Mode::Play;

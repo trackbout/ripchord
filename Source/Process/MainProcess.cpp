@@ -36,22 +36,12 @@ void MainProcess::handlePlayModeMouseUpOnInput (int inInputNote)
 {
     const auto& message = MidiMessage::noteOff (1, inInputNote);
     mMouseDownBuffer.addEvent (message, 0);
-
-    if (mControlsState.isRecordIn())
-    {
-        mMidiState.addToRecordedSequence (message);
-    }
 }
 
 void MainProcess::handlePlayModeMouseDownOnInput (int inInputNote)
 {
     const auto& message = MidiMessage::noteOn (1, inInputNote, 0.8f);
     mMouseDownBuffer.addEvent (message, 0);
-
-    if (mControlsState.isRecordIn())
-    {
-        mMidiState.addToRecordedSequence (message);
-    }
 }
 
 //==============================================================================
@@ -64,17 +54,25 @@ void MainProcess::transformMidiBuffer (MidiBuffer& inMidiBuffer)
         MidiMessage message = messageData.getMessage();
         mMidiState.setCurrentChannel (message.getChannel());
 
-        if (mGlobalState.isPlayMode() &&
-            mControlsState.isTransposeOn() &&
-            mControlsState.isTransposeNote (message.getNoteNumber()))
+        if (mGlobalState.isPowerOn())
         {
-            if (message.isNoteOn()) { handleActiveTransposeNote (message.getNoteNumber()); }
+            if (mGlobalState.isPlayMode() &&
+                mControlsState.isTransposeOn() &&
+                mControlsState.isTransposeNote (message.getNoteNumber()))
+            {
+                if (message.isNoteOn()) { handleActiveTransposeNote (message.getNoteNumber()); }
+            }
+            else
+            {
+                if (message.isNoteOn()) { handleNoteOn (message); }
+                if (message.isNoteOff()) { handleNoteOff (message); }
+                if (!message.isNoteOnOrOff()) { handleNonNote (message); }
+            }
         }
         else
         {
-            if (message.isNoteOn()) { handleNoteOn (message); }
-            if (message.isNoteOff()) { handleNoteOff (message); }
-            if (!message.isNoteOnOrOff()) { handleNonNote (message); }
+            int inSamplePosition = round (message.getTimeStamp());
+            mTransformedMidiBuffer.addEvent (message, inSamplePosition);
         }
     }
 }

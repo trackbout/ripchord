@@ -7,6 +7,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mBrowserState (mMainProcess.getBrowserState()),
     mPresetBrowser (inMainProcess)
 {
+    mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setWantsKeyboardFocus (true);
@@ -21,6 +22,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
         mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
     };
 
+    mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
@@ -35,6 +37,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mPresetFilterInput);
     addAndMakeVisible (mPresetViewport);
+    addAndMakeVisible (mPowerButton);
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
 }
@@ -60,14 +63,10 @@ void PresetViewComponent::resized()
 {
     auto mainArea = getLocalBounds();
 
-    mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y,
-                                                             KEYBOARD_BG_WIDTH, ITEM_HEIGHT));
-
-    mFavoritesButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y,
-                                                           BUTTON_WIDTH, ITEM_HEIGHT));
-
-    mKeyboardsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y,
-                                                           BUTTON_WIDTH, ITEM_HEIGHT));
+    mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, ITEM_HEIGHT));
+    mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mFavoritesButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mKeyboardsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
 
     int inputHeight = mPresetFilterInput.getHeight();
     float inputFontHeight = inputHeight * TEXT_INPUT_FONT_HEIGHT_RATIO;
@@ -94,6 +93,7 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
         case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
         default: { } break;
@@ -101,6 +101,11 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
 }
 
 //==============================================================================
+void PresetViewComponent::handleToggleView (const DataMessage* inMessage)
+{
+    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
+}
+
 void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
     bool isFavoritesOn = inMessage->messageVar1;

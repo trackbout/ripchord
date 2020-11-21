@@ -41,6 +41,7 @@ private:
     Label mInputKeyboardLabel { "", "input" };
 
     Images mImages;
+    DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };
 
@@ -51,6 +52,7 @@ private:
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
 
+    void handleTogglePower (const DataMessage* message);
     void handleToggleMode (const DataMessage* message);
 
     //==============================================================================
