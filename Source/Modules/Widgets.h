@@ -92,11 +92,11 @@ public:
         Path trianglePath;
         trianglePath.addTriangle (floatWidth, 0.f, floatWidth, floatHeight, 0.f, floatHeight);
 
-        inGraphics.setColour (COLOR_GREY_LIGHTER);
+        inGraphics.setColour (COLOR_GREY_LIGHT);
         inGraphics.fillPath (trianglePath);
 
         const float lineThickness = 1.f;
-        inGraphics.setColour (COLOR_GREY_LIGHT);
+        inGraphics.setColour (COLOR_GREY_MEDIUM);
         inGraphics.drawLine (0.5f, floatHeight, floatWidth, 0.5f, lineThickness);
     }
 
