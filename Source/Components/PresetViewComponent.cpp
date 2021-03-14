@@ -12,9 +12,9 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    mPresetFilterInput.setWantsKeyboardFocus (true);
+    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
-    mPresetFilterInput.setColour (TextEditor::outlineColourId, COLOR_GREY_LIGHTER);
-    mPresetFilterInput.setColour (TextEditor::focusedOutlineColourId, COLOR_BLUE);
     mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
     mPresetFilterInput.onTextChange = [this]()

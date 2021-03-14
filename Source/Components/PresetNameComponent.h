@@ -4,7 +4,6 @@
 #include "Images.h"
 #include "Styles.h"
 #include "TextLabel.h"
-#include "TextInput.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 
@@ -39,7 +38,7 @@ private:
     DrawableButton mRightArrowButton { "", DrawableButton::ImageStretched };
 
     TextLabel mPresetNameLabel { "", "init" };
-    TextInput mPresetNameInput;
+    TextEditor mPresetNameInput;
 
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);

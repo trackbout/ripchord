@@ -45,27 +45,6 @@ public:
     }
 
     //==============================================================================
-    void drawTextEditorOutline (Graphics& inGraphics, int inWidth, int inHeight, TextEditor& textEditor) override
-    {
-        if (textEditor.isEnabled())
-        {
-            float cornerSize = inHeight * CORNER_SIZE_RATIO;
-            juce::Rectangle<float> area (0.f, 0.f, (float) inWidth, (float) inHeight);
-
-            if (textEditor.hasKeyboardFocus (true) && !textEditor.isReadOnly())
-            {
-                inGraphics.setColour (textEditor.findColour (TextEditor::focusedOutlineColourId));
-                inGraphics.drawRoundedRectangle (area.reduced (1.f), cornerSize, 2);
-            }
-            else
-            {
-                inGraphics.setColour (textEditor.findColour (TextEditor::outlineColourId));
-                inGraphics.drawRoundedRectangle (area.reduced (1.f), cornerSize, 2);
-            }
-        }
-    };
-
-    //==============================================================================
     void drawScrollbar (Graphics& inGraphics, ScrollBar& inScrollbar, int inX, int inY, int inWidth, int inHeight,
                                       bool inIsScrollbarVertical, int inThumbStartPosition,
                                       int inThumbSize, bool inIsMouseOver, bool inIsMouseDown) override

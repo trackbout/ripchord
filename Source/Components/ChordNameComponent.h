@@ -3,7 +3,6 @@
 #include "JuceHeader.h"
 #include "Styles.h"
 #include "TextLabel.h"
-#include "TextInput.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 
@@ -29,7 +28,7 @@ private:
     MidiState& mMidiState;
 
     TextLabel mChordNameLabel;
-    TextInput mChordNameInput;
+    TextEditor mChordNameInput;
 
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);

@@ -13,8 +13,6 @@ ChordNameComponent::ChordNameComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    mChordNameLabel.setJustificationType (Justification::centred);
-
     mChordNameInput.setWantsKeyboardFocus (true);
     mChordNameInput.setJustification (Justification::centred);
     mChordNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
@@ -25,6 +23,8 @@ ChordNameComponent::ChordNameComponent (MainProcess& inMainProcess)
     {
         mPresetState.handleChordNameTextChanged (mChordNameInput.getText());
     };
+
+    mChordNameLabel.setJustificationType (Justification::centred);
 
     addAndMakeVisible (mChordNameLabel);
     addChildComponent (mChordNameInput);

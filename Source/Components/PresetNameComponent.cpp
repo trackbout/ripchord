@@ -14,6 +14,19 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    mPresetNameInput.setWantsKeyboardFocus (true);
+    mPresetNameInput.setJustification (Justification::centred);
+    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
+    mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
+
+    mPresetNameInput.onTextChange = [this]()
+    {
+        mPresetState.handlePresetNameTextChanged (mPresetNameInput.getText());
+    };
+
+    mPresetNameLabel.setJustificationType (Justification::centred);
+
     mImages.setDrawableButtonImages (mLeftArrowButton, "Prev.svg", "", "PrevON.svg", "");
     mImages.setDrawableButtonImages (mRightArrowButton, "Next.svg", "", "NextON.svg", "");
 
@@ -30,19 +43,6 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
         mBrowserState.handleMouseDownOnRightArrow (mPresetState.getName());
-    };
-
-    mPresetNameLabel.setJustificationType (Justification::centred);
-
-    mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
-    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
-    mPresetNameInput.setJustification (Justification::centred);
-    mPresetNameInput.setWantsKeyboardFocus (true);
-    mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
-
-    mPresetNameInput.onTextChange = [this]()
-    {
-        mPresetState.handlePresetNameTextChanged (mPresetNameInput.getText());
     };
 
     addAndMakeVisible (mLeftArrowButton);
