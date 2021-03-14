@@ -121,7 +121,7 @@ void KeyboardViewComponent::resized()
 //==============================================================================
 bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
 {
-    if (mGlobalState.isPresetView() || mGlobalState.isEditMode()) { return true; }
+    if (mGlobalState.isPresetView() || mGlobalState.isEditMode()) { return false; }
 
     auto keyCode = inKey.getKeyCode();
 
@@ -135,7 +135,7 @@ bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
         mPresetName.triggerRightArrow();
     }
 
-    return true;
+    return false;
 }
 
 //==============================================================================
