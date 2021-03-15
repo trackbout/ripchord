@@ -49,7 +49,7 @@ PresetViewComponent::~PresetViewComponent()
 //==============================================================================
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_DARK);
+    inGraphics.setColour (COLOR_GREY_DARKEST);
     auto mainArea = getLocalBounds();
 
     auto presetBrowserBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,

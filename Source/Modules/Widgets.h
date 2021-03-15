@@ -17,12 +17,12 @@ public:
         setColour (DrawableButton::backgroundColourId, COLOR_TRANSPARENT);
         setColour (DrawableButton::backgroundOnColourId, COLOR_TRANSPARENT);
 
-        setColour (Label::textColourId, COLOR_GREY_DARK);
+        setColour (Label::textColourId, COLOR_GREY_DARKEST);
         setColour (Label::textWhenEditingColourId, COLOR_BLACK);
         setColour (Label::backgroundWhenEditingColourId, COLOR_TRANSPARENT);
 
-        setColour (TextEditor::textColourId, COLOR_GREY_DARK);
-        setColour (TextEditor::highlightedTextColourId, COLOR_GREY_DARK);
+        setColour (TextEditor::textColourId, COLOR_GREY_DARKEST);
+        setColour (TextEditor::highlightedTextColourId, COLOR_GREY_DARKEST);
         setColour (TextEditor::backgroundColourId, COLOR_WHITE);
         setColour (TextEditor::highlightColourId, COLOR_GREY_LIGHT);
         setColour (TextEditor::outlineColourId, COLOR_TRANSPARENT);
@@ -30,7 +30,7 @@ public:
 
         setColour (Slider::thumbColourId, COLOR_TRANSPARENT);
         setColour (Slider::rotarySliderFillColourId, COLOR_PURPLE);
-        setColour (Slider::rotarySliderOutlineColourId, COLOR_WHITE);
+        setColour (Slider::rotarySliderOutlineColourId, COLOR_GREY_MEDIUM);
 
         setColour (ScrollBar::thumbColourId, COLOR_GREY_LIGHT);
         setColour (CaretComponent::caretColourId, COLOR_BLUE);

@@ -12,8 +12,8 @@ EditControlsComponent::EditControlsComponent (MainProcess& inMainProcess)
 
     mImages.setDrawableButtonImages (mAllWhiteButton, "AllWhite.svg", "", "AllWhiteON.svg", "");
     mImages.setDrawableButtonImages (mAllBlackButton, "AllBlack.svg", "", "AllBlackON.svg", "");
-    mImages.setDrawableButtonImages (mEditRightButton, "ShiftRight.svg", "", "EditRightON.svg", "");
-    mImages.setDrawableButtonImages (mEditLeftButton, "ShiftLeft.svg", "", "EditLeftON.svg", "");
+    mImages.setDrawableButtonImages (mEditRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
+    mImages.setDrawableButtonImages (mEditLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
     mImages.setDrawableButtonImages (mSaveButton, "Save.svg");
     mImages.setDrawableButtonImages (mSuccess, "Success.svg");
 

@@ -15,9 +15,9 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mRecordButton, "Record.svg");
     mImages.setDrawableButtonImages (mVelocityDepthImage, "Velocity.svg");
     mImages.setDrawableButtonImages (mVelocityVarianceImage, "Variance.svg");
-    mImages.setDrawableButtonImages (mShiftLeftButton, "ShiftLeft.svg", "", "ShiftLeftON.svg", "");
+    mImages.setDrawableButtonImages (mShiftLeftButton, "MoveLeft.svg", "", "MoveLeftON.svg", "");
     mImages.setDrawableButtonImages (mTransposeButton, "Transpose.svg");
-    mImages.setDrawableButtonImages (mShiftRightButton, "ShiftRight.svg", "", "ShiftRightON.svg", "");
+    mImages.setDrawableButtonImages (mShiftRightButton, "MoveRight.svg", "", "MoveRightON.svg", "");
     mImages.setDrawableButtonImages (mDelayVarianceImage, "Variance.svg");
     mImages.setDrawableButtonImages (mDelayDepthImage, "Delay.svg");
 

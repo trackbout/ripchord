@@ -76,5 +76,5 @@ const int KeyComponent::getNoteNumber()
 
 Colour KeyComponent::getDefaultColor()
 {
-    return Keyboard::isBlackKey (mNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
+    return Keyboard::isBlackKey (mNoteNumber) ? COLOR_GREY_DARKEST : COLOR_WHITE;
 }
