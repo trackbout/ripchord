@@ -20,7 +20,7 @@ void KeyComponent::paint (Graphics& inGraphics)
     auto keyArea = getLocalBounds().reduced (1);
     auto noteHeight = keyArea.getHeight() - markerHeight;
 
-    inGraphics.setColour (COLOR_GREY_LIGHT);
+    inGraphics.setColour (COLOR_GREY_LIGHTER);
     inGraphics.fillAll();
 
     inGraphics.setColour (mNoteColor);
