@@ -16,9 +16,6 @@
         <FILE id="suJGS0" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
         <FILE id="YYxN5q" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
         <FILE id="xFkfuJ" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
-        <FILE id="xTwwRW" name="Community.svg" compile="0" resource="1" file="Source/Assets/Community.svg"/>
-        <FILE id="qp2r6R" name="Copy.svg" compile="0" resource="1" file="Source/Assets/Copy.svg"/>
-        <FILE id="YV6Nol" name="Cut.svg" compile="0" resource="1" file="Source/Assets/Cut.svg"/>
         <FILE id="nBXhg0" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
         <FILE id="gmhA0D" name="Delete.svg" compile="0" resource="1" file="Source/Assets/Delete.svg"/>
         <FILE id="pALy37" name="Direction.svg" compile="0" resource="1" file="Source/Assets/Direction.svg"/>
@@ -28,32 +25,37 @@
               file="Source/Assets/DirectionABBA.svg"/>
         <FILE id="yyjdMp" name="DirectionBAAB.svg" compile="0" resource="1"
               file="Source/Assets/DirectionBAAB.svg"/>
-        <FILE id="qLg6Of" name="Duplicate.svg" compile="0" resource="1" file="Source/Assets/Duplicate.svg"/>
-        <FILE id="rbWgXu" name="DuplicateOFF.svg" compile="0" resource="1"
-              file="Source/Assets/DuplicateOFF.svg"/>
         <FILE id="JW8WZR" name="EditLeftON.svg" compile="0" resource="1" file="Source/Assets/EditLeftON.svg"/>
         <FILE id="aKMBLR" name="EditRightON.svg" compile="0" resource="1" file="Source/Assets/EditRightON.svg"/>
-        <FILE id="SvAbbD" name="ExportMidi.svg" compile="0" resource="1" file="Source/Assets/ExportMidi.svg"/>
-        <FILE id="UxTCoa" name="ExportMidiOFF.svg" compile="0" resource="1"
-              file="Source/Assets/ExportMidiOFF.svg"/>
-        <FILE id="dSrlW4" name="ExportPreset.svg" compile="0" resource="1"
-              file="Source/Assets/ExportPreset.svg"/>
-        <FILE id="dJgixQ" name="ExportPresetOFF.svg" compile="0" resource="1"
-              file="Source/Assets/ExportPresetOFF.svg"/>
         <FILE id="FaOXrc" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="TxbeaI" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
-        <FILE id="lIB2AM" name="Footer.svg" compile="0" resource="1" file="Source/Assets/Footer.svg"/>
         <FILE id="YGlnp3" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
-        <FILE id="m03VUP" name="ImportMidi.svg" compile="0" resource="1" file="Source/Assets/ImportMidi.svg"/>
-        <FILE id="ZM0LFY" name="ImportPreset.svg" compile="0" resource="1"
-              file="Source/Assets/ImportPreset.svg"/>
         <FILE id="EHeoFM" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="f7IOzM" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
+        <FILE id="xTwwRW" name="MenuCommunity.svg" compile="0" resource="1"
+              file="Source/Assets/MenuCommunity.svg"/>
+        <FILE id="qLg6Of" name="MenuDuplicate.svg" compile="0" resource="1"
+              file="Source/Assets/MenuDuplicate.svg"/>
+        <FILE id="rbWgXu" name="MenuDuplicateOFF.svg" compile="0" resource="1"
+              file="Source/Assets/MenuDuplicateOFF.svg"/>
+        <FILE id="SvAbbD" name="MenuExportMidi.svg" compile="0" resource="1"
+              file="Source/Assets/MenuExportMidi.svg"/>
+        <FILE id="UxTCoa" name="MenuExportMidiOFF.svg" compile="0" resource="1"
+              file="Source/Assets/MenuExportMidiOFF.svg"/>
+        <FILE id="dSrlW4" name="MenuExportPreset.svg" compile="0" resource="1"
+              file="Source/Assets/MenuExportPreset.svg"/>
+        <FILE id="dJgixQ" name="MenuExportPresetOFF.svg" compile="0" resource="1"
+              file="Source/Assets/MenuExportPresetOFF.svg"/>
+        <FILE id="lIB2AM" name="MenuFooter.svg" compile="0" resource="1" file="Source/Assets/MenuFooter.svg"/>
+        <FILE id="m03VUP" name="MenuImportMidi.svg" compile="0" resource="1"
+              file="Source/Assets/MenuImportMidi.svg"/>
+        <FILE id="ZM0LFY" name="MenuImportPreset.svg" compile="0" resource="1"
+              file="Source/Assets/MenuImportPreset.svg"/>
+        <FILE id="W412mR" name="MenuNewPreset.svg" compile="0" resource="1"
+              file="Source/Assets/MenuNewPreset.svg"/>
         <FILE id="sBKOde" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
-        <FILE id="W412mR" name="New.svg" compile="0" resource="1" file="Source/Assets/New.svg"/>
+        <FILE id="f7IOzM" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
         <FILE id="ZjL5So" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="nBHwff" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
-        <FILE id="zJOBwd" name="Paste.svg" compile="0" resource="1" file="Source/Assets/Paste.svg"/>
         <FILE id="gZ3moz" name="Power.svg" compile="0" resource="1" file="Source/Assets/Power.svg"/>
         <FILE id="iETl1J" name="PowerON.svg" compile="0" resource="1" file="Source/Assets/PowerON.svg"/>
         <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
@@ -65,7 +67,14 @@
         <FILE id="OcdB9B" name="Recorded.svg" compile="0" resource="1" file="Source/Assets/Recorded.svg"/>
         <FILE id="shqamt" name="RecordedIN.svg" compile="0" resource="1" file="Source/Assets/RecordedIN.svg"/>
         <FILE id="wkbRsX" name="RecordedON.svg" compile="0" resource="1" file="Source/Assets/RecordedON.svg"/>
-        <FILE id="Mwewns" name="RightClick.svg" compile="0" resource="1" file="Source/Assets/RightClick.svg"/>
+        <FILE id="qp2r6R" name="RightClickCopy.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickCopy.svg"/>
+        <FILE id="YV6Nol" name="RightClickCut.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickCut.svg"/>
+        <FILE id="Mwewns" name="RightClickMenu.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickMenu.svg"/>
+        <FILE id="zJOBwd" name="RightClickPaste.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickPaste.svg"/>
         <FILE id="NYegX6" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="OhFNRv" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
         <FILE id="OfjFtw" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>

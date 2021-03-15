@@ -8,10 +8,10 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mImages.setDrawableButtonImages (mCutButton, "Cut.svg");
-    mImages.setDrawableButtonImages (mCopyButton, "Copy.svg");
-    mImages.setDrawableButtonImages (mPasteButton, "Paste.svg");
-    mImages.setDrawableButtonImages (mRightClickBg, "RightClick.svg");
+    mImages.setDrawableButtonImages (mCutButton, "RightClickCut.svg");
+    mImages.setDrawableButtonImages (mCopyButton, "RightClickCopy.svg");
+    mImages.setDrawableButtonImages (mPasteButton, "RightClickPaste.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, "RightClickMenu.svg");
 
     mCutButton.setTriggeredOnMouseDown (true);
     mCopyButton.setTriggeredOnMouseDown (true);

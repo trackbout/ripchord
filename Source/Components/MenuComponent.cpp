@@ -8,14 +8,14 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mImages.setDrawableButtonImages (mNewButton, "New.svg");
-    mImages.setDrawableButtonImages (mDuplicateButton, "Duplicate.svg");
-    mImages.setDrawableButtonImages (mImportMidiButton, "ImportMidi.svg");
-    mImages.setDrawableButtonImages (mExportMidiButton, "ExportMidi.svg");
-    mImages.setDrawableButtonImages (mImportPresetButton, "ImportPreset.svg");
-    mImages.setDrawableButtonImages (mExportPresetButton, "ExportPreset.svg");
-    mImages.setDrawableButtonImages (mCommunityButton, "Community.svg");
-    mImages.setDrawableButtonImages (mFooter, "Footer.svg");
+    mImages.setDrawableButtonImages (mNewButton, "MenuNewPreset.svg");
+    mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
+    mImages.setDrawableButtonImages (mImportMidiButton, "MenuImportMidi.svg");
+    mImages.setDrawableButtonImages (mExportMidiButton, "MenuExportMidi.svg");
+    mImages.setDrawableButtonImages (mImportPresetButton, "MenuImportPreset.svg");
+    mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
+    mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
+    mImages.setDrawableButtonImages (mFooter, "MenuFooter.svg");
 
     mNewButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
@@ -131,7 +131,7 @@ void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     if (mGlobalState.isMenuHidden()) { return; }
     bool hasValidPreset = mPresetState.isPresetValid();
-    mImages.setDrawableButtonImages (mDuplicateButton, hasValidPreset ? "Duplicate.svg" : "DuplicateOFF.svg");
-    mImages.setDrawableButtonImages (mExportMidiButton, hasValidPreset ? "ExportMidi.svg" : "ExportMidiOFF.svg");
-    mImages.setDrawableButtonImages (mExportPresetButton, hasValidPreset ? "ExportPreset.svg" : "ExportPresetOFF.svg");
+    mImages.setDrawableButtonImages (mDuplicateButton, hasValidPreset ? "MenuDuplicate.svg" : "MenuDuplicateOFF.svg");
+    mImages.setDrawableButtonImages (mExportMidiButton, hasValidPreset ? "MenuExportMidi.svg" : "MenuExportMidiOFF.svg");
+    mImages.setDrawableButtonImages (mExportPresetButton, hasValidPreset ? "MenuExportPreset.svg" : "MenuExportPresetOFF.svg");
 }
