@@ -45,6 +45,57 @@ public:
     }
 
     //==============================================================================
+    void drawRotarySlider (Graphics& inGraphics, int inX, int inY, int inWidth, int inHeight, float inSliderPos,
+                           const float inRotaryStartAngle, const float inRotaryEndAngle, Slider& inSlider) override
+    {
+        auto outline = inSlider.findColour (Slider::rotarySliderOutlineColourId);
+        auto fill    = inSlider.findColour (Slider::rotarySliderFillColourId);
+
+        auto bounds = Rectangle<int> (inX, inY, inWidth, inHeight).toFloat().reduced (10);
+
+        auto radius = jmin (bounds.getWidth(), bounds.getHeight()) / 2.0f;
+        auto toAngle = inRotaryStartAngle + inSliderPos * (inRotaryEndAngle - inRotaryStartAngle);
+        auto lineW = jmin (8.0f, radius * 0.5f);
+        auto arcRadius = radius - lineW * 0.5f;
+
+        Path backgroundArc;
+        backgroundArc.addCentredArc (bounds.getCentreX(),
+                                     bounds.getCentreY(),
+                                     arcRadius,
+                                     arcRadius,
+                                     0.0f,
+                                     inRotaryStartAngle,
+                                     inRotaryEndAngle,
+                                     true);
+
+        inGraphics.setColour (outline);
+        inGraphics.strokePath (backgroundArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::rounded));
+
+        if (inSlider.isEnabled())
+        {
+            Path valueArc;
+            valueArc.addCentredArc (bounds.getCentreX(),
+                                    bounds.getCentreY(),
+                                    arcRadius,
+                                    arcRadius,
+                                    0.0f,
+                                    inRotaryStartAngle,
+                                    toAngle,
+                                    true);
+
+            inGraphics.setColour (fill);
+            inGraphics.strokePath (valueArc, PathStrokeType (lineW, PathStrokeType::curved, PathStrokeType::rounded));
+        }
+
+        auto thumbWidth = lineW * 2.0f;
+        Point<float> thumbPoint (bounds.getCentreX() + arcRadius * std::cos (toAngle - MathConstants<float>::halfPi),
+                                 bounds.getCentreY() + arcRadius * std::sin (toAngle - MathConstants<float>::halfPi));
+
+        inGraphics.setColour (inSlider.findColour (Slider::thumbColourId));
+        inGraphics.fillEllipse (Rectangle<float> (thumbWidth, thumbWidth).withCentre (thumbPoint));
+    }
+
+    //==============================================================================
     void drawScrollbar (Graphics& inGraphics, ScrollBar& inScrollbar, int inX, int inY, int inWidth, int inHeight,
                                       bool inIsScrollbarVertical, int inThumbStartPosition,
                                       int inThumbSize, bool inIsMouseOver, bool inIsMouseDown) override
