@@ -9,10 +9,10 @@ const Colour COLOR_WHITE = Colour (255,255,255);
 const Colour COLOR_BLACK = Colour (0,0,0);
 const Colour COLOR_GREY_DARKEST = Colour (32,33,36);
 const Colour COLOR_GREY_DARKER = Colour (46,47,51);
-const Colour COLOR_GREY_MEDIUM = Colour (116,121,128);
+const Colour COLOR_GREY_MEDIUM = Colour (142,149,158);
 const Colour COLOR_GREY_LIGHT = Colour (192,192,192);
 const Colour COLOR_GREY_LIGHTER = Colour (220,220,220);
-const Colour COLOR_GREY_LIGHTEST = Colour (210,212,214);
+const Colour COLOR_GREY_LIGHTEST = Colour (215,216,217);
 const Colour COLOR_TRANSPARENT = COLOR_WHITE.withAlpha (0.0f);
 const Colour COLOR_OVERLAY = COLOR_BLACK.withAlpha (0.7f);
 

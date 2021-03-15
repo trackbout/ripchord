@@ -2,7 +2,7 @@
 <svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>ShiftLeft</title>
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect fill="#747980" x="0" y="0" width="34" height="34" rx="5"></rect>
+        <rect fill="#8E959E" x="0" y="0" width="34" height="34" rx="5"></rect>
         <polygon fill="#FFFFFF" fill-rule="nonzero" points="15.745098 17 22.6470588 23.6976744 20.2745098 26 11 17 20.2745098 8 22.6470588 10.3023256"></polygon>
     </g>
 </svg>
