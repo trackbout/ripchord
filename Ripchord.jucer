@@ -11,26 +11,6 @@
   <MAINGROUP id="gjMAdL" name="Ripchord">
     <GROUP id="{B7141C90-8679-6CA6-DFD2-5E27422D1A61}" name="Source">
       <GROUP id="{3E841B27-D72E-1E3E-82C9-FBBC01EC00A2}" name="Assets">
-        <FILE id="SVyyy2" name="AllBlack.svg" compile="0" resource="1" file="Source/Assets/AllBlack.svg"/>
-        <FILE id="HU0fYy" name="AllBlackON.svg" compile="0" resource="1" file="Source/Assets/AllBlackON.svg"/>
-        <FILE id="suJGS0" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
-        <FILE id="YYxN5q" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
-        <FILE id="xFkfuJ" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
-        <FILE id="nBXhg0" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
-        <FILE id="gmhA0D" name="Delete.svg" compile="0" resource="1" file="Source/Assets/Delete.svg"/>
-        <FILE id="pALy37" name="Direction.svg" compile="0" resource="1" file="Source/Assets/Direction.svg"/>
-        <FILE id="cz8uNv" name="DirectionAB.svg" compile="0" resource="1" file="Source/Assets/DirectionAB.svg"/>
-        <FILE id="DhF6of" name="DirectionBA.svg" compile="0" resource="1" file="Source/Assets/DirectionBA.svg"/>
-        <FILE id="COK1ot" name="DirectionABBA.svg" compile="0" resource="1"
-              file="Source/Assets/DirectionABBA.svg"/>
-        <FILE id="yyjdMp" name="DirectionBAAB.svg" compile="0" resource="1"
-              file="Source/Assets/DirectionBAAB.svg"/>
-        <FILE id="JW8WZR" name="EditLeftON.svg" compile="0" resource="1" file="Source/Assets/EditLeftON.svg"/>
-        <FILE id="aKMBLR" name="EditRightON.svg" compile="0" resource="1" file="Source/Assets/EditRightON.svg"/>
-        <FILE id="FaOXrc" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
-        <FILE id="TxbeaI" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
-        <FILE id="YGlnp3" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
-        <FILE id="EHeoFM" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
         <FILE id="xTwwRW" name="MenuCommunity.svg" compile="0" resource="1"
               file="Source/Assets/MenuCommunity.svg"/>
         <FILE id="qLg6Of" name="MenuDuplicate.svg" compile="0" resource="1"
@@ -52,21 +32,6 @@
               file="Source/Assets/MenuImportPreset.svg"/>
         <FILE id="W412mR" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
-        <FILE id="sBKOde" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
-        <FILE id="f7IOzM" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
-        <FILE id="ZjL5So" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
-        <FILE id="nBHwff" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
-        <FILE id="gZ3moz" name="Power.svg" compile="0" resource="1" file="Source/Assets/Power.svg"/>
-        <FILE id="iETl1J" name="PowerON.svg" compile="0" resource="1" file="Source/Assets/PowerON.svg"/>
-        <FILE id="j283Ct" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
-        <FILE id="js20p0" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
-        <FILE id="o6KUIt" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
-        <FILE id="IC5Huf" name="Record.svg" compile="0" resource="1" file="Source/Assets/Record.svg"/>
-        <FILE id="gJoNuJ" name="RecordIN.svg" compile="0" resource="1" file="Source/Assets/RecordIN.svg"/>
-        <FILE id="LGQTkr" name="RecordON.svg" compile="0" resource="1" file="Source/Assets/RecordON.svg"/>
-        <FILE id="OcdB9B" name="Recorded.svg" compile="0" resource="1" file="Source/Assets/Recorded.svg"/>
-        <FILE id="shqamt" name="RecordedIN.svg" compile="0" resource="1" file="Source/Assets/RecordedIN.svg"/>
-        <FILE id="wkbRsX" name="RecordedON.svg" compile="0" resource="1" file="Source/Assets/RecordedON.svg"/>
         <FILE id="qp2r6R" name="RightClickCopy.svg" compile="0" resource="1"
               file="Source/Assets/RightClickCopy.svg"/>
         <FILE id="YV6Nol" name="RightClickCut.svg" compile="0" resource="1"
@@ -75,21 +40,6 @@
               file="Source/Assets/RightClickMenu.svg"/>
         <FILE id="zJOBwd" name="RightClickPaste.svg" compile="0" resource="1"
               file="Source/Assets/RightClickPaste.svg"/>
-        <FILE id="NYegX6" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
-        <FILE id="OhFNRv" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
-        <FILE id="OfjFtw" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>
-        <FILE id="qEXb44" name="ShiftLeftON.svg" compile="0" resource="1" file="Source/Assets/ShiftLeftON.svg"/>
-        <FILE id="ObzRWa" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
-        <FILE id="fUL3m4" name="ShiftRightON.svg" compile="0" resource="1"
-              file="Source/Assets/ShiftRightON.svg"/>
-        <FILE id="GQnmAg" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
-        <FILE id="sOwDLk" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
-        <FILE id="HJfXJg" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
-        <FILE id="Lf4gNK" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
-        <FILE id="RYi5cT" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
-        <FILE id="jH57R3" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
-        <FILE id="ncRzW7" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
-        <FILE id="eMr4X3" name="Velocity.svg" compile="0" resource="1" file="Source/Assets/Velocity.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">
         <FILE id="aMqYp3" name="MainComponent.cpp" compile="1" resource="0"
