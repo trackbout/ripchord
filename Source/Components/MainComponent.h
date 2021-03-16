@@ -39,6 +39,7 @@ private:
 
     Images mImages;
     Label mTitleLabel { "", "ripchord" };
+    DrawableButton mQuickFav { "", DrawableButton::ImageStretched };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
     void handleToggleView (const DataMessage* message);
