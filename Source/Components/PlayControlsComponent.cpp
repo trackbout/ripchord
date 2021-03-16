@@ -169,8 +169,10 @@ void PlayControlsComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleTranspose): { handleToggleTranspose (inMessage); } break;
         case (MessageCode::kDelayDepth): { handleDelayDepth (inMessage); } break;
         case (MessageCode::kDelayDirection): { handleDelayDirection (inMessage); } break;
+        case (MessageCode::kDelayVariance): { handleDelayVariance (inMessage); } break;
         case (MessageCode::kVelocityDepth): { handleVelocityDepth (inMessage); } break;
         case (MessageCode::kVelocityDirection): { handleVelocityDirection (inMessage); } break;
+        case (MessageCode::kVelocityVariance): { handleVelocityVariance (inMessage); } break;
         default: { } break;
     };
 }
@@ -185,8 +187,11 @@ void PlayControlsComponent::handleToggleMode (const DataMessage* inMessage)
         setVisible (true);
         updateRecordButtons();
         updateTransposeButton();
-        updateDelayDirectionButton();
-        updateVelocityDirectionButton();
+        updateDelayControlImages();
+        updateDelayVarianceImage();
+        updateVelocityControlImages();
+        updateVelocityVarianceImage();
+
         mDelayDepthSlider.setValue (mControlsState.getDelayDepth() * 100000);
         mDelayVarianceSlider.setValue (mControlsState.getDelayVariance() * 100000);
         mVelocityDepthSlider.setValue (mControlsState.getVelocityDepth() * 100000);
@@ -211,22 +216,32 @@ void PlayControlsComponent::handleToggleTranspose (const DataMessage* inMessage)
 
 void PlayControlsComponent::handleDelayDepth (const DataMessage* inMessage)
 {
-    updateDelayDirectionButton();
+    updateDelayControlImages();
 }
 
 void PlayControlsComponent::handleDelayDirection (const DataMessage* inMessage)
 {
-    updateDelayDirectionButton();
+    updateDelayControlImages();
+}
+
+void PlayControlsComponent::handleDelayVariance (const DataMessage* inMessage)
+{
+    updateDelayVarianceImage();
 }
 
 void PlayControlsComponent::handleVelocityDepth (const DataMessage* inMessage)
 {
-    updateVelocityDirectionButton();
+    updateVelocityControlImages();
 }
 
 void PlayControlsComponent::handleVelocityDirection (const DataMessage* inMessage)
 {
-    updateVelocityDirectionButton();
+    updateVelocityControlImages();
+}
+
+void PlayControlsComponent::handleVelocityVariance (const DataMessage* inMessage)
+{
+    updateVelocityVarianceImage();
 }
 
 void PlayControlsComponent::updateRecordButtons()
@@ -264,30 +279,60 @@ void PlayControlsComponent::updateTransposeButton()
     mImages.setDrawableButtonImages (mTransposeButton, buttonImage);
 }
 
-void PlayControlsComponent::updateDelayDirectionButton()
+void PlayControlsComponent::updateDelayControlImages()
 {
-    String buttonImage = "Direction.svg";
+    String depthImage = "Delay.svg";
+    String directionImage = "Direction.svg";
     String delayDirection = mControlsState.getDelayDirection();
 
-    if (mControlsState.getDelayDepth() == 0) { buttonImage = "Direction.svg"; }
-    else if (delayDirection == "LTR") { buttonImage = "DirectionAB.svg"; }
-    else if (delayDirection == "RTL") { buttonImage = "DirectionBA.svg"; }
-    else if (delayDirection == "LTR_RTL") { buttonImage = "DirectionABBA.svg"; }
-    else if (delayDirection == "RTL_LTR") { buttonImage = "DirectionBAAB.svg"; }
+    if (mControlsState.getDelayDepth() == 0) { depthImage = "Delay.svg"; }
+    else { depthImage = "DelayON.svg"; }
 
-    mImages.setDrawableButtonImages (mDelayDirectionButton, buttonImage);
+    if (mControlsState.getDelayDepth() == 0) { directionImage = "Direction.svg"; }
+    else if (delayDirection == "LTR") { directionImage = "DirectionAB.svg"; }
+    else if (delayDirection == "RTL") { directionImage = "DirectionBA.svg"; }
+    else if (delayDirection == "LTR_RTL") { directionImage = "DirectionABBA.svg"; }
+    else if (delayDirection == "RTL_LTR") { directionImage = "DirectionBAAB.svg"; }
+
+    mImages.setDrawableButtonImages (mDelayDepthImage, depthImage);
+    mImages.setDrawableButtonImages (mDelayDirectionButton, directionImage);
 }
 
-void PlayControlsComponent::updateVelocityDirectionButton()
+void PlayControlsComponent::updateDelayVarianceImage()
 {
-    String buttonImage = "Direction.svg";
+    String varianceImage = "Variance.svg";
+
+    if (mControlsState.getDelayVariance() == 0) { varianceImage = "Variance.svg"; }
+    else { varianceImage = "VarianceON.svg"; }
+
+    mImages.setDrawableButtonImages (mDelayVarianceImage, varianceImage);
+}
+
+void PlayControlsComponent::updateVelocityControlImages()
+{
+    String depthImage = "Velocity.svg";
+    String directionImage = "Direction.svg";
     String velocityDirection = mControlsState.getVelocityDirection();
 
-    if (mControlsState.getVelocityDepth() == 0) { buttonImage = "Direction.svg"; }
-    else if (velocityDirection == "HTS") { buttonImage = "DirectionAB.svg"; }
-    else if (velocityDirection == "STH") { buttonImage = "DirectionBA.svg"; }
-    else if (velocityDirection == "HTS_STH") { buttonImage = "DirectionABBA.svg"; }
-    else if (velocityDirection == "STH_HTS") { buttonImage = "DirectionBAAB.svg"; }
+    if (mControlsState.getVelocityDepth() == 0) { depthImage = "Velocity.svg"; }
+    else { depthImage = "VelocityON.svg"; }
 
-    mImages.setDrawableButtonImages (mVelocityDirectionButton, buttonImage);
+    if (mControlsState.getVelocityDepth() == 0) { directionImage = "Direction.svg"; }
+    else if (velocityDirection == "HTS") { directionImage = "DirectionAB.svg"; }
+    else if (velocityDirection == "STH") { directionImage = "DirectionBA.svg"; }
+    else if (velocityDirection == "HTS_STH") { directionImage = "DirectionABBA.svg"; }
+    else if (velocityDirection == "STH_HTS") { directionImage = "DirectionBAAB.svg"; }
+
+    mImages.setDrawableButtonImages (mVelocityDepthImage, depthImage);
+    mImages.setDrawableButtonImages (mVelocityDirectionButton, directionImage);
+}
+
+void PlayControlsComponent::updateVelocityVarianceImage()
+{
+    String varianceImage = "Variance.svg";
+
+    if (mControlsState.getVelocityVariance() == 0) { varianceImage = "Variance.svg"; }
+    else { varianceImage = "VarianceON.svg"; }
+
+    mImages.setDrawableButtonImages (mVelocityVarianceImage, varianceImage);
 }

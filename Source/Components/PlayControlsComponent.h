@@ -61,14 +61,18 @@ private:
 
     void handleDelayDepth (const DataMessage* message);
     void handleDelayDirection (const DataMessage* message);
+    void handleDelayVariance (const DataMessage* message);
 
     void handleVelocityDepth (const DataMessage* message);
     void handleVelocityDirection (const DataMessage* message);
+    void handleVelocityVariance (const DataMessage* message);
 
     void updateRecordButtons();
     void updateTransposeButton();
-    void updateDelayDirectionButton();
-    void updateVelocityDirectionButton();
+    void updateDelayControlImages();
+    void updateDelayVarianceImage();
+    void updateVelocityControlImages();
+    void updateVelocityVarianceImage();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PlayControlsComponent)

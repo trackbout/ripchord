@@ -17,6 +17,7 @@
         <FILE id="IiQSHc" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
         <FILE id="ffCQ8h" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
         <FILE id="eqUcWa" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
+        <FILE id="Gtu3L5" name="DelayON.svg" compile="0" resource="1" file="Source/Assets/DelayON.svg"/>
         <FILE id="XbbGyO" name="Delete.svg" compile="0" resource="1" file="Source/Assets/Delete.svg"/>
         <FILE id="aBWMeq" name="Direction.svg" compile="0" resource="1" file="Source/Assets/Direction.svg"/>
         <FILE id="ra1uZD" name="DirectionAB.svg" compile="0" resource="1" file="Source/Assets/DirectionAB.svg"/>
@@ -93,7 +94,9 @@
         <FILE id="sFpF0o" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
         <FILE id="vP89uR" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
         <FILE id="yVz3Tz" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
+        <FILE id="yd6gXG" name="VarianceON.svg" compile="0" resource="1" file="Source/Assets/VarianceON.svg"/>
         <FILE id="NFOL4K" name="Velocity.svg" compile="0" resource="1" file="Source/Assets/Velocity.svg"/>
+        <FILE id="Yx52Rg" name="VelocityON.svg" compile="0" resource="1" file="Source/Assets/VelocityON.svg"/>
       </GROUP>
       <GROUP id="{DE63C15D-860F-4534-2FF8-CBC79484AC7F}" name="Components">
         <FILE id="aMqYp3" name="MainComponent.cpp" compile="1" resource="0"
