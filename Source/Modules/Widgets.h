@@ -17,14 +17,14 @@ public:
         setColour (DrawableButton::backgroundColourId, COLOR_TRANSPARENT);
         setColour (DrawableButton::backgroundOnColourId, COLOR_TRANSPARENT);
 
-        setColour (Label::textColourId, COLOR_GREY_DARKEST);
-        setColour (Label::textWhenEditingColourId, COLOR_BLACK);
+        setColour (Label::textColourId, COLOR_GREY_MEDIUM);
+        setColour (Label::textWhenEditingColourId, COLOR_GREY_MEDIUM);
         setColour (Label::backgroundWhenEditingColourId, COLOR_TRANSPARENT);
 
-        setColour (TextEditor::textColourId, COLOR_GREY_DARKEST);
-        setColour (TextEditor::highlightedTextColourId, COLOR_GREY_DARKEST);
+        setColour (TextEditor::textColourId, COLOR_GREY_MEDIUM);
+        setColour (TextEditor::highlightedTextColourId, COLOR_GREY_MEDIUM);
         setColour (TextEditor::backgroundColourId, COLOR_WHITE);
-        setColour (TextEditor::highlightColourId, COLOR_GREY_LIGHTER);
+        setColour (TextEditor::highlightColourId, COLOR_WHITE);
         setColour (TextEditor::outlineColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::focusedOutlineColourId, COLOR_TRANSPARENT);
 
@@ -32,7 +32,7 @@ public:
         setColour (Slider::rotarySliderFillColourId, COLOR_PURPLE);
         setColour (Slider::rotarySliderOutlineColourId, COLOR_GREY_MEDIUM);
 
-        setColour (ScrollBar::thumbColourId, COLOR_GREY_LIGHTER);
+        setColour (ScrollBar::thumbColourId, COLOR_GREY_MEDIUM);
         setColour (CaretComponent::caretColourId, COLOR_BLUE);
     };
 
