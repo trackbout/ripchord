@@ -44,7 +44,6 @@
               file="Source/Assets/MenuExportPreset.svg"/>
         <FILE id="daMGcw" name="MenuExportPresetOFF.svg" compile="0" resource="1"
               file="Source/Assets/MenuExportPresetOFF.svg"/>
-        <FILE id="xbGJr4" name="MenuFooter.svg" compile="0" resource="1" file="Source/Assets/MenuFooter.svg"/>
         <FILE id="fUVHqC" name="MenuImportMidi.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportMidi.svg"/>
         <FILE id="HNXqJ8" name="MenuImportPreset.svg" compile="0" resource="1"

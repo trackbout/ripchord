@@ -38,7 +38,6 @@ private:
     DrawableButton mImportPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mCommunityButton { "", DrawableButton::ImageStretched };
-    DrawableButton mFooter { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     void handleToggleMenu (const DataMessage* message);

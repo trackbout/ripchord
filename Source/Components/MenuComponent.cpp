@@ -15,7 +15,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mImportPresetButton, "MenuImportPreset.svg");
     mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
-    mImages.setDrawableButtonImages (mFooter, "MenuFooter.svg");
 
     mNewButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
@@ -78,7 +77,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mImportPresetButton);
     addAndMakeVisible (mExportPresetButton);
     addAndMakeVisible (mCommunityButton);
-    addAndMakeVisible (mFooter);
 }
 
 MenuComponent::~MenuComponent()
@@ -108,7 +106,6 @@ void MenuComponent::resized()
     mImportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mExportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
     mCommunityButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mFooter.setBounds (menuArea.removeFromTop (buttonHeight));
 }
 
 //==============================================================================
