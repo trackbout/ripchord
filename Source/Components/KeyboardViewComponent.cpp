@@ -20,6 +20,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
+    mImages.setDrawableButtonImages (mQuickFav, "QuickFav.svg");
+    mQuickFav.setTriggeredOnMouseDown (true);
+    mQuickFav.onClick = [this]() { DBG ("QuickFav"); };
+
     mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
     mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
@@ -58,6 +62,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mOutputKeyboardLabel);
     addAndMakeVisible (mInputKeyboardLabel);
 
+    addAndMakeVisible (mQuickFav);
     addAndMakeVisible (mPowerButton);
     addAndMakeVisible (mPresetsButton);
     addAndMakeVisible (mModeButton);
@@ -113,6 +118,7 @@ void KeyboardViewComponent::resized()
     mPresetName.setTransform (AffineTransform::scale (scaleFactor));
     mChordName.setTransform (AffineTransform::scale (scaleFactor));
 
+    mQuickFav.setBounds (Styles::getRelativeBounds (mainArea, FAV_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));

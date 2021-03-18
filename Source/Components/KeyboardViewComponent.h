@@ -41,6 +41,7 @@ private:
     Label mInputKeyboardLabel { "", "input" };
 
     Images mImages;
+    DrawableButton mQuickFav { "", DrawableButton::ImageStretched };
     DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
     DrawableButton mModeButton { "", DrawableButton::ImageStretched };
     DrawableButton mPresetsButton { "", DrawableButton::ImageStretched };

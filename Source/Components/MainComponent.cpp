@@ -21,16 +21,11 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
 
-    mImages.setDrawableButtonImages (mQuickFav, "QuickFav.svg");
-    mQuickFav.setTriggeredOnMouseDown (true);
-    mQuickFav.onClick = [this]() { DBG ("QuickFav"); };
-
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mKeyboardViewComponent);
     addChildComponent (mPresetViewComponent);
 
     addAndMakeVisible (mMenuButton);
-    addAndMakeVisible (mQuickFav);
     addChildComponent (mMenuComponent);
     addChildComponent (mRightClickComponent);
 
@@ -68,9 +63,6 @@ void MainComponent::resized()
 
     auto menuButtonArea = Styles::getRelativeBounds (mainArea, MENU_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
     mMenuButton.setBounds (menuButtonArea);
-
-    auto quickFavArea = Styles::getRelativeBounds (mainArea, FAV_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
-    mQuickFav.setBounds (quickFavArea);
 }
 
 //==============================================================================
