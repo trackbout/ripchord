@@ -31,7 +31,8 @@ private:
     PresetState& mPresetState;
 
     Images mImages;
-    DrawableButton mNewButton { "", DrawableButton::ImageStretched };
+    DrawableButton mBackground { "", DrawableButton::ImageStretched };
+    DrawableButton mNewPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mDuplicateButton { "", DrawableButton::ImageStretched };
     DrawableButton mImportMidiButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportMidiButton { "", DrawableButton::ImageStretched };

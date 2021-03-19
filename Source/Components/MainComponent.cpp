@@ -39,7 +39,7 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_LIGHTEST);
+    inGraphics.setColour (COLOR_MODE_LIGHT);
     inGraphics.fillRect (getLocalBounds());
 
     if (mShouldReconstruct)
@@ -61,7 +61,7 @@ void MainComponent::resized()
     mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleArea);
 
-    auto menuButtonArea = Styles::getRelativeBounds (mainArea, MENU_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
+    auto menuButtonArea = Styles::getRelativeBounds (mainArea, MENU_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
     mMenuButton.setBounds (menuButtonArea);
 }
 

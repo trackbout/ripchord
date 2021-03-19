@@ -30,25 +30,27 @@
         <FILE id="ij7tFk" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
         <FILE id="eksyyG" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="GIhi6U" name="MenuCommunity.svg" compile="0" resource="1"
+        <FILE id="H80eQ9" name="MenuBgDark.svg" compile="0" resource="1" file="Source/Assets/MenuBgDark.svg"/>
+        <FILE id="hcBKtu" name="MenuBgLight.svg" compile="0" resource="1" file="Source/Assets/MenuBgLight.svg"/>
+        <FILE id="vEBsNH" name="MenuCommunity.svg" compile="0" resource="1"
               file="Source/Assets/MenuCommunity.svg"/>
-        <FILE id="OX9ENq" name="MenuDuplicate.svg" compile="0" resource="1"
+        <FILE id="nW0vRx" name="MenuDuplicate.svg" compile="0" resource="1"
               file="Source/Assets/MenuDuplicate.svg"/>
-        <FILE id="UvLLJi" name="MenuDuplicateOFF.svg" compile="0" resource="1"
+        <FILE id="RLd0le" name="MenuDuplicateOFF.svg" compile="0" resource="1"
               file="Source/Assets/MenuDuplicateOFF.svg"/>
-        <FILE id="lCzQYX" name="MenuExportMidi.svg" compile="0" resource="1"
+        <FILE id="jusRVZ" name="MenuExportMidi.svg" compile="0" resource="1"
               file="Source/Assets/MenuExportMidi.svg"/>
-        <FILE id="zGiE7d" name="MenuExportMidiOFF.svg" compile="0" resource="1"
+        <FILE id="pj13Sq" name="MenuExportMidiOFF.svg" compile="0" resource="1"
               file="Source/Assets/MenuExportMidiOFF.svg"/>
-        <FILE id="KwazGe" name="MenuExportPreset.svg" compile="0" resource="1"
+        <FILE id="KV9ory" name="MenuExportPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuExportPreset.svg"/>
-        <FILE id="daMGcw" name="MenuExportPresetOFF.svg" compile="0" resource="1"
+        <FILE id="dHbwyp" name="MenuExportPresetOFF.svg" compile="0" resource="1"
               file="Source/Assets/MenuExportPresetOFF.svg"/>
-        <FILE id="fUVHqC" name="MenuImportMidi.svg" compile="0" resource="1"
+        <FILE id="RrB3j6" name="MenuImportMidi.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportMidi.svg"/>
-        <FILE id="HNXqJ8" name="MenuImportPreset.svg" compile="0" resource="1"
+        <FILE id="G0bEtN" name="MenuImportPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportPreset.svg"/>
-        <FILE id="q5FQvp" name="MenuNewPreset.svg" compile="0" resource="1"
+        <FILE id="fmqB89" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
         <FILE id="je4NIx" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
         <FILE id="zf1Czg" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>

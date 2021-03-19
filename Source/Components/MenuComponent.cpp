@@ -8,7 +8,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mImages.setDrawableButtonImages (mNewButton, "MenuNewPreset.svg");
+    mImages.setDrawableButtonImages (mBackground, "MenuBgLight.svg");
+    mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
     mImages.setDrawableButtonImages (mImportMidiButton, "MenuImportMidi.svg");
     mImages.setDrawableButtonImages (mExportMidiButton, "MenuExportMidi.svg");
@@ -16,7 +17,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
 
-    mNewButton.setTriggeredOnMouseDown (true);
+    mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
     mImportMidiButton.setTriggeredOnMouseDown (true);
     mExportMidiButton.setTriggeredOnMouseDown (true);
@@ -24,7 +25,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mExportPresetButton.setTriggeredOnMouseDown (true);
     mCommunityButton.setTriggeredOnMouseDown (true);
 
-    mNewButton.onClick = [this]()
+    mNewPresetButton.onClick = [this]()
     {
         mPresetState.handleMouseDownOnNew();
         mGlobalState.toggleMenu();
@@ -70,7 +71,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
         mGlobalState.toggleMenu();
     };
 
-    addAndMakeVisible (mNewButton);
+    addAndMakeVisible (mBackground);
+    addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
     addAndMakeVisible (mImportMidiButton);
     addAndMakeVisible (mExportMidiButton);
@@ -93,19 +95,15 @@ void MenuComponent::paint (Graphics& inGraphics)
 void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
-    auto menuArea = Styles::getRelativeBounds (mainArea, GEAR_MENU_X, GEAR_MENU_Y,
-                                               GEAR_MENU_WIDTH, GEAR_MENU_HEIGHT);
 
-    int menuHeight = menuArea.getHeight();
-    int buttonHeight = menuHeight / GEAR_MENU_BUTTON_COUNT;
-
-    mNewButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mDuplicateButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mImportMidiButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mExportMidiButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mImportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mExportPresetButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mCommunityButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
+    mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mImportMidiButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_03, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mExportMidiButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_04, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mImportPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_05, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mExportPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_06, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mCommunityButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_07, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
 }
 
 //==============================================================================

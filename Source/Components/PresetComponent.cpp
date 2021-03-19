@@ -32,7 +32,7 @@ PresetComponent::~PresetComponent()
 //==============================================================================
 void PresetComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_LIGHTEST);
+    inGraphics.setColour (COLOR_MODE_LIGHT);
     float cornerSize = getHeight() * CORNER_SIZE_RATIO;
     inGraphics.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }
