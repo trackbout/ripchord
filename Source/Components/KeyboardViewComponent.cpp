@@ -17,6 +17,9 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    mImages.setDrawableButtonImages (mInputKeyboardBg, "KeyboardBg.svg");
+    mImages.setDrawableButtonImages (mOutputKeyboardBg, "KeyboardBg.svg");
+
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
@@ -59,8 +62,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetName.setBounds (TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
 
-    addAndMakeVisible (mOutputKeyboardLabel);
+    addAndMakeVisible (mInputKeyboardBg);
+    addAndMakeVisible (mOutputKeyboardBg);
     addAndMakeVisible (mInputKeyboardLabel);
+    addAndMakeVisible (mOutputKeyboardLabel);
 
     addAndMakeVisible (mQuickFav);
     addAndMakeVisible (mPowerButton);
@@ -82,18 +87,10 @@ KeyboardViewComponent::~KeyboardViewComponent()
 //==============================================================================
 void KeyboardViewComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_DARK);
     auto mainArea = getLocalBounds();
 
-    auto outputBgArea = Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y,
-                                                   KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT).toFloat();
-
-    auto inputBgArea = Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y,
-                                                  KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT).toFloat();
-
-    float cornerSize = outputBgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / KEYBOARD_BG_HEIGHT));
-    inGraphics.fillRoundedRectangle (outputBgArea, cornerSize);
-    inGraphics.fillRoundedRectangle (inputBgArea, cornerSize);
+    mInputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
+    mOutputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
 }
 
 void KeyboardViewComponent::resized()
