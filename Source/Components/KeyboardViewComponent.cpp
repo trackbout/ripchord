@@ -82,7 +82,7 @@ KeyboardViewComponent::~KeyboardViewComponent()
 //==============================================================================
 void KeyboardViewComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_DARKEST);
+    inGraphics.setColour (COLOR_GREY_DARK);
     auto mainArea = getLocalBounds();
 
     auto outputBgArea = Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y,

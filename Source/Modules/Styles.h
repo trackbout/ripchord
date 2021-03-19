@@ -1,17 +1,19 @@
 #pragma once
 
+const Colour COLOR_BORDER = Colour (69,72,76);
+const Colour COLOR_MODE_DARK = Colour (46,47,51);
+const Colour COLOR_MODE_LIGHT = Colour (215,216,217);
+
 const Colour COLOR_BLUE_DARK = Colour (12,114,153);
 const Colour COLOR_BLUE = Colour (20,151,202);
 const Colour COLOR_GREEN = Colour (87,186,123);
 const Colour COLOR_PURPLE = Colour (121,87,186);
 const Colour COLOR_RED = Colour (212,68,85);
-const Colour COLOR_WHITE = Colour (255,255,255);
 const Colour COLOR_BLACK = Colour (0,0,0);
-const Colour COLOR_GREY_DARKEST = Colour (32,33,36);
-const Colour COLOR_GREY_DARKER = Colour (46,47,51);
+const Colour COLOR_WHITE = Colour (255,255,255);
+const Colour COLOR_GREY_DARK = Colour (32,33,36);
 const Colour COLOR_GREY_MEDIUM = Colour (128,132,138);
-const Colour COLOR_GREY_LIGHTER = Colour (185,187,189);
-const Colour COLOR_MODE_LIGHT = Colour (215,216,217);
+const Colour COLOR_GREY_LIGHT = Colour (185,187,189);
 const Colour COLOR_TRANSPARENT = COLOR_WHITE.withAlpha (0.0f);
 const Colour COLOR_OVERLAY = COLOR_BLACK.withAlpha (0.7f);
 

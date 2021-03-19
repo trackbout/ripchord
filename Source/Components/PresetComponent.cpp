@@ -6,7 +6,7 @@ PresetComponent::PresetComponent (Preset inPreset)
 {
     mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
-    mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARKEST);
+    mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");

@@ -16,7 +16,7 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 
     mPresetNameInput.setWantsKeyboardFocus (true);
     mPresetNameInput.setJustification (Justification::centred);
-    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHT);
     mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
     mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 

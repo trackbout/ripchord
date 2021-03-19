@@ -13,7 +13,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     setWantsKeyboardFocus (true);
 
     mPresetFilterInput.setWantsKeyboardFocus (true);
-    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHTER);
+    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHT);
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY_MEDIUM);
     mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
@@ -49,7 +49,7 @@ PresetViewComponent::~PresetViewComponent()
 //==============================================================================
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY_DARKEST);
+    inGraphics.setColour (COLOR_GREY_DARK);
     auto mainArea = getLocalBounds();
 
     auto presetBrowserBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
