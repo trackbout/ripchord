@@ -11,7 +11,7 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mCutButton, "RightClickCut.svg");
     mImages.setDrawableButtonImages (mCopyButton, "RightClickCopy.svg");
     mImages.setDrawableButtonImages (mPasteButton, "RightClickPaste.svg");
-    mImages.setDrawableButtonImages (mRightClickBg, "RightClickMenu.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, "RightClickBgLIGHT.svg");
 
     mCutButton.setTriggeredOnMouseDown (true);
     mCopyButton.setTriggeredOnMouseDown (true);
@@ -66,16 +66,10 @@ void RightClickComponent::paintWithCoordinates()
     int mouseDownX = mGlobalState.getMouseDownX() + xOffset;
     int mouseDownY = mGlobalState.getMouseDownY() + INPUT_KEYBOARD_Y - RIGHT_CLICK_MENU_HEIGHT;
 
-    auto menuArea = Styles::getRelativeBounds (mainArea, mouseDownX, mouseDownY,
-                                               RIGHT_CLICK_MENU_WIDTH, RIGHT_CLICK_MENU_HEIGHT);
-
-    int menuHeight = menuArea.getHeight();
-    int buttonHeight = menuHeight / RIGHT_CLICK_ITEM_COUNT;
-
-    mRightClickBg.setBounds (menuArea);
-    mCutButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mCopyButton.setBounds (menuArea.removeFromTop (buttonHeight));
-    mPasteButton.setBounds (menuArea.removeFromTop (buttonHeight));
+    mRightClickBg.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX, mouseDownY, RIGHT_CLICK_MENU_WIDTH, RIGHT_CLICK_MENU_HEIGHT));
+    mCutButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 9, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
+    mCopyButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 39, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
+    mPasteButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 69, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
 }
 
 //==============================================================================

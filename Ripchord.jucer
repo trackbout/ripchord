@@ -82,13 +82,15 @@
         <FILE id="RrUSM3" name="RecordedON.svg" compile="0" resource="1" file="Source/Assets/RecordedON.svg"/>
         <FILE id="z9MVe5" name="RecordIN.svg" compile="0" resource="1" file="Source/Assets/RecordIN.svg"/>
         <FILE id="xVNQHi" name="RecordON.svg" compile="0" resource="1" file="Source/Assets/RecordON.svg"/>
-        <FILE id="FG2RVi" name="RightClickCopy.svg" compile="0" resource="1"
+        <FILE id="qEy7BM" name="RightClickBgDARK.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickBgDARK.svg"/>
+        <FILE id="ulIEyP" name="RightClickBgLIGHT.svg" compile="0" resource="1"
+              file="Source/Assets/RightClickBgLIGHT.svg"/>
+        <FILE id="Htpgjv" name="RightClickCopy.svg" compile="0" resource="1"
               file="Source/Assets/RightClickCopy.svg"/>
-        <FILE id="TAZnN2" name="RightClickCut.svg" compile="0" resource="1"
+        <FILE id="s9Uubu" name="RightClickCut.svg" compile="0" resource="1"
               file="Source/Assets/RightClickCut.svg"/>
-        <FILE id="LOxpcy" name="RightClickMenu.svg" compile="0" resource="1"
-              file="Source/Assets/RightClickMenu.svg"/>
-        <FILE id="SW3Xzo" name="RightClickPaste.svg" compile="0" resource="1"
+        <FILE id="hj0AvZ" name="RightClickPaste.svg" compile="0" resource="1"
               file="Source/Assets/RightClickPaste.svg"/>
         <FILE id="UzmS53" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="ibVq0f" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
