@@ -8,6 +8,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    mTitleLabel.setFont (Font().boldened());
+    mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
+
     mImages.setDrawableButtonImages (mBackground, "MenuBgLight.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
@@ -72,6 +75,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     };
 
     addAndMakeVisible (mBackground);
+    addAndMakeVisible (mTitleLabel);
+
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
     addAndMakeVisible (mImportMidiButton);
@@ -95,6 +100,10 @@ void MenuComponent::paint (Graphics& inGraphics)
 void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
+
+    auto titleArea = Styles::getRelativeBounds (mainArea, MENU_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH - 4, MENU_ITEM_HEIGHT - 4);
+    mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
+    mTitleLabel.setBounds (titleArea);
 
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));

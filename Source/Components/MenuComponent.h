@@ -31,6 +31,7 @@ private:
     PresetState& mPresetState;
 
     Images mImages;
+    Label mTitleLabel { "", "ripchord 2.5.0" };
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
     DrawableButton mNewPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mDuplicateButton { "", DrawableButton::ImageStretched };
