@@ -10,13 +10,13 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
-    mColorLabel.setFont (Font().boldened());
-    mColorLabel.setColour (Label::textColourId, COLOR_GREY);
+    mThemeLabel.setFont (Font().boldened());
+    mThemeLabel.setColour (Label::textColourId, COLOR_GREY);
     mLegatoLabel.setFont (Font().boldened());
     mLegatoLabel.setColour (Label::textColourId, COLOR_GREY);
 
-    mImages.setDrawableButtonImages (mColorMode, "MenuColorLIGHT.svg");
-    mImages.setDrawableButtonImages (mLegatoMode, "MenuLegatoHARD.svg");
+    mImages.setDrawableButtonImages (mThemeButton, "MenuThemeLIGHT.svg");
+    mImages.setDrawableButtonImages (mLegatoButton, "MenuLegatoHARD.svg");
 
     mImages.setDrawableButtonImages (mBackground, "MenuBgLIGHT.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
@@ -27,8 +27,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
 
-    mColorMode.setTriggeredOnMouseDown (true);
-    mLegatoMode.setTriggeredOnMouseDown (true);
+    mThemeButton.setTriggeredOnMouseDown (true);
+    mLegatoButton.setTriggeredOnMouseDown (true);
 
     mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
@@ -38,12 +38,12 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mExportPresetButton.setTriggeredOnMouseDown (true);
     mCommunityButton.setTriggeredOnMouseDown (true);
 
-    mColorMode.onClick = [this]()
+    mThemeButton.onClick = [this]()
     {
-        DBG ("COLOR");
+        DBG ("THEME");
     };
 
-    mLegatoMode.onClick = [this]()
+    mLegatoButton.onClick = [this]()
     {
         DBG ("LEGATO");
     };
@@ -96,11 +96,11 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mTitleLabel);
-    addAndMakeVisible (mColorLabel);
+    addAndMakeVisible (mThemeLabel);
     addAndMakeVisible (mLegatoLabel);
 
-    addAndMakeVisible (mColorMode);
-    addAndMakeVisible (mLegatoMode);
+    addAndMakeVisible (mThemeButton);
+    addAndMakeVisible (mLegatoButton);
 
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
@@ -131,8 +131,8 @@ void MenuComponent::resized()
     mTitleLabel.setBounds (titleLabelArea);
 
     auto colorLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_03 - 8, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
-    mColorLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
-    mColorLabel.setBounds (colorLabelArea);
+    mThemeLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
+    mThemeLabel.setBounds (colorLabelArea);
 
     auto legatoLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 58, MENU_ACTION_Y_06 - 28, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
     mLegatoLabel.setFont (Font ((float) legatoLabelArea.getHeight()).boldened());
@@ -140,8 +140,8 @@ void MenuComponent::resized()
 
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
 
-    mColorMode.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_03 + SPACE, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
-    mLegatoMode.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_06, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_03 + SPACE, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mLegatoButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_06, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));

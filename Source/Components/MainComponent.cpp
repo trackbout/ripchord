@@ -39,7 +39,7 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_MODE_LIGHT);
+    inGraphics.setColour (COLOR_THEME_LIGHT);
     inGraphics.fillRect (getLocalBounds());
 
     if (mShouldReconstruct)

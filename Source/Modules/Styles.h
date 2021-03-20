@@ -1,7 +1,7 @@
 #pragma once
 
-const Colour COLOR_MODE_DARK = Colour (46,47,51);
-const Colour COLOR_MODE_LIGHT = Colour (215,216,217);
+const Colour COLOR_THEME_DARK = Colour (46,47,51);
+const Colour COLOR_THEME_LIGHT = Colour (215,216,217);
 
 const Colour COLOR_RED = Colour (212,68,85);
 const Colour COLOR_BLUE = Colour (20,151,202);
@@ -12,7 +12,7 @@ const Colour COLOR_BLUE_DARK = Colour (12,114,153);
 const Colour COLOR_BLACK = Colour (32,33,36);
 const Colour COLOR_GREY = Colour (128,132,138);
 const Colour COLOR_WHITE = Colour (255,255,255);
-const Colour COLOR_OVERLAY = Colour (0,0,0).withAlpha (0.7f);
+const Colour COLOR_OVERLAY = Colour (0,0,0).withAlpha (0.8f);
 const Colour COLOR_TRANSPARENT = Colour (0,0,0).withAlpha (0.0f);
 
 const float EDITOR_WIDTH = 1000.f;
@@ -141,16 +141,9 @@ const float RIGHT_CLICK_MENU_WIDTH = 100.f;
 namespace Styles
 {
     //==============================================================================
-    static inline Rectangle<int> getRelativeBounds (Rectangle<int> inBaselineBounds,
-                                                    int inX, int inY, int inWidth, int inHeight)
+    static inline Rectangle<int> getRelativeBounds (Rectangle<int> inBaselineBounds, int inX, int inY, int inWidth, int inHeight)
     {
-        Rectangle<float> proportions {
-            inX / EDITOR_WIDTH,
-            inY / EDITOR_HEIGHT,
-            inWidth / EDITOR_WIDTH,
-            inHeight / EDITOR_HEIGHT
-        };
-
+        Rectangle<float> proportions { inX / EDITOR_WIDTH, inY / EDITOR_HEIGHT, inWidth / EDITOR_WIDTH, inHeight / EDITOR_HEIGHT };
         return inBaselineBounds.getProportion (proportions);
     }
 }
