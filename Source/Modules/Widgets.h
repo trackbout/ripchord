@@ -23,8 +23,8 @@ public:
 
         setColour (TextEditor::textColourId, COLOR_GREY_MEDIUM);
         setColour (TextEditor::highlightedTextColourId, COLOR_GREY_MEDIUM);
-        setColour (TextEditor::backgroundColourId, COLOR_WHITE);
-        setColour (TextEditor::highlightColourId, COLOR_WHITE);
+        setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
+        setColour (TextEditor::highlightColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::outlineColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::focusedOutlineColourId, COLOR_TRANSPARENT);
 

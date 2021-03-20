@@ -16,7 +16,6 @@ PresetNameComponent::PresetNameComponent (MainProcess& inMainProcess)
 
     mPresetNameInput.setWantsKeyboardFocus (true);
     mPresetNameInput.setJustification (Justification::centred);
-    mPresetNameInput.setColour (TextEditor::backgroundColourId, COLOR_GREY_LIGHT);
     mPresetNameInput.setTextToShowWhenEmpty ("name this preset...", COLOR_GREY_MEDIUM);
     mPresetNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
@@ -101,6 +100,9 @@ void PresetNameComponent::handleToggleMode (const DataMessage* inMessage)
 {
     const String presetName = mPresetState.getName();
     mPresetNameInput.setVisible (mGlobalState.isEditMode());
+    mPresetNameLabel.setVisible (!mGlobalState.isEditMode());
+    mLeftArrowButton.setVisible (!mGlobalState.isEditMode());
+    mRightArrowButton.setVisible (!mGlobalState.isEditMode());
 
     if (presetName.isNotEmpty())
     {
