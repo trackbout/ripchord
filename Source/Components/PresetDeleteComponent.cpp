@@ -22,7 +22,7 @@ PresetDeleteComponent::~PresetDeleteComponent()
 
 void PresetDeleteComponent::paint(Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_WHITE);
+    inGraphics.setColour (COLOR_GREY);
     float cornerSize = getHeight() * CORNER_SIZE_RATIO;
     inGraphics.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }

@@ -6,7 +6,7 @@ PresetComponent::PresetComponent (Preset inPreset)
 {
     mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
-    mPresetLabel.setColour (Label::textColourId, COLOR_MODE_DARK);
+    mPresetLabel.setColour (Label::textColourId, COLOR_BLACK);
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
@@ -51,7 +51,7 @@ void PresetComponent::resized()
     mStarButton.setBounds (area.getProportion (starAreaProportion));
     mTrashButton.setBounds (area.getProportion (trashAreaProportion));
 
-    mPresetLabel.setFont (area.getHeight() * (TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f));
+    mPresetLabel.setFont (Font (area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f).boldened());
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
 }
 

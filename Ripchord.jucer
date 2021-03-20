@@ -15,7 +15,7 @@
         <FILE id="WT8Hs6" name="AllBlackON.svg" compile="0" resource="1" file="Source/Assets/AllBlackON.svg"/>
         <FILE id="YXTT7K" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
         <FILE id="IiQSHc" name="AllWhiteON.svg" compile="0" resource="1" file="Source/Assets/AllWhiteON.svg"/>
-        <FILE id="QDgoa0" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
+        <FILE id="XrJnfk" name="Cancel.svg" compile="0" resource="1" file="Source/Assets/Cancel.svg"/>
         <FILE id="eqUcWa" name="Delay.svg" compile="0" resource="1" file="Source/Assets/Delay.svg"/>
         <FILE id="Gtu3L5" name="DelayON.svg" compile="0" resource="1" file="Source/Assets/DelayON.svg"/>
         <FILE id="wDmaeU" name="Delete.svg" compile="0" resource="1" file="Source/Assets/Delete.svg"/>
@@ -29,10 +29,10 @@
         <FILE id="rJ5OV7" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="ij7tFk" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
         <FILE id="eksyyG" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
-        <FILE id="IbRsKC" name="KeyboardBg.svg" compile="0" resource="1" file="Source/Assets/KeyboardBg.svg"/>
+        <FILE id="UlDKFh" name="KeyboardBg.svg" compile="0" resource="1" file="Source/Assets/KeyboardBg.svg"/>
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="H80eQ9" name="MenuBgDark.svg" compile="0" resource="1" file="Source/Assets/MenuBgDark.svg"/>
-        <FILE id="hcBKtu" name="MenuBgLight.svg" compile="0" resource="1" file="Source/Assets/MenuBgLight.svg"/>
+        <FILE id="h2kaae" name="MenuBgDARK.svg" compile="0" resource="1" file="Source/Assets/MenuBgDARK.svg"/>
+        <FILE id="nA5Y9O" name="MenuBgLIGHT.svg" compile="0" resource="1" file="Source/Assets/MenuBgLIGHT.svg"/>
         <FILE id="CVR6Lz" name="MenuColorDARK.svg" compile="0" resource="1"
               file="Source/Assets/MenuColorDARK.svg"/>
         <FILE id="CTMbge" name="MenuColorLIGHT.svg" compile="0" resource="1"
@@ -99,12 +99,12 @@
         <FILE id="z48l6V" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
         <FILE id="C8wJAs" name="ShiftRightON.svg" compile="0" resource="1"
               file="Source/Assets/ShiftRightON.svg"/>
-        <FILE id="S7GIVk" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
+        <FILE id="tl68Hw" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
         <FILE id="HBL3zq" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
         <FILE id="SSZ1dq" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="QExcvS" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="sFpF0o" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
-        <FILE id="vP89uR" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
+        <FILE id="RR0aEu" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
         <FILE id="yVz3Tz" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
         <FILE id="yd6gXG" name="VarianceON.svg" compile="0" resource="1" file="Source/Assets/VarianceON.svg"/>
         <FILE id="NFOL4K" name="Velocity.svg" compile="0" resource="1" file="Source/Assets/Velocity.svg"/>

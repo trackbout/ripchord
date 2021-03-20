@@ -18,7 +18,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mColorMode, "MenuColorLIGHT.svg");
     mImages.setDrawableButtonImages (mLegatoMode, "MenuLegatoHARD.svg");
 
-    mImages.setDrawableButtonImages (mBackground, "MenuBgLight.svg");
+    mImages.setDrawableButtonImages (mBackground, "MenuBgLIGHT.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
     mImages.setDrawableButtonImages (mImportMidiButton, "MenuImportMidi.svg");

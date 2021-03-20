@@ -9,6 +9,7 @@ const Colour COLOR_GREEN = Colour (87,186,123);
 const Colour COLOR_PURPLE = Colour (121,87,186);
 const Colour COLOR_BLUE_DARK = Colour (12,114,153);
 
+const Colour COLOR_BLACK = Colour (32,33,36);
 const Colour COLOR_GREY = Colour (128,132,138);
 const Colour COLOR_WHITE = Colour (255,255,255);
 const Colour COLOR_OVERLAY = Colour (0,0,0).withAlpha (0.7f);
