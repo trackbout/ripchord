@@ -11,9 +11,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
     mColorLabel.setFont (Font().boldened());
-    mColorLabel.setColour (Label::textColourId, COLOR_GREY_MEDIUM);
+    mColorLabel.setColour (Label::textColourId, COLOR_GREY);
     mLegatoLabel.setFont (Font().boldened());
-    mLegatoLabel.setColour (Label::textColourId, COLOR_GREY_MEDIUM);
+    mLegatoLabel.setColour (Label::textColourId, COLOR_GREY);
 
     mImages.setDrawableButtonImages (mColorMode, "MenuColorLIGHT.svg");
     mImages.setDrawableButtonImages (mLegatoMode, "MenuLegatoHARD.svg");

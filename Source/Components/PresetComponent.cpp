@@ -6,7 +6,7 @@ PresetComponent::PresetComponent (Preset inPreset)
 {
     mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
-    mPresetLabel.setColour (Label::textColourId, COLOR_GREY_DARK);
+    mPresetLabel.setColour (Label::textColourId, COLOR_MODE_DARK);
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
@@ -32,7 +32,7 @@ PresetComponent::~PresetComponent()
 //==============================================================================
 void PresetComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_MODE_LIGHT);
+    inGraphics.setColour (COLOR_GREY);
     float cornerSize = getHeight() * CORNER_SIZE_RATIO;
     inGraphics.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }

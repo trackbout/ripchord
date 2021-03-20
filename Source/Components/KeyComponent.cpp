@@ -20,7 +20,7 @@ void KeyComponent::paint (Graphics& inGraphics)
     auto keyArea = getLocalBounds().reduced (1);
     auto noteHeight = keyArea.getHeight() - markerHeight;
 
-    inGraphics.setColour (COLOR_GREY_LIGHT);
+    inGraphics.setColour (Colour (185,187,189));
     inGraphics.fillAll();
 
     inGraphics.setColour (mNoteColor);
@@ -76,5 +76,5 @@ const int KeyComponent::getNoteNumber()
 
 Colour KeyComponent::getDefaultColor()
 {
-    return Keyboard::isBlackKey (mNoteNumber) ? COLOR_GREY_DARK : COLOR_WHITE;
+    return Keyboard::isBlackKey (mNoteNumber) ? Colour (32,33,36) : COLOR_WHITE;
 }

@@ -15,7 +15,7 @@ ChordNameComponent::ChordNameComponent (MainProcess& inMainProcess)
 
     mChordNameInput.setWantsKeyboardFocus (true);
     mChordNameInput.setJustification (Justification::centred);
-    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY_MEDIUM);
+    mChordNameInput.setTextToShowWhenEmpty ("name this chord...", COLOR_GREY);
     mChordNameInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
     mChordNameInput.onTextChange = [this]()

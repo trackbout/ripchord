@@ -17,12 +17,12 @@ public:
         setColour (DrawableButton::backgroundColourId, COLOR_TRANSPARENT);
         setColour (DrawableButton::backgroundOnColourId, COLOR_TRANSPARENT);
 
-        setColour (Label::textColourId, COLOR_GREY_MEDIUM);
-        setColour (Label::textWhenEditingColourId, COLOR_GREY_MEDIUM);
+        setColour (Label::textColourId, COLOR_GREY);
+        setColour (Label::textWhenEditingColourId, COLOR_GREY);
         setColour (Label::backgroundWhenEditingColourId, COLOR_TRANSPARENT);
 
-        setColour (TextEditor::textColourId, COLOR_GREY_MEDIUM);
-        setColour (TextEditor::highlightedTextColourId, COLOR_GREY_MEDIUM);
+        setColour (TextEditor::textColourId, COLOR_GREY);
+        setColour (TextEditor::highlightedTextColourId, COLOR_GREY);
         setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::highlightColourId, COLOR_TRANSPARENT);
         setColour (TextEditor::outlineColourId, COLOR_TRANSPARENT);
@@ -30,9 +30,9 @@ public:
 
         setColour (Slider::thumbColourId, COLOR_TRANSPARENT);
         setColour (Slider::rotarySliderFillColourId, COLOR_PURPLE);
-        setColour (Slider::rotarySliderOutlineColourId, COLOR_GREY_MEDIUM);
+        setColour (Slider::rotarySliderOutlineColourId, COLOR_GREY);
 
-        setColour (ScrollBar::thumbColourId, COLOR_GREY_MEDIUM);
+        setColour (ScrollBar::thumbColourId, COLOR_GREY);
         setColour (CaretComponent::caretColourId, COLOR_BLUE);
     };
 
@@ -92,11 +92,11 @@ public:
         Path trianglePath;
         trianglePath.addTriangle (floatWidth, 0.f, floatWidth, floatHeight, 0.f, floatHeight);
 
-        inGraphics.setColour (COLOR_GREY_MEDIUM);
+        inGraphics.setColour (COLOR_GREY);
         inGraphics.fillPath (trianglePath);
 
         const float lineThickness = 1.f;
-        inGraphics.setColour (COLOR_GREY_MEDIUM);
+        inGraphics.setColour (COLOR_GREY);
         inGraphics.drawLine (0.5f, floatHeight, floatWidth, 0.5f, lineThickness);
     }
 
