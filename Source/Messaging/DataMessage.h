@@ -15,6 +15,7 @@ enum MessageCode
     kGeneric = 0,
 
     // Messages from GlobalState
+    kToggleTheme,
     kTogglePower,
     kToggleMode,
     kToggleView,

@@ -13,11 +13,17 @@ public:
     ~GlobalState();
 
     //==============================================================================
+    enum Theme { Dark, Light };
     enum Power { On, Off };
     enum Mode { Play, Edit };
     enum View { Keyboard, Preset };
     enum Right { RightOff, RightOn };
     enum Menu { Hidden, Visible };
+
+    //==============================================================================
+    void toggleTheme();
+    bool isDarkTheme();
+    bool isLightTheme();
 
     //==============================================================================
     void togglePower();
@@ -56,6 +62,7 @@ public:
 
 private:
     //==============================================================================
+    Theme mTheme = Theme::Light;
     Power mPower = Power::On;
     Mode mMode = Mode::Play;
     View mView = View::Keyboard;

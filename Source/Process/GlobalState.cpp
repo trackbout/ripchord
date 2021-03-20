@@ -10,6 +10,26 @@ GlobalState::~GlobalState()
 }
 
 //==============================================================================
+void GlobalState::toggleTheme()
+{
+    mTheme = isDarkTheme() ? Theme::Light : Theme::Dark;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTheme;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool GlobalState::isDarkTheme()
+{
+    return mTheme == Theme::Dark;
+}
+
+bool GlobalState::isLightTheme()
+{
+    return mTheme == Theme::Light;
+}
+
+//==============================================================================
 void GlobalState::togglePower()
 {
     mPower = isPowerOn() ? Power::Off : Power::On;
