@@ -10,6 +10,11 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
+    mColorLabel.setFont (Font().boldened());
+    mColorLabel.setColour (Label::textColourId, COLOR_GREY_MEDIUM);
+    mLegatoLabel.setFont (Font().boldened());
+    mLegatoLabel.setColour (Label::textColourId, COLOR_GREY_MEDIUM);
+
     mImages.setDrawableButtonImages (mColorMode, "MenuColorLIGHT.svg");
     mImages.setDrawableButtonImages (mLegatoMode, "MenuLegatoHARD.svg");
 
@@ -91,6 +96,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mTitleLabel);
+    addAndMakeVisible (mColorLabel);
+    addAndMakeVisible (mLegatoLabel);
 
     addAndMakeVisible (mColorMode);
     addAndMakeVisible (mLegatoMode);
@@ -119,9 +126,17 @@ void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
 
-    auto titleArea = Styles::getRelativeBounds (mainArea, MENU_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH - 4, MENU_ITEM_HEIGHT - 4);
-    mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
-    mTitleLabel.setBounds (titleArea);
+    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 4);
+    mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
+    mTitleLabel.setBounds (titleLabelArea);
+
+    auto colorLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_03 - 8, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
+    mColorLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
+    mColorLabel.setBounds (colorLabelArea);
+
+    auto legatoLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 58, MENU_ACTION_Y_06 - 28, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
+    mLegatoLabel.setFont (Font ((float) legatoLabelArea.getHeight()).boldened());
+    mLegatoLabel.setBounds (legatoLabelArea);
 
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
 
