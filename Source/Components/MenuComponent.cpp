@@ -10,6 +10,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
+    mImages.setDrawableButtonImages (mColorMode, "MenuColorLIGHT.svg");
+    mImages.setDrawableButtonImages (mLegatoMode, "MenuLegatoHARD.svg");
 
     mImages.setDrawableButtonImages (mBackground, "MenuBgLight.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
@@ -20,6 +22,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
 
+    mColorMode.setTriggeredOnMouseDown (true);
+    mLegatoMode.setTriggeredOnMouseDown (true);
+
     mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
     mImportMidiButton.setTriggeredOnMouseDown (true);
@@ -27,6 +32,16 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImportPresetButton.setTriggeredOnMouseDown (true);
     mExportPresetButton.setTriggeredOnMouseDown (true);
     mCommunityButton.setTriggeredOnMouseDown (true);
+
+    mColorMode.onClick = [this]()
+    {
+        DBG ("COLOR");
+    };
+
+    mLegatoMode.onClick = [this]()
+    {
+        DBG ("LEGATO");
+    };
 
     mNewPresetButton.onClick = [this]()
     {
@@ -77,6 +92,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mTitleLabel);
 
+    addAndMakeVisible (mColorMode);
+    addAndMakeVisible (mLegatoMode);
+
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
     addAndMakeVisible (mImportMidiButton);
@@ -106,6 +124,10 @@ void MenuComponent::resized()
     mTitleLabel.setBounds (titleArea);
 
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
+
+    mColorMode.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_03 + SPACE, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mLegatoMode.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_06, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mImportMidiButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_03, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));

@@ -33,6 +33,10 @@
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
         <FILE id="H80eQ9" name="MenuBgDark.svg" compile="0" resource="1" file="Source/Assets/MenuBgDark.svg"/>
         <FILE id="hcBKtu" name="MenuBgLight.svg" compile="0" resource="1" file="Source/Assets/MenuBgLight.svg"/>
+        <FILE id="CVR6Lz" name="MenuColorDARK.svg" compile="0" resource="1"
+              file="Source/Assets/MenuColorDARK.svg"/>
+        <FILE id="CTMbge" name="MenuColorLIGHT.svg" compile="0" resource="1"
+              file="Source/Assets/MenuColorLIGHT.svg"/>
         <FILE id="vEBsNH" name="MenuCommunity.svg" compile="0" resource="1"
               file="Source/Assets/MenuCommunity.svg"/>
         <FILE id="nW0vRx" name="MenuDuplicate.svg" compile="0" resource="1"
@@ -51,6 +55,10 @@
               file="Source/Assets/MenuImportMidi.svg"/>
         <FILE id="G0bEtN" name="MenuImportPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportPreset.svg"/>
+        <FILE id="ikZUMS" name="MenuLegatoHARD.svg" compile="0" resource="1"
+              file="Source/Assets/MenuLegatoHARD.svg"/>
+        <FILE id="hajetF" name="MenuLegatoSOFT.svg" compile="0" resource="1"
+              file="Source/Assets/MenuLegatoSOFT.svg"/>
         <FILE id="fmqB89" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
         <FILE id="je4NIx" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>

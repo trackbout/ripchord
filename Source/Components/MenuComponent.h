@@ -32,6 +32,9 @@ private:
 
     Images mImages;
     Label mTitleLabel { "", "ripchord 2.5.0" };
+    DrawableButton mColorMode { "", DrawableButton::ImageStretched };
+    DrawableButton mLegatoMode { "", DrawableButton::ImageStretched };
+
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
     DrawableButton mNewPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mDuplicateButton { "", DrawableButton::ImageStretched };
