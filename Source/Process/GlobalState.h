@@ -60,6 +60,10 @@ public:
     void setMouseDownY (int y);
     void setMouseDownKey (int noteNumber);
 
+    //==============================================================================
+    XmlElement* exportGlobalStateXml();
+    void importGlobalStateXml (XmlElement* presetStateXml);
+
 private:
     //==============================================================================
     Theme mTheme = Theme::Light;

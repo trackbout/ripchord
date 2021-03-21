@@ -17,6 +17,12 @@ OutputKeyboardComponent::~OutputKeyboardComponent()
 }
 
 //==============================================================================
+void OutputKeyboardComponent::paint (Graphics& inGraphics)
+{
+    setTheme (mGlobalState.isDarkTheme());
+    refreshKeyColors();
+}
+
 void OutputKeyboardComponent::resized()
 {
     initKeyboard();

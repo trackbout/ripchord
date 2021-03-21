@@ -160,3 +160,18 @@ void GlobalState::setMouseDownKey (int inNoteNumber)
 {
     mMouseDownKey = inNoteNumber;
 }
+
+//==============================================================================
+XmlElement* GlobalState::exportGlobalStateXml()
+{
+    XmlElement* globalStateXml = new XmlElement ("GlobalState");
+
+    globalStateXml->setAttribute ("dark", isDarkTheme());
+
+    return globalStateXml;
+}
+
+void GlobalState::importGlobalStateXml (XmlElement* inGlobalStateXml)
+{
+    mTheme = inGlobalStateXml->getBoolAttribute ("dark") ? Theme::Dark : Theme::Light;
+}

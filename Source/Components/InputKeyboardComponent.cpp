@@ -21,6 +21,12 @@ InputKeyboardComponent::~InputKeyboardComponent()
 }
 
 //==============================================================================
+void InputKeyboardComponent::paint (Graphics& inGraphics)
+{
+    setTheme (mGlobalState.isDarkTheme());
+    refreshKeyColors();
+}
+
 void InputKeyboardComponent::resized()
 {
     initKeyboard();

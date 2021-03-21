@@ -121,6 +121,10 @@ void MenuComponent::paint (Graphics& inGraphics)
 {
     inGraphics.setColour (COLOR_OVERLAY);
     inGraphics.fillRect (getLocalBounds());
+
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
 }
 
 void MenuComponent::resized()
