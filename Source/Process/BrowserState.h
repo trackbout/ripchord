@@ -20,7 +20,10 @@ public:
     //==============================================================================
     Array<File> getAllPresetFiles();
     juce::Array<Preset> getFilteredPresets();
+
+    //==============================================================================
     bool isFavorite (String presetName);
+    int getUnfilteredIndex (String presetName);
 
     //==============================================================================
     void handleMouseDownOnDelete (const int indexValue);
@@ -44,8 +47,8 @@ private:
     bool mIsFavoritesOn = false;
     int getFilteredIndex (String presetName);
 
-    PropertiesFile mPropertiesFile { System::createPluginPropertiesOptions ("favorites") };
-    StringArray mFavPathNames { StringArray::fromTokens (mPropertiesFile.getValue ("favorites"), ";", "") };
+    PropertiesFile mFavoritesFile { System::createPluginPropertiesOptions ("favorites") };
+    StringArray mFavPathNames { StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "") };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)

@@ -83,11 +83,25 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
     return mFilteredPresets;
 }
 
+//==============================================================================
 bool BrowserState::isFavorite (String inPresetName)
 {
     const String basePath = PRESET_FOLDER.getFullPathName() + "/";
     const String inPathName = basePath + inPresetName + PRESET_EXTENSION;
     return mFavPathNames.contains (inPathName);
+}
+
+int BrowserState::getUnfilteredIndex (String inPresetName)
+{
+    int unfilteredIndex = -1;
+
+    for (int index = 0; index < mFilteredPresets.size(); index++)
+    {
+        String presetName = mAllPresets[index].fileName;
+        if (presetName == inPresetName) { unfilteredIndex = index; }
+    }
+
+    return unfilteredIndex;
 }
 
 //==============================================================================
@@ -98,8 +112,8 @@ void BrowserState::handleMouseDownOnDelete (const int inIndexValue)
     if (mFavPathNames.contains (file.getFullPathName()))
     {
         mFavPathNames.removeString (file.getFullPathName());
-        mPropertiesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
-        mPropertiesFile.saveIfNeeded();
+        mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+        mFavoritesFile.saveIfNeeded();
     }
 
     mAllPresets.remove (inIndexValue);
@@ -127,8 +141,8 @@ void BrowserState::handleMouseDownOnFavorite (const int inIndexValue)
     }
 
     mAllPresets.set (inIndexValue, preset);
-    mPropertiesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
-    mPropertiesFile.saveIfNeeded();
+    mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+    mFavoritesFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileFavorited;

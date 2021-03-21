@@ -27,7 +27,11 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
     mQuickFav.setTriggeredOnMouseDown (true);
-    mQuickFav.onClick = [this]() { DBG ("QuickFav"); };
+    mQuickFav.onClick = [this]()
+    {
+        const int indexValue = mBrowserState.getUnfilteredIndex (mPresetState.getName());
+        mBrowserState.handleMouseDownOnFavorite (indexValue);
+    };
 
     mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
