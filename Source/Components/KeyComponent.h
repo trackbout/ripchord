@@ -25,17 +25,21 @@ public:
     std::function<void (const int noteNumber, const MouseEvent& event)> onRightClick;
 
     //==============================================================================
+    void setTheme (bool isDarkTheme);
     void setNoteColor (Colour color);
     void setMarkerColor (Colour color);
     void setNoteAndMarkerColor (Colour color);
 
     //==============================================================================
     const int getNoteNumber();
+    Colour getNoteColor();
+    Colour getMarkerColor();
     Colour getDefaultColor();
 
 private:
     //==============================================================================
     const int mNoteNumber;
+    bool mIsDarkTheme = false;
 
     Colour mNoteColor;
     Colour mMarkerColor;

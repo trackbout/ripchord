@@ -39,6 +39,7 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetModified): { handlePresetModified (inMessage); } break;
@@ -50,6 +51,12 @@ void OutputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kOutputNoteOn): { handleOutputNoteOn (inMessage); } break;
         default: { } break;
     };
+}
+
+void OutputKeyboardComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    setTheme (mGlobalState.isDarkTheme());
+    refreshKeyColors();
 }
 
 void OutputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)

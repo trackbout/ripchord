@@ -60,6 +60,7 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetModified): { handlePresetModified (inMessage); } break;
@@ -74,6 +75,12 @@ void InputKeyboardComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kInputNoteOn): { handleInputNoteOn (inMessage); } break;
         default: { } break;
     };
+}
+
+void InputKeyboardComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    setTheme (mGlobalState.isDarkTheme());
+    refreshKeyColors();
 }
 
 void InputKeyboardComponent::handleToggleMode (const DataMessage* inMessage)

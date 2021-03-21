@@ -15,6 +15,8 @@ public:
     //==============================================================================
     void initKeyboard();
     void resetKeyColors();
+    void refreshKeyColors();
+    void setTheme (bool isDarkTheme);
 
     //==============================================================================
     std::map<int, KeyComponent*> mKeyComponents;

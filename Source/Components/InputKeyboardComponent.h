@@ -31,6 +31,7 @@ private:
     PresetState& mPresetState;
     MidiState& mMidiState;
 
+    void handleToggleTheme (const DataMessage* message);
     void handleToggleMode (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetModified (const DataMessage* message);

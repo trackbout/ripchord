@@ -49,6 +49,11 @@ void KeyComponent::mouseDown (const MouseEvent& inEvent)
 }
 
 //==============================================================================
+void KeyComponent::setTheme (bool inIsDarkTheme)
+{
+    mIsDarkTheme = inIsDarkTheme;
+}
+
 void KeyComponent::setNoteColor (Colour inColor)
 {
     mNoteColor = inColor;
@@ -74,7 +79,18 @@ const int KeyComponent::getNoteNumber()
     return mNoteNumber;
 }
 
+Colour KeyComponent::getNoteColor()
+{
+    return mNoteColor;
+}
+
+Colour KeyComponent::getMarkerColor()
+{
+    return mMarkerColor;
+}
+
 Colour KeyComponent::getDefaultColor()
 {
-    return Keyboard::isBlackKey (mNoteNumber) ? COLOR_BLACK : COLOR_WHITE;
+    Colour whiteKeyColor = mIsDarkTheme ? COLOR_GREY : COLOR_WHITE;
+    return Keyboard::isBlackKey (mNoteNumber) ? COLOR_BLACK : whiteKeyColor;
 }

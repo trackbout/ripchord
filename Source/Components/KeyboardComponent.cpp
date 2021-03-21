@@ -41,6 +41,43 @@ void KeyboardComponent::resetKeyColors()
     }
 }
 
+void KeyboardComponent::refreshKeyColors()
+{
+    for (int note = mFirstKey; note <= mLastKey; note++)
+    {
+        auto keyComponent = mKeyComponents.at (note);
+        Colour noteColor = keyComponent->getNoteColor();
+        Colour markerColor = keyComponent->getMarkerColor();
+
+        bool isWhiteNote = noteColor.toString() == COLOR_WHITE.toString();
+        bool isGreyNote = noteColor.toString() == COLOR_GREY.toString();
+        bool isBlackNote = noteColor.toString() == COLOR_BLACK.toString();
+
+        if (isWhiteNote || isGreyNote || isBlackNote)
+        {
+            keyComponent->setNoteColor (keyComponent->getDefaultColor());
+        }
+
+        bool isWhiteMarker = markerColor.toString() == COLOR_WHITE.toString();
+        bool isGreyMarker = markerColor.toString() == COLOR_GREY.toString();
+        bool isBlackMarker = markerColor.toString() == COLOR_BLACK.toString();
+
+        if (isWhiteMarker || isGreyMarker || isBlackMarker)
+        {
+            keyComponent->setMarkerColor (keyComponent->getDefaultColor());
+        }
+    }
+}
+
+void KeyboardComponent::setTheme (bool inIsDarkTheme)
+{
+    for (int note = mFirstKey; note <= mLastKey; note++)
+    {
+        auto keyComponent = mKeyComponents.at (note);
+        keyComponent->setTheme (inIsDarkTheme);
+    }
+}
+
 //==============================================================================
 juce::Rectangle<int> KeyboardComponent::getKeyBounds (int& inX, const int inNoteNumber)
 {
