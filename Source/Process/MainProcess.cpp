@@ -262,7 +262,7 @@ void MainProcess::importSessionXml (XmlElement* inSessionXml)
     XmlElement* controlsStateXml = inSessionXml->getChildByName("ControlsState");
     XmlElement* presetStateXml = inSessionXml->getChildByName("PresetState");
 
-    mGlobalState.importGlobalStateXml (globalStateXml);
-    mControlsState.importControlsStateXml (controlsStateXml);
-    mPresetState.importPresetStateXml (presetStateXml);
+    if (globalStateXml != nullptr) { mGlobalState.importGlobalStateXml (globalStateXml); }
+    if (controlsStateXml != nullptr) { mControlsState.importControlsStateXml (controlsStateXml); }
+    if (presetStateXml != nullptr) { mPresetState.importPresetStateXml (presetStateXml); }
 }
