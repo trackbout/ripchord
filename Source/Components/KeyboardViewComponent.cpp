@@ -5,6 +5,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mControlsState (mMainProcess.getControlsState()),
+    mBrowserState (mMainProcess.getBrowserState()),
+    mPresetState (mMainProcess.getPresetState()),
     mMidiState (mMainProcess.getMidiState()),
     mOutputKeyboard (inMainProcess),
     mInputKeyboard (inMainProcess),
@@ -14,6 +16,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mChordName (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setWantsKeyboardFocus (true);
 
@@ -23,7 +26,6 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
-    mImages.setDrawableButtonImages (mQuickFav, "QuickFav.svg");
     mQuickFav.setTriggeredOnMouseDown (true);
     mQuickFav.onClick = [this]() { DBG ("QuickFav"); };
 
@@ -91,6 +93,9 @@ void KeyboardViewComponent::paint (Graphics& inGraphics)
 
     mInputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
     mOutputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
+
+    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
+    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
 }
 
 void KeyboardViewComponent::resized()
@@ -146,10 +151,17 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kTogglePower): { handleTogglePower (inMessage); } break;
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
+        case (MessageCode::kTogglePower): { handleTogglePower (inMessage); } break;
+        case (MessageCode::kCurrentIndexChanged): { handleCurrentIndexChanged (inMessage); } break;
         default: { } break;
     };
+}
+
+void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
+{
+    mQuickFav.setVisible (mGlobalState.isPlayMode());
+    mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");
 }
 
 void KeyboardViewComponent::handleTogglePower (const DataMessage* inMessage)
@@ -157,7 +169,8 @@ void KeyboardViewComponent::handleTogglePower (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
 }
 
-void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
+void KeyboardViewComponent::handleCurrentIndexChanged (const DataMessage* inMessage)
 {
-    mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");
+    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
+    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
 }

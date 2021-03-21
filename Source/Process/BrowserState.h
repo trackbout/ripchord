@@ -20,6 +20,7 @@ public:
     //==============================================================================
     Array<File> getAllPresetFiles();
     juce::Array<Preset> getFilteredPresets();
+    bool isFavorite (String presetName);
 
     //==============================================================================
     void handleMouseDownOnDelete (const int indexValue);

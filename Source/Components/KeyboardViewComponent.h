@@ -35,6 +35,8 @@ private:
     MainProcess& mMainProcess;
     GlobalState& mGlobalState;
     ControlsState& mControlsState;
+    BrowserState& mBrowserState;
+    PresetState& mPresetState;
     MidiState& mMidiState;
 
     Label mOutputKeyboardLabel { "", "output" };
@@ -55,8 +57,9 @@ private:
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
 
-    void handleTogglePower (const DataMessage* message);
     void handleToggleMode (const DataMessage* message);
+    void handleTogglePower (const DataMessage* message);
+    void handleCurrentIndexChanged (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)

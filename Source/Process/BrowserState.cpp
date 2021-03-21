@@ -83,6 +83,13 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
     return mFilteredPresets;
 }
 
+bool BrowserState::isFavorite (String inPresetName)
+{
+    const String basePath = PRESET_FOLDER.getFullPathName() + "/";
+    const String inPathName = basePath + inPresetName + PRESET_EXTENSION;
+    return mFavPathNames.contains (inPathName);
+}
+
 //==============================================================================
 void BrowserState::handleMouseDownOnDelete (const int inIndexValue)
 {
