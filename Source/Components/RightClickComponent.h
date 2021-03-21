@@ -40,6 +40,7 @@ private:
 
     //==============================================================================
     void handleToggleRightClick (const DataMessage* message);
+    void handleToggleTheme (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RightClickComponent)

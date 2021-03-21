@@ -39,7 +39,7 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_THEME_LIGHT);
+    inGraphics.setColour (mGlobalState.isDarkTheme() ? COLOR_THEME_DARK : COLOR_THEME_LIGHT);
     inGraphics.fillRect (getLocalBounds());
 
     if (mShouldReconstruct)
@@ -70,6 +70,7 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
         case (MessageCode::kToggleRight): { handleToggleRightClick (inMessage); } break;
@@ -77,6 +78,11 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
     };
+}
+
+void MainComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    repaint();
 }
 
 void MainComponent::handleToggleView (const DataMessage* inMessage)

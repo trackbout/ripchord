@@ -8,10 +8,11 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mCutButton, "RightClickCut.svg");
     mImages.setDrawableButtonImages (mCopyButton, "RightClickCopy.svg");
     mImages.setDrawableButtonImages (mPasteButton, "RightClickPaste.svg");
-    mImages.setDrawableButtonImages (mRightClickBg, "RightClickBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
 
     mCutButton.setTriggeredOnMouseDown (true);
     mCopyButton.setTriggeredOnMouseDown (true);
@@ -78,6 +79,7 @@ void RightClickComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleRight): { handleToggleRightClick (inMessage); } break;
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         default: { } break;
     };
 }
@@ -88,4 +90,10 @@ void RightClickComponent::handleToggleRightClick (const DataMessage* inMessage)
     {
         paintWithCoordinates();
     }
+}
+
+void RightClickComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
 }

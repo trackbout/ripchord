@@ -15,10 +15,11 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mLegatoLabel.setFont (Font().boldened());
     mLegatoLabel.setColour (Label::textColourId, COLOR_GREY);
 
-    mImages.setDrawableButtonImages (mThemeButton, "MenuThemeLIGHT.svg");
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
     mImages.setDrawableButtonImages (mLegatoButton, "MenuLegatoHARD.svg");
 
-    mImages.setDrawableButtonImages (mBackground, "MenuBgLIGHT.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
     mImages.setDrawableButtonImages (mImportMidiButton, "MenuImportMidi.svg");
@@ -40,7 +41,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mThemeButton.onClick = [this]()
     {
-        DBG ("THEME");
+        mGlobalState.toggleTheme();
     };
 
     mLegatoButton.onClick = [this]()
@@ -164,6 +165,7 @@ void MenuComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         default: { } break;
     };
 }
@@ -175,4 +177,11 @@ void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mDuplicateButton, hasValidPreset ? "MenuDuplicate.svg" : "MenuDuplicateOFF.svg");
     mImages.setDrawableButtonImages (mExportMidiButton, hasValidPreset ? "MenuExportMidi.svg" : "MenuExportMidiOFF.svg");
     mImages.setDrawableButtonImages (mExportPresetButton, hasValidPreset ? "MenuExportPreset.svg" : "MenuExportPresetOFF.svg");
+}
+
+void MenuComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
 }
