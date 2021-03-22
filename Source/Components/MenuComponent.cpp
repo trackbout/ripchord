@@ -12,10 +12,12 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
     mThemeLabel.setFont (Font().boldened());
     mThemeLabel.setColour (Label::textColourId, COLOR_GREY);
+    mCreditsLabel.setColour (Label::textColourId, COLOR_GREY);
 
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
+    mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
 
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
@@ -26,6 +28,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
 
     mThemeButton.setTriggeredOnMouseDown (true);
+    mCreditsButton.setTriggeredOnMouseDown (true);
 
     mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
@@ -38,6 +41,13 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mThemeButton.onClick = [this]()
     {
         mGlobalState.toggleTheme();
+    };
+
+    mCreditsButton.onClick = [this]()
+    {
+        URL url { "https://trackbout.com" };
+        url.launchInDefaultBrowser();
+        mGlobalState.toggleMenu();
     };
 
     mNewPresetButton.onClick = [this]()
@@ -90,6 +100,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mThemeLabel);
     addAndMakeVisible (mThemeButton);
+    addAndMakeVisible (mCreditsLabel);
+    addAndMakeVisible (mCreditsButton);
 
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
@@ -124,11 +136,16 @@ void MenuComponent::resized()
     mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleLabelArea);
 
-    auto colorLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_04 - 30, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
-    mThemeLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
-    mThemeLabel.setBounds (colorLabelArea);
+    auto themeLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_04 - 30, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
+    mThemeLabel.setFont (Font ((float) themeLabelArea.getHeight()).boldened());
+    mThemeLabel.setBounds (themeLabelArea);
+
+    auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 46, MENU_ACTION_Y_07 + 12, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
+    mCreditsLabel.setFont (Font ((float) creditsLabelArea.getHeight()));
+    mCreditsLabel.setBounds (creditsLabelArea);
 
     mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_04, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_07 - 4, 120, 12));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));

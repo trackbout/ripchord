@@ -33,8 +33,10 @@ private:
     Images mImages;
     Label mTitleLabel { "", "ripchord 2.5.0" };
     Label mThemeLabel { "", "color mode" };
+    Label mCreditsLabel { "", "we support producers" };
 
     DrawableButton mThemeButton { "", DrawableButton::ImageStretched };
+    DrawableButton mCreditsButton { "", DrawableButton::ImageStretched };
 
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
     DrawableButton mNewPresetButton { "", DrawableButton::ImageStretched };
