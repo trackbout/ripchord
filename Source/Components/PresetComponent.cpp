@@ -51,7 +51,7 @@ void PresetComponent::resized()
     mStarButton.setBounds (area.getProportion (starAreaProportion));
     mTrashButton.setBounds (area.getProportion (trashAreaProportion));
 
-    mPresetLabel.setFont (Font (area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO - 0.1f).boldened());
+    mPresetLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) - 2).boldened());
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
 }
 

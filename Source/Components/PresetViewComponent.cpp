@@ -13,7 +13,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     setWantsKeyboardFocus (true);
 
     mPresetFilterInput.setWantsKeyboardFocus (true);
-    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_BLACK);
+    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY);
     mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
 
@@ -49,14 +49,27 @@ PresetViewComponent::~PresetViewComponent()
 //==============================================================================
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_BLACK);
     auto mainArea = getLocalBounds();
 
-    auto presetBrowserBgArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                       PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
+    inGraphics.setColour (COLOR_BORDER);
+    auto inputBorderArea = Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, ITEM_HEIGHT).toFloat();
+    float inputBorderCorner = inputBorderArea.getHeight() * CORNER_SIZE_RATIO;
+    inGraphics.fillRoundedRectangle (inputBorderArea, inputBorderCorner);
 
-    float cornerSize = presetBrowserBgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
-    inGraphics.fillRoundedRectangle (presetBrowserBgArea, cornerSize);
+    inGraphics.setColour (COLOR_BLACK);
+    auto inputArea = Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X + 1, OUTPUT_KEYBOARD_BG_Y + 1, KEYBOARD_BG_WIDTH - 2, ITEM_HEIGHT - 2).toFloat();
+    float inputCorner = inputArea.getHeight() * CORNER_SIZE_RATIO;
+    inGraphics.fillRoundedRectangle (inputArea, inputCorner);
+
+    inGraphics.setColour (COLOR_BORDER);
+    auto bgBorderArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
+    float bgBorderCorner = bgBorderArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
+    inGraphics.fillRoundedRectangle (bgBorderArea, bgBorderCorner);
+
+    inGraphics.setColour (COLOR_BLACK);
+    auto bgArea = Styles::getRelativeBounds (mainArea, SPACE + 1, PRESET_VIEWPORT_Y + 1, PRESET_LIST_WIDTH - 2, PRESET_LIST_HEIGHT - 2).toFloat();
+    float bgCorner = bgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
+    inGraphics.fillRoundedRectangle (bgArea, bgCorner);
 }
 
 void PresetViewComponent::resized()
@@ -77,15 +90,12 @@ void PresetViewComponent::resized()
     int scrollbarWidth = inputHeight * 0.6f;
     mPresetViewport.setScrollBarThickness (scrollbarWidth);
 
-    auto viewportArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                   PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT);
-
-    auto presetBrowserArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y,
-                                                     PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
-
+    auto viewportArea = Styles::getRelativeBounds (mainArea, SPACE + 1, PRESET_VIEWPORT_Y + 1, PRESET_VIEWPORT_WIDTH - 2, PRESET_VIEWPORT_HEIGHT - 2);
     mPresetViewport.setBounds (viewportArea);
-    mPresetBrowser.setBounds (presetBrowserArea);
-    mPresetBrowser.setDimensions (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
+
+    auto presetArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
+    mPresetBrowser.setBounds (presetArea);
+    mPresetBrowser.setDimensions (presetArea.getWidth(), presetArea.getHeight());
 }
 
 //==============================================================================

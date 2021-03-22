@@ -86,16 +86,15 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
 //==============================================================================
 bool BrowserState::isFavorite (String inPresetName)
 {
-    const String basePath = PRESET_FOLDER.getFullPathName() + "/";
-    const String inPathName = basePath + inPresetName + PRESET_EXTENSION;
-    return mFavPathNames.contains (inPathName);
+    int indexValue = getUnfilteredIndex (inPresetName);
+    return mAllPresets[indexValue].isFavorite;
 }
 
 int BrowserState::getUnfilteredIndex (String inPresetName)
 {
     int unfilteredIndex = -1;
 
-    for (int index = 0; index < mFilteredPresets.size(); index++)
+    for (int index = 0; index < mAllPresets.size(); index++)
     {
         String presetName = mAllPresets[index].fileName;
         if (presetName == inPresetName) { unfilteredIndex = index; }
@@ -128,6 +127,7 @@ void BrowserState::handleMouseDownOnFavorite (const int inIndexValue)
 {
     Preset preset = mAllPresets[inIndexValue];
     File file = mAllPresetFiles[inIndexValue];
+    if (!file.existsAsFile()) { return; }
 
     if (preset.isFavorite)
     {

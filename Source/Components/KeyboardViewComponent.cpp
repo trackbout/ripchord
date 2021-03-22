@@ -20,16 +20,13 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    mImages.setDrawableButtonImages (mInputKeyboardBg, "KeyboardBg.svg");
-    mImages.setDrawableButtonImages (mOutputKeyboardBg, "KeyboardBg.svg");
-
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
     mQuickFav.setTriggeredOnMouseDown (true);
     mQuickFav.onClick = [this]()
     {
-        const int indexValue = mBrowserState.getUnfilteredIndex (mPresetState.getName());
+        int indexValue = mBrowserState.getUnfilteredIndex (mPresetState.getName());
         mBrowserState.handleMouseDownOnFavorite (indexValue);
     };
 
@@ -68,8 +65,6 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mPresetName.setBounds (TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
     mChordName.setBounds (TEXT_INPUT_X, HEADER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT);
 
-    addAndMakeVisible (mInputKeyboardBg);
-    addAndMakeVisible (mOutputKeyboardBg);
     addAndMakeVisible (mInputKeyboardLabel);
     addAndMakeVisible (mOutputKeyboardLabel);
 
@@ -93,13 +88,30 @@ KeyboardViewComponent::~KeyboardViewComponent()
 //==============================================================================
 void KeyboardViewComponent::paint (Graphics& inGraphics)
 {
-    auto mainArea = getLocalBounds();
-
-    mInputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
-    mOutputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
-
     bool isFav = mBrowserState.isFavorite (mPresetState.getName());
     mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
+
+    auto mainArea = getLocalBounds();
+
+    inGraphics.setColour (COLOR_BORDER);
+    auto inputBorderArea = Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT).toFloat();
+    float inputBorderCorner = inputBorderArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / KEYBOARD_BG_HEIGHT));
+    inGraphics.fillRoundedRectangle (inputBorderArea, inputBorderCorner);
+
+    inGraphics.setColour (COLOR_BLACK);
+    auto inputArea = Styles::getRelativeBounds (mainArea, SPACE + 1, INPUT_KEYBOARD_BG_Y + 1, KEYBOARD_BG_WIDTH - 2, KEYBOARD_BG_HEIGHT - 2).toFloat();
+    float inputCorner = inputArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / KEYBOARD_BG_HEIGHT));
+    inGraphics.fillRoundedRectangle (inputArea, inputCorner);
+
+    inGraphics.setColour (COLOR_BORDER);
+    auto outputBorderArea = Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT).toFloat();
+    float outputBorderCorner = outputBorderArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / KEYBOARD_BG_HEIGHT));
+    inGraphics.fillRoundedRectangle (outputBorderArea, outputBorderCorner);
+
+    inGraphics.setColour (COLOR_BLACK);
+    auto outputArea = Styles::getRelativeBounds (mainArea, SPACE + 1, OUTPUT_KEYBOARD_BG_Y + 1, KEYBOARD_BG_WIDTH - 2, KEYBOARD_BG_HEIGHT - 2).toFloat();
+    float outputCorner = outputArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / KEYBOARD_BG_HEIGHT));
+    inGraphics.fillRoundedRectangle (outputArea, outputCorner);
 }
 
 void KeyboardViewComponent::resized()
