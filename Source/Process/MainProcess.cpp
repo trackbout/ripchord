@@ -248,7 +248,6 @@ void MainProcess::handleActiveTransposeNote (int inInputNote)
 XmlElement* MainProcess::exportSessionXml()
 {
     XmlElement* sessionXml = new XmlElement ("Session");
-    sessionXml->addChildElement (mGlobalState.exportGlobalStateXml());
     sessionXml->addChildElement (mControlsState.exportControlsStateXml());
     sessionXml->addChildElement (mPresetState.exportPresetStateXml());
     return sessionXml;
@@ -258,11 +257,9 @@ void MainProcess::importSessionXml (XmlElement* inSessionXml)
 {
     if (inSessionXml->getTagName() != "Session") { return; }
 
-    XmlElement* globalStateXml = inSessionXml->getChildByName("GlobalState");
     XmlElement* controlsStateXml = inSessionXml->getChildByName("ControlsState");
     XmlElement* presetStateXml = inSessionXml->getChildByName("PresetState");
 
-    if (globalStateXml != nullptr) { mGlobalState.importGlobalStateXml (globalStateXml); }
     if (controlsStateXml != nullptr) { mControlsState.importControlsStateXml (controlsStateXml); }
     if (presetStateXml != nullptr) { mPresetState.importPresetStateXml (presetStateXml); }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "System.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -61,8 +62,7 @@ public:
     void setMouseDownKey (int noteNumber);
 
     //==============================================================================
-    XmlElement* exportGlobalStateXml();
-    void importGlobalStateXml (XmlElement* presetStateXml);
+    void readConfigFile();
 
 private:
     //==============================================================================
@@ -76,6 +76,8 @@ private:
     int mMouseDownX;
     int mMouseDownY;
     int mMouseDownKey;
+
+    PropertiesFile mConfigFile { System::createPluginPropertiesOptions ("config") };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GlobalState)

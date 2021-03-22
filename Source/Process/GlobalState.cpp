@@ -14,6 +14,9 @@ void GlobalState::toggleTheme()
 {
     mTheme = isDarkTheme() ? Theme::Light : Theme::Dark;
 
+    mConfigFile.setValue ("theme", mTheme);
+    mConfigFile.saveIfNeeded();
+
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTheme;
     sendMessage (message, ListenerType::kSync);
@@ -162,16 +165,8 @@ void GlobalState::setMouseDownKey (int inNoteNumber)
 }
 
 //==============================================================================
-XmlElement* GlobalState::exportGlobalStateXml()
+void GlobalState::readConfigFile()
 {
-    XmlElement* globalStateXml = new XmlElement ("GlobalState");
-
-    globalStateXml->setAttribute ("dark", isDarkTheme());
-
-    return globalStateXml;
-}
-
-void GlobalState::importGlobalStateXml (XmlElement* inGlobalStateXml)
-{
-    mTheme = inGlobalStateXml->getBoolAttribute ("dark") ? Theme::Dark : Theme::Light;
+    bool isDarkTheme = mConfigFile.getValue ("theme") == "0";
+    mTheme = isDarkTheme ? Theme::Dark : Theme::Light;
 }

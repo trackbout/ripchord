@@ -39,6 +39,8 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& inGraphics)
 {
+    mGlobalState.readConfigFile();
+
     inGraphics.setColour (mGlobalState.isDarkTheme() ? COLOR_THEME_DARK : COLOR_THEME_LIGHT);
     inGraphics.fillRect (getLocalBounds());
 
