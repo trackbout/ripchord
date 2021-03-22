@@ -118,18 +118,17 @@ void MenuComponent::paint (Graphics& inGraphics)
 void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
+    mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
 
     auto titleLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 4);
     mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleLabelArea);
 
-    auto colorLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_03 - 8, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
+    auto colorLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_04 - 30, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
     mThemeLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
     mThemeLabel.setBounds (colorLabelArea);
 
-    mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
-
-    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_03 + SPACE, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_04, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
