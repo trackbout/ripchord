@@ -51,10 +51,6 @@
               file="Source/Assets/MenuImportMidi.svg"/>
         <FILE id="G0bEtN" name="MenuImportPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportPreset.svg"/>
-        <FILE id="ikZUMS" name="MenuLegatoHARD.svg" compile="0" resource="1"
-              file="Source/Assets/MenuLegatoHARD.svg"/>
-        <FILE id="hajetF" name="MenuLegatoSOFT.svg" compile="0" resource="1"
-              file="Source/Assets/MenuLegatoSOFT.svg"/>
         <FILE id="fmqB89" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
         <FILE id="Cd5zV7" name="MenuThemeDARK.svg" compile="0" resource="1"

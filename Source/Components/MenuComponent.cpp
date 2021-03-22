@@ -12,13 +12,10 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
     mThemeLabel.setFont (Font().boldened());
     mThemeLabel.setColour (Label::textColourId, COLOR_GREY);
-    mLegatoLabel.setFont (Font().boldened());
-    mLegatoLabel.setColour (Label::textColourId, COLOR_GREY);
 
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
-    mImages.setDrawableButtonImages (mLegatoButton, "MenuLegatoHARD.svg");
 
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
@@ -29,7 +26,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mCommunityButton, "MenuCommunity.svg");
 
     mThemeButton.setTriggeredOnMouseDown (true);
-    mLegatoButton.setTriggeredOnMouseDown (true);
 
     mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
@@ -42,11 +38,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mThemeButton.onClick = [this]()
     {
         mGlobalState.toggleTheme();
-    };
-
-    mLegatoButton.onClick = [this]()
-    {
-        DBG ("LEGATO");
     };
 
     mNewPresetButton.onClick = [this]()
@@ -98,10 +89,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mThemeLabel);
-    addAndMakeVisible (mLegatoLabel);
-
     addAndMakeVisible (mThemeButton);
-    addAndMakeVisible (mLegatoButton);
 
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
@@ -139,14 +127,9 @@ void MenuComponent::resized()
     mThemeLabel.setFont (Font ((float) colorLabelArea.getHeight()).boldened());
     mThemeLabel.setBounds (colorLabelArea);
 
-    auto legatoLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 58, MENU_ACTION_Y_06 - 28, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
-    mLegatoLabel.setFont (Font ((float) legatoLabelArea.getHeight()).boldened());
-    mLegatoLabel.setBounds (legatoLabelArea);
-
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
 
     mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_03 + SPACE, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
-    mLegatoButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_06, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
