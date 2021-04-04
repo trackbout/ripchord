@@ -121,10 +121,6 @@ void MenuComponent::paint (Graphics& inGraphics)
 {
     inGraphics.setColour (COLOR_OVERLAY);
     inGraphics.fillRect (getLocalBounds());
-
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
-    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
 }
 
 void MenuComponent::resized()
@@ -176,6 +172,11 @@ void MenuComponent::handleNewMessage (const DataMessage* inMessage)
 void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     if (mGlobalState.isMenuHidden()) { return; }
+
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
+
     bool hasValidPreset = mPresetState.isPresetValid();
     mImages.setDrawableButtonImages (mDuplicateButton, hasValidPreset ? "MenuDuplicate.svg" : "MenuDuplicateOFF.svg");
     mImages.setDrawableButtonImages (mExportMidiButton, hasValidPreset ? "MenuExportMidi.svg" : "MenuExportMidiOFF.svg");
