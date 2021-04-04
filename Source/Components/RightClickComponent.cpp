@@ -47,12 +47,6 @@ RightClickComponent::~RightClickComponent()
 }
 
 //==============================================================================
-void RightClickComponent::paint (Graphics& inGraphics)
-{
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
-}
-
 void RightClickComponent::resized()
 {
     paintWithCoordinates();
