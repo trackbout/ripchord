@@ -13,6 +13,8 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
+    mGlobalState.readConfigFile();
+
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
@@ -39,8 +41,6 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics& inGraphics)
 {
-    mGlobalState.readConfigFile();
-
     inGraphics.setColour (mGlobalState.isDarkTheme() ? COLOR_THEME_DARK : COLOR_THEME_LIGHT);
     inGraphics.fillRect (getLocalBounds());
 
