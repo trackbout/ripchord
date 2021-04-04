@@ -59,6 +59,7 @@ private:
 
     void handleToggleMode (const DataMessage* message);
     void handleTogglePower (const DataMessage* message);
+    void handleToggleFavorite (const DataMessage* message);
     void handleCurrentIndexChanged (const DataMessage* message);
 
     //==============================================================================

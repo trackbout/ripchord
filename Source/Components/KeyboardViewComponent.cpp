@@ -26,6 +26,9 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
 
+    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
+    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
+
     mQuickFav.setTriggeredOnMouseDown (true);
     mQuickFav.onClick = [this]()
     {
@@ -93,9 +96,6 @@ KeyboardViewComponent::~KeyboardViewComponent()
 //==============================================================================
 void KeyboardViewComponent::paint (Graphics& inGraphics)
 {
-    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
-    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
-
     auto mainArea = getLocalBounds();
     mInputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, INPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
     mOutputKeyboardBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, KEYBOARD_BG_HEIGHT));
@@ -156,6 +156,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kTogglePower): { handleTogglePower (inMessage); } break;
+        case (MessageCode::kPresetFileFavorited): { handleToggleFavorite (inMessage); } break;
         case (MessageCode::kCurrentIndexChanged): { handleCurrentIndexChanged (inMessage); } break;
         default: { } break;
     };
@@ -170,6 +171,12 @@ void KeyboardViewComponent::handleToggleMode (const DataMessage* inMessage)
 void KeyboardViewComponent::handleTogglePower (const DataMessage* inMessage)
 {
     mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
+}
+
+void KeyboardViewComponent::handleToggleFavorite (const DataMessage* inMessage)
+{
+    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
+    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
 }
 
 void KeyboardViewComponent::handleCurrentIndexChanged (const DataMessage* inMessage)
