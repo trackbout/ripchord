@@ -16,6 +16,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mChordName (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
+    mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
     setWantsKeyboardFocus (true);
@@ -157,7 +158,7 @@ void KeyboardViewComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleMode): { handleToggleMode (inMessage); } break;
         case (MessageCode::kTogglePower): { handleTogglePower (inMessage); } break;
         case (MessageCode::kPresetFileFavorited): { handleToggleFavorite (inMessage); } break;
-        case (MessageCode::kCurrentIndexChanged): { handleCurrentIndexChanged (inMessage); } break;
+        case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
     };
 }
@@ -179,7 +180,7 @@ void KeyboardViewComponent::handleToggleFavorite (const DataMessage* inMessage)
     mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
 }
 
-void KeyboardViewComponent::handleCurrentIndexChanged (const DataMessage* inMessage)
+void KeyboardViewComponent::handlePresetFileLoaded (const DataMessage* inMessage)
 {
     bool isFav = mBrowserState.isFavorite (mPresetState.getName());
     mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");

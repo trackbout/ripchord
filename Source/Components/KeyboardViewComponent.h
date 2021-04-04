@@ -60,7 +60,7 @@ private:
     void handleToggleMode (const DataMessage* message);
     void handleTogglePower (const DataMessage* message);
     void handleToggleFavorite (const DataMessage* message);
-    void handleCurrentIndexChanged (const DataMessage* message);
+    void handlePresetFileLoaded (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (KeyboardViewComponent)
