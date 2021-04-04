@@ -12,6 +12,9 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
+    mImages.setDrawableButtonImages (mPresetBg, "PresetBg.svg");
+
     mPresetFilterInput.setWantsKeyboardFocus (true);
     mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
     mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY);
@@ -35,6 +38,8 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mPresetViewport.setScrollBarsShown (true, false);
     mPresetViewport.setViewedComponent (&mPresetBrowser, false);
 
+    addAndMakeVisible (mSearchBg);
+    addAndMakeVisible (mPresetBg);
     addAndMakeVisible (mPresetFilterInput);
     addAndMakeVisible (mPresetViewport);
     addAndMakeVisible (mPowerButton);
@@ -50,26 +55,8 @@ PresetViewComponent::~PresetViewComponent()
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
     auto mainArea = getLocalBounds();
-
-    inGraphics.setColour (COLOR_BORDER);
-    auto inputBorderArea = Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, ITEM_HEIGHT).toFloat();
-    float inputBorderCorner = inputBorderArea.getHeight() * CORNER_SIZE_RATIO;
-    inGraphics.fillRoundedRectangle (inputBorderArea, inputBorderCorner);
-
-    inGraphics.setColour (COLOR_BLACK);
-    auto inputArea = Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X + 1, OUTPUT_KEYBOARD_BG_Y + 1, KEYBOARD_BG_WIDTH - 2, ITEM_HEIGHT - 2).toFloat();
-    float inputCorner = inputArea.getHeight() * CORNER_SIZE_RATIO;
-    inGraphics.fillRoundedRectangle (inputArea, inputCorner);
-
-    inGraphics.setColour (COLOR_BORDER);
-    auto bgBorderArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT).toFloat();
-    float bgBorderCorner = bgBorderArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
-    inGraphics.fillRoundedRectangle (bgBorderArea, bgBorderCorner);
-
-    inGraphics.setColour (COLOR_BLACK);
-    auto bgArea = Styles::getRelativeBounds (mainArea, SPACE + 1, PRESET_VIEWPORT_Y + 1, PRESET_LIST_WIDTH - 2, PRESET_LIST_HEIGHT - 2).toFloat();
-    float bgCorner = bgArea.getHeight() * (CORNER_SIZE_RATIO * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
-    inGraphics.fillRoundedRectangle (bgArea, bgCorner);
+    mSearchBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, OUTPUT_KEYBOARD_BG_Y, KEYBOARD_BG_WIDTH, ITEM_HEIGHT));
+    mPresetBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, KEYBOARD_BG_WIDTH, PRESET_LIST_HEIGHT));
 }
 
 void PresetViewComponent::resized()
