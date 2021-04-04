@@ -19,8 +19,15 @@ OutputKeyboardComponent::~OutputKeyboardComponent()
 //==============================================================================
 void OutputKeyboardComponent::paint (Graphics& inGraphics)
 {
-    setTheme (mGlobalState.isDarkTheme());
-    refreshKeyColors();
+    Colour noteColor = mKeyComponents.at (mLastKey)->getNoteColor();
+    bool isDark = noteColor.toString() == COLOR_GREY.toString();
+    bool isLight = noteColor.toString() == COLOR_WHITE.toString();
+
+    if ((isDark && mGlobalState.isLightTheme()) || (isLight && mGlobalState.isDarkTheme()))
+    {
+        setTheme (mGlobalState.isDarkTheme());
+        refreshKeyColors();
+    }
 }
 
 void OutputKeyboardComponent::resized()
