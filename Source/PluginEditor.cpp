@@ -25,10 +25,6 @@ RipchordPluginEditor::~RipchordPluginEditor()
 }
 
 //==============================================================================
-void RipchordPluginEditor::paint (Graphics& inGraphics)
-{
-}
-
 void RipchordPluginEditor::resized()
 {
     auto area = getLocalBounds();
