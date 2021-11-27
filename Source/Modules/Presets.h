@@ -120,13 +120,12 @@ namespace Presets
     static inline std::map<int, Chord> getChordsFromPresetXml (XmlElement* inPresetXml)
     {
         std::map<int, Chord> chords;
-        String inputTagName = inPresetXml->getTagName() == "preset" ? "input" : "mapping";
 
-        forEachXmlChildElementWithTagName (*inPresetXml, inputXml, inputTagName)
+        for (XmlElement* inputXml : inPresetXml->getChildWithTagNameIterator ("input"))
         {
             Chord chord;
             juce::Array<int> notes;
-            int note = inputXml->getIntAttribute("note");
+            int note = inputXml->getIntAttribute ("note");
             XmlElement* chordXml = inputXml->getChildByName ("chord");
             String notesString = chordXml->getStringAttribute ("notes");
             StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
