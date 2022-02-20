@@ -28,6 +28,7 @@
               file="Source/Assets/DirectionBAAB.svg"/>
         <FILE id="rJ5OV7" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="ij7tFk" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
+        <FILE id="l26hWh" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
         <FILE id="eksyyG" name="GearCircle.svg" compile="0" resource="1" file="Source/Assets/GearCircle.svg"/>
         <FILE id="qdTpVh" name="KeyboardBg.svg" compile="0" resource="1" file="Source/Assets/KeyboardBg.svg"/>
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>

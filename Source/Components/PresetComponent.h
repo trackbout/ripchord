@@ -31,6 +31,7 @@ private:
     Label mPresetLabel;
     PresetDeleteComponent mPresetDelete;
 
+    DrawableButton mGearButton { "", DrawableButton::ImageStretched };
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================

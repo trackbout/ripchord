@@ -97,11 +97,17 @@ const float PRESET_LIST_WIDTH = KEYBOARD_BG_WIDTH;
 const int PRESETS_PER_ROW = 3;
 const float PRESET_WIDTH = (PRESET_LIST_WIDTH - ((PRESETS_PER_ROW + 1) * HALF_SPACE)) / PRESETS_PER_ROW;
 
-const float PRESET_PAD = 8.f;
+const float PRESET_PAD_X = 8.f;
+const float PRESET_PAD_Y = 7.f;
+
+const float GEAR_WIDTH = 20.f;
+const float GEAR_HEIGHT = 20.f;
 const float TRASH_WIDTH = 16.f;
 const float TRASH_HEIGHT = 20.f;
-const float TRASH_X = PRESET_WIDTH - TRASH_WIDTH - PRESET_PAD;
-const float TRASH_Y = 7.f;
+const float GEAR_X = PRESET_PAD_X;
+const float GEAR_Y = PRESET_PAD_Y;
+const float TRASH_X = PRESET_WIDTH - TRASH_WIDTH - PRESET_PAD_X;
+const float TRASH_Y = PRESET_PAD_Y;
 
 const float CANCEL_WIDTH = 120.f;
 const float CANCEL_HEIGHT = 24.f;

@@ -9,14 +9,17 @@ PresetComponent::PresetComponent (Preset inPreset)
     mPresetLabel.setColour (Label::textColourId, COLOR_BLACK);
     mPresetLabel.setJustificationType (Justification::centred);
 
+    mImages.setDrawableButtonImages (mGearButton, "Gear.svg");
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
 
+    mGearButton.setTriggeredOnMouseDown (true);
     mTrashButton.setTriggeredOnMouseDown (true);
 
     mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
     mPresetDelete.onMouseDown = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
 
     addAndMakeVisible (mPresetLabel);
+    addAndMakeVisible (mGearButton);
     addAndMakeVisible (mTrashButton);
     addChildComponent (mPresetDelete);
 }
@@ -38,9 +41,13 @@ void PresetComponent::resized()
     auto area = getLocalBounds();
     mPresetDelete.setBounds (area);
 
+    juce::Rectangle<float> gearAreaProportion (GEAR_X / PRESET_WIDTH, GEAR_Y / ITEM_HEIGHT,
+                                               GEAR_WIDTH / PRESET_WIDTH, GEAR_HEIGHT / ITEM_HEIGHT);
+
     juce::Rectangle<float> trashAreaProportion (TRASH_X / PRESET_WIDTH, TRASH_Y / ITEM_HEIGHT,
                                                 TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
 
+    mGearButton.setBounds (area.getProportion (gearAreaProportion));
     mTrashButton.setBounds (area.getProportion (trashAreaProportion));
 
     mPresetLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) - 2).boldened());
