@@ -19,7 +19,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
 
-    mImages.setDrawableButtonImages (mMenuButton, "Gear.svg");
+    mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
 

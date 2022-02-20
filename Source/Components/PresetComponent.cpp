@@ -10,17 +10,13 @@ PresetComponent::PresetComponent (Preset inPreset)
     mPresetLabel.setJustificationType (Justification::centred);
 
     mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
-    mImages.setDrawableButtonImages (mStarButton, mPreset.isFavorite ? "StarON.svg" : "Star.svg");
 
     mTrashButton.setTriggeredOnMouseDown (true);
-    mStarButton.setTriggeredOnMouseDown (true);
 
     mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
-    mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mPreset.indexValue); } };
     mPresetDelete.onMouseDown = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
 
     addAndMakeVisible (mPresetLabel);
-    addAndMakeVisible (mStarButton);
     addAndMakeVisible (mTrashButton);
     addChildComponent (mPresetDelete);
 }
@@ -42,13 +38,9 @@ void PresetComponent::resized()
     auto area = getLocalBounds();
     mPresetDelete.setBounds (area);
 
-    juce::Rectangle<float> starAreaProportion (STAR_X / PRESET_WIDTH, STAR_Y / ITEM_HEIGHT,
-                                               STAR_WIDTH / PRESET_WIDTH, STAR_HEIGHT / ITEM_HEIGHT);
-
     juce::Rectangle<float> trashAreaProportion (TRASH_X / PRESET_WIDTH, TRASH_Y / ITEM_HEIGHT,
                                                 TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
 
-    mStarButton.setBounds (area.getProportion (starAreaProportion));
     mTrashButton.setBounds (area.getProportion (trashAreaProportion));
 
     mPresetLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) - 2).boldened());

@@ -97,13 +97,10 @@ const float PRESET_LIST_WIDTH = KEYBOARD_BG_WIDTH;
 const int PRESETS_PER_ROW = 3;
 const float PRESET_WIDTH = (PRESET_LIST_WIDTH - ((PRESETS_PER_ROW + 1) * HALF_SPACE)) / PRESETS_PER_ROW;
 
-const float STAR_WIDTH = 21.f;
-const float STAR_HEIGHT = 20.f;
+const float PRESET_PAD = 8.f;
 const float TRASH_WIDTH = 16.f;
 const float TRASH_HEIGHT = 20.f;
-const float STAR_X = 8.f;
-const float STAR_Y = 6.f;
-const float TRASH_X = PRESET_WIDTH - TRASH_WIDTH - STAR_X;
+const float TRASH_X = PRESET_WIDTH - TRASH_WIDTH - PRESET_PAD;
 const float TRASH_Y = 7.f;
 
 const float CANCEL_WIDTH = 120.f;

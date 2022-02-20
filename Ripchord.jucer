@@ -28,7 +28,7 @@
               file="Source/Assets/DirectionBAAB.svg"/>
         <FILE id="rJ5OV7" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="ij7tFk" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
-        <FILE id="eksyyG" name="Gear.svg" compile="0" resource="1" file="Source/Assets/Gear.svg"/>
+        <FILE id="eksyyG" name="GearCircle.svg" compile="0" resource="1" file="Source/Assets/GearCircle.svg"/>
         <FILE id="qdTpVh" name="KeyboardBg.svg" compile="0" resource="1" file="Source/Assets/KeyboardBg.svg"/>
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
         <FILE id="h2kaae" name="MenuBgDARK.svg" compile="0" resource="1" file="Source/Assets/MenuBgDARK.svg"/>
@@ -97,8 +97,6 @@
         <FILE id="z48l6V" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
         <FILE id="C8wJAs" name="ShiftRightON.svg" compile="0" resource="1"
               file="Source/Assets/ShiftRightON.svg"/>
-        <FILE id="tl68Hw" name="Star.svg" compile="0" resource="1" file="Source/Assets/Star.svg"/>
-        <FILE id="HBL3zq" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
         <FILE id="SSZ1dq" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="JQWdDr" name="Trackbout.svg" compile="0" resource="1" file="Source/Assets/Trackbout.svg"/>
         <FILE id="QExcvS" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>

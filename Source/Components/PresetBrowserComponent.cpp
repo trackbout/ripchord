@@ -81,11 +81,6 @@ void PresetBrowserComponent::refreshBrowser()
             mBrowserState.handleMouseDownOnDelete (indexValue);
         };
 
-        presetComponent->onFavorite = [this](const int indexValue)
-        {
-            mBrowserState.handleMouseDownOnFavorite (indexValue);
-        };
-
         addAndMakeVisible (presetComponent);
 
         // Delete pointers to prevent leaks
