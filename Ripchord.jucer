@@ -33,8 +33,6 @@
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
         <FILE id="h2kaae" name="MenuBgDARK.svg" compile="0" resource="1" file="Source/Assets/MenuBgDARK.svg"/>
         <FILE id="nA5Y9O" name="MenuBgLIGHT.svg" compile="0" resource="1" file="Source/Assets/MenuBgLIGHT.svg"/>
-        <FILE id="vEBsNH" name="MenuCommunity.svg" compile="0" resource="1"
-              file="Source/Assets/MenuCommunity.svg"/>
         <FILE id="nW0vRx" name="MenuDuplicate.svg" compile="0" resource="1"
               file="Source/Assets/MenuDuplicate.svg"/>
         <FILE id="RLd0le" name="MenuDuplicateOFF.svg" compile="0" resource="1"
@@ -53,6 +51,8 @@
               file="Source/Assets/MenuImportPreset.svg"/>
         <FILE id="fmqB89" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
+        <FILE id="r7vVT5" name="MenuSourceCode.svg" compile="0" resource="1"
+              file="Source/Assets/MenuSourceCode.svg"/>
         <FILE id="Cd5zV7" name="MenuThemeDARK.svg" compile="0" resource="1"
               file="Source/Assets/MenuThemeDARK.svg"/>
         <FILE id="MNTxFc" name="MenuThemeLIGHT.svg" compile="0" resource="1"
