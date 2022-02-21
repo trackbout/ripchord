@@ -11,6 +11,7 @@
   <MAINGROUP id="gjMAdL" name="Ripchord">
     <GROUP id="{B7141C90-8679-6CA6-DFD2-5E27422D1A61}" name="Source">
       <GROUP id="{3E841B27-D72E-1E3E-82C9-FBBC01EC00A2}" name="Assets">
+        <FILE id="lPSnpZ" name="AcitveTags.svg" compile="0" resource="1" file="Source/Assets/AcitveTags.svg"/>
         <FILE id="srm91D" name="AllBlack.svg" compile="0" resource="1" file="Source/Assets/AllBlack.svg"/>
         <FILE id="WT8Hs6" name="AllBlackON.svg" compile="0" resource="1" file="Source/Assets/AllBlackON.svg"/>
         <FILE id="YXTT7K" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
@@ -64,6 +65,7 @@
         <FILE id="f3MFfH" name="MoveLeftON.svg" compile="0" resource="1" file="Source/Assets/MoveLeftON.svg"/>
         <FILE id="WsN9k7" name="MoveRight.svg" compile="0" resource="1" file="Source/Assets/MoveRight.svg"/>
         <FILE id="fwkm9p" name="MoveRightON.svg" compile="0" resource="1" file="Source/Assets/MoveRightON.svg"/>
+        <FILE id="X6tzga" name="NewTag.svg" compile="0" resource="1" file="Source/Assets/NewTag.svg"/>
         <FILE id="Rsh9gN" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="BlA4Ax" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
         <FILE id="p1HXeL" name="Power.svg" compile="0" resource="1" file="Source/Assets/Power.svg"/>
@@ -92,13 +94,14 @@
               file="Source/Assets/RightClickPaste.svg"/>
         <FILE id="UzmS53" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="ibVq0f" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
-        <FILE id="hPX6cB" name="SearchBg.svg" compile="0" resource="1" file="Source/Assets/SearchBg.svg"/>
+        <FILE id="QSs1r4" name="SearchBg.svg" compile="0" resource="1" file="Source/Assets/SearchBg.svg"/>
         <FILE id="JtxdnB" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>
         <FILE id="QGPSBv" name="ShiftLeftON.svg" compile="0" resource="1" file="Source/Assets/ShiftLeftON.svg"/>
         <FILE id="z48l6V" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
         <FILE id="C8wJAs" name="ShiftRightON.svg" compile="0" resource="1"
               file="Source/Assets/ShiftRightON.svg"/>
         <FILE id="SSZ1dq" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
+        <FILE id="GRAJ0N" name="TagBg.svg" compile="0" resource="1" file="Source/Assets/TagBg.svg"/>
         <FILE id="JQWdDr" name="Trackbout.svg" compile="0" resource="1" file="Source/Assets/Trackbout.svg"/>
         <FILE id="QExcvS" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="sFpF0o" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
