@@ -13,6 +13,46 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
+void BrowserState::toggleTagManager()
+{
+    mTagManager = isTagManagerHidden() ? TagManager::VisibleTm : TagManager::HiddenTm;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTagManager;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isTagManagerHidden()
+{
+    return mTagManager == TagManager::HiddenTm;
+}
+
+bool BrowserState::isTagManagerVisible()
+{
+    return mTagManager == TagManager::VisibleTm;
+}
+
+//==============================================================================
+void BrowserState::togglePresetTagger()
+{
+    mPresetTagger = isPresetTaggerHidden() ? PresetTagger::VisiblePt : PresetTagger::HiddenPt;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTogglePresetTagger;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isPresetTaggerHidden()
+{
+    return mPresetTagger == PresetTagger::HiddenPt;
+}
+
+bool BrowserState::isPresetTaggerVisible()
+{
+    return mPresetTagger == PresetTagger::VisiblePt;
+}
+
+//==============================================================================
 void BrowserState::filterPresets()
 {
     mFilteredPresets.clear();

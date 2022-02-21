@@ -14,6 +14,20 @@ public:
     ~BrowserState();
 
     //==============================================================================
+    enum TagManager { HiddenTm, VisibleTm };
+    enum PresetTagger { HiddenPt, VisiblePt };
+
+    //==============================================================================
+    void toggleTagManager();
+    bool isTagManagerHidden();
+    bool isTagManagerVisible();
+
+    //==============================================================================
+    void togglePresetTagger();
+    bool isPresetTaggerHidden();
+    bool isPresetTaggerVisible();
+
+    //==============================================================================
     void filterPresets();
     void refreshPresetFiles();
 
@@ -39,6 +53,9 @@ public:
 
 private:
     //==============================================================================
+    TagManager mTagManager = TagManager::HiddenTm;
+    PresetTagger mPresetTagger = PresetTagger::HiddenPt;
+
     Array<File> mAllPresetFiles;
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;

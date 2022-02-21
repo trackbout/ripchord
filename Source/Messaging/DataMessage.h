@@ -35,11 +35,13 @@ enum MessageCode
     kActiveTransposeNote,
 
     // Messages from BrowserState
+    kToggleFavorites,
+    kToggleTagManager,
+    kTogglePresetTagger,
     kPresetFileDeleted,
     kPresetFileFavorited,
     kPresetFilterTextChanged,
     kCurrentIndexChanged,
-    kToggleFavorites,
 
     // Messages from PresetState
     kPresetFileNew,
