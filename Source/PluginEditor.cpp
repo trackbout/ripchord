@@ -11,7 +11,7 @@ RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordP
     {
         boundsConstrainer->setFixedAspectRatio (EDITOR_WIDTH / (float) EDITOR_HEIGHT);
         boundsConstrainer->setMinimumSize (EDITOR_WIDTH * 0.5f, EDITOR_HEIGHT * 0.5f);
-        boundsConstrainer->setMaximumSize (EDITOR_WIDTH * 1.5f, EDITOR_HEIGHT * 1.5f);
+        boundsConstrainer->setMaximumSize (EDITOR_WIDTH * 2.0f, EDITOR_HEIGHT * 2.0f);
     }
 
     setResizable (true, true);
