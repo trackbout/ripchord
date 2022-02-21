@@ -34,9 +34,12 @@ private:
     TextEditor mPresetFilterInput;
     PresetBrowserComponent mPresetBrowser;
 
-    DrawableButton mSearchBg { "", DrawableButton::ImageStretched };
+    DrawableButton mTagBg { "", DrawableButton::ImageStretched };
     DrawableButton mPresetBg { "", DrawableButton::ImageStretched };
+    DrawableButton mSearchBg { "", DrawableButton::ImageStretched };
     DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
+    DrawableButton mNewTagButton { "", DrawableButton::ImageStretched };
+    DrawableButton mActiveTagsButton { "", DrawableButton::ImageStretched };
     DrawableButton mFavoritesButton { "", DrawableButton::ImageStretched };
     DrawableButton mKeyboardsButton { "", DrawableButton::ImageStretched };
 

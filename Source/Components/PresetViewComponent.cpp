@@ -12,20 +12,12 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
+    mImages.setDrawableButtonImages (mTagBg, "TagBg.svg");
     mImages.setDrawableButtonImages (mPresetBg, "PresetBg.svg");
-
-    mPresetFilterInput.setWantsKeyboardFocus (true);
-    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
-    mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY);
-    mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
-
-    mPresetFilterInput.onTextChange = [this]()
-    {
-        mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
-    };
-
+    mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
     mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
+    mImages.setDrawableButtonImages (mNewTagButton, "NewTag.svg");
+    mImages.setDrawableButtonImages (mActiveTagsButton, "ActiveTags.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
@@ -38,13 +30,26 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mPresetViewport.setScrollBarsShown (true, false);
     mPresetViewport.setViewedComponent (&mPresetBrowser, false);
 
-    addAndMakeVisible (mSearchBg);
+    mPresetFilterInput.setWantsKeyboardFocus (true);
+    mPresetFilterInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
+    mPresetFilterInput.setTextToShowWhenEmpty ("search presets...", COLOR_GREY);
+    mPresetFilterInput.onReturnKey = [this]() { grabKeyboardFocus(); };
+
+    mPresetFilterInput.onTextChange = [this]()
+    {
+        mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
+    };
+
+    addAndMakeVisible (mTagBg);
     addAndMakeVisible (mPresetBg);
-    addAndMakeVisible (mPresetFilterInput);
-    addAndMakeVisible (mPresetViewport);
+    addAndMakeVisible (mSearchBg);
     addAndMakeVisible (mPowerButton);
+    addAndMakeVisible (mNewTagButton);
+    addAndMakeVisible (mActiveTagsButton);
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
+    addAndMakeVisible (mPresetViewport);
+    addAndMakeVisible (mPresetFilterInput);
 }
 
 PresetViewComponent::~PresetViewComponent()
@@ -55,18 +60,21 @@ PresetViewComponent::~PresetViewComponent()
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
     auto mainArea = getLocalBounds();
-    mSearchBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
+    mTagBg.setBounds (Styles::getRelativeBounds (mainArea, TAG_BG_X, OUTPUT_KEYBOARD_BG_Y, TAG_BG_WIDTH, ITEM_HEIGHT));
     mPresetBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, KEYBOARD_BG_WIDTH, PRESET_LIST_HEIGHT));
+    mSearchBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
 }
 
 void PresetViewComponent::resized()
 {
     auto mainArea = getLocalBounds();
 
-    mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
     mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mNewTagButton.setBounds (Styles::getRelativeBounds (mainArea, NEW_TAG_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mActiveTagsButton.setBounds (Styles::getRelativeBounds (mainArea, ACTIVE_TAGS_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mFavoritesButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mKeyboardsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
+    mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
 
     int inputHeight = mPresetFilterInput.getHeight();
     float inputFontHeight = inputHeight * TEXT_INPUT_FONT_HEIGHT_RATIO;
