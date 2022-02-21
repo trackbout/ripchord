@@ -5,6 +5,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mBrowserState (mMainProcess.getBrowserState()),
+    mTagManager (inMainProcess),
     mPresetBrowser (inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
@@ -20,6 +21,9 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mActiveTagsButton, "ActiveTags.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
+
+    mNewTagButton.setTriggeredOnMouseDown (true);
+    mNewTagButton.onClick = [this]() { mBrowserState.toggleTagManager(); };
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
     mFavoritesButton.onClick = [this]() { mBrowserState.handleMouseDownOnFavorites(); };
@@ -50,6 +54,8 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mKeyboardsButton);
     addAndMakeVisible (mPresetViewport);
     addAndMakeVisible (mPresetFilterInput);
+
+    addChildComponent (mTagManager);
 }
 
 PresetViewComponent::~PresetViewComponent()
@@ -69,6 +75,7 @@ void PresetViewComponent::resized()
 {
     auto mainArea = getLocalBounds();
 
+    mTagManager.setBounds (mainArea);
     mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mNewTagButton.setBounds (Styles::getRelativeBounds (mainArea, NEW_TAG_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mActiveTagsButton.setBounds (Styles::getRelativeBounds (mainArea, ACTIVE_TAGS_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
@@ -100,6 +107,7 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
+        case (MessageCode::kToggleTagManager): { handleToggleTagManager (inMessage); } break;
         case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
         default: { } break;
     };
@@ -115,6 +123,11 @@ void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
     bool isFavoritesOn = inMessage->messageVar1;
     mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
+}
+
+void PresetViewComponent::handleToggleTagManager (const DataMessage* inMessage)
+{
+    mTagManager.setVisible (mBrowserState.isTagManagerVisible());
 }
 
 void PresetViewComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)

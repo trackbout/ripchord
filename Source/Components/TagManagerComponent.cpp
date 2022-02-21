@@ -34,11 +34,23 @@ void TagManagerComponent::resized()
 //==============================================================================
 void TagManagerComponent::mouseDown (const MouseEvent& inEvent)
 {
-
+    mBrowserState.toggleTagManager();
 }
 
 //==============================================================================
 void TagManagerComponent::handleNewMessage (const DataMessage* inMessage)
 {
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kToggleTagManager): { handleToggleTagManager (inMessage); } break;
+        default: { } break;
+    };
+}
 
+void TagManagerComponent::handleToggleTagManager (const DataMessage* inMessage)
+{
+    if (mBrowserState.isTagManagerHidden()) { return; }
+
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
 }

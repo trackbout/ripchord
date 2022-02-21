@@ -4,6 +4,7 @@
 #include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
+#include "TagManagerComponent.h"
 #include "PresetBrowserComponent.h"
 #include "DataMessageListener.h"
 #include "DataMessage.h"
@@ -32,6 +33,7 @@ private:
     Images mImages;
     Viewport mPresetViewport;
     TextEditor mPresetFilterInput;
+    TagManagerComponent mTagManager;
     PresetBrowserComponent mPresetBrowser;
 
     DrawableButton mTagBg { "", DrawableButton::ImageStretched };
@@ -45,6 +47,7 @@ private:
 
     void handleToggleView (const DataMessage* message);
     void handleToggleFavorites (const DataMessage* message);
+    void handleToggleTagManager (const DataMessage* message);
     void handlePresetFilterTextChanged (const DataMessage* message);
 
     //==============================================================================
