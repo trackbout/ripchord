@@ -125,15 +125,16 @@ const float DELETE_Y = CANCEL_Y;
 const float FOOTER_Y = INPUT_KEYBOARD_BG_Y + KEYBOARD_BG_HEIGHT + SPACE;
 const float EDITOR_HEIGHT = FOOTER_Y + ITEM_HEIGHT + SPACE;
 
-const float MENU_WIDTH = 496.f;
-const float MENU_HEIGHT = 310.f;
+const float MODAL_WIDTH = 496.f;
+const float MODAL_HEIGHT = 310.f;
+const float MODAL_X = EDITOR_WIDTH * 0.5f - MODAL_WIDTH * 0.5f;
+const float MODAL_Y = EDITOR_HEIGHT * 0.5f - MODAL_HEIGHT * 0.5f;
+
 const float MENU_ITEM_HEIGHT = 30.f;
 const float MENU_ACTION_WIDTH = 220.f;
 const float MENU_TOGGLE_WIDTH = 120.f;
-const float MENU_X = EDITOR_WIDTH * 0.5f - MENU_WIDTH * 0.5f;
-const float MENU_Y = EDITOR_HEIGHT * 0.5f - MENU_HEIGHT * 0.5f;
 const float MENU_ACTION_X = EDITOR_WIDTH * 0.5f + HALF_SPACE;
-const float MENU_ACTION_Y_01 = MENU_Y + SPACE;
+const float MENU_ACTION_Y_01 = MODAL_Y + SPACE;
 const float MENU_ACTION_Y_02 = MENU_ACTION_Y_01 + MENU_ITEM_HEIGHT + HALF_SPACE;
 const float MENU_ACTION_Y_03 = MENU_ACTION_Y_02 + MENU_ITEM_HEIGHT + HALF_SPACE;
 const float MENU_ACTION_Y_04 = MENU_ACTION_Y_03 + MENU_ITEM_HEIGHT + HALF_SPACE;

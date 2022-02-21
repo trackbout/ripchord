@@ -35,8 +35,6 @@
         <FILE id="eksyyG" name="GearCircle.svg" compile="0" resource="1" file="Source/Assets/GearCircle.svg"/>
         <FILE id="qdTpVh" name="KeyboardBg.svg" compile="0" resource="1" file="Source/Assets/KeyboardBg.svg"/>
         <FILE id="Ux2KAh" name="Keyboards.svg" compile="0" resource="1" file="Source/Assets/Keyboards.svg"/>
-        <FILE id="h2kaae" name="MenuBgDARK.svg" compile="0" resource="1" file="Source/Assets/MenuBgDARK.svg"/>
-        <FILE id="nA5Y9O" name="MenuBgLIGHT.svg" compile="0" resource="1" file="Source/Assets/MenuBgLIGHT.svg"/>
         <FILE id="nW0vRx" name="MenuDuplicate.svg" compile="0" resource="1"
               file="Source/Assets/MenuDuplicate.svg"/>
         <FILE id="RLd0le" name="MenuDuplicateOFF.svg" compile="0" resource="1"
@@ -61,6 +59,9 @@
               file="Source/Assets/MenuThemeDARK.svg"/>
         <FILE id="MNTxFc" name="MenuThemeLIGHT.svg" compile="0" resource="1"
               file="Source/Assets/MenuThemeLIGHT.svg"/>
+        <FILE id="h2kaae" name="ModalBgDARK.svg" compile="0" resource="1" file="Source/Assets/ModalBgDARK.svg"/>
+        <FILE id="nA5Y9O" name="ModalBgLIGHT.svg" compile="0" resource="1"
+              file="Source/Assets/ModalBgLIGHT.svg"/>
         <FILE id="je4NIx" name="ModeEDIT.svg" compile="0" resource="1" file="Source/Assets/ModeEDIT.svg"/>
         <FILE id="zf1Czg" name="ModePLAY.svg" compile="0" resource="1" file="Source/Assets/ModePLAY.svg"/>
         <FILE id="aRUFsj" name="MoveLeft.svg" compile="0" resource="1" file="Source/Assets/MoveLeft.svg"/>

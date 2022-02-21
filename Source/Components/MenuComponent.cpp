@@ -15,7 +15,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mCreditsLabel.setColour (Label::textColourId, COLOR_GREY);
 
     bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
     mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
 
@@ -126,22 +126,22 @@ void MenuComponent::paint (Graphics& inGraphics)
 void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
-    mBackground.setBounds (Styles::getRelativeBounds (mainArea, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT));
+    mBackground.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X, MODAL_Y, MODAL_WIDTH, MODAL_HEIGHT));
 
-    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 4);
+    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 4);
     mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleLabelArea);
 
-    auto themeLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 64, MENU_ACTION_Y_04 - 30, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
+    auto themeLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 64, MENU_ACTION_Y_04 - 30, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
     mThemeLabel.setFont (Font ((float) themeLabelArea.getHeight()).boldened());
     mThemeLabel.setBounds (themeLabelArea);
 
-    auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MENU_X + 46, MENU_ACTION_Y_07 + 12, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
+    auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 46, MENU_ACTION_Y_07 + 12, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
     mCreditsLabel.setFont (Font ((float) creditsLabelArea.getHeight()));
     mCreditsLabel.setBounds (creditsLabelArea);
 
-    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_04, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
-    mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_X + 67, MENU_ACTION_Y_07 - 4, 120, 12));
+    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_04, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_07 - 4, 120, 12));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
@@ -174,7 +174,7 @@ void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
     if (mGlobalState.isMenuHidden()) { return; }
 
     bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
 
     bool hasValidPreset = mPresetState.isPresetValid();
@@ -186,6 +186,6 @@ void MenuComponent::handleToggleMenu (const DataMessage* inMessage)
 void MenuComponent::handleToggleTheme (const DataMessage* inMessage)
 {
     bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "MenuBgDARK.svg" : "MenuBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
 }
