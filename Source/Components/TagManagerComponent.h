@@ -27,7 +27,11 @@ public:
 private:
     //==============================================================================
     MainProcess& mMainProcess;
+    GlobalState& mGlobalState;
     BrowserState& mBrowserState;
+
+    Images mImages;
+    DrawableButton mBackground { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TagManagerComponent)

@@ -17,8 +17,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
-    mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
 
+    mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
     mImages.setDrawableButtonImages (mImportMidiButton, "MenuImportMidi.svg");
