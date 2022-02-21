@@ -19,15 +19,10 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
 
-    mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
-    mMenuButton.setTriggeredOnMouseDown (true);
-    mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
-
     addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mKeyboardViewComponent);
     addChildComponent (mPresetViewComponent);
 
-    addAndMakeVisible (mMenuButton);
     addChildComponent (mMenuComponent);
     addChildComponent (mRightClickComponent);
 
@@ -62,9 +57,6 @@ void MainComponent::resized()
     auto titleArea = Styles::getRelativeBounds (mainArea, SPACE - 4, HEADER_Y, BUTTON_WIDTH + 10, ITEM_HEIGHT - 2);
     mTitleLabel.setFont (Font ((float) titleArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleArea);
-
-    auto menuButtonArea = Styles::getRelativeBounds (mainArea, MENU_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT);
-    mMenuButton.setBounds (menuButtonArea);
 }
 
 //==============================================================================

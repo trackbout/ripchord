@@ -1,7 +1,6 @@
 #pragma once
 
 #include "JuceHeader.h"
-#include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
 #include "DataMessage.h"
@@ -37,9 +36,7 @@ private:
     RightClickComponent mRightClickComponent;
     MenuComponent mMenuComponent;
 
-    Images mImages;
     Label mTitleLabel { "", "ripchord" };
-    DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
 
     void handleToggleTheme (const DataMessage* message);
     void handleToggleView (const DataMessage* message);

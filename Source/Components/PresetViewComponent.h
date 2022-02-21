@@ -30,15 +30,16 @@ private:
     GlobalState& mGlobalState;
     BrowserState& mBrowserState;
 
-    Images mImages;
     Viewport mPresetViewport;
     TextEditor mPresetFilterInput;
     TagManagerComponent mTagManager;
     PresetBrowserComponent mPresetBrowser;
 
+    Images mImages;
     DrawableButton mTagBg { "", DrawableButton::ImageStretched };
     DrawableButton mPresetBg { "", DrawableButton::ImageStretched };
     DrawableButton mSearchBg { "", DrawableButton::ImageStretched };
+    DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
     DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
     DrawableButton mNewTagButton { "", DrawableButton::ImageStretched };
     DrawableButton mActiveTagsButton { "", DrawableButton::ImageStretched };

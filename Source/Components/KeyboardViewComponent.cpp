@@ -21,14 +21,19 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    bool isOn = mGlobalState.isPowerOn();
+    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
+
+    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
+    mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
+    mImages.setDrawableButtonImages (mPowerButton, isOn ? "PowerON.svg" : "Power.svg");
+    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
+    mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
     mImages.setDrawableButtonImages (mInputKeyboardBg, "KeyboardBg.svg");
     mImages.setDrawableButtonImages (mOutputKeyboardBg, "KeyboardBg.svg");
 
     mOutputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
     mInputKeyboardLabel.setColour (Label::textColourId, COLOR_WHITE);
-
-    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
-    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
 
     mQuickFav.setTriggeredOnMouseDown (true);
     mQuickFav.onClick = [this]()
@@ -37,9 +42,8 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
         mBrowserState.handleMouseDownOnFavorite (indexValue);
     };
 
-    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
-    mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
-    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
+    mMenuButton.setTriggeredOnMouseDown (true);
+    mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
 
     mPowerButton.setTriggeredOnMouseDown (true);
     mPowerButton.onClick = [this]()
@@ -78,6 +82,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mOutputKeyboardLabel);
 
     addAndMakeVisible (mQuickFav);
+    addAndMakeVisible (mMenuButton);
     addAndMakeVisible (mPowerButton);
     addAndMakeVisible (mPresetsButton);
     addAndMakeVisible (mModeButton);
@@ -125,6 +130,7 @@ void KeyboardViewComponent::resized()
     mChordName.setTransform (AffineTransform::scale (scaleFactor));
 
     mQuickFav.setBounds (Styles::getRelativeBounds (mainArea, FAV_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mMenuButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPresetsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mModeButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
