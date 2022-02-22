@@ -68,29 +68,47 @@ void PresetBrowserComponent::refreshBrowser()
         int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
         int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
-        auto* presetComponent = new PresetComponent (preset);
-        presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
-
-        presetComponent->onClick = [this](const int indexValue)
+        if (mBrowserState.isTagSelectorOn())
         {
-            Array<File> allPresetFiles = mBrowserState.getAllPresetFiles();
-            mPresetState.handleMouseDownOnPreset (allPresetFiles[indexValue]);
-        };
+            auto* presetTaggerComponent = new PresetTaggerComponent (preset);
+            presetTaggerComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
 
-        presetComponent->onDelete = [this](const int indexValue)
+            presetTaggerComponent->onClick = [this](const int indexValue)
+            {
+                // do stuff
+            };
+
+            addAndMakeVisible (presetTaggerComponent);
+
+            // Delete pointers to prevent leaks
+            mPresetTaggersToDelete.add (presetTaggerComponent);
+        }
+        else
         {
-            mBrowserState.handleMouseDownOnDelete (indexValue);
-        };
+            auto* presetComponent = new PresetComponent (preset);
+            presetComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
 
-        presetComponent->onFavorite = [this](const int indexValue)
-        {
-            mBrowserState.handleMouseDownOnFavorite (indexValue);
-        };
+            presetComponent->onClick = [this](const int indexValue)
+            {
+                Array<File> allPresetFiles = mBrowserState.getAllPresetFiles();
+                mPresetState.handleMouseDownOnPreset (allPresetFiles[indexValue]);
+            };
 
-        addAndMakeVisible (presetComponent);
+            presetComponent->onDelete = [this](const int indexValue)
+            {
+                mBrowserState.handleMouseDownOnDelete (indexValue);
+            };
 
-        // Delete pointers to prevent leaks
-        mPresetsToDelete.add (presetComponent);
+            presetComponent->onFavorite = [this](const int indexValue)
+            {
+                mBrowserState.handleMouseDownOnFavorite (indexValue);
+            };
+
+            addAndMakeVisible (presetComponent);
+
+            // Delete pointers to prevent leaks
+            mPresetsToDelete.add (presetComponent);
+        }
     }
 
     int rowCount = (int) std::ceil (filteredPresets.size() / (float) (PRESETS_PER_ROW));

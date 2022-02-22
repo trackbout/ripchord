@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "MainProcess.h"
 #include "PresetComponent.h"
+#include "PresetTaggerComponent.h"
 #include "DataMessageListener.h"
 
 //==============================================================================
@@ -33,7 +34,9 @@ private:
 
     void hardRefresh();
     void refreshBrowser();
+
     OwnedArray<PresetComponent> mPresetsToDelete;
+    OwnedArray<PresetTaggerComponent> mPresetTaggersToDelete;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetBrowserComponent)
