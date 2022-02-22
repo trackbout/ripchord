@@ -22,6 +22,7 @@ public:
     //==============================================================================
     std::function<void (const int indexValue)> onClick;
     std::function<void (const int indexValue)> onDelete;
+    std::function<void (const int indexValue)> onFavorite;
 
 private:
     //==============================================================================
@@ -31,7 +32,7 @@ private:
     Label mPresetLabel;
     PresetDeleteComponent mPresetDelete;
 
-    DrawableButton mGearButton { "", DrawableButton::ImageStretched };
+    DrawableButton mStarButton { "", DrawableButton::ImageStretched };
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
