@@ -11,9 +11,6 @@
   <MAINGROUP id="gjMAdL" name="Ripchord">
     <GROUP id="{B7141C90-8679-6CA6-DFD2-5E27422D1A61}" name="Source">
       <GROUP id="{3E841B27-D72E-1E3E-82C9-FBBC01EC00A2}" name="Assets">
-        <FILE id="CKWhXf" name="ActiveTags.svg" compile="0" resource="1" file="Source/Assets/ActiveTags.svg"/>
-        <FILE id="Q35Y6m" name="ActiveTagsON.svg" compile="0" resource="1"
-              file="Source/Assets/ActiveTagsON.svg"/>
         <FILE id="srm91D" name="AllBlack.svg" compile="0" resource="1" file="Source/Assets/AllBlack.svg"/>
         <FILE id="WT8Hs6" name="AllBlackON.svg" compile="0" resource="1" file="Source/Assets/AllBlackON.svg"/>
         <FILE id="YXTT7K" name="AllWhite.svg" compile="0" resource="1" file="Source/Assets/AllWhite.svg"/>
@@ -68,7 +65,6 @@
         <FILE id="f3MFfH" name="MoveLeftON.svg" compile="0" resource="1" file="Source/Assets/MoveLeftON.svg"/>
         <FILE id="WsN9k7" name="MoveRight.svg" compile="0" resource="1" file="Source/Assets/MoveRight.svg"/>
         <FILE id="fwkm9p" name="MoveRightON.svg" compile="0" resource="1" file="Source/Assets/MoveRightON.svg"/>
-        <FILE id="v5aDNM" name="NewTag.svg" compile="0" resource="1" file="Source/Assets/NewTag.svg"/>
         <FILE id="Rsh9gN" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="BlA4Ax" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
         <FILE id="p1HXeL" name="Power.svg" compile="0" resource="1" file="Source/Assets/Power.svg"/>
@@ -104,7 +100,11 @@
         <FILE id="C8wJAs" name="ShiftRightON.svg" compile="0" resource="1"
               file="Source/Assets/ShiftRightON.svg"/>
         <FILE id="SSZ1dq" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
-        <FILE id="w0UmdJ" name="TagBg.svg" compile="0" resource="1" file="Source/Assets/TagBg.svg"/>
+        <FILE id="v5aDNM" name="TagManager.svg" compile="0" resource="1" file="Source/Assets/TagManager.svg"/>
+        <FILE id="w0UmdJ" name="TagsBg.svg" compile="0" resource="1" file="Source/Assets/TagsBg.svg"/>
+        <FILE id="CKWhXf" name="TagSelector.svg" compile="0" resource="1" file="Source/Assets/TagSelector.svg"/>
+        <FILE id="Q35Y6m" name="TagSelectorON.svg" compile="0" resource="1"
+              file="Source/Assets/TagSelectorON.svg"/>
         <FILE id="JQWdDr" name="Trackbout.svg" compile="0" resource="1" file="Source/Assets/Trackbout.svg"/>
         <FILE id="QExcvS" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="sFpF0o" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
@@ -177,10 +177,6 @@
               file="Source/Components/RightClickComponent.cpp"/>
         <FILE id="sLuZcM" name="RightClickComponent.h" compile="0" resource="0"
               file="Source/Components/RightClickComponent.h"/>
-        <FILE id="mkHyxL" name="PresetTaggerComponent.cpp" compile="1" resource="0"
-              file="Source/Components/PresetTaggerComponent.cpp"/>
-        <FILE id="jBwHcx" name="PresetTaggerComponent.h" compile="0" resource="0"
-              file="Source/Components/PresetTaggerComponent.h"/>
         <FILE id="B08eMH" name="TagManagerComponent.cpp" compile="1" resource="0"
               file="Source/Components/TagManagerComponent.cpp"/>
         <FILE id="AiSOf0" name="TagManagerComponent.h" compile="0" resource="0"

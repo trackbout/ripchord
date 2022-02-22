@@ -15,7 +15,7 @@ BrowserState::~BrowserState()
 //==============================================================================
 void BrowserState::toggleTagManager()
 {
-    mTagManager = isTagManagerHidden() ? TagManager::VisibleTm : TagManager::HiddenTm;
+    mTagManager = isTagManagerHidden() ? TagManager::Visible : TagManager::Hidden;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTagManager;
@@ -24,32 +24,12 @@ void BrowserState::toggleTagManager()
 
 bool BrowserState::isTagManagerHidden()
 {
-    return mTagManager == TagManager::HiddenTm;
+    return mTagManager == TagManager::Hidden;
 }
 
 bool BrowserState::isTagManagerVisible()
 {
-    return mTagManager == TagManager::VisibleTm;
-}
-
-//==============================================================================
-void BrowserState::togglePresetTagger()
-{
-    mPresetTagger = isPresetTaggerHidden() ? PresetTagger::VisiblePt : PresetTagger::HiddenPt;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTogglePresetTagger;
-    sendMessage (message, ListenerType::kSync);
-}
-
-bool BrowserState::isPresetTaggerHidden()
-{
-    return mPresetTagger == PresetTagger::HiddenPt;
-}
-
-bool BrowserState::isPresetTaggerVisible()
-{
-    return mPresetTagger == PresetTagger::VisiblePt;
+    return mTagManager == TagManager::Visible;
 }
 
 //==============================================================================

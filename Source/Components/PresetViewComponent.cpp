@@ -13,18 +13,18 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    mImages.setDrawableButtonImages (mTagBg, "TagBg.svg");
+    mImages.setDrawableButtonImages (mTagsBg, "TagsBg.svg");
     mImages.setDrawableButtonImages (mPresetBg, "PresetBg.svg");
     mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
     mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
     mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
-    mImages.setDrawableButtonImages (mNewTagButton, "NewTag.svg");
-    mImages.setDrawableButtonImages (mActiveTagsButton, "ActiveTags.svg");
+    mImages.setDrawableButtonImages (mTagManagerButton, "TagManager.svg");
+    mImages.setDrawableButtonImages (mTagSelectorButton, "TagSelector.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
-    mNewTagButton.setTriggeredOnMouseDown (true);
-    mNewTagButton.onClick = [this]() { mBrowserState.toggleTagManager(); };
+    mTagManagerButton.setTriggeredOnMouseDown (true);
+    mTagManagerButton.onClick = [this]() { mBrowserState.toggleTagManager(); };
 
     mMenuButton.setTriggeredOnMouseDown (true);
     mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
@@ -48,13 +48,13 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
         mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
     };
 
-    addAndMakeVisible (mTagBg);
+    addAndMakeVisible (mTagsBg);
     addAndMakeVisible (mPresetBg);
     addAndMakeVisible (mSearchBg);
     addAndMakeVisible (mMenuButton);
     addAndMakeVisible (mPowerButton);
-    addAndMakeVisible (mNewTagButton);
-    addAndMakeVisible (mActiveTagsButton);
+    addAndMakeVisible (mTagManagerButton);
+    addAndMakeVisible (mTagSelectorButton);
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
     addAndMakeVisible (mPresetViewport);
@@ -71,7 +71,7 @@ PresetViewComponent::~PresetViewComponent()
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
     auto mainArea = getLocalBounds();
-    mTagBg.setBounds (Styles::getRelativeBounds (mainArea, TAG_BG_X, OUTPUT_KEYBOARD_BG_Y, TAG_BG_WIDTH, ITEM_HEIGHT));
+    mTagsBg.setBounds (Styles::getRelativeBounds (mainArea, TAGS_BG_X, OUTPUT_KEYBOARD_BG_Y, TAGS_BG_WIDTH, ITEM_HEIGHT));
     mPresetBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, KEYBOARD_BG_WIDTH, PRESET_LIST_HEIGHT));
     mSearchBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
 }
@@ -83,8 +83,8 @@ void PresetViewComponent::resized()
     mTagManager.setBounds (mainArea);
     mMenuButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mPowerButton.setBounds (Styles::getRelativeBounds (mainArea, POWER_BUTTON_X, HEADER_Y, ITEM_HEIGHT, ITEM_HEIGHT));
-    mNewTagButton.setBounds (Styles::getRelativeBounds (mainArea, NEW_TAG_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
-    mActiveTagsButton.setBounds (Styles::getRelativeBounds (mainArea, ACTIVE_TAGS_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mTagManagerButton.setBounds (Styles::getRelativeBounds (mainArea, TAG_MANAGER_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
+    mTagSelectorButton.setBounds (Styles::getRelativeBounds (mainArea, TAG_SELECTOR_X, OUTPUT_KEYBOARD_BG_Y, ITEM_HEIGHT, ITEM_HEIGHT));
     mFavoritesButton.setBounds (Styles::getRelativeBounds (mainArea, LEFT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mKeyboardsButton.setBounds (Styles::getRelativeBounds (mainArea, RIGHT_BUTTON_X, FOOTER_Y, BUTTON_WIDTH, ITEM_HEIGHT));
     mPresetFilterInput.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
