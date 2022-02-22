@@ -15,11 +15,17 @@ public:
 
     //==============================================================================
     enum TagManager { Hidden, Visible };
+    enum TagSelector { On, Off };
 
     //==============================================================================
     void toggleTagManager();
     bool isTagManagerHidden();
     bool isTagManagerVisible();
+
+    //==============================================================================
+    void toggleTagSelector();
+    bool isTagSelectorOff();
+    bool isTagSelectorOn();
 
     //==============================================================================
     void filterPresets();
@@ -48,6 +54,7 @@ public:
 private:
     //==============================================================================
     TagManager mTagManager = TagManager::Hidden;
+    TagSelector mTagSelector = TagSelector::Off;
 
     Array<File> mAllPresetFiles;
     juce::Array<Preset> mAllPresets;

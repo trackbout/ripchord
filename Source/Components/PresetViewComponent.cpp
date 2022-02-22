@@ -13,21 +13,26 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
+    bool isSelectorOn = mBrowserState.isTagSelectorOn();
+
     mImages.setDrawableButtonImages (mTagsBg, "TagsBg.svg");
     mImages.setDrawableButtonImages (mPresetBg, "PresetBg.svg");
     mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
     mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
     mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
     mImages.setDrawableButtonImages (mTagManagerButton, "TagManager.svg");
-    mImages.setDrawableButtonImages (mTagSelectorButton, "TagSelector.svg");
+    mImages.setDrawableButtonImages (mTagSelectorButton, isSelectorOn ? "TagSelectorON.svg" : "TagSelector.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
+
+    mMenuButton.setTriggeredOnMouseDown (true);
+    mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
 
     mTagManagerButton.setTriggeredOnMouseDown (true);
     mTagManagerButton.onClick = [this]() { mBrowserState.toggleTagManager(); };
 
-    mMenuButton.setTriggeredOnMouseDown (true);
-    mMenuButton.onClick = [this]() { mGlobalState.toggleMenu(); };
+    mTagSelectorButton.setTriggeredOnMouseDown (true);
+    mTagSelectorButton.onClick = [this]() { mBrowserState.toggleTagSelector(); };
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
     mFavoritesButton.onClick = [this]() { mBrowserState.handleMouseDownOnFavorites(); };
@@ -114,6 +119,7 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleFavorites): { handleToggleFavorites (inMessage); } break;
         case (MessageCode::kToggleTagManager): { handleToggleTagManager (inMessage); } break;
+        case (MessageCode::kToggleTagSelector): { handleToggleTagSelector (inMessage); } break;
         case (MessageCode::kPresetFilterTextChanged): { handlePresetFilterTextChanged (inMessage); } break;
         default: { } break;
     };
@@ -134,6 +140,12 @@ void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 void PresetViewComponent::handleToggleTagManager (const DataMessage* inMessage)
 {
     mTagManager.setVisible (mBrowserState.isTagManagerVisible());
+}
+
+void PresetViewComponent::handleToggleTagSelector (const DataMessage* inMessage)
+{
+    bool isSelectorOn = mBrowserState.isTagSelectorOn();
+    mImages.setDrawableButtonImages (mTagSelectorButton, isSelectorOn ? "TagSelectorON.svg" : "TagSelector.svg");
 }
 
 void PresetViewComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)

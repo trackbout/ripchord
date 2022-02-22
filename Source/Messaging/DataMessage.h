@@ -37,6 +37,7 @@ enum MessageCode
     // Messages from BrowserState
     kToggleFavorites,
     kToggleTagManager,
+    kToggleTagSelector,
     kPresetFileDeleted,
     kPresetFileFavorited,
     kPresetFilterTextChanged,

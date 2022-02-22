@@ -49,6 +49,7 @@ private:
     void handleToggleView (const DataMessage* message);
     void handleToggleFavorites (const DataMessage* message);
     void handleToggleTagManager (const DataMessage* message);
+    void handleToggleTagSelector (const DataMessage* message);
     void handlePresetFilterTextChanged (const DataMessage* message);
 
     //==============================================================================

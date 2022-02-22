@@ -33,6 +33,26 @@ bool BrowserState::isTagManagerVisible()
 }
 
 //==============================================================================
+void BrowserState::toggleTagSelector()
+{
+    mTagSelector = isTagSelectorOn() ? TagSelector::Off : TagSelector::On;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTagSelector;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isTagSelectorOff()
+{
+    return mTagSelector == TagSelector::Off;
+}
+
+bool BrowserState::isTagSelectorOn()
+{
+    return mTagSelector == TagSelector::On;
+}
+
+//==============================================================================
 void BrowserState::filterPresets()
 {
     mFilteredPresets.clear();
