@@ -4,6 +4,7 @@ const Colour COLOR_THEME_DARK = Colour (46,47,51);
 const Colour COLOR_THEME_LIGHT = Colour (215,216,217);
 
 const Colour COLOR_BLACK = Colour (32,33,36);
+const Colour COLOR_DARK = Colour (64, 65, 69);
 const Colour COLOR_GREY = Colour (128,132,138);
 const Colour COLOR_WHITE = Colour (255,255,255);
 

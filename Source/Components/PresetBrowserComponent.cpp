@@ -40,6 +40,7 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileDeleted): { hardRefresh(); } break;
         case (MessageCode::kPresetFileFavorited): { refreshBrowser(); } break;
         case (MessageCode::kPresetFilterTextChanged): { refreshBrowser(); } break;
+        case (MessageCode::kToggleTagSelector): { refreshBrowser(); } break;
         case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
         default: { } break;
     };

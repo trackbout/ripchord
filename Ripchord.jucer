@@ -166,14 +166,18 @@
               file="Source/Components/PresetBrowserComponent.cpp"/>
         <FILE id="SC7dBf" name="PresetBrowserComponent.h" compile="0" resource="0"
               file="Source/Components/PresetBrowserComponent.h"/>
-        <FILE id="N0yrvE" name="PresetComponent.cpp" compile="1" resource="0"
-              file="Source/Components/PresetComponent.cpp"/>
-        <FILE id="wMXjn0" name="PresetComponent.h" compile="0" resource="0"
-              file="Source/Components/PresetComponent.h"/>
+        <FILE id="mxmlCD" name="PresetTaggerComponent.cpp" compile="1" resource="0"
+              file="Source/Components/PresetTaggerComponent.cpp"/>
+        <FILE id="H6kHA3" name="PresetTaggerComponent.h" compile="0" resource="0"
+              file="Source/Components/PresetTaggerComponent.h"/>
         <FILE id="IQYOMt" name="PresetDeleteComponent.cpp" compile="1" resource="0"
               file="Source/Components/PresetDeleteComponent.cpp"/>
         <FILE id="Xq1GJS" name="PresetDeleteComponent.h" compile="0" resource="0"
               file="Source/Components/PresetDeleteComponent.h"/>
+        <FILE id="N0yrvE" name="PresetComponent.cpp" compile="1" resource="0"
+              file="Source/Components/PresetComponent.cpp"/>
+        <FILE id="wMXjn0" name="PresetComponent.h" compile="0" resource="0"
+              file="Source/Components/PresetComponent.h"/>
         <FILE id="E1Kwyk" name="RightClickComponent.cpp" compile="1" resource="0"
               file="Source/Components/RightClickComponent.cpp"/>
         <FILE id="sLuZcM" name="RightClickComponent.h" compile="0" resource="0"
