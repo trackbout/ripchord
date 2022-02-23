@@ -28,7 +28,7 @@ private:
     Images mImages;
     Label mPresetLabel;
 
-    DrawableButton mTagButton { "", DrawableButton::ImageStretched };
+    DrawableButton mCheckButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetTaggerComponent)

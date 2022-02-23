@@ -9,7 +9,11 @@ PresetTaggerComponent::PresetTaggerComponent (Preset inPreset)
     mPresetLabel.setColour (Label::textColourId, COLOR_BLACK);
     mPresetLabel.setJustificationType (Justification::centred);
 
+    mCheckButton.addMouseListener (this, false);
+    mImages.setDrawableButtonImages (mCheckButton, "CheckEmpty.svg");
+
     addAndMakeVisible (mPresetLabel);
+    addAndMakeVisible (mCheckButton);
 }
 
 PresetTaggerComponent::~PresetTaggerComponent()
@@ -27,6 +31,12 @@ void PresetTaggerComponent::paint (Graphics& inGraphics)
 void PresetTaggerComponent::resized()
 {
     auto area = getLocalBounds();
+
+    juce::Rectangle<float> checkAreaProportion (CHECK_X / PRESET_WIDTH, CHECK_Y / ITEM_HEIGHT,
+                                               CHECK_WIDTH / PRESET_WIDTH, CHECK_HEIGHT / ITEM_HEIGHT);
+
+    mCheckButton.setBounds (area.getProportion (checkAreaProportion));
+
     mPresetLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) - 2).boldened());
     mPresetLabel.setBounds (area.reduced (area.getHeight(), 0));
 }

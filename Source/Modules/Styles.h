@@ -107,12 +107,18 @@ const float PRESET_PAD_Y = 7.f;
 
 const float STAR_WIDTH = 20.f;
 const float STAR_HEIGHT = 20.f;
-const float TRASH_WIDTH = 16.f;
-const float TRASH_HEIGHT = 20.f;
 const float STAR_X = PRESET_PAD_X;
 const float STAR_Y = PRESET_PAD_Y - 0.5;
+
+const float TRASH_WIDTH = 16.f;
+const float TRASH_HEIGHT = 20.f;
 const float TRASH_X = PRESET_WIDTH - TRASH_WIDTH - PRESET_PAD_X;
 const float TRASH_Y = PRESET_PAD_Y;
+
+const float CHECK_WIDTH = 22.f;
+const float CHECK_HEIGHT = 22.f;
+const float CHECK_X = PRESET_PAD_X - 1;
+const float CHECK_Y = PRESET_PAD_Y - 1;
 
 const float CANCEL_WIDTH = 120.f;
 const float CANCEL_HEIGHT = 24.f;
