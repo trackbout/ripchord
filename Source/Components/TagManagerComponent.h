@@ -30,7 +30,10 @@ private:
     GlobalState& mGlobalState;
     BrowserState& mBrowserState;
 
+    TextEditor mNewTagInput;
+
     Images mImages;
+    DrawableButton mNewTagBg { "", DrawableButton::ImageStretched };
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
 
     //==============================================================================

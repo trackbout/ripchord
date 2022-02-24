@@ -64,7 +64,6 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mKeyboardsButton);
     addAndMakeVisible (mPresetViewport);
     addAndMakeVisible (mPresetFilterInput);
-
     addChildComponent (mTagManager);
 }
 
