@@ -11,6 +11,10 @@ TagManagerComponent::TagManagerComponent (MainProcess& inMainProcess)
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mNewTagBg, "SearchBg.svg");
+    mImages.setDrawableButtonImages (mCreateTagButton, "CreateTag.svg");
+
+    mCreateTagButton.setTriggeredOnMouseDown (true);
+    mCreateTagButton.onClick = [this]() { }; // do stuff
 
     mNewTagInput.setWantsKeyboardFocus (true);
     mNewTagInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
@@ -25,6 +29,7 @@ TagManagerComponent::TagManagerComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mNewTagBg);
     addAndMakeVisible (mNewTagInput);
+    addAndMakeVisible (mCreateTagButton);
 }
 
 TagManagerComponent::~TagManagerComponent()
@@ -46,6 +51,7 @@ void TagManagerComponent::resized()
     auto mainArea = getLocalBounds();
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X, MODAL_Y, MODAL_WIDTH, MODAL_HEIGHT));
     mNewTagInput.setBounds (Styles::getRelativeBounds (mainArea, TAG_INPUT_X, TAG_INPUT_Y, TAG_INPUT_WIDTH, ITEM_HEIGHT));
+    mCreateTagButton.setBounds (Styles::getRelativeBounds (mainArea, CREATE_TAG_X, TAG_INPUT_Y, BUTTON_WIDTH, ITEM_HEIGHT));
 
     int inputHeight = mNewTagInput.getHeight();
     float inputFontHeight = inputHeight * TEXT_INPUT_FONT_HEIGHT_RATIO;

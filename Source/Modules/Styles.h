@@ -139,7 +139,8 @@ const float MODAL_Y = EDITOR_HEIGHT * 0.5f - MODAL_HEIGHT * 0.5f;
 
 const float TAG_INPUT_X = MODAL_X + SPACE;
 const float TAG_INPUT_Y = MODAL_Y + SPACE;
-const float TAG_INPUT_WIDTH = MODAL_WIDTH - DOUBLE_SPACE;
+const float TAG_INPUT_WIDTH = MODAL_WIDTH - BUTTON_WIDTH - (SPACE * 3);
+const float CREATE_TAG_X = TAG_INPUT_X + TAG_INPUT_WIDTH + SPACE;
 
 const float MENU_ITEM_HEIGHT = 30.f;
 const float MENU_ACTION_WIDTH = 220.f;

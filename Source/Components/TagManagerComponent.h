@@ -35,6 +35,7 @@ private:
     Images mImages;
     DrawableButton mNewTagBg { "", DrawableButton::ImageStretched };
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
+    DrawableButton mCreateTagButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     void handleToggleTagManager (const DataMessage* message);
