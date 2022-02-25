@@ -113,6 +113,7 @@ bool RipchordPluginProcessor::isBusesLayoutSupported (const BusesLayout& inLayou
 void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, MidiBuffer& inMidiBuffer)
 {
     auto playhead = getPlayHead();
+    const double defaultBpm = 100.0;
 
     if (playhead != nullptr)
     {
@@ -120,17 +121,17 @@ void RipchordPluginProcessor::processBlock (AudioBuffer<float>& inAudioBuffer, M
 
         if (playhead->getCurrentPosition(info))
         {
-            const double bpm = info.bpm > 0 ? info.bpm : 100.0;
+            const double bpm = info.bpm > 0 ? info.bpm : defaultBpm;
             mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), bpm);
         }
         else
         {
-            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), 100.0);
+            mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), defaultBpm);
         }
     }
     else
     {
-        mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), 100.0);
+        mMainProcess.handleProcessBlock (inMidiBuffer, inAudioBuffer.getNumSamples(), getSampleRate(), defaultBpm);
     }
 }
 
