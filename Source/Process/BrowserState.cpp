@@ -57,12 +57,12 @@ void BrowserState::filterPresets()
 {
     mFilteredPresets.clear();
 
-    if (!mIsFavoritesOn && mFilterText.isEmpty())
+    if (!mIsFavoritesOn && mPresetFilterText.isEmpty())
     {
         mFilteredPresets = mAllPresets;
     }
 
-    if (mIsFavoritesOn && mFilterText.isEmpty())
+    if (mIsFavoritesOn && mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
@@ -73,22 +73,22 @@ void BrowserState::filterPresets()
         }
     }
 
-    if (!mIsFavoritesOn && !mFilterText.isEmpty())
+    if (!mIsFavoritesOn && !mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
-            if (preset.fileName.containsIgnoreCase (mFilterText))
+            if (preset.fileName.containsIgnoreCase (mPresetFilterText))
             {
                 mFilteredPresets.add (preset);
             }
         }
     }
 
-    if (mIsFavoritesOn && !mFilterText.isEmpty())
+    if (mIsFavoritesOn && !mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
-            if (preset.isFavorite && preset.fileName.containsIgnoreCase (mFilterText))
+            if (preset.isFavorite && preset.fileName.containsIgnoreCase (mPresetFilterText))
             {
                 mFilteredPresets.add (preset);
             }
@@ -233,14 +233,20 @@ void BrowserState::handleMouseDownOnFavorites()
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handlePresetFilterTextChanged (String inFilterText)
+void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
 {
-    mFilterText = inFilterText;
+    mPresetFilterText = inPresetFilterText;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFilterTextChanged;
-    message->messageVar1 = mFilterText;
+    message->messageVar1 = mPresetFilterText;
     sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void BrowserState::handleNewTagTextChanged (String inNewTagText)
+{
+    mNewTagText = inNewTagText;
 }
 
 //==============================================================================

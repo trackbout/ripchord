@@ -51,6 +51,9 @@ public:
     void handleMouseDownOnFavorites();
     void handlePresetFilterTextChanged (String filterText);
 
+    //==============================================================================
+    void handleNewTagTextChanged (String newTagText);
+
 private:
     //==============================================================================
     TagManager mTagManager = TagManager::Hidden;
@@ -60,7 +63,9 @@ private:
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;
 
-    String mFilterText = "";
+    String mNewTagText = "";
+    String mPresetFilterText = "";
+
     bool mIsFavoritesOn = false;
     int getFilteredIndex (String presetName);
 

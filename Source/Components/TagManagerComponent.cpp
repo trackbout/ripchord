@@ -23,7 +23,7 @@ TagManagerComponent::TagManagerComponent (MainProcess& inMainProcess)
 
     mNewTagInput.onTextChange = [this]()
     {
-        // do stuff
+        mBrowserState.handleNewTagTextChanged(mNewTagInput.getText());
     };
 
     addAndMakeVisible (mBackground);
