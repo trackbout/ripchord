@@ -8,11 +8,10 @@ RightClickComponent::RightClickComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mCutButton, "RightClickCut.svg");
     mImages.setDrawableButtonImages (mCopyButton, "RightClickCopy.svg");
     mImages.setDrawableButtonImages (mPasteButton, "RightClickPaste.svg");
-    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, "RightClickBgLIGHT.svg");
 
     mCutButton.setTriggeredOnMouseDown (true);
     mCopyButton.setTriggeredOnMouseDown (true);
@@ -71,6 +70,9 @@ void RightClickComponent::paintWithCoordinates()
     mCutButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 9, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
     mCopyButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 39, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
     mPasteButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 69, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
+
+    bool isDark = mGlobalState.isDarkTheme();
+    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
 }
 
 //==============================================================================
