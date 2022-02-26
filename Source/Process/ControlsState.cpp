@@ -10,19 +10,14 @@ ControlsState::~ControlsState()
 }
 
 //==============================================================================
-bool ControlsState::isRecordIn()
+bool ControlsState::isRecordOn()
 {
-    return mRecord == Record::RecordIn;
-}
-
-bool ControlsState::isRecordOff()
-{
-    return mRecord == Record::RecordOff;
+    return mIsRecordOn;
 }
 
 void ControlsState::toggleRecord()
 {
-    mRecord = isRecordOff() ? Record::RecordIn : Record::RecordOff;
+    mIsRecordOn = !mIsRecordOn;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleRecord;
@@ -32,17 +27,12 @@ void ControlsState::toggleRecord()
 //==============================================================================
 bool ControlsState::isTransposeOn()
 {
-    return mTranspose == Transpose::TransposeOn;
-}
-
-bool ControlsState::isTransposeOff()
-{
-    return mTranspose == Transpose::TransposeOff;
+    return mIsTransposeOn;
 }
 
 void ControlsState::toggleTranspose()
 {
-    mTranspose = isTransposeOff() ? Transpose::TransposeOn : Transpose::TransposeOff;
+    mIsTransposeOn = !mIsTransposeOn;
     if (mActiveTransposeNote > 0) { mActiveTransposeNote = -1; }
 
     DataMessage* message = new DataMessage();
@@ -84,14 +74,14 @@ bool ControlsState::isTransposeNote (const int inInputNote)
 
 int ControlsState::getTransposedNote (const int inOutputNote, const int inActiveTransposeNote)
 {
-    if (isTransposeOff() || inActiveTransposeNote == -1) { return inOutputNote; }
+    if (!isTransposeOn() || inActiveTransposeNote == -1) { return inOutputNote; }
     return inOutputNote + (inActiveTransposeNote - mTransposeBase - 12);
 }
 
 //==============================================================================
 void ControlsState::handleMouseDownOnShiftLeft()
 {
-    if (mTransposeBase == 21 || isTransposeOff()) { return; }
+    if (mTransposeBase == 21 || !isTransposeOn()) { return; }
 
     int prevTransposeBase = mTransposeBase;
     int nextTransposeBase = mTransposeBase - 1;
@@ -108,7 +98,7 @@ void ControlsState::handleMouseDownOnShiftLeft()
 
 void ControlsState::handleMouseDownOnShiftRight()
 {
-    if (mTransposeBase == 84 || isTransposeOff()) { return; }
+    if (mTransposeBase == 84 || !isTransposeOn()) { return; }
 
     int prevTransposeBase = mTransposeBase;
     int nextTransposeBase = mTransposeBase + 1;
@@ -334,7 +324,7 @@ XmlElement* ControlsState::exportControlsStateXml()
 
 void ControlsState::importControlsStateXml (XmlElement* inControlsStateXml)
 {
-    mTranspose = inControlsStateXml->getBoolAttribute ("transpose") ? Transpose::TransposeOn : Transpose::TransposeOff;
+    mIsTransposeOn = inControlsStateXml->getBoolAttribute ("transpose") ? true : false;
     mTransposeBase = inControlsStateXml->getIntAttribute ("transposeBase");
     mActiveTransposeNote = inControlsStateXml->getIntAttribute ("activeTransposeNote");
 

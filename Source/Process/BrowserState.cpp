@@ -13,43 +13,48 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
+void BrowserState::toggleFavorites()
+{
+    mIsFavoritesOn = !mIsFavoritesOn;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleFavorites;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isFavoritesOn()
+{
+    return mIsFavoritesOn;
+}
+
+//==============================================================================
 void BrowserState::toggleTagManager()
 {
-    mTagManager = isTagManagerHidden() ? TagManager::Visible : TagManager::Hidden;
+    mIsTagManagerVisible = !mIsTagManagerVisible;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTagManager;
     sendMessage (message, ListenerType::kSync);
 }
 
-bool BrowserState::isTagManagerHidden()
-{
-    return mTagManager == TagManager::Hidden;
-}
-
 bool BrowserState::isTagManagerVisible()
 {
-    return mTagManager == TagManager::Visible;
+    return mIsTagManagerVisible;
 }
 
 //==============================================================================
 void BrowserState::toggleTagSelector()
 {
-    mTagSelector = isTagSelectorOn() ? TagSelector::Off : TagSelector::On;
+    mIsTagSelectorOn = !mIsTagSelectorOn;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kToggleTagSelector;
     sendMessage (message, ListenerType::kSync);
 }
 
-bool BrowserState::isTagSelectorOff()
-{
-    return mTagSelector == TagSelector::Off;
-}
-
 bool BrowserState::isTagSelectorOn()
 {
-    return mTagSelector == TagSelector::On;
+    return mIsTagSelectorOn;
 }
 
 //==============================================================================
@@ -223,16 +228,6 @@ void BrowserState::handleMouseDownOnRightArrow (String inPresetName)
 }
 
 //==============================================================================
-void BrowserState::handleMouseDownOnFavorites()
-{
-    mIsFavoritesOn = !mIsFavoritesOn;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleFavorites;
-    message->messageVar1 = mIsFavoritesOn;
-    sendMessage (message, ListenerType::kSync);
-}
-
 void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
 {
     mPresetFilterText = inPresetFilterText;
@@ -243,7 +238,6 @@ void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
     sendMessage (message, ListenerType::kSync);
 }
 
-//==============================================================================
 void BrowserState::handleNewTagTextChanged (String inNewTagText)
 {
     mNewTagText = inNewTagText;

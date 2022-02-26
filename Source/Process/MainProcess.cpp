@@ -174,7 +174,7 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
 
-        if (mControlsState.isRecordIn())
+        if (mControlsState.isRecordOn())
         {
             mMidiState.addToRecordedSequence (message);
         }
@@ -188,7 +188,7 @@ void MainProcess::sendOutputNoteOn (NoteEvent inNoteEvent)
         triggers.add (inNoteEvent.inputNote);
         mMidiState.setOutputNoteOn (inNoteEvent.outputNote, triggers);
 
-        if (mControlsState.isRecordIn())
+        if (mControlsState.isRecordOn())
         {
             mMidiState.addToRecordedSequence (message);
         }
@@ -205,7 +205,7 @@ void MainProcess::sendOutputNoteOff (NoteEvent inNoteEvent)
         const auto& message = MidiMessage::noteOff (inNoteEvent.channel, inNoteEvent.outputNote);
         mTransformedMidiBuffer.addEvent (message, inNoteEvent.samplePosition);
 
-        if (mControlsState.isRecordIn())
+        if (mControlsState.isRecordOn())
         {
             mMidiState.addToRecordedSequence (message);
         }

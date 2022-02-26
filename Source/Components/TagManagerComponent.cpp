@@ -78,7 +78,7 @@ void TagManagerComponent::handleNewMessage (const DataMessage* inMessage)
 
 void TagManagerComponent::handleToggleTagManager (const DataMessage* inMessage)
 {
-    if (mBrowserState.isTagManagerHidden()) { return; }
+    if (!mBrowserState.isTagManagerVisible()) { return; }
 
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");

@@ -14,17 +14,15 @@ public:
     ~BrowserState();
 
     //==============================================================================
-    enum TagManager { Hidden, Visible };
-    enum TagSelector { On, Off };
+    void toggleFavorites();
+    bool isFavoritesOn();
 
     //==============================================================================
     void toggleTagManager();
-    bool isTagManagerHidden();
     bool isTagManagerVisible();
 
     //==============================================================================
     void toggleTagSelector();
-    bool isTagSelectorOff();
     bool isTagSelectorOn();
 
     //==============================================================================
@@ -48,25 +46,22 @@ public:
     void handleMouseDownOnRightArrow (String presetName);
 
     //==============================================================================
-    void handleMouseDownOnFavorites();
     void handlePresetFilterTextChanged (String filterText);
-
-    //==============================================================================
     void handleNewTagTextChanged (String newTagText);
 
 private:
     //==============================================================================
-    TagManager mTagManager = TagManager::Hidden;
-    TagSelector mTagSelector = TagSelector::Off;
+    bool mIsFavoritesOn = false;
+    bool mIsTagSelectorOn = false;
+    bool mIsTagManagerVisible = false;
+
+    String mNewTagText = "";
+    String mPresetFilterText = "";
 
     Array<File> mAllPresetFiles;
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;
 
-    String mNewTagText = "";
-    String mPresetFilterText = "";
-
-    bool mIsFavoritesOn = false;
     int getFilteredIndex (String presetName);
 
     PropertiesFile mFavoritesFile { System::createPluginPropertiesOptions ("favorites") };

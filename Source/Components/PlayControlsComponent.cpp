@@ -30,7 +30,7 @@ PlayControlsComponent::PlayControlsComponent (MainProcess& inMainProcess)
 
     mRecordButton.onClick = [this]()
     {
-        if (mControlsState.isRecordOff()) { mMidiState.clearRecordedSequence(); }
+        if (!mControlsState.isRecordOn()) { mMidiState.clearRecordedSequence(); }
         if (mMidiState.isRecording()) { mMidiState.stopRecording(); }
         mControlsState.toggleRecord();
     };
@@ -246,7 +246,7 @@ void PlayControlsComponent::handleVelocityVariance (const DataMessage* inMessage
 
 void PlayControlsComponent::updateRecordButtons()
 {
-    if (mControlsState.isRecordOff())
+    if (!mControlsState.isRecordOn())
     {
         mImages.setDrawableButtonImages (mRecordButton, "Record.svg");
     }
@@ -275,7 +275,7 @@ void PlayControlsComponent::updateRecordButtons()
 
 void PlayControlsComponent::updateTransposeButton()
 {
-    String buttonImage = mControlsState.isTransposeOff() ? "Transpose.svg" : "TransposeON.svg";
+    String buttonImage = mControlsState.isTransposeOn() ? "TransposeON.svg" : "Transpose.svg";
     mImages.setDrawableButtonImages (mTransposeButton, buttonImage);
 }
 

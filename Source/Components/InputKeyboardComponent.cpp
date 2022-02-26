@@ -239,7 +239,7 @@ void InputKeyboardComponent::handleToggleTranspose (const DataMessage* inMessage
 {
     int nextTransposeBase = inMessage->messageVar1;
     if (mControlsState.isTransposeOn()) { turnOnTransposeKeys (nextTransposeBase); }
-    if (mControlsState.isTransposeOff()) { turnOffTransposeKeys (nextTransposeBase); }
+    if (!mControlsState.isTransposeOn()) { turnOffTransposeKeys (nextTransposeBase); }
 }
 
 void InputKeyboardComponent::handleTransposeBase (const DataMessage* inMessage)

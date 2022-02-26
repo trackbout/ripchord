@@ -17,17 +17,11 @@ public:
     ~ControlsState();
 
     //==============================================================================
-    enum Record { RecordIn, RecordOff };
-    enum Transpose { TransposeOn, TransposeOff };
-
-    //==============================================================================
-    bool isRecordIn();
-    bool isRecordOff();
+    bool isRecordOn();
     void toggleRecord();
 
     //==============================================================================
     bool isTransposeOn();
-    bool isTransposeOff();
     void toggleTranspose();
 
     //==============================================================================
@@ -72,11 +66,11 @@ private:
     Forward mForward;
     Reverse mReverse;
 
-    Record mRecord = Record::RecordOff;
+    bool mIsRecordOn = false;
+    bool mIsTransposeOn = false;
 
     int mTransposeBase = 21;
     int mActiveTransposeNote = -1;
-    Transpose mTranspose = Transpose::TransposeOff;
 
     int mDelayDepth = 0;
     int mDelayVariance = 0;

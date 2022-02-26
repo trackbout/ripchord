@@ -35,7 +35,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mTagSelectorButton.onClick = [this]() { mBrowserState.toggleTagSelector(); };
 
     mFavoritesButton.setTriggeredOnMouseDown (true);
-    mFavoritesButton.onClick = [this]() { mBrowserState.handleMouseDownOnFavorites(); };
+    mFavoritesButton.onClick = [this]() { mBrowserState.toggleFavorites(); };
 
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
@@ -132,7 +132,7 @@ void PresetViewComponent::handleToggleView (const DataMessage* inMessage)
 
 void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
-    bool isFavoritesOn = inMessage->messageVar1;
+    bool isFavoritesOn = mBrowserState.isFavoritesOn();
     mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
 }
 
