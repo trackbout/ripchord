@@ -244,6 +244,12 @@ void BrowserState::handleNewTagTextChanged (String inNewTagText)
 }
 
 //==============================================================================
+void BrowserState::handleMouseDownOnCreateTag()
+{
+    mTagsFile.setValue (mNewTagText, "");
+}
+
+//==============================================================================
 int BrowserState::getFilteredIndex (String inPresetName)
 {
     int filteredIndex = -1;

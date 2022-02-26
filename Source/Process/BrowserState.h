@@ -49,6 +49,9 @@ public:
     void handlePresetFilterTextChanged (String filterText);
     void handleNewTagTextChanged (String newTagText);
 
+    //==============================================================================
+    void handleMouseDownOnCreateTag();
+
 private:
     //==============================================================================
     bool mIsFavoritesOn = false;
@@ -64,6 +67,7 @@ private:
 
     int getFilteredIndex (String presetName);
 
+    PropertiesFile mTagsFile { System::createPluginPropertiesOptions ("tags") };
     PropertiesFile mFavoritesFile { System::createPluginPropertiesOptions ("favorites") };
     StringArray mFavPathNames { StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "") };
 

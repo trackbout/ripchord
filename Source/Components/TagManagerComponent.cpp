@@ -14,7 +14,7 @@ TagManagerComponent::TagManagerComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mCreateTagButton, "CreateTag.svg");
 
     mCreateTagButton.setTriggeredOnMouseDown (true);
-    mCreateTagButton.onClick = [this]() { }; // do stuff
+    mCreateTagButton.onClick = [this]() { mBrowserState.handleMouseDownOnCreateTag(); };
 
     mNewTagInput.setWantsKeyboardFocus (true);
     mNewTagInput.setColour (TextEditor::backgroundColourId, COLOR_TRANSPARENT);
