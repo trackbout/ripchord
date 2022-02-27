@@ -39,6 +39,7 @@ private:
 
     //==============================================================================
     void handleToggleTagManager (const DataMessage* message);
+    void handleNewTagCreated (const DataMessage* message);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TagManagerComponent)

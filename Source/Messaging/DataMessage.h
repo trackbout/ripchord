@@ -35,6 +35,7 @@ enum MessageCode
     kActiveTransposeNote,
 
     // Messages from BrowserState
+    kNewTagCreated,
     kToggleFavorites,
     kToggleTagManager,
     kToggleTagSelector,

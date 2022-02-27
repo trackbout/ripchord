@@ -246,10 +246,13 @@ void BrowserState::handleNewTagTextChanged (String inNewTagText)
 //==============================================================================
 void BrowserState::handleMouseDownOnCreateTag()
 {
-    if (System::isValidFileName (mNewTagText))
-    {
-        mTagsFile.setValue (mNewTagText, "");
-    }
+    if (!System::isValidFileName (mNewTagText) || mTagsFile.containsKey (mNewTagText)) { return; }
+
+    mTagsFile.setValue (mNewTagText, "");
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kNewTagCreated;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================

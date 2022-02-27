@@ -72,6 +72,7 @@ void TagManagerComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleTagManager): { handleToggleTagManager (inMessage); } break;
+        case (MessageCode::kNewTagCreated): { handleNewTagCreated (inMessage); } break;
         default: { } break;
     };
 }
@@ -82,4 +83,9 @@ void TagManagerComponent::handleToggleTagManager (const DataMessage* inMessage)
 
     bool isDark = mGlobalState.isDarkTheme();
     mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
+}
+
+void TagManagerComponent::handleNewTagCreated (const DataMessage* inMessage)
+{
+    mNewTagInput.clear();
 }
