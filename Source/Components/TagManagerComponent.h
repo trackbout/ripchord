@@ -4,6 +4,7 @@
 #include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
+#include "TagBrowserComponent.h"
 #include "DataMessageListener.h"
 
 //==============================================================================
@@ -30,11 +31,14 @@ private:
     GlobalState& mGlobalState;
     BrowserState& mBrowserState;
 
+    Viewport mTagViewport;
     TextEditor mNewTagInput;
+    TagBrowserComponent mTagBrowser;
 
     Images mImages;
     DrawableButton mNewTagBg { "", DrawableButton::ImageStretched };
     DrawableButton mBackground { "", DrawableButton::ImageStretched };
+    DrawableButton mTagBrowserBg { "", DrawableButton::ImageStretched };
     DrawableButton mCreateTagButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================

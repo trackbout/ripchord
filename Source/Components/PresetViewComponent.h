@@ -36,9 +36,9 @@ private:
     PresetBrowserComponent mPresetBrowser;
 
     Images mImages;
-    DrawableButton mTagsBg { "", DrawableButton::ImageStretched };
-    DrawableButton mPresetBg { "", DrawableButton::ImageStretched };
-    DrawableButton mSearchBg { "", DrawableButton::ImageStretched };
+    DrawableButton mTagBarBg { "", DrawableButton::ImageStretched };
+    DrawableButton mSearchBarBg { "", DrawableButton::ImageStretched };
+    DrawableButton mPresetBrowserBg { "", DrawableButton::ImageStretched };
     DrawableButton mMenuButton { "", DrawableButton::ImageStretched };
     DrawableButton mPowerButton { "", DrawableButton::ImageStretched };
     DrawableButton mTagManagerButton { "", DrawableButton::ImageStretched };

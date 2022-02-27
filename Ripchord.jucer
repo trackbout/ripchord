@@ -67,11 +67,13 @@
         <FILE id="f3MFfH" name="MoveLeftON.svg" compile="0" resource="1" file="Source/Assets/MoveLeftON.svg"/>
         <FILE id="WsN9k7" name="MoveRight.svg" compile="0" resource="1" file="Source/Assets/MoveRight.svg"/>
         <FILE id="fwkm9p" name="MoveRightON.svg" compile="0" resource="1" file="Source/Assets/MoveRightON.svg"/>
+        <FILE id="wYXkO3" name="NewTagBg.svg" compile="0" resource="1" file="Source/Assets/NewTagBg.svg"/>
         <FILE id="Rsh9gN" name="Next.svg" compile="0" resource="1" file="Source/Assets/Next.svg"/>
         <FILE id="BlA4Ax" name="NextON.svg" compile="0" resource="1" file="Source/Assets/NextON.svg"/>
         <FILE id="p1HXeL" name="Power.svg" compile="0" resource="1" file="Source/Assets/Power.svg"/>
         <FILE id="jSd6at" name="PowerON.svg" compile="0" resource="1" file="Source/Assets/PowerON.svg"/>
-        <FILE id="TwcSQA" name="PresetBg.svg" compile="0" resource="1" file="Source/Assets/PresetBg.svg"/>
+        <FILE id="TwcSQA" name="PresetBrowserBg.svg" compile="0" resource="1"
+              file="Source/Assets/PresetBrowserBg.svg"/>
         <FILE id="BJ89wL" name="Presets.svg" compile="0" resource="1" file="Source/Assets/Presets.svg"/>
         <FILE id="YYDihW" name="Prev.svg" compile="0" resource="1" file="Source/Assets/Prev.svg"/>
         <FILE id="u4JyV1" name="PrevON.svg" compile="0" resource="1" file="Source/Assets/PrevON.svg"/>
@@ -95,7 +97,7 @@
               file="Source/Assets/RightClickPaste.svg"/>
         <FILE id="UzmS53" name="Save.svg" compile="0" resource="1" file="Source/Assets/Save.svg"/>
         <FILE id="ibVq0f" name="SaveON.svg" compile="0" resource="1" file="Source/Assets/SaveON.svg"/>
-        <FILE id="QSs1r4" name="SearchBg.svg" compile="0" resource="1" file="Source/Assets/SearchBg.svg"/>
+        <FILE id="QSs1r4" name="SearchBarBg.svg" compile="0" resource="1" file="Source/Assets/SearchBarBg.svg"/>
         <FILE id="JtxdnB" name="ShiftLeft.svg" compile="0" resource="1" file="Source/Assets/ShiftLeft.svg"/>
         <FILE id="QGPSBv" name="ShiftLeftON.svg" compile="0" resource="1" file="Source/Assets/ShiftLeftON.svg"/>
         <FILE id="z48l6V" name="ShiftRight.svg" compile="0" resource="1" file="Source/Assets/ShiftRight.svg"/>
@@ -105,7 +107,9 @@
         <FILE id="ZXFQUB" name="StarON.svg" compile="0" resource="1" file="Source/Assets/StarON.svg"/>
         <FILE id="SSZ1dq" name="Success.svg" compile="0" resource="1" file="Source/Assets/Success.svg"/>
         <FILE id="v5aDNM" name="TagManager.svg" compile="0" resource="1" file="Source/Assets/TagManager.svg"/>
-        <FILE id="w0UmdJ" name="TagsBg.svg" compile="0" resource="1" file="Source/Assets/TagsBg.svg"/>
+        <FILE id="w0UmdJ" name="TagBarBg.svg" compile="0" resource="1" file="Source/Assets/TagBarBg.svg"/>
+        <FILE id="i5dy9v" name="TagBrowserBg.svg" compile="0" resource="1"
+              file="Source/Assets/TagBrowserBg.svg"/>
         <FILE id="CKWhXf" name="TagSelector.svg" compile="0" resource="1" file="Source/Assets/TagSelector.svg"/>
         <FILE id="Q35Y6m" name="TagSelectorON.svg" compile="0" resource="1"
               file="Source/Assets/TagSelectorON.svg"/>

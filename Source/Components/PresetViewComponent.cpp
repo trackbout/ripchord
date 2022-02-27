@@ -13,15 +13,13 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    bool isSelectorOn = mBrowserState.isTagSelectorOn();
-
-    mImages.setDrawableButtonImages (mTagsBg, "TagsBg.svg");
-    mImages.setDrawableButtonImages (mPresetBg, "PresetBg.svg");
-    mImages.setDrawableButtonImages (mSearchBg, "SearchBg.svg");
+    mImages.setDrawableButtonImages (mTagBarBg, "TagBarBg.svg");
+    mImages.setDrawableButtonImages (mSearchBarBg, "SearchBarBg.svg");
+    mImages.setDrawableButtonImages (mPresetBrowserBg, "PresetBrowserBg.svg");
     mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
     mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
     mImages.setDrawableButtonImages (mTagManagerButton, "TagManager.svg");
-    mImages.setDrawableButtonImages (mTagSelectorButton, isSelectorOn ? "TagSelectorON.svg" : "TagSelector.svg");
+    mImages.setDrawableButtonImages (mTagSelectorButton, "TagSelector.svg");
     mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
@@ -53,9 +51,9 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
         mBrowserState.handlePresetFilterTextChanged (mPresetFilterInput.getText());
     };
 
-    addAndMakeVisible (mTagsBg);
-    addAndMakeVisible (mPresetBg);
-    addAndMakeVisible (mSearchBg);
+    addAndMakeVisible (mTagBarBg);
+    addAndMakeVisible (mSearchBarBg);
+    addAndMakeVisible (mPresetBrowserBg);
     addAndMakeVisible (mMenuButton);
     addAndMakeVisible (mPowerButton);
     addAndMakeVisible (mTagManagerButton);
@@ -75,9 +73,9 @@ PresetViewComponent::~PresetViewComponent()
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
     auto mainArea = getLocalBounds();
-    mTagsBg.setBounds (Styles::getRelativeBounds (mainArea, TAGS_BG_X, OUTPUT_KEYBOARD_BG_Y, TAGS_BG_WIDTH, ITEM_HEIGHT));
-    mPresetBg.setBounds (Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, KEYBOARD_BG_WIDTH, PRESET_LIST_HEIGHT));
-    mSearchBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
+    mTagBarBg.setBounds (Styles::getRelativeBounds (mainArea, TAGS_BG_X, OUTPUT_KEYBOARD_BG_Y, TAGS_BG_WIDTH, ITEM_HEIGHT));
+    mSearchBarBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
+    mPresetBrowserBg.setBounds (Styles::getRelativeBounds (mainArea, PRESET_BROWSER_X, PRESET_BROWSER_Y, PRESET_BROWSER_WIDTH, PRESET_BROWSER_HEIGHT));
 }
 
 void PresetViewComponent::resized()
@@ -99,15 +97,12 @@ void PresetViewComponent::resized()
     mPresetFilterInput.applyFontToAllText (Font (inputFontHeight));
     mPresetFilterInput.setIndents ((inputHeight * 0.4f), int ((inputHeight - inputFontHeight) * 0.5f));
 
-    int scrollbarWidth = inputHeight * 0.6f;
-    mPresetViewport.setScrollBarThickness (scrollbarWidth);
+    mPresetViewport.setScrollBarThickness (inputHeight / 2);
+    mPresetViewport.setBounds (Styles::getRelativeBounds (mainArea, PRESET_VIEWPORT_X, PRESET_VIEWPORT_Y, PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT));
 
-    auto viewportArea = Styles::getRelativeBounds (mainArea, SPACE + 1, PRESET_VIEWPORT_Y + 1, PRESET_VIEWPORT_WIDTH - 2, PRESET_VIEWPORT_HEIGHT - 2);
-    mPresetViewport.setBounds (viewportArea);
-
-    auto presetArea = Styles::getRelativeBounds (mainArea, SPACE, PRESET_VIEWPORT_Y, PRESET_LIST_WIDTH, PRESET_LIST_HEIGHT);
-    mPresetBrowser.setBounds (presetArea);
-    mPresetBrowser.setDimensions (presetArea.getWidth(), presetArea.getHeight());
+    auto presetBrowserArea = Styles::getRelativeBounds (mainArea, PRESET_BROWSER_X, PRESET_BROWSER_Y, PRESET_BROWSER_WIDTH, PRESET_BROWSER_HEIGHT - 2);
+    mPresetBrowser.setBounds (presetBrowserArea);
+    mPresetBrowser.setDimensions (presetBrowserArea.getWidth(), presetBrowserArea.getHeight());
 }
 
 //==============================================================================
@@ -132,8 +127,7 @@ void PresetViewComponent::handleToggleView (const DataMessage* inMessage)
 
 void PresetViewComponent::handleToggleFavorites (const DataMessage* inMessage)
 {
-    bool isFavoritesOn = mBrowserState.isFavoritesOn();
-    mImages.setDrawableButtonImages (mFavoritesButton, isFavoritesOn ? "FavoritesON.svg" : "Favorites.svg");
+    mImages.setDrawableButtonImages (mFavoritesButton, mBrowserState.isFavoritesOn() ? "FavoritesON.svg" : "Favorites.svg");
 }
 
 void PresetViewComponent::handleToggleTagManager (const DataMessage* inMessage)
@@ -143,8 +137,7 @@ void PresetViewComponent::handleToggleTagManager (const DataMessage* inMessage)
 
 void PresetViewComponent::handleToggleTagSelector (const DataMessage* inMessage)
 {
-    bool isSelectorOn = mBrowserState.isTagSelectorOn();
-    mImages.setDrawableButtonImages (mTagSelectorButton, isSelectorOn ? "TagSelectorON.svg" : "TagSelector.svg");
+    mImages.setDrawableButtonImages (mTagSelectorButton, mBrowserState.isTagSelectorOn() ? "TagSelectorON.svg" : "TagSelector.svg");
 }
 
 void PresetViewComponent::handlePresetFilterTextChanged (const DataMessage* inMessage)

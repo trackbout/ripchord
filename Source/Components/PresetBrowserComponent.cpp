@@ -20,10 +20,10 @@ PresetBrowserComponent::~PresetBrowserComponent()
 //==============================================================================
 void PresetBrowserComponent::setDimensions (int inWidth, int inHeight)
 {
-    mPresetWidth = int (inWidth * (PRESET_WIDTH / PRESET_LIST_WIDTH));
+    mPresetWidth = int (inWidth * (PRESET_WIDTH / PRESET_BROWSER_WIDTH));
     mSpaceWidth = (inWidth - (PRESETS_PER_ROW * mPresetWidth)) / (PRESETS_PER_ROW + 1);
 
-    mPresetHeight = int (inHeight * (ITEM_HEIGHT / PRESET_LIST_HEIGHT));
+    mPresetHeight = int (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
     mSpaceHeight = mPresetHeight * (HALF_SPACE / ITEM_HEIGHT);
 
     refreshBrowser();
