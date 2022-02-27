@@ -14,12 +14,19 @@ public:
     ~BrowserState();
 
     //==============================================================================
-    void refreshPresetFiles();
+    void refreshData();
     void filterPresets();
 
     //==============================================================================
     Array<File> getAllPresetFiles();
     juce::Array<Preset> getFilteredPresets();
+
+    //==============================================================================
+    StringArray getTagNames();
+
+    //==============================================================================
+    bool isFavorite (String presetName);
+    int getUnfilteredIndex (String presetName);
 
     //==============================================================================
     void toggleFavorites();
@@ -34,31 +41,29 @@ public:
     bool isTagSelectorOn();
 
     //==============================================================================
-    bool isFavorite (String presetName);
-    int getUnfilteredIndex (String presetName);
+    void handleMouseDownOnCreateTag();
 
     //==============================================================================
     void handleMouseDownOnDelete (const int indexValue);
     void handleMouseDownOnFavorite (const int indexValue);
 
     //==============================================================================
-    void handleMouseDownOnLeftArrow (String presetName);
-    void handleMouseDownOnRightArrow (String presetName);
-
-    //==============================================================================
     void handleNewTagTextChanged (String newTagText);
     void handlePresetFilterTextChanged (String filterText);
 
     //==============================================================================
-    void handleMouseDownOnCreateTag();
+    void handleMouseDownOnLeftArrow (String presetName);
+    void handleMouseDownOnRightArrow (String presetName);
 
 private:
     //==============================================================================
     Array<File> mAllPresetFiles;
-    StringArray mFavPathNames;
-
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;
+
+    StringPairArray mTags;
+    StringArray mTagNames;
+    StringArray mFavPathNames;
 
     String mNewTagText = "";
     String mPresetFilterText = "";

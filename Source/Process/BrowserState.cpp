@@ -3,7 +3,7 @@
 //==============================================================================
 BrowserState::BrowserState()
 {
-    refreshPresetFiles();
+    refreshData();
     mFilteredPresets = mAllPresets;
     PRESET_FOLDER.createDirectory();
 }
@@ -13,12 +13,15 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
-void BrowserState::refreshPresetFiles()
+void BrowserState::refreshData()
 {
+    mTags = mTagsFile.getAllProperties();
+    mTagNames = mTags.getAllKeys();
+    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
+
     mAllPresets.clear();
     mAllPresetFiles.clear();
     mAllPresetFiles = Presets::getSortedPresetFiles();
-    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
 
     for (int index = 0; index < mAllPresetFiles.size(); index++)
     {
@@ -85,6 +88,32 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
 }
 
 //==============================================================================
+StringArray BrowserState::getTagNames()
+{
+    return mTagNames;
+}
+
+//==============================================================================
+bool BrowserState::isFavorite (String inPresetName)
+{
+    int indexValue = getUnfilteredIndex (inPresetName);
+    return mAllPresets[indexValue].isFavorite;
+}
+
+int BrowserState::getUnfilteredIndex (String inPresetName)
+{
+    int unfilteredIndex = -1;
+
+    for (int index = 0; index < mAllPresets.size(); index++)
+    {
+        String presetName = mAllPresets[index].fileName;
+        if (presetName == inPresetName) { unfilteredIndex = index; }
+    }
+
+    return unfilteredIndex;
+}
+
+//==============================================================================
 void BrowserState::toggleFavorites()
 {
     mIsFavoritesOn = !mIsFavoritesOn;
@@ -130,23 +159,15 @@ bool BrowserState::isTagSelectorOn()
 }
 
 //==============================================================================
-bool BrowserState::isFavorite (String inPresetName)
+void BrowserState::handleMouseDownOnCreateTag()
 {
-    int indexValue = getUnfilteredIndex (inPresetName);
-    return mAllPresets[indexValue].isFavorite;
-}
+    if (!System::isValidFileName (mNewTagText) || mTagsFile.containsKey (mNewTagText)) { return; }
 
-int BrowserState::getUnfilteredIndex (String inPresetName)
-{
-    int unfilteredIndex = -1;
+    mTagsFile.setValue (mNewTagText, "");
 
-    for (int index = 0; index < mAllPresets.size(); index++)
-    {
-        String presetName = mAllPresets[index].fileName;
-        if (presetName == inPresetName) { unfilteredIndex = index; }
-    }
-
-    return unfilteredIndex;
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kNewTagCreated;
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
@@ -196,6 +217,22 @@ void BrowserState::handleMouseDownOnFavorite (const int inIndexValue)
 }
 
 //==============================================================================
+void BrowserState::handleNewTagTextChanged (String inNewTagText)
+{
+    mNewTagText = inNewTagText;
+}
+
+void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
+{
+    mPresetFilterText = inPresetFilterText;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFilterTextChanged;
+    message->messageVar1 = mPresetFilterText;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 void BrowserState::handleMouseDownOnLeftArrow (String inPresetName)
 {
     int index = getFilteredIndex (inPresetName);
@@ -225,34 +262,6 @@ void BrowserState::handleMouseDownOnRightArrow (String inPresetName)
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kCurrentIndexChanged;
     message->messageVar1 = nextIndex;
-    sendMessage (message, ListenerType::kSync);
-}
-
-//==============================================================================
-void BrowserState::handleNewTagTextChanged (String inNewTagText)
-{
-    mNewTagText = inNewTagText;
-}
-
-void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
-{
-    mPresetFilterText = inPresetFilterText;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetFilterTextChanged;
-    message->messageVar1 = mPresetFilterText;
-    sendMessage (message, ListenerType::kSync);
-}
-
-//==============================================================================
-void BrowserState::handleMouseDownOnCreateTag()
-{
-    if (!System::isValidFileName (mNewTagText) || mTagsFile.containsKey (mNewTagText)) { return; }
-
-    mTagsFile.setValue (mNewTagText, "");
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kNewTagCreated;
     sendMessage (message, ListenerType::kSync);
 }
 

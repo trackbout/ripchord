@@ -49,7 +49,7 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void PresetBrowserComponent::hardRefresh()
 {
-    mBrowserState.refreshPresetFiles();
+    mBrowserState.refreshData();
     refreshBrowser();
 }
 
