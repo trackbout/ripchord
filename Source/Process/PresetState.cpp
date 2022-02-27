@@ -154,7 +154,7 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 {
     if (mName == inPresetName) { return; }
 
-    if (Presets::isValidFileName (inPresetName))
+    if (System::isValidFileName (inPresetName))
     {
         mName = inPresetName;
         mIsPresetModified = true;

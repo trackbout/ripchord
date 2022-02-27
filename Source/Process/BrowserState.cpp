@@ -246,7 +246,10 @@ void BrowserState::handleNewTagTextChanged (String inNewTagText)
 //==============================================================================
 void BrowserState::handleMouseDownOnCreateTag()
 {
-    mTagsFile.setValue (mNewTagText, "");
+    if (System::isValidFileName (mNewTagText))
+    {
+        mTagsFile.setValue (mNewTagText, "");
+    }
 }
 
 //==============================================================================

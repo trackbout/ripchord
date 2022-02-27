@@ -3,6 +3,19 @@
 //==============================================================================
 namespace System
 {
+    //==============================================================================
+    static inline bool isValidFileName (String inFileName)
+    {
+        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 #_-()";
+
+        for (int index = 0; index < inFileName.length(); index++)
+        {
+            if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
+        }
+
+        return true;
+    }
+
     static inline File getUserDataPath (StringRef inCompanyName, StringRef inAppName)
     {
         #if JUCE_MAC || JUCE_IOS
@@ -17,7 +30,6 @@ namespace System
         return directory.getChildFile (inCompanyName).getChildFile (inAppName);
     }
 
-    //==============================================================================
     static inline PropertiesFile::Options createPluginPropertiesOptions (const String& inFilenameSuffix)
     {
         PropertiesFile::Options pluginPropertiesOptions;

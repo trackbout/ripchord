@@ -26,18 +26,6 @@ struct Chord
 namespace Presets
 {
     //==============================================================================
-    static inline bool isValidFileName (String inFileName)
-    {
-        const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 #_-()";
-
-        for (int index = 0; index < inFileName.length(); index++)
-        {
-            if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
-        }
-
-        return true;
-    }
-
     static inline Array<File> getSortedPresetFiles()
     {
         Array<File> files = PRESET_FOLDER.findChildFiles (File::findFiles, false, "*" + PRESET_EXTENSION);
@@ -64,7 +52,6 @@ namespace Presets
         return chordName;
     }
 
-    //==============================================================================
     static inline XmlElement* getPresetXmlFromChords (std::map<int, Chord> inChords)
     {
         XmlElement* presetXml = new XmlElement ("preset");
