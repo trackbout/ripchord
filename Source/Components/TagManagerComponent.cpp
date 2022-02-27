@@ -8,8 +8,7 @@ TagManagerComponent::TagManagerComponent (MainProcess& inMainProcess)
 {
     mBrowserState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mBackground, "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mNewTagBg, "SearchBg.svg");
     mImages.setDrawableButtonImages (mCreateTagButton, "CreateTag.svg");
 

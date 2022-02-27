@@ -14,6 +14,14 @@ public:
     ~BrowserState();
 
     //==============================================================================
+    void refreshPresetFiles();
+    void filterPresets();
+
+    //==============================================================================
+    Array<File> getAllPresetFiles();
+    juce::Array<Preset> getFilteredPresets();
+
+    //==============================================================================
     void toggleFavorites();
     bool isFavoritesOn();
 
@@ -24,14 +32,6 @@ public:
     //==============================================================================
     void toggleTagSelector();
     bool isTagSelectorOn();
-
-    //==============================================================================
-    void filterPresets();
-    void refreshPresetFiles();
-
-    //==============================================================================
-    Array<File> getAllPresetFiles();
-    juce::Array<Preset> getFilteredPresets();
 
     //==============================================================================
     bool isFavorite (String presetName);
@@ -46,30 +46,31 @@ public:
     void handleMouseDownOnRightArrow (String presetName);
 
     //==============================================================================
-    void handlePresetFilterTextChanged (String filterText);
     void handleNewTagTextChanged (String newTagText);
+    void handlePresetFilterTextChanged (String filterText);
 
     //==============================================================================
     void handleMouseDownOnCreateTag();
 
 private:
     //==============================================================================
-    bool mIsFavoritesOn = false;
-    bool mIsTagSelectorOn = false;
-    bool mIsTagManagerVisible = false;
+    Array<File> mAllPresetFiles;
+    StringArray mFavPathNames;
+
+    juce::Array<Preset> mAllPresets;
+    juce::Array<Preset> mFilteredPresets;
 
     String mNewTagText = "";
     String mPresetFilterText = "";
 
-    Array<File> mAllPresetFiles;
-    juce::Array<Preset> mAllPresets;
-    juce::Array<Preset> mFilteredPresets;
+    bool mIsFavoritesOn = false;
+    bool mIsTagSelectorOn = false;
+    bool mIsTagManagerVisible = false;
 
     int getFilteredIndex (String presetName);
 
     PropertiesFile mTagsFile { System::createPluginPropertiesOptions ("tags") };
     PropertiesFile mFavoritesFile { System::createPluginPropertiesOptions ("favorites") };
-    StringArray mFavPathNames { StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "") };
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BrowserState)

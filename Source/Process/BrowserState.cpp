@@ -13,51 +13,23 @@ BrowserState::~BrowserState()
 }
 
 //==============================================================================
-void BrowserState::toggleFavorites()
+void BrowserState::refreshPresetFiles()
 {
-    mIsFavoritesOn = !mIsFavoritesOn;
+    mAllPresets.clear();
+    mAllPresetFiles.clear();
+    mAllPresetFiles = Presets::getSortedPresetFiles();
+    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
 
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleFavorites;
-    sendMessage (message, ListenerType::kSync);
+    for (int index = 0; index < mAllPresetFiles.size(); index++)
+    {
+        Preset preset;
+        preset.indexValue = index;
+        preset.fileName = mAllPresetFiles[index].getFileNameWithoutExtension();
+        preset.isFavorite = mFavPathNames.contains (mAllPresetFiles[index].getFullPathName());
+        mAllPresets.add (preset);
+    }
 }
 
-bool BrowserState::isFavoritesOn()
-{
-    return mIsFavoritesOn;
-}
-
-//==============================================================================
-void BrowserState::toggleTagManager()
-{
-    mIsTagManagerVisible = !mIsTagManagerVisible;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleTagManager;
-    sendMessage (message, ListenerType::kSync);
-}
-
-bool BrowserState::isTagManagerVisible()
-{
-    return mIsTagManagerVisible;
-}
-
-//==============================================================================
-void BrowserState::toggleTagSelector()
-{
-    mIsTagSelectorOn = !mIsTagSelectorOn;
-
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kToggleTagSelector;
-    sendMessage (message, ListenerType::kSync);
-}
-
-bool BrowserState::isTagSelectorOn()
-{
-    return mIsTagSelectorOn;
-}
-
-//==============================================================================
 void BrowserState::filterPresets()
 {
     mFilteredPresets.clear();
@@ -101,22 +73,6 @@ void BrowserState::filterPresets()
     }
 }
 
-void BrowserState::refreshPresetFiles()
-{
-    mAllPresets.clear();
-    mAllPresetFiles.clear();
-    mAllPresetFiles = Presets::getSortedPresetFiles();
-
-    for (int index = 0; index < mAllPresetFiles.size(); index++)
-    {
-        Preset preset;
-        preset.indexValue = index;
-        preset.fileName = mAllPresetFiles[index].getFileNameWithoutExtension();
-        preset.isFavorite = mFavPathNames.contains (mAllPresetFiles[index].getFullPathName());
-        mAllPresets.add (preset);
-    }
-}
-
 //==============================================================================
 Array<File> BrowserState::getAllPresetFiles()
 {
@@ -126,6 +82,51 @@ Array<File> BrowserState::getAllPresetFiles()
 juce::Array<Preset> BrowserState::getFilteredPresets()
 {
     return mFilteredPresets;
+}
+
+//==============================================================================
+void BrowserState::toggleFavorites()
+{
+    mIsFavoritesOn = !mIsFavoritesOn;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleFavorites;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isFavoritesOn()
+{
+    return mIsFavoritesOn;
+}
+
+//==============================================================================
+void BrowserState::toggleTagManager()
+{
+    mIsTagManagerVisible = !mIsTagManagerVisible;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTagManager;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isTagManagerVisible()
+{
+    return mIsTagManagerVisible;
+}
+
+//==============================================================================
+void BrowserState::toggleTagSelector()
+{
+    mIsTagSelectorOn = !mIsTagSelectorOn;
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kToggleTagSelector;
+    sendMessage (message, ListenerType::kSync);
+}
+
+bool BrowserState::isTagSelectorOn()
+{
+    return mIsTagSelectorOn;
 }
 
 //==============================================================================
@@ -228,6 +229,11 @@ void BrowserState::handleMouseDownOnRightArrow (String inPresetName)
 }
 
 //==============================================================================
+void BrowserState::handleNewTagTextChanged (String inNewTagText)
+{
+    mNewTagText = inNewTagText;
+}
+
 void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
 {
     mPresetFilterText = inPresetFilterText;
@@ -236,11 +242,6 @@ void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
     message->messageCode = MessageCode::kPresetFilterTextChanged;
     message->messageVar1 = mPresetFilterText;
     sendMessage (message, ListenerType::kSync);
-}
-
-void BrowserState::handleNewTagTextChanged (String inNewTagText)
-{
-    mNewTagText = inNewTagText;
 }
 
 //==============================================================================
