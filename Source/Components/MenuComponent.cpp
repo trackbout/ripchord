@@ -14,10 +14,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mThemeLabel.setColour (Label::textColourId, COLOR_GREY);
     mCreditsLabel.setColour (Label::textColourId, COLOR_GREY);
 
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mBackground, isDark ? "ModalBgDARK.svg" : "ModalBgLIGHT.svg");
-    mImages.setDrawableButtonImages (mThemeButton, isDark ? "MenuThemeDARK.svg" : "MenuThemeLIGHT.svg");
-
+    mImages.setDrawableButtonImages (mBackground, "ModalBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mThemeButton, "MenuThemeLIGHT.svg");
     mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
     mImages.setDrawableButtonImages (mDuplicateButton, "MenuDuplicate.svg");
@@ -29,7 +27,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mThemeButton.setTriggeredOnMouseDown (true);
     mCreditsButton.setTriggeredOnMouseDown (true);
-
     mNewPresetButton.setTriggeredOnMouseDown (true);
     mDuplicateButton.setTriggeredOnMouseDown (true);
     mImportMidiButton.setTriggeredOnMouseDown (true);
@@ -102,7 +99,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mThemeButton);
     addAndMakeVisible (mCreditsLabel);
     addAndMakeVisible (mCreditsButton);
-
     addAndMakeVisible (mNewPresetButton);
     addAndMakeVisible (mDuplicateButton);
     addAndMakeVisible (mImportMidiButton);
