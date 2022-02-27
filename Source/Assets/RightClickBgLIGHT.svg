@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="100px" height="102px" viewBox="0 0 100 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>RightClickBgLIGHT</title>
+<svg width="100px" height="102px" viewBox="0 0 100 102">
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <path stroke="#80848A" fill="#D8D8D8" d="M95,0.5 C96.2426407,0.5 97.3676407,1.00367966 98.1819805,1.81801948 C98.9963203,2.63235931 99.5,3.75735931 99.5,5 L99.5,5 L99.5,97 C99.5,98.2426407 98.9963203,99.3676407 98.1819805,100.181981 C97.3676407,100.99632 96.2426407,101.5 95,101.5 L95,101.5 L0.5,101.5 L0.5,5 C0.5,3.75735931 1.00367966,2.63235931 1.81801948,1.81801948 C2.63235931,1.00367966 3.75735931,0.5 5,0.5 L5,0.5 Z"></path>
     </g>
