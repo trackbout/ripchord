@@ -185,14 +185,17 @@
               file="Source/Components/PresetComponent.cpp"/>
         <FILE id="wMXjn0" name="PresetComponent.h" compile="0" resource="0"
               file="Source/Components/PresetComponent.h"/>
-        <FILE id="wXa4vX" name="TagBrowserComponent.cpp" compile="1" resource="0"
-              file="Source/Components/TagBrowserComponent.cpp"/>
-        <FILE id="gJwNpj" name="TagBrowserComponent.h" compile="0" resource="0"
-              file="Source/Components/TagBrowserComponent.h"/>
         <FILE id="B08eMH" name="TagManagerComponent.cpp" compile="1" resource="0"
               file="Source/Components/TagManagerComponent.cpp"/>
         <FILE id="AiSOf0" name="TagManagerComponent.h" compile="0" resource="0"
               file="Source/Components/TagManagerComponent.h"/>
+        <FILE id="wXa4vX" name="TagBrowserComponent.cpp" compile="1" resource="0"
+              file="Source/Components/TagBrowserComponent.cpp"/>
+        <FILE id="gJwNpj" name="TagBrowserComponent.h" compile="0" resource="0"
+              file="Source/Components/TagBrowserComponent.h"/>
+        <FILE id="WLBDxw" name="TagComponent.cpp" compile="1" resource="0"
+              file="Source/Components/TagComponent.cpp"/>
+        <FILE id="BQU4w6" name="TagComponent.h" compile="0" resource="0" file="Source/Components/TagComponent.h"/>
         <FILE id="E1Kwyk" name="RightClickComponent.cpp" compile="1" resource="0"
               file="Source/Components/RightClickComponent.cpp"/>
         <FILE id="sLuZcM" name="RightClickComponent.h" compile="0" resource="0"
