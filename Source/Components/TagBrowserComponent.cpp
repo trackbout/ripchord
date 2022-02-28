@@ -61,6 +61,11 @@ void TagBrowserComponent::refreshBrowser()
         auto* tagComponent = new TagComponent (tagName);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
 
+        tagComponent->onDelete = [this](const String name)
+        {
+            // do stuff
+        };
+
         addAndMakeVisible (tagComponent);
 
         // Delete pointers to prevent leaks

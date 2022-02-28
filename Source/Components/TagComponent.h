@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "Images.h"
 #include "Styles.h"
+#include "DeleteComponent.h"
 
 //==============================================================================
 class TagComponent : public Component
@@ -18,8 +19,8 @@ public:
     void mouseDown (const MouseEvent& event) override;
 
     //==============================================================================
-    std::function<void (const int indexValue)> onClick;
-    std::function<void (const int indexValue)> onDelete;
+    std::function<void (const String name)> onClick;
+    std::function<void (const String name)> onDelete;
 
 private:
     //==============================================================================
@@ -27,6 +28,7 @@ private:
 
     Images mImages;
     Label mTagLabel;
+    DeleteComponent mDeleteComponent;
 
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
 

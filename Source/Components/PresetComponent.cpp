@@ -46,7 +46,7 @@ void PresetComponent::resized()
     juce::Rectangle<float> starAreaProportion (STAR_X / PRESET_WIDTH, STAR_Y / ITEM_HEIGHT,
                                                STAR_WIDTH / PRESET_WIDTH, STAR_HEIGHT / ITEM_HEIGHT);
 
-    juce::Rectangle<float> trashAreaProportion (TRASH_X / PRESET_WIDTH, TRASH_Y / ITEM_HEIGHT,
+    juce::Rectangle<float> trashAreaProportion (TRASH_PRESET_X / PRESET_WIDTH, TRASH_PRESET_Y / ITEM_HEIGHT,
                                                 TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
 
     mStarButton.setBounds (area.getProportion (starAreaProportion));

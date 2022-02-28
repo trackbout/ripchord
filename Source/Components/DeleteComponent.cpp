@@ -34,12 +34,13 @@ void DeleteComponent::resized()
     
     const float CANCEL_X = mType == "preset" ? CANCEL_PRESET_X : CANCEL_TAG_X;
     const float DELETE_X = mType == "preset" ? DELETE_PRESET_X : DELETE_TAG_X;
+    const float PARENT_WIDTH = mType == "preset" ? PRESET_WIDTH : TAG_WIDTH;
 
-    juce::Rectangle<float> cancelProportion (CANCEL_X / PRESET_WIDTH, CANCEL_Y / ITEM_HEIGHT,
-                                             CANCEL_WIDTH / PRESET_WIDTH, CANCEL_HEIGHT / ITEM_HEIGHT);
+    juce::Rectangle<float> cancelProportion (CANCEL_X / PARENT_WIDTH, CANCEL_Y / ITEM_HEIGHT,
+                                             CANCEL_WIDTH / PARENT_WIDTH, CANCEL_HEIGHT / ITEM_HEIGHT);
 
-    juce::Rectangle<float> deleteProportion (DELETE_X / PRESET_WIDTH, DELETE_Y / ITEM_HEIGHT,
-                                             DELETE_WIDTH / PRESET_WIDTH, DELETE_HEIGHT / ITEM_HEIGHT);
+    juce::Rectangle<float> deleteProportion (DELETE_X / PARENT_WIDTH, DELETE_Y / ITEM_HEIGHT,
+                                             DELETE_WIDTH / PARENT_WIDTH, DELETE_HEIGHT / ITEM_HEIGHT);
 
     mCancelButton.setBounds (presetArea.getProportion (cancelProportion));
     mDeleteButton.setBounds (presetArea.getProportion (deleteProportion));
