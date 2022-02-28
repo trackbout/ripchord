@@ -165,6 +165,10 @@
         <FILE id="Dvapds" name="KeyComponent.cpp" compile="1" resource="0"
               file="Source/Components/KeyComponent.cpp"/>
         <FILE id="OKKeCw" name="KeyComponent.h" compile="0" resource="0" file="Source/Components/KeyComponent.h"/>
+        <FILE id="IQYOMt" name="DeleteComponent.cpp" compile="1" resource="0"
+              file="Source/Components/DeleteComponent.cpp"/>
+        <FILE id="Xq1GJS" name="DeleteComponent.h" compile="0" resource="0"
+              file="Source/Components/DeleteComponent.h"/>
         <FILE id="GQp193" name="PresetViewComponent.cpp" compile="1" resource="0"
               file="Source/Components/PresetViewComponent.cpp"/>
         <FILE id="jiCklL" name="PresetViewComponent.h" compile="0" resource="0"
@@ -177,10 +181,6 @@
               file="Source/Components/PresetTaggerComponent.cpp"/>
         <FILE id="H6kHA3" name="PresetTaggerComponent.h" compile="0" resource="0"
               file="Source/Components/PresetTaggerComponent.h"/>
-        <FILE id="IQYOMt" name="PresetDeleteComponent.cpp" compile="1" resource="0"
-              file="Source/Components/PresetDeleteComponent.cpp"/>
-        <FILE id="Xq1GJS" name="PresetDeleteComponent.h" compile="0" resource="0"
-              file="Source/Components/PresetDeleteComponent.h"/>
         <FILE id="N0yrvE" name="PresetComponent.cpp" compile="1" resource="0"
               file="Source/Components/PresetComponent.cpp"/>
         <FILE id="wMXjn0" name="PresetComponent.h" compile="0" resource="0"

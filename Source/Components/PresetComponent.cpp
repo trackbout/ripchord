@@ -2,7 +2,8 @@
 
 //==============================================================================
 PresetComponent::PresetComponent (Preset inPreset)
-:   mPreset (inPreset)
+:   mPreset (inPreset),
+    mDeleteComponent ("preset")
 {
     mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
@@ -15,14 +16,14 @@ PresetComponent::PresetComponent (Preset inPreset)
     mStarButton.setTriggeredOnMouseDown (true);
     mTrashButton.setTriggeredOnMouseDown (true);
 
-    mTrashButton.onClick = [this]() { mPresetDelete.setVisible (true); };
+    mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
     mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mPreset.indexValue); } };
-    mPresetDelete.onMouseDown = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
+    mDeleteComponent.onMouseDown = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);
     addAndMakeVisible (mTrashButton);
-    addChildComponent (mPresetDelete);
+    addChildComponent (mDeleteComponent);
 }
 
 PresetComponent::~PresetComponent()
@@ -40,7 +41,7 @@ void PresetComponent::paint (Graphics& inGraphics)
 void PresetComponent::resized()
 {
     auto area = getLocalBounds();
-    mPresetDelete.setBounds (area);
+    mDeleteComponent.setBounds (area);
 
     juce::Rectangle<float> starAreaProportion (STAR_X / PRESET_WIDTH, STAR_Y / ITEM_HEIGHT,
                                                STAR_WIDTH / PRESET_WIDTH, STAR_HEIGHT / ITEM_HEIGHT);

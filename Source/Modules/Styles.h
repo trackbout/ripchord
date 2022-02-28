@@ -159,10 +159,10 @@ const float DELETE_HEIGHT = CANCEL_HEIGHT;
 const float CANCEL_Y = 5.f;
 const float DELETE_Y = CANCEL_Y;
 
-const float CANCEL_PRESET_X = (PRESET_WIDTH / 2) - CANCEL_WIDTH - SPACE;
-const float DELETE_PRESET_X = (PRESET_WIDTH / 2) + SPACE;
-const float CANCEL_TAG_X = (TAG_WIDTH / 2) - CANCEL_WIDTH - HALF_SPACE;
-const float DELETE_TAG_X = (TAG_WIDTH / 2) + HALF_SPACE;
+const float CANCEL_PRESET_X = (PRESET_WIDTH / 2) - CANCEL_WIDTH - 25;
+const float DELETE_PRESET_X = (PRESET_WIDTH / 2) + 25;
+const float CANCEL_TAG_X = (TAG_WIDTH / 2) - CANCEL_WIDTH - 12;
+const float DELETE_TAG_X = (TAG_WIDTH / 2) + 12;
 
 const float MENU_ITEM_HEIGHT = 30.f;
 const float MENU_ACTION_WIDTH = 220.f;

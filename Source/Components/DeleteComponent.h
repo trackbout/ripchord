@@ -5,12 +5,12 @@
 #include "Styles.h"
 
 //==============================================================================
-class PresetDeleteComponent : public Component
+class DeleteComponent : public Component
 {
 public:
     //==============================================================================
-    PresetDeleteComponent();
-    ~PresetDeleteComponent();
+    DeleteComponent (String type);
+    ~DeleteComponent();
 
     void paint (Graphics& graphics) override;
     void resized() override;
@@ -20,10 +20,12 @@ public:
 
 private:
     //==============================================================================
+    String mType;
+
     Images mImages;
     DrawableButton mCancelButton { "", DrawableButton::ImageStretched };
     DrawableButton mDeleteButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetDeleteComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DeleteComponent)
 };

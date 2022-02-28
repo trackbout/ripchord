@@ -4,7 +4,7 @@
 #include "Images.h"
 #include "Styles.h"
 #include "Presets.h"
-#include "PresetDeleteComponent.h"
+#include "DeleteComponent.h"
 
 //==============================================================================
 class PresetComponent : public Component
@@ -30,7 +30,7 @@ private:
 
     Images mImages;
     Label mPresetLabel;
-    PresetDeleteComponent mPresetDelete;
+    DeleteComponent mDeleteComponent;
 
     DrawableButton mStarButton { "", DrawableButton::ImageStretched };
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
