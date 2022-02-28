@@ -31,10 +31,10 @@ void PresetDeleteComponent::resized()
 {
     auto presetArea = getLocalBounds();
 
-    juce::Rectangle<float> cancelProportion (CANCEL_X / PRESET_WIDTH, CANCEL_Y / ITEM_HEIGHT,
+    juce::Rectangle<float> cancelProportion (CANCEL_PRESET_X / PRESET_WIDTH, CANCEL_Y / ITEM_HEIGHT,
                                              CANCEL_WIDTH / PRESET_WIDTH, CANCEL_HEIGHT / ITEM_HEIGHT);
 
-    juce::Rectangle<float> deleteProportion (DELETE_X / PRESET_WIDTH, DELETE_Y / ITEM_HEIGHT,
+    juce::Rectangle<float> deleteProportion (DELETE_PRESET_X / PRESET_WIDTH, DELETE_Y / ITEM_HEIGHT,
                                              DELETE_WIDTH / PRESET_WIDTH, DELETE_HEIGHT / ITEM_HEIGHT);
 
     mCancelButton.setBounds (presetArea.getProportion (cancelProportion));

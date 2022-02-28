@@ -124,15 +124,6 @@ const float CHECK_HEIGHT = 22.f;
 const float CHECK_X = PRESET_PAD_X - 1;
 const float CHECK_Y = PRESET_PAD_Y - 1;
 
-const float CANCEL_WIDTH = 120.f;
-const float CANCEL_HEIGHT = 24.f;
-const float DELETE_WIDTH = CANCEL_WIDTH;
-const float DELETE_HEIGHT = CANCEL_HEIGHT;
-const float CANCEL_X = 28.f;
-const float CANCEL_Y = 5.f;
-const float DELETE_X = PRESET_WIDTH - DELETE_WIDTH - CANCEL_X;
-const float DELETE_Y = CANCEL_Y;
-
 const float FOOTER_Y = INPUT_KEYBOARD_BG_Y + KEYBOARD_BG_HEIGHT + SPACE;
 const float EDITOR_HEIGHT = FOOTER_Y + ITEM_HEIGHT + SPACE;
 
@@ -160,6 +151,18 @@ const int TAGS_PER_ROW = 2;
 const float TAG_WIDTH = (TAG_BROWSER_WIDTH - ((TAGS_PER_ROW + 1) * HALF_SPACE)) / TAGS_PER_ROW;
 const float TAG_PAD_X = 6.f;
 const float TAG_PAD_Y = 5.f;
+
+const float CANCEL_WIDTH = 80.f;
+const float CANCEL_HEIGHT = 24.f;
+const float DELETE_WIDTH = CANCEL_WIDTH;
+const float DELETE_HEIGHT = CANCEL_HEIGHT;
+const float CANCEL_Y = 5.f;
+const float DELETE_Y = CANCEL_Y;
+
+const float CANCEL_PRESET_X = (PRESET_WIDTH / 2) - CANCEL_WIDTH - SPACE;
+const float DELETE_PRESET_X = (PRESET_WIDTH / 2) + SPACE;
+const float CANCEL_TAG_X = (TAG_WIDTH / 2) - CANCEL_WIDTH - HALF_SPACE;
+const float DELETE_TAG_X = (TAG_WIDTH / 2) + HALF_SPACE;
 
 const float MENU_ITEM_HEIGHT = 30.f;
 const float MENU_ACTION_WIDTH = 220.f;
