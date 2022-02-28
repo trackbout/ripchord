@@ -1,6 +1,7 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Styles.h"
 #include "MainProcess.h"
 #include "DataMessageListener.h"
 

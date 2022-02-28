@@ -99,16 +99,15 @@ const float PRESET_VIEWPORT_Y = PRESET_BROWSER_Y + 1;
 const float PRESET_VIEWPORT_WIDTH = PRESET_BROWSER_WIDTH + SPACE - 2;
 const float PRESET_VIEWPORT_HEIGHT = PRESET_BROWSER_HEIGHT - 2;
 
+const int PRESETS_PER_ROW = 3;
+const float PRESET_WIDTH = (PRESET_BROWSER_WIDTH - ((PRESETS_PER_ROW + 1) * HALF_SPACE)) / PRESETS_PER_ROW;
+const float PRESET_PAD_X = 8.f;
+const float PRESET_PAD_Y = 7.f;
+
 const float TAG_MANAGER_X = SPACE;
 const float TAG_SELECTOR_X = TAG_MANAGER_X + ITEM_HEIGHT + HALF_SPACE;
 const float TAGS_BG_X = TAG_SELECTOR_X + ITEM_HEIGHT + HALF_SPACE;
 const float TAGS_BG_WIDTH = KEYBOARD_BG_WIDTH - SPACE - (2 * ITEM_HEIGHT);
-
-const int PRESETS_PER_ROW = 3;
-const float PRESET_WIDTH = (PRESET_BROWSER_WIDTH - ((PRESETS_PER_ROW + 1) * HALF_SPACE)) / PRESETS_PER_ROW;
-
-const float PRESET_PAD_X = 8.f;
-const float PRESET_PAD_Y = 7.f;
 
 const float STAR_WIDTH = 20.f;
 const float STAR_HEIGHT = 20.f;
@@ -156,6 +155,11 @@ const float TAG_VIEWPORT_X = TAG_BROWSER_X + 1;
 const float TAG_VIEWPORT_Y = TAG_BROWSER_Y + 1;
 const float TAG_VIEWPORT_WIDTH = TAG_BROWSER_WIDTH + SPACE - 2;
 const float TAG_VIEWPORT_HEIGHT = TAG_BROWSER_HEIGHT - 2;
+
+const int TAGS_PER_ROW = 2;
+const float TAG_WIDTH = (TAG_BROWSER_WIDTH - ((TAGS_PER_ROW + 1) * HALF_SPACE)) / TAGS_PER_ROW;
+const float TAG_PAD_X = 6.f;
+const float TAG_PAD_Y = 5.f;
 
 const float MENU_ITEM_HEIGHT = 30.f;
 const float MENU_ACTION_WIDTH = 220.f;
