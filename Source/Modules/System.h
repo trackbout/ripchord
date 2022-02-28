@@ -8,6 +8,8 @@ namespace System
     {
         const String valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 #_-()";
 
+        if (inFileName.length() < 1) { return false; }
+
         for (int index = 0; index < inFileName.length(); index++)
         {
             if (valid.indexOfChar (inFileName[index]) < 0) { return false; }
