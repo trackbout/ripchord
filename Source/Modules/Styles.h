@@ -148,7 +148,7 @@ const float TAG_VIEWPORT_WIDTH = TAG_BROWSER_WIDTH + SPACE - 2;
 const float TAG_VIEWPORT_HEIGHT = TAG_BROWSER_HEIGHT - 2;
 
 const int TAGS_PER_ROW = 2;
-const float TAG_WIDTH = (TAG_BROWSER_WIDTH - ((TAGS_PER_ROW + 1) * HALF_SPACE)) / TAGS_PER_ROW;
+const float TAG_WIDTH = ((TAG_BROWSER_WIDTH - 1) - ((TAGS_PER_ROW + 1) * HALF_SPACE)) / TAGS_PER_ROW;
 const float TAG_PAD_X = 6.f;
 const float TAG_PAD_Y = 5.f;
 

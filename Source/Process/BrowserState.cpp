@@ -166,7 +166,7 @@ void BrowserState::handleMouseDownOnCreateTag()
     mTagsFile.setValue (mNewTagText, "");
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kNewTagCreated;
+    message->messageCode = MessageCode::kTagCreated;
     sendMessage (message, ListenerType::kSync);
 }
 

@@ -22,7 +22,7 @@ void TagBrowserComponent::setDimensions (int inWidth, int inHeight)
     mSpaceWidth = (inWidth - (TAGS_PER_ROW * mTagWidth)) / (TAGS_PER_ROW + 1);
 
     mTagHeight = int (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
-    mSpaceHeight = mTagHeight * (HALF_SPACE / ITEM_HEIGHT);
+    mSpaceHeight = mTagHeight * ((HALF_SPACE + 2) / ITEM_HEIGHT);
 
     refreshBrowser();
 }
@@ -33,6 +33,7 @@ void TagBrowserComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleView): { hardRefresh(); } break;
+        case (MessageCode::kTagCreated): { hardRefresh(); } break;
         default: { } break;
     };
 }
@@ -53,6 +54,16 @@ void TagBrowserComponent::refreshBrowser()
 
     for (int index = 0; index < tagNames.size(); index++)
     {
-        // do stuff
+        String tagName = tagNames[index];
+        int x = (index % TAGS_PER_ROW) * (mTagWidth + mSpaceWidth) + mSpaceWidth;
+        int y = (index / TAGS_PER_ROW) * (mTagHeight + mSpaceHeight) + mSpaceHeight;
+
+        auto* tagComponent = new TagComponent (tagName);
+        tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
+
+        addAndMakeVisible (tagComponent);
+
+        // Delete pointers to prevent leaks
+        mTagsToDelete.add (tagComponent);
     }
 }

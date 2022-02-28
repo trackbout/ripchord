@@ -26,7 +26,7 @@ private:
     String mName;
 
     Images mImages;
-    Label mPresetLabel;
+    Label mTagLabel;
 
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
 

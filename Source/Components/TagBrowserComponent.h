@@ -3,6 +3,7 @@
 #include "JuceHeader.h"
 #include "Styles.h"
 #include "MainProcess.h"
+#include "TagComponent.h"
 #include "DataMessageListener.h"
 
 //==============================================================================
@@ -32,6 +33,8 @@ private:
 
     void hardRefresh();
     void refreshBrowser();
+
+    OwnedArray<TagComponent> mTagsToDelete;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TagBrowserComponent)
