@@ -22,7 +22,7 @@ void TagBrowserComponent::setDimensions (int inWidth, int inHeight)
     mSpaceWidth = (inWidth - (TAGS_PER_ROW * mTagWidth)) / (TAGS_PER_ROW + 1);
 
     mTagHeight = int (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
-    mSpaceHeight = mTagHeight * ((HALF_SPACE + 2) / ITEM_HEIGHT);
+    mSpaceHeight = mTagHeight * ((HALF_SPACE + 4) / ITEM_HEIGHT);
 
     refreshBrowser();
 }
@@ -72,4 +72,8 @@ void TagBrowserComponent::refreshBrowser()
         // Delete pointers to prevent leaks
         mTagsToDelete.add (tagComponent);
     }
+
+    int rowCount = (int) std::ceil (tagNames.size() / (float) (TAGS_PER_ROW));
+    int viewportHeight = ((mTagHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
+    setSize (getWidth(), viewportHeight);
 }
