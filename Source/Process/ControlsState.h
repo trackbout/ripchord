@@ -34,8 +34,8 @@ public:
     int getTransposedNote (const int outputNote, const int activeTransposeNote);
 
     //==============================================================================
-    void handleMouseDownOnShiftLeft();
-    void handleMouseDownOnShiftRight();
+    void handleClickShiftLeft();
+    void handleClickShiftRight();
 
     //==============================================================================
     float getDelayDepth();

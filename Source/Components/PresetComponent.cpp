@@ -18,7 +18,7 @@ PresetComponent::PresetComponent (Preset inPreset)
 
     mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
     mStarButton.onClick = [this]() { if (onFavorite) { onFavorite (mPreset.indexValue); } };
-    mDeleteComponent.onMouseDown = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
+    mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mPreset.indexValue); } };
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mStarButton);

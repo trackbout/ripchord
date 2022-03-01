@@ -21,31 +21,31 @@ EditControlsComponent::EditControlsComponent (MainProcess& inMainProcess)
     mAllWhiteButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseDownOnAllWhite();
+        mPresetState.handleClickAllWhite();
     };
 
     mEditLeftButton.setTriggeredOnMouseDown (true);
     mEditLeftButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseDownOnEditLeft();
+        mPresetState.handleClickEditLeft();
     };
 
     mSaveButton.setTriggeredOnMouseDown (true);
-    mSaveButton.onClick = [this]() { mPresetState.handleMouseDownOnSave(); };
+    mSaveButton.onClick = [this]() { mPresetState.handleClickSave(); };
 
     mEditRightButton.setTriggeredOnMouseDown (true);
     mEditRightButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseDownOnEditRight();
+        mPresetState.handleClickEditRight();
     };
 
     mAllBlackButton.setTriggeredOnMouseDown (true);
     mAllBlackButton.onClick = [this]()
     {
         if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return; }
-        mPresetState.handleMouseDownOnAllBlack();
+        mPresetState.handleClickAllBlack();
     };
 
     addAndMakeVisible (mAllWhiteButton);

@@ -14,7 +14,7 @@ TagComponent::TagComponent (String inName)
     mTrashButton.setTriggeredOnMouseDown (true);
     mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
 
-    mDeleteComponent.onMouseDown = [this]() { if (onDelete) { onDelete (mName); } };
+    mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mName); } };
 
     addAndMakeVisible (mTagLabel);
     addAndMakeVisible (mTrashButton);

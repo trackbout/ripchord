@@ -36,23 +36,23 @@ public:
     void handlePresetNameTextChanged (String presetName);
 
     //==============================================================================
-    void handleMouseDownOnCut (const int inputNote);
-    void handleMouseDownOnCopy (const int inputNote);
-    void handleMouseDownOnPaste (const int inputNote);
+    void handleClickCut (const int inputNote);
+    void handleClickCopy (const int inputNote);
+    void handleClickPaste (const int inputNote);
 
     //==============================================================================
-    void handleMouseDownOnNew();
-    void handleMouseDownOnSave();
-    void handleMouseDownOnImportMidi();
-    void handleMouseDownOnExportMidi();
-    void handleMouseDownOnImportPreset();
-    void handleMouseDownOnExportPreset();
-    void handleMouseDownOnDuplicate();
-    void handleMouseDownOnEditLeft();
-    void handleMouseDownOnEditRight();
-    void handleMouseDownOnAllWhite();
-    void handleMouseDownOnAllBlack();
-    void handleMouseDownOnPreset (File presetFile);
+    void handleClickNew();
+    void handleClickSave();
+    void handleClickImportMidi();
+    void handleClickExportMidi();
+    void handleClickImportPreset();
+    void handleClickExportPreset();
+    void handleClickDuplicate();
+    void handleClickEditLeft();
+    void handleClickEditRight();
+    void handleClickAllWhite();
+    void handleClickAllBlack();
+    void handleClickPreset (File presetFile);
 
     //==============================================================================
     XmlElement* exportPresetStateXml();

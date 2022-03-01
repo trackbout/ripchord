@@ -39,7 +39,7 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
     mQuickFav.onClick = [this]()
     {
         int indexValue = mBrowserState.getUnfilteredIndex (mPresetState.getName());
-        mBrowserState.handleMouseDownOnFavorite (indexValue);
+        mBrowserState.handleClickFavorite (indexValue);
     };
 
     mMenuButton.setTriggeredOnMouseDown (true);

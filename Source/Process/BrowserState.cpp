@@ -159,7 +159,7 @@ bool BrowserState::isTagSelectorOn()
 }
 
 //==============================================================================
-void BrowserState::handleMouseDownOnCreateTag()
+void BrowserState::handleClickCreateTag()
 {
     if (!System::isValidFileName (mNewTagText) || mTagsFile.containsKey (mNewTagText)) { return; }
 
@@ -171,7 +171,7 @@ void BrowserState::handleMouseDownOnCreateTag()
 }
 
 //==============================================================================
-void BrowserState::handleMouseDownOnDelete (const int inIndexValue)
+void BrowserState::handleClickDelete (const int inIndexValue)
 {
     File file = mAllPresetFiles[inIndexValue];
 
@@ -190,7 +190,7 @@ void BrowserState::handleMouseDownOnDelete (const int inIndexValue)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleMouseDownOnFavorite (const int inIndexValue)
+void BrowserState::handleClickFavorite (const int inIndexValue)
 {
     Preset preset = mAllPresets[inIndexValue];
     File file = mAllPresetFiles[inIndexValue];
@@ -233,7 +233,7 @@ void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
 }
 
 //==============================================================================
-void BrowserState::handleMouseDownOnLeftArrow (String inPresetName)
+void BrowserState::handleClickLeftArrow (String inPresetName)
 {
     int index = getFilteredIndex (inPresetName);
 
@@ -249,7 +249,7 @@ void BrowserState::handleMouseDownOnLeftArrow (String inPresetName)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleMouseDownOnRightArrow (String inPresetName)
+void BrowserState::handleClickRightArrow (String inPresetName)
 {
     int index = getFilteredIndex (inPresetName);
 

@@ -49,40 +49,40 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mNewPresetButton.onClick = [this]()
     {
-        mPresetState.handleMouseDownOnNew();
+        mPresetState.handleClickNew();
         mGlobalState.toggleMenu();
     };
 
     mDuplicateButton.onClick = [this]()
     {
         if (!mPresetState.isPresetValid()) { return; }
-        mPresetState.handleMouseDownOnDuplicate();
+        mPresetState.handleClickDuplicate();
         mGlobalState.toggleMenu();
     };
 
     mImportMidiButton.onClick = [this]()
     {
-        mPresetState.handleMouseDownOnImportMidi();
+        mPresetState.handleClickImportMidi();
         mGlobalState.toggleMenu();
     };
 
     mExportMidiButton.onClick = [this]()
     {
         if (!mPresetState.isPresetValid()) { return; }
-        mPresetState.handleMouseDownOnExportMidi();
+        mPresetState.handleClickExportMidi();
         mGlobalState.toggleMenu();
     };
 
     mImportPresetButton.onClick = [this]()
     {
-        mPresetState.handleMouseDownOnImportPreset();
+        mPresetState.handleClickImportPreset();
         mGlobalState.toggleMenu();
     };
 
     mExportPresetButton.onClick = [this]()
     {
         if (!mPresetState.isPresetValid()) { return; }
-        mPresetState.handleMouseDownOnExportPreset();
+        mPresetState.handleClickExportPreset();
         mGlobalState.toggleMenu();
     };
 

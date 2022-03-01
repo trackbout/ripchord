@@ -167,7 +167,7 @@ void PresetState::handlePresetNameTextChanged (String inPresetName)
 }
 
 //==============================================================================
-void PresetState::handleMouseDownOnCut (const int inInputNote)
+void PresetState::handleClickCut (const int inInputNote)
 {
     mClipboardChord = getChord (inInputNote);
     mChords.erase (inInputNote);
@@ -180,12 +180,12 @@ void PresetState::handleMouseDownOnCut (const int inInputNote)
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnCopy (const int inInputNote)
+void PresetState::handleClickCopy (const int inInputNote)
 {
     mClipboardChord = getChord (inInputNote);
 }
 
-void PresetState::handleMouseDownOnPaste (const int inInputNote)
+void PresetState::handleClickPaste (const int inInputNote)
 {
     if (mClipboardChord.notes.isEmpty()) { return; }
 
@@ -200,7 +200,7 @@ void PresetState::handleMouseDownOnPaste (const int inInputNote)
 }
 
 //==============================================================================
-void PresetState::handleMouseDownOnNew()
+void PresetState::handleClickNew()
 {
     resetPresetState (false);
     DataMessage* message = new DataMessage();
@@ -208,7 +208,7 @@ void PresetState::handleMouseDownOnNew()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnSave()
+void PresetState::handleClickSave()
 {
     if (!isPresetValid() || !mIsPresetModified) { return; }
 
@@ -227,7 +227,7 @@ void PresetState::handleMouseDownOnSave()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnImportMidi()
+void PresetState::handleClickImportMidi()
 {
     FileChooser chooser ("Select a MIDI file(s)...", DESKTOP_FOLDER, "*.mid");
 
@@ -251,7 +251,7 @@ void PresetState::handleMouseDownOnImportMidi()
     }
 }
 
-void PresetState::handleMouseDownOnExportMidi()
+void PresetState::handleClickExportMidi()
 {
     if (!isPresetValid()) { return; }
 
@@ -268,7 +268,7 @@ void PresetState::handleMouseDownOnExportMidi()
     }
 }
 
-void PresetState::handleMouseDownOnImportPreset()
+void PresetState::handleClickImportPreset()
 {
     FileChooser chooser ("Select a preset file(s)...", DESKTOP_FOLDER, "*" + PRESET_EXTENSION);
 
@@ -292,7 +292,7 @@ void PresetState::handleMouseDownOnImportPreset()
     }
 }
 
-void PresetState::handleMouseDownOnExportPreset()
+void PresetState::handleClickExportPreset()
 {
     if (!isPresetValid()) { return; }
 
@@ -307,7 +307,7 @@ void PresetState::handleMouseDownOnExportPreset()
     }
 }
 
-void PresetState::handleMouseDownOnDuplicate()
+void PresetState::handleClickDuplicate()
 {
     resetPresetState (true);
     DataMessage* message = new DataMessage();
@@ -315,7 +315,7 @@ void PresetState::handleMouseDownOnDuplicate()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnEditLeft()
+void PresetState::handleClickEditLeft()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty() || inputNotes.contains (21) || mEditModeInputNote == 21) { return; }
@@ -347,7 +347,7 @@ void PresetState::handleMouseDownOnEditLeft()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnEditRight()
+void PresetState::handleClickEditRight()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty() || inputNotes.contains (108) || mEditModeInputNote == 108) { return; }
@@ -379,7 +379,7 @@ void PresetState::handleMouseDownOnEditRight()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnAllWhite()
+void PresetState::handleClickAllWhite()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty()) { return; }
@@ -411,7 +411,7 @@ void PresetState::handleMouseDownOnAllWhite()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnAllBlack()
+void PresetState::handleClickAllBlack()
 {
     juce::Array<int> inputNotes = getPresetInputNotes();
     if (inputNotes.isEmpty()) { return; }
@@ -443,7 +443,7 @@ void PresetState::handleMouseDownOnAllBlack()
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::handleMouseDownOnPreset (File inPresetFile)
+void PresetState::handleClickPreset (File inPresetFile)
 {
     if (inPresetFile.existsAsFile())
     {

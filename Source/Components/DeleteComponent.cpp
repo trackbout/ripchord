@@ -11,7 +11,7 @@ DeleteComponent::DeleteComponent(String inType)
     mDeleteButton.setTriggeredOnMouseDown (true);
 
     mCancelButton.onClick = [this]() { setVisible (false); };
-    mDeleteButton.onClick = [this]() { if (onMouseDown) { onMouseDown(); } };
+    mDeleteButton.onClick = [this]() { if (onClick) { onClick(); } };
 
     addAndMakeVisible (mCancelButton);
     addAndMakeVisible (mDeleteButton);

@@ -79,7 +79,7 @@ int ControlsState::getTransposedNote (const int inOutputNote, const int inActive
 }
 
 //==============================================================================
-void ControlsState::handleMouseDownOnShiftLeft()
+void ControlsState::handleClickShiftLeft()
 {
     if (mTransposeBase == 21 || !isTransposeOn()) { return; }
 
@@ -96,7 +96,7 @@ void ControlsState::handleMouseDownOnShiftLeft()
     sendMessage (message, ListenerType::kSync);
 }
 
-void ControlsState::handleMouseDownOnShiftRight()
+void ControlsState::handleClickShiftRight()
 {
     if (mTransposeBase == 84 || !isTransposeOn()) { return; }
 

@@ -41,19 +41,19 @@ public:
     bool isTagSelectorOn();
 
     //==============================================================================
-    void handleMouseDownOnCreateTag();
+    void handleClickCreateTag();
 
     //==============================================================================
-    void handleMouseDownOnDelete (const int indexValue);
-    void handleMouseDownOnFavorite (const int indexValue);
+    void handleClickDelete (const int indexValue);
+    void handleClickFavorite (const int indexValue);
 
     //==============================================================================
     void handleNewTagTextChanged (String newTagText);
     void handlePresetFilterTextChanged (String filterText);
 
     //==============================================================================
-    void handleMouseDownOnLeftArrow (String presetName);
-    void handleMouseDownOnRightArrow (String presetName);
+    void handleClickLeftArrow (String presetName);
+    void handleClickRightArrow (String presetName);
 
 private:
     //==============================================================================
