@@ -18,8 +18,8 @@ TagBrowserComponent::~TagBrowserComponent()
 //==============================================================================
 void TagBrowserComponent::setDimensions (int inWidth, int inHeight)
 {
-    mTagWidth = int (inWidth * (TAG_WIDTH / TAG_BROWSER_WIDTH));
-    mSpaceWidth = (inWidth - (TAGS_PER_ROW * mTagWidth)) / (TAGS_PER_ROW + 1);
+    mTagWidth = int (inWidth * (BROWSER_TAG_WIDTH / TAG_BROWSER_WIDTH));
+    mSpaceWidth = (inWidth - (BROWSER_TAGS_PER_ROW * mTagWidth)) / (BROWSER_TAGS_PER_ROW + 1);
 
     mTagHeight = int (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
     mSpaceHeight = mTagHeight * ((HALF_SPACE + 4) / ITEM_HEIGHT);
@@ -56,8 +56,8 @@ void TagBrowserComponent::refreshBrowser()
     for (int index = 0; index < tagNames.size(); index++)
     {
         String tagName = tagNames[index];
-        int x = (index % TAGS_PER_ROW) * (mTagWidth + mSpaceWidth) + mSpaceWidth;
-        int y = (index / TAGS_PER_ROW) * (mTagHeight + mSpaceHeight) + mSpaceHeight;
+        int x = (index % BROWSER_TAGS_PER_ROW) * (mTagWidth + mSpaceWidth) + mSpaceWidth;
+        int y = (index / BROWSER_TAGS_PER_ROW) * (mTagHeight + mSpaceHeight) + mSpaceHeight;
 
         auto* tagComponent = new TagComponent (tagName);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
@@ -73,7 +73,7 @@ void TagBrowserComponent::refreshBrowser()
         mTagsToDelete.add (tagComponent);
     }
 
-    int rowCount = (int) std::ceil (tagNames.size() / (float) (TAGS_PER_ROW));
+    int rowCount = (int) std::ceil (tagNames.size() / (float) (BROWSER_TAGS_PER_ROW));
     int viewportHeight = ((mTagHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
     setSize (getWidth(), viewportHeight);
 }

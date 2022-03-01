@@ -34,7 +34,7 @@ void DeleteComponent::resized()
     
     const float CANCEL_X = mType == "preset" ? CANCEL_PRESET_X : CANCEL_TAG_X;
     const float DELETE_X = mType == "preset" ? DELETE_PRESET_X : DELETE_TAG_X;
-    const float PARENT_WIDTH = mType == "preset" ? PRESET_WIDTH : TAG_WIDTH;
+    const float PARENT_WIDTH = mType == "preset" ? PRESET_WIDTH : BROWSER_TAG_WIDTH;
 
     juce::Rectangle<float> cancelProportion (CANCEL_X / PARENT_WIDTH, CANCEL_Y / ITEM_HEIGHT,
                                              CANCEL_WIDTH / PARENT_WIDTH, CANCEL_HEIGHT / ITEM_HEIGHT);
