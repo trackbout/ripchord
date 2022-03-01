@@ -96,7 +96,7 @@ void PresetBrowserComponent::refreshBrowser()
 
             presetComponent->onDelete = [this](const int indexValue)
             {
-                mBrowserState.handleClickDelete (indexValue);
+                mBrowserState.handleClickDeletePreset (indexValue);
             };
 
             presetComponent->onFavorite = [this](const int indexValue)

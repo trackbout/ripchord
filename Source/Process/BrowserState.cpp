@@ -170,26 +170,17 @@ void BrowserState::handleClickCreateTag()
     sendMessage (message, ListenerType::kSync);
 }
 
-//==============================================================================
-void BrowserState::handleClickDelete (const int inIndexValue)
+void BrowserState::handleClickDeleteTag (const String inName)
 {
-    File file = mAllPresetFiles[inIndexValue];
-
-    if (mFavPathNames.contains (file.getFullPathName()))
-    {
-        mFavPathNames.removeString (file.getFullPathName());
-        mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
-        mFavoritesFile.saveIfNeeded();
-    }
-
-    mAllPresets.remove (inIndexValue);
-    file.deleteFile();
+    mTagsFile.removeValue (inName);
+    mTagNames.removeString (inName);
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetFileDeleted;
+    message->messageCode = MessageCode::kTagDeleted;
     sendMessage (message, ListenerType::kSync);
 }
 
+//==============================================================================
 void BrowserState::handleClickFavorite (const int inIndexValue)
 {
     Preset preset = mAllPresets[inIndexValue];
@@ -213,6 +204,25 @@ void BrowserState::handleClickFavorite (const int inIndexValue)
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileFavorited;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void BrowserState::handleClickDeletePreset (const int inIndexValue)
+{
+    File file = mAllPresetFiles[inIndexValue];
+
+    if (mFavPathNames.contains (file.getFullPathName()))
+    {
+        mFavPathNames.removeString (file.getFullPathName());
+        mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+        mFavoritesFile.saveIfNeeded();
+    }
+
+    mAllPresets.remove (inIndexValue);
+    file.deleteFile();
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileDeleted;
     sendMessage (message, ListenerType::kSync);
 }
 

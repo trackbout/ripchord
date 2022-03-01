@@ -34,6 +34,7 @@ void TagBrowserComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kToggleView): { hardRefresh(); } break;
         case (MessageCode::kTagCreated): { hardRefresh(); } break;
+        case (MessageCode::kTagDeleted): { hardRefresh(); } break;
         default: { } break;
     };
 }
@@ -63,7 +64,7 @@ void TagBrowserComponent::refreshBrowser()
 
         tagComponent->onDelete = [this](const String name)
         {
-            // do stuff
+            mBrowserState.handleClickDeleteTag (name);
         };
 
         addAndMakeVisible (tagComponent);

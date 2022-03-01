@@ -42,10 +42,11 @@ public:
 
     //==============================================================================
     void handleClickCreateTag();
+    void handleClickDeleteTag (const String name);
 
     //==============================================================================
-    void handleClickDelete (const int indexValue);
     void handleClickFavorite (const int indexValue);
+    void handleClickDeletePreset (const int indexValue);
 
     //==============================================================================
     void handleNewTagTextChanged (String newTagText);
