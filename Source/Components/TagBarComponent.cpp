@@ -24,7 +24,11 @@ void TagBarComponent::setDimensions (int inWidth, int inHeight)
 //==============================================================================
 void TagBarComponent::handleNewMessage (const DataMessage* inMessage)
 {
-
+    switch (inMessage->messageCode)
+    {
+        case (MessageCode::kToggleView): { refreshBrowser(); } break;
+        default: { } break;
+    };
 }
 
 //==============================================================================

@@ -32,7 +32,7 @@ void TagBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleView): { hardRefresh(); } break;
+        case (MessageCode::kToggleView): { refreshBrowser(); } break;
         case (MessageCode::kTagCreated): { hardRefresh(); } break;
         case (MessageCode::kTagDeleted): { hardRefresh(); } break;
         default: { } break;

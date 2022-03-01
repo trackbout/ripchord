@@ -122,6 +122,7 @@ void PresetViewComponent::handleNewMessage (const DataMessage* inMessage)
 //==============================================================================
 void PresetViewComponent::handleToggleView (const DataMessage* inMessage)
 {
+    mBrowserState.refreshData();
     mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
 }
 

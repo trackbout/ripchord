@@ -34,7 +34,7 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleView): { hardRefresh(); } break;
+        case (MessageCode::kToggleView): { refreshBrowser(); } break;
         case (MessageCode::kPresetFileSaved): { hardRefresh(); } break;
         case (MessageCode::kPresetFileLoaded): { hardRefresh(); } break;
         case (MessageCode::kPresetFileDeleted): { hardRefresh(); } break;
