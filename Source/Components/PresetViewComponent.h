@@ -4,6 +4,7 @@
 #include "Images.h"
 #include "Styles.h"
 #include "MainProcess.h"
+#include "TagBarComponent.h"
 #include "TagManagerComponent.h"
 #include "PresetBrowserComponent.h"
 #include "DataMessageListener.h"
@@ -30,10 +31,13 @@ private:
     GlobalState& mGlobalState;
     BrowserState& mBrowserState;
 
+    Viewport mTagBarViewport;
     Viewport mPresetViewport;
-    TextEditor mPresetFilterInput;
+
+    TagBarComponent mTagBar;
     TagManagerComponent mTagManager;
     PresetBrowserComponent mPresetBrowser;
+    TextEditor mPresetFilterInput;
 
     Images mImages;
     DrawableButton mTagBarBg { "", DrawableButton::ImageStretched };

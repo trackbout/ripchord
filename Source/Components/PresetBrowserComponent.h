@@ -27,10 +27,10 @@ private:
     PresetState& mPresetState;
     BrowserState& mBrowserState;
 
-    int mPresetHeight = 0;
-    int mPresetWidth = 0;
-    int mSpaceHeight = 0;
-    int mSpaceWidth = 0;
+    float mPresetHeight = 0.f;
+    float mPresetWidth = 0.f;
+    float mSpaceHeight = 0.f;
+    float mSpaceWidth = 0.f;
 
     void hardRefresh();
     void refreshBrowser();

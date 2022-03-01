@@ -25,12 +25,11 @@ private:
     GlobalState& mGlobalState;
     BrowserState& mBrowserState;
 
-    int mTagHeight = 0;
-    int mTagWidth = 0;
-    int mSpaceHeight = 0;
-    int mSpaceWidth = 0;
+    float mTagHeight = 0.f;
+    float mTagWidth = 0.f;
+    float mSpaceHeight = 0.f;
+    float mSpaceWidth = 0.f;
 
-    void hardRefresh();
     void refreshBrowser();
 
     OwnedArray<TagComponent> mTagsToDelete;

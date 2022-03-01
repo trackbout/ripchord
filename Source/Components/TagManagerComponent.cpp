@@ -66,7 +66,7 @@ void TagManagerComponent::resized()
     mNewTagInput.applyFontToAllText (Font (inputFontHeight));
     mNewTagInput.setIndents ((inputHeight * 0.4f), int ((inputHeight - inputFontHeight) * 0.5f));
 
-    mTagViewport.setScrollBarThickness (inputHeight / 2);
+    mTagViewport.setScrollBarThickness (inputHeight * 0.4f);
     mTagViewport.setBounds (Styles::getRelativeBounds (mainArea, TAG_VIEWPORT_X, TAG_VIEWPORT_Y, TAG_VIEWPORT_WIDTH, TAG_VIEWPORT_HEIGHT));
 
     auto tagBrowserArea = Styles::getRelativeBounds (mainArea, TAG_BROWSER_X, TAG_BROWSER_Y, TAG_BROWSER_WIDTH, TAG_BROWSER_HEIGHT - 2);

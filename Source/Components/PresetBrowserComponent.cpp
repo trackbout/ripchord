@@ -20,10 +20,10 @@ PresetBrowserComponent::~PresetBrowserComponent()
 //==============================================================================
 void PresetBrowserComponent::setDimensions (int inWidth, int inHeight)
 {
-    mPresetWidth = int (inWidth * (PRESET_WIDTH / PRESET_BROWSER_WIDTH));
+    mPresetWidth = float (inWidth * (PRESET_WIDTH / PRESET_BROWSER_WIDTH));
     mSpaceWidth = (inWidth - (PRESETS_PER_ROW * mPresetWidth)) / (PRESETS_PER_ROW + 1);
 
-    mPresetHeight = int (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
+    mPresetHeight = float (inHeight * (ITEM_HEIGHT / PRESET_VIEWPORT_HEIGHT));
     mSpaceHeight = mPresetHeight * ((HALF_SPACE + 1) / ITEM_HEIGHT);
 
     refreshBrowser();
@@ -65,8 +65,8 @@ void PresetBrowserComponent::refreshBrowser()
     for (int index = 0; index < filteredPresets.size(); index++)
     {
         Preset preset = filteredPresets[index];
-        int x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
-        int y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
+        float x = (index % PRESETS_PER_ROW) * (mPresetWidth + mSpaceWidth) + mSpaceWidth;
+        float y = (index / PRESETS_PER_ROW) * (mPresetHeight + mSpaceHeight) + mSpaceHeight;
 
         if (mBrowserState.isTagSelectorOn())
         {
@@ -112,6 +112,6 @@ void PresetBrowserComponent::refreshBrowser()
     }
 
     int rowCount = (int) std::ceil (filteredPresets.size() / (float) (PRESETS_PER_ROW));
-    int viewportHeight = ((mPresetHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
+    float viewportHeight = ((mPresetHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
     setSize (getWidth(), viewportHeight);
 }

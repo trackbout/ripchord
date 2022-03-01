@@ -5,6 +5,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
 :   mMainProcess (inMainProcess),
     mGlobalState (mMainProcess.getGlobalState()),
     mBrowserState (mMainProcess.getBrowserState()),
+    mTagBar (inMainProcess),
     mTagManager (inMainProcess),
     mPresetBrowser (inMainProcess)
 {
@@ -38,6 +39,9 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mKeyboardsButton.setTriggeredOnMouseDown (true);
     mKeyboardsButton.onClick = [this]() { mGlobalState.toggleView(); };
 
+    mTagBarViewport.setScrollBarsShown (false, true);
+    mTagBarViewport.setViewedComponent (&mTagBar, false);
+
     mPresetViewport.setScrollBarsShown (true, false);
     mPresetViewport.setViewedComponent (&mPresetBrowser, false);
 
@@ -60,6 +64,7 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mTagSelectorButton);
     addAndMakeVisible (mFavoritesButton);
     addAndMakeVisible (mKeyboardsButton);
+    addAndMakeVisible (mTagBarViewport);
     addAndMakeVisible (mPresetViewport);
     addAndMakeVisible (mPresetFilterInput);
     addChildComponent (mTagManager);
@@ -73,7 +78,7 @@ PresetViewComponent::~PresetViewComponent()
 void PresetViewComponent::paint (Graphics& inGraphics)
 {
     auto mainArea = getLocalBounds();
-    mTagBarBg.setBounds (Styles::getRelativeBounds (mainArea, TAGS_BG_X, OUTPUT_KEYBOARD_BG_Y, TAGS_BG_WIDTH, ITEM_HEIGHT));
+    mTagBarBg.setBounds (Styles::getRelativeBounds (mainArea, TAG_BAR_X, TAG_BAR_Y, TAG_BAR_WIDTH, TAG_BAR_HEIGHT));
     mSearchBarBg.setBounds (Styles::getRelativeBounds (mainArea, TEXT_INPUT_X, FOOTER_Y, TEXT_INPUT_WIDTH, ITEM_HEIGHT));
     mPresetBrowserBg.setBounds (Styles::getRelativeBounds (mainArea, PRESET_BROWSER_X, PRESET_BROWSER_Y, PRESET_BROWSER_WIDTH, PRESET_BROWSER_HEIGHT));
 }
@@ -97,7 +102,14 @@ void PresetViewComponent::resized()
     mPresetFilterInput.applyFontToAllText (Font (inputFontHeight));
     mPresetFilterInput.setIndents ((inputHeight * 0.4f), int ((inputHeight - inputFontHeight) * 0.5f));
 
-    mPresetViewport.setScrollBarThickness (inputHeight / 2);
+    mTagBarViewport.setScrollBarThickness (inputHeight * 0.4f);
+    mTagBarViewport.setBounds (Styles::getRelativeBounds (mainArea, TAG_BAR_VIEWPORT_X, TAG_BAR_VIEWPORT_Y, TAG_BAR_VIEWPORT_WIDTH, TAG_BAR_VIEWPORT_HEIGHT));
+
+    auto tagBarArea = Styles::getRelativeBounds (mainArea, TAG_BAR_X, TAG_BAR_Y, TAG_BAR_WIDTH, TAG_BAR_HEIGHT);
+    mTagBar.setBounds (tagBarArea);
+    mTagBar.setDimensions (tagBarArea.getWidth(), tagBarArea.getHeight());
+
+    mPresetViewport.setScrollBarThickness (inputHeight * 0.4f);
     mPresetViewport.setBounds (Styles::getRelativeBounds (mainArea, PRESET_VIEWPORT_X, PRESET_VIEWPORT_Y, PRESET_VIEWPORT_WIDTH, PRESET_VIEWPORT_HEIGHT));
 
     auto presetBrowserArea = Styles::getRelativeBounds (mainArea, PRESET_BROWSER_X, PRESET_BROWSER_Y, PRESET_BROWSER_WIDTH, PRESET_BROWSER_HEIGHT - 2);
