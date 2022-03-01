@@ -193,6 +193,10 @@
               file="Source/Components/TagBrowserComponent.cpp"/>
         <FILE id="gJwNpj" name="TagBrowserComponent.h" compile="0" resource="0"
               file="Source/Components/TagBrowserComponent.h"/>
+        <FILE id="cNcXlG" name="TagBarComponent.cpp" compile="1" resource="0"
+              file="Source/Components/TagBarComponent.cpp"/>
+        <FILE id="pxE9lh" name="TagBarComponent.h" compile="0" resource="0"
+              file="Source/Components/TagBarComponent.h"/>
         <FILE id="WLBDxw" name="TagComponent.cpp" compile="1" resource="0"
               file="Source/Components/TagComponent.cpp"/>
         <FILE id="BQU4w6" name="TagComponent.h" compile="0" resource="0" file="Source/Components/TagComponent.h"/>
