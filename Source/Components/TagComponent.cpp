@@ -1,9 +1,10 @@
 #include "TagComponent.h"
 
 //==============================================================================
-TagComponent::TagComponent (String inName, String inType)
+TagComponent::TagComponent (String inName, String inType, bool inIsSelected)
 :   mName (inName),
     mType (inType),
+    mIsSelected (inIsSelected),
     mDeleteComponent ("tag")
 {
     mTagLabel.addMouseListener (this, false);
@@ -31,7 +32,7 @@ TagComponent::~TagComponent()
 //==============================================================================
 void TagComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_GREY);
+    inGraphics.setColour (mIsSelected ? COLOR_PURPLE : COLOR_GREY);
     float cornerSize = getHeight() * CORNER_SIZE_RATIO;
     inGraphics.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }

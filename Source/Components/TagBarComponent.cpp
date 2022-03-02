@@ -59,10 +59,12 @@ void TagBarComponent::refreshBrowser()
     for (int index = 0; index < allTagNames.size(); index++)
     {
         String tagName = allTagNames[index];
+        bool isSelected = mBrowserState.isTagSelected (tagName);
+
         float x = (index * (mTagWidth + mSpaceWidth)) + mSpaceWidth;
         float y = mSpaceHeight - 0.5f;
 
-        auto* tagComponent = new TagComponent (tagName, "bar");
+        auto* tagComponent = new TagComponent (tagName, "bar", isSelected);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
 
         addAndMakeVisible (tagComponent);

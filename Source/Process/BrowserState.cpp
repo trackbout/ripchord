@@ -93,6 +93,18 @@ StringArray BrowserState::getAllTagNames()
     return mAllTagNames;
 }
 
+bool BrowserState::isTagSelected (String inTagName)
+{
+    if (isTagSelectorOn())
+    {
+        return mAssignableTag == inTagName;
+    }
+    else
+    {
+        return mSelectedTags.contains (inTagName);
+    }
+}
+
 //==============================================================================
 bool BrowserState::isFavorite (String inPresetName)
 {

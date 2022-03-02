@@ -10,7 +10,7 @@ class TagComponent : public Component
 {
 public:
     //==============================================================================
-    TagComponent (String name, String type);
+    TagComponent (String name, String type, bool isSelected);
     ~TagComponent();
 
     //==============================================================================
@@ -28,6 +28,7 @@ private:
     //==============================================================================
     String mName;
     String mType;
+    bool mIsSelected;
 
     Images mImages;
     Label mTagLabel;

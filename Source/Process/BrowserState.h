@@ -23,6 +23,7 @@ public:
 
     //==============================================================================
     StringArray getAllTagNames();
+    bool isTagSelected (String tagName);
 
     //==============================================================================
     bool isFavorite (String presetName);
@@ -64,6 +65,9 @@ private:
 
     StringPairArray mAllTags;
     StringArray mAllTagNames;
+
+    String mAssignableTag;
+    StringArray mSelectedTags;
 
     StringArray mFavPathNames;
 
