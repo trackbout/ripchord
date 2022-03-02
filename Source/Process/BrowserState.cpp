@@ -193,6 +193,39 @@ void BrowserState::handleClickDeleteTag (const String inName)
 }
 
 //==============================================================================
+void BrowserState::handleClickAssignableTag (const String inName)
+{
+    if (mAssignableTag == inName)
+    {
+        mAssignableTag.clear();
+    }
+    else
+    {
+        mAssignableTag = inName;
+    }
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTagAssigned;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void BrowserState::handleClickSelectableTag (const String inName)
+{
+    if (mAssignableTag == inName)
+    {
+        mSelectedTags.addIfNotAlreadyThere (inName);
+    }
+    else
+    {
+        mSelectedTags.removeString (inName);
+    }
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTagSelected;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
 void BrowserState::handleClickFavorite (const int inIndexValue)
 {
     Preset preset = mAllPresets[inIndexValue];

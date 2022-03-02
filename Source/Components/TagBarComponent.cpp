@@ -36,6 +36,8 @@ void TagBarComponent::handleNewMessage (const DataMessage* inMessage)
     switch (inMessage->messageCode)
     {
         case (MessageCode::kToggleView): { refreshBrowser(); } break;
+        case (MessageCode::kTagAssigned): { refreshBrowser(); } break;
+        case (MessageCode::kTagSelected): { refreshBrowser(); } break;
         case (MessageCode::kTagCreated): { hardRefresh(); } break;
         case (MessageCode::kTagDeleted): { hardRefresh(); } break;
         default: { } break;
@@ -66,6 +68,18 @@ void TagBarComponent::refreshBrowser()
 
         auto* tagComponent = new TagComponent (tagName, "bar", isSelected);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
+
+        tagComponent->onClick = [this](const String name)
+        {
+            if (mBrowserState.isTagSelectorOn())
+            {
+                mBrowserState.handleClickAssignableTag (name);
+            }
+            else
+            {
+                mBrowserState.handleClickSelectableTag (name);
+            }
+        };
 
         addAndMakeVisible (tagComponent);
 

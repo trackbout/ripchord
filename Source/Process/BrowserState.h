@@ -46,6 +46,10 @@ public:
     void handleClickDeleteTag (const String name);
 
     //==============================================================================
+    void handleClickAssignableTag (const String name);
+    void handleClickSelectableTag (const String name);
+
+    //==============================================================================
     void handleClickFavorite (const int indexValue);
     void handleClickDeletePreset (const int indexValue);
 
