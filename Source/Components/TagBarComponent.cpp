@@ -54,11 +54,11 @@ void TagBarComponent::refreshBrowser()
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
-    StringArray tagNames = mBrowserState.getTagNames();
+    StringArray allTagNames = mBrowserState.getAllTagNames();
 
-    for (int index = 0; index < tagNames.size(); index++)
+    for (int index = 0; index < allTagNames.size(); index++)
     {
-        String tagName = tagNames[index];
+        String tagName = allTagNames[index];
         float x = (index * (mTagWidth + mSpaceWidth)) + mSpaceWidth;
         float y = mSpaceHeight - 0.5f;
 
@@ -71,6 +71,6 @@ void TagBarComponent::refreshBrowser()
         mTagsToDelete.add (tagComponent);
     }
 
-    float viewportWidth = ((mTagWidth + mSpaceWidth) * tagNames.size()) + mSpaceWidth;
+    float viewportWidth = ((mTagWidth + mSpaceWidth) * allTagNames.size()) + mSpaceWidth;
     setSize (viewportWidth, getHeight());
 }

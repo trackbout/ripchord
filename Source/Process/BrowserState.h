@@ -22,7 +22,7 @@ public:
     juce::Array<Preset> getFilteredPresets();
 
     //==============================================================================
-    StringArray getTagNames();
+    StringArray getAllTagNames();
 
     //==============================================================================
     bool isFavorite (String presetName);
@@ -62,8 +62,9 @@ private:
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;
 
-    StringPairArray mTags;
-    StringArray mTagNames;
+    StringPairArray mAllTags;
+    StringArray mAllTagNames;
+
     StringArray mFavPathNames;
 
     String mNewTagText = "";

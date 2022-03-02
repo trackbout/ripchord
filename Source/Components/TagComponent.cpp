@@ -58,6 +58,7 @@ void TagComponent::resized()
     }
 }
 
+//==============================================================================
 void TagComponent::mouseDown (const MouseEvent& inEvent)
 {
 

@@ -45,11 +45,11 @@ void TagBrowserComponent::refreshBrowser()
     if (mGlobalState.isKeyboardView()) { return; }
 
     removeAllChildren();
-    StringArray tagNames = mBrowserState.getTagNames();
+    StringArray allTagNames = mBrowserState.getAllTagNames();
 
-    for (int index = 0; index < tagNames.size(); index++)
+    for (int index = 0; index < allTagNames.size(); index++)
     {
-        String tagName = tagNames[index];
+        String tagName = allTagNames[index];
         float x = (index % BROWSER_TAGS_PER_ROW) * (mTagWidth + mSpaceWidth) + mSpaceWidth;
         float y = (index / BROWSER_TAGS_PER_ROW) * (mTagHeight + mSpaceHeight) + mSpaceHeight;
 
@@ -67,7 +67,7 @@ void TagBrowserComponent::refreshBrowser()
         mTagsToDelete.add (tagComponent);
     }
 
-    int rowCount = (int) std::ceil (tagNames.size() / (float) (BROWSER_TAGS_PER_ROW));
+    int rowCount = (int) std::ceil (allTagNames.size() / (float) (BROWSER_TAGS_PER_ROW));
     float viewportHeight = ((mTagHeight + mSpaceHeight) * rowCount) + mSpaceHeight;
     setSize (getWidth(), viewportHeight);
 }
