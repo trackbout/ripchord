@@ -1,8 +1,9 @@
 #include "TagComponent.h"
 
 //==============================================================================
-TagComponent::TagComponent (String inName)
+TagComponent::TagComponent (String inName, String inType)
 :   mName (inName),
+    mType (inType),
     mDeleteComponent ("tag")
 {
     mTagLabel.addMouseListener (this, false);
@@ -10,15 +11,17 @@ TagComponent::TagComponent (String inName)
     mTagLabel.setColour (Label::textColourId, COLOR_BLACK);
     mTagLabel.setJustificationType (Justification::centred);
 
-    mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
-    mTrashButton.setTriggeredOnMouseDown (true);
-    mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
-
-    mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mName); } };
-
     addAndMakeVisible (mTagLabel);
     addAndMakeVisible (mTrashButton);
-    addChildComponent (mDeleteComponent);
+
+    if (mType == "browser")
+    {
+        mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
+        mTrashButton.setTriggeredOnMouseDown (true);
+        mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
+        mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mName); } };
+        addChildComponent (mDeleteComponent);
+    }
 }
 
 TagComponent::~TagComponent()
@@ -36,15 +39,23 @@ void TagComponent::paint (Graphics& inGraphics)
 void TagComponent::resized()
 {
     auto area = getLocalBounds();
-    mDeleteComponent.setBounds (area);
+    mTagLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) + 1).boldened());
 
-    juce::Rectangle<float> trashAreaProportion (TRASH_TAG_X / PRESET_WIDTH, TRASH_TAG_Y / ITEM_HEIGHT,
-                                                TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
+    if (mType == "bar")
+    {
+        mTagLabel.setBounds (area.reduced ((area.getHeight() * 0.1f), 0));
+    }
 
-    mTrashButton.setBounds (area.getProportion (trashAreaProportion));
+    if (mType == "browser")
+    {
+        mDeleteComponent.setBounds (area);
+        mTagLabel.setBounds (area.reduced ((area.getHeight() * 0.7f), 0));
 
-    mTagLabel.setFont (Font ((area.getHeight() * TEXT_INPUT_FONT_HEIGHT_RATIO) - 2).boldened());
-    mTagLabel.setBounds (area.reduced (area.getHeight(), 0));
+        juce::Rectangle<float> trashAreaProportion (TRASH_TAG_X / PRESET_WIDTH, TRASH_TAG_Y / ITEM_HEIGHT,
+                                                    TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
+
+        mTrashButton.setBounds (area.getProportion (trashAreaProportion));
+    }
 }
 
 void TagComponent::mouseDown (const MouseEvent& inEvent)

@@ -10,7 +10,7 @@ class TagComponent : public Component
 {
 public:
     //==============================================================================
-    TagComponent (String name);
+    TagComponent (String name, String type);
     ~TagComponent();
 
     //==============================================================================
@@ -25,6 +25,7 @@ public:
 private:
     //==============================================================================
     String mName;
+    String mType;
 
     Images mImages;
     Label mTagLabel;

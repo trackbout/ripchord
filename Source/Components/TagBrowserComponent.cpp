@@ -53,7 +53,7 @@ void TagBrowserComponent::refreshBrowser()
         float x = (index % BROWSER_TAGS_PER_ROW) * (mTagWidth + mSpaceWidth) + mSpaceWidth;
         float y = (index / BROWSER_TAGS_PER_ROW) * (mTagHeight + mSpaceHeight) + mSpaceHeight;
 
-        auto* tagComponent = new TagComponent (tagName);
+        auto* tagComponent = new TagComponent (tagName, "browser");
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
 
         tagComponent->onDelete = [this](const String name)

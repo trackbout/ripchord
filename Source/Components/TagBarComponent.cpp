@@ -62,10 +62,8 @@ void TagBarComponent::refreshBrowser()
         float x = (index * (mTagWidth + mSpaceWidth)) + mSpaceWidth;
         float y = mSpaceHeight - 0.5f;
 
-        auto* tagComponent = new TagComponent (tagName);
+        auto* tagComponent = new TagComponent (tagName, "bar");
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
-
-        tagComponent->onDelete = [this](const String name) { };
 
         addAndMakeVisible (tagComponent);
 
