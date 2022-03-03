@@ -213,13 +213,13 @@ void BrowserState::handleClickAssignableTag (const String inName)
 
 void BrowserState::handleClickSelectableTag (const String inName)
 {
-    if (mAssignableTag == inName)
+    if (mSelectedTags.contains (inName))
     {
-        mSelectedTags.addIfNotAlreadyThere (inName);
+        mSelectedTags.removeString (inName);
     }
     else
     {
-        mSelectedTags.removeString (inName);
+        mSelectedTags.addIfNotAlreadyThere (inName);
     }
 
     DataMessage* message = new DataMessage();
