@@ -35,11 +35,12 @@ void TagBarComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
+        case (MessageCode::kTagCreated): { hardRefresh(); } break;
+        case (MessageCode::kTagDeleted): { hardRefresh(); } break;
         case (MessageCode::kToggleView): { refreshBrowser(); } break;
         case (MessageCode::kTagAssigned): { refreshBrowser(); } break;
         case (MessageCode::kTagSelected): { refreshBrowser(); } break;
-        case (MessageCode::kTagCreated): { hardRefresh(); } break;
-        case (MessageCode::kTagDeleted): { hardRefresh(); } break;
+        case (MessageCode::kToggleTagSelector): { refreshBrowser(); } break;
         default: { } break;
     };
 }
@@ -62,11 +63,12 @@ void TagBarComponent::refreshBrowser()
     {
         String tagName = allTagNames[index];
         bool isSelected = mBrowserState.isTagSelected (tagName);
+        bool isAssignable = mBrowserState.isTagAssignable (tagName);
 
         float x = (index * (mTagWidth + mSpaceWidth)) + mSpaceWidth;
         float y = mSpaceHeight - 0.5f;
 
-        auto* tagComponent = new TagComponent (tagName, "bar", isSelected);
+        auto* tagComponent = new TagComponent (tagName, "bar", isSelected, isAssignable);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
 
         tagComponent->onClick = [this](const String name)

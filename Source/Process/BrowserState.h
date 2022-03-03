@@ -24,6 +24,7 @@ public:
     //==============================================================================
     StringArray getAllTagNames();
     bool isTagSelected (String tagName);
+    bool isTagAssignable (String tagName);
 
     //==============================================================================
     bool isFavorite (String presetName);

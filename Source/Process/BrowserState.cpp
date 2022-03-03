@@ -95,14 +95,14 @@ StringArray BrowserState::getAllTagNames()
 
 bool BrowserState::isTagSelected (String inTagName)
 {
-    if (isTagSelectorOn())
-    {
-        return mAssignableTag == inTagName;
-    }
-    else
-    {
-        return mSelectedTags.contains (inTagName);
-    }
+    if (isTagSelectorOn()) { return false; }
+    return mSelectedTags.contains (inTagName);
+}
+
+bool BrowserState::isTagAssignable (String inTagName)
+{
+    if (!isTagSelectorOn()) { return false; }
+    return mAssignableTag == inTagName;
 }
 
 //==============================================================================
@@ -158,6 +158,8 @@ bool BrowserState::isTagManagerVisible()
 //==============================================================================
 void BrowserState::toggleTagSelector()
 {
+    mSelectedTags.clear();
+    mAssignableTag.clear();
     mIsTagSelectorOn = !mIsTagSelectorOn;
 
     DataMessage* message = new DataMessage();
