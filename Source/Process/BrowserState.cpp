@@ -15,8 +15,6 @@ BrowserState::~BrowserState()
 //==============================================================================
 void BrowserState::refreshData()
 {
-    mAllTags = mTagsFile.getAllProperties();
-    mAllTagNames = mAllTags.getAllKeys();
     mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
 
     mAllPresets.clear();
@@ -90,7 +88,9 @@ juce::Array<Preset> BrowserState::getFilteredPresets()
 //==============================================================================
 StringArray BrowserState::getAllTagNames()
 {
-    return mAllTagNames;
+    StringPairArray allTags = mTagsFile.getAllProperties();
+    StringArray allTagNames = allTags.getAllKeys();
+    return allTagNames;
 }
 
 bool BrowserState::isTagSelected (String inTagName)
@@ -187,7 +187,6 @@ void BrowserState::handleClickCreateTag()
 void BrowserState::handleClickDeleteTag (const String inName)
 {
     mTagsFile.removeValue (inName);
-    mAllTagNames.removeString (inName);
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTagDeleted;
@@ -257,6 +256,7 @@ void BrowserState::handleClickFavorite (const int inIndexValue)
 void BrowserState::handleClickDeletePreset (const int inIndexValue)
 {
     File file = mAllPresetFiles[inIndexValue];
+    if (!file.existsAsFile()) { return; }
 
     if (mFavPathNames.contains (file.getFullPathName()))
     {

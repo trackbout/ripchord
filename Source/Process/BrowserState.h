@@ -68,9 +68,6 @@ private:
     juce::Array<Preset> mAllPresets;
     juce::Array<Preset> mFilteredPresets;
 
-    StringPairArray mAllTags;
-    StringArray mAllTagNames;
-
     String mAssignableTag;
     StringArray mSelectedTags;
 
