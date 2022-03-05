@@ -34,12 +34,14 @@ void BrowserState::filterPresets()
 {
     mFilteredPresets.clear();
 
-    if (!mIsFavoritesOn && mPresetFilterText.isEmpty())
+    // ALL PRESETS
+    if (!mIsFavoritesOn && mSelectedTags.isEmpty() && mPresetFilterText.isEmpty())
     {
         mFilteredPresets = mAllPresets;
     }
 
-    if (mIsFavoritesOn && mPresetFilterText.isEmpty())
+    // ONLY FAVS
+    if (mIsFavoritesOn && mSelectedTags.isEmpty() && mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
@@ -50,7 +52,20 @@ void BrowserState::filterPresets()
         }
     }
 
-    if (!mIsFavoritesOn && !mPresetFilterText.isEmpty())
+    // ONLY TAGS
+    if (!mIsFavoritesOn && !mSelectedTags.isEmpty() && mPresetFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (isInSelectedTags (preset.indexValue))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    // ONLY SEARCH
+    if (!mIsFavoritesOn && mSelectedTags.isEmpty() && !mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
@@ -61,11 +76,48 @@ void BrowserState::filterPresets()
         }
     }
 
-    if (mIsFavoritesOn && !mPresetFilterText.isEmpty())
+    // FAVS + TAGS
+    if (mIsFavoritesOn && !mSelectedTags.isEmpty() && mPresetFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (preset.isFavorite && isInSelectedTags (preset.indexValue))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    // FAVS + SEARCH
+    if (mIsFavoritesOn && mSelectedTags.isEmpty() && !mPresetFilterText.isEmpty())
     {
         for (Preset& preset : mAllPresets)
         {
             if (preset.isFavorite && preset.fileName.containsIgnoreCase (mPresetFilterText))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    // TAGS + SEARCH
+    if (!mIsFavoritesOn && !mSelectedTags.isEmpty() && !mPresetFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (isInSelectedTags (preset.indexValue) && preset.fileName.containsIgnoreCase (mPresetFilterText))
+            {
+                mFilteredPresets.add (preset);
+            }
+        }
+    }
+
+    // FAVS + TAGS + SEARCH
+    if (mIsFavoritesOn && !mSelectedTags.isEmpty() && !mPresetFilterText.isEmpty())
+    {
+        for (Preset& preset : mAllPresets)
+        {
+            if (preset.isFavorite && isInSelectedTags (preset.indexValue) && preset.fileName.containsIgnoreCase (mPresetFilterText))
             {
                 mFilteredPresets.add (preset);
             }
