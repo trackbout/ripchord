@@ -23,12 +23,16 @@ public:
 
     //==============================================================================
     StringArray getAllTagNames();
-    bool isTagSelected (String tagName);
-    bool isTagAssignable (String tagName);
+    bool isTagSelected (const String tagName);
+    bool isTagAssignable (const String tagName);
 
     //==============================================================================
-    bool isFavorite (String presetName);
-    int getUnfilteredIndex (String presetName);
+    bool isInSelectedTags (const int indexValue);
+    bool isInAssignableTag (const int indexValue);
+
+    //==============================================================================
+    bool isFavorite (const String presetName);
+    int getUnfilteredIndex (const String presetName);
 
     //==============================================================================
     void toggleFavorites();
@@ -53,6 +57,7 @@ public:
     //==============================================================================
     void handleClickFavorite (const int indexValue);
     void handleClickDeletePreset (const int indexValue);
+    void handleClickPresetTagger (const int indexValue);
 
     //==============================================================================
     void handleNewTagTextChanged (String newTagText);
@@ -70,7 +75,6 @@ private:
 
     String mAssignableTag;
     StringArray mSelectedTags;
-
     StringArray mFavPathNames;
 
     String mNewTagText = "";

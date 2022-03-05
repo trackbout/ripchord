@@ -10,7 +10,7 @@ class PresetTaggerComponent : public Component
 {
 public:
     //==============================================================================
-    PresetTaggerComponent (Preset preset);
+    PresetTaggerComponent (Preset preset, bool isInAssignableTag);
     ~PresetTaggerComponent();
 
     //==============================================================================
@@ -24,6 +24,7 @@ public:
 private:
     //==============================================================================
     Preset mPreset;
+    bool mIsInAssignableTag;
 
     Images mImages;
     Label mPresetLabel;

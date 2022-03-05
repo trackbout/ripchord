@@ -15,11 +15,10 @@ BrowserState::~BrowserState()
 //==============================================================================
 void BrowserState::refreshData()
 {
-    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
-
     mAllPresets.clear();
     mAllPresetFiles.clear();
     mAllPresetFiles = Presets::getSortedPresetFiles();
+    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
 
     for (int index = 0; index < mAllPresetFiles.size(); index++)
     {
@@ -93,26 +92,52 @@ StringArray BrowserState::getAllTagNames()
     return allTagNames;
 }
 
-bool BrowserState::isTagSelected (String inTagName)
+bool BrowserState::isTagSelected (const String inTagName)
 {
     if (isTagSelectorOn()) { return false; }
     return mSelectedTags.contains (inTagName);
 }
 
-bool BrowserState::isTagAssignable (String inTagName)
+bool BrowserState::isTagAssignable (const String inTagName)
 {
     if (!isTagSelectorOn()) { return false; }
     return mAssignableTag == inTagName;
 }
 
 //==============================================================================
-bool BrowserState::isFavorite (String inPresetName)
+bool BrowserState::isInSelectedTags (const int inIndexValue)
+{
+    int matches = 0;
+    File file = mAllPresetFiles[inIndexValue];
+    if (!file.existsAsFile() || mSelectedTags.size() == 0) { return false; }
+
+    for (int index = 0; index < mSelectedTags.size(); index++)
+    {
+        const String tagName = mSelectedTags[index];
+        StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (tagName), ";", "");
+        if (taggedFileNames.contains(file.getFileName())) { matches += 1; }
+    }
+
+    return matches > 0;
+}
+
+bool BrowserState::isInAssignableTag (const int inIndexValue)
+{
+    File file = mAllPresetFiles[inIndexValue];
+    if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return false; }
+
+    StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
+    return taggedFileNames.contains(file.getFileName());
+}
+
+//==============================================================================
+bool BrowserState::isFavorite (const String inPresetName)
 {
     int indexValue = getUnfilteredIndex (inPresetName);
     return mAllPresets[indexValue].isFavorite;
 }
 
-int BrowserState::getUnfilteredIndex (String inPresetName)
+int BrowserState::getUnfilteredIndex (const String inPresetName)
 {
     int unfilteredIndex = -1;
 
@@ -206,7 +231,7 @@ void BrowserState::handleClickAssignableTag (const String inName)
     }
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTagAssigned;
+    message->messageCode = MessageCode::kClickAssignableTag;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -222,7 +247,7 @@ void BrowserState::handleClickSelectableTag (const String inName)
     }
 
     DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kTagSelected;
+    message->messageCode = MessageCode::kClickSelectableTag;
     sendMessage (message, ListenerType::kSync);
 }
 
@@ -270,6 +295,30 @@ void BrowserState::handleClickDeletePreset (const int inIndexValue)
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kPresetFileDeleted;
+    sendMessage (message, ListenerType::kSync);
+}
+
+void BrowserState::handleClickPresetTagger (const int inIndexValue)
+{
+    File file = mAllPresetFiles[inIndexValue];
+    if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return; }
+
+    StringArray taggedPathNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
+
+    if (taggedPathNames.contains (file.getFileName()))
+    {
+        taggedPathNames.removeString (file.getFileName());
+    }
+    else
+    {
+        taggedPathNames.addIfNotAlreadyThere (file.getFileName());
+    }
+
+    mTagsFile.setValue (mAssignableTag, taggedPathNames.joinIntoString (";"));
+    mTagsFile.saveIfNeeded();
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kClickPresetTagger;
     sendMessage (message, ListenerType::kSync);
 }
 

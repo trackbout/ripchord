@@ -1,8 +1,9 @@
 #include "PresetTaggerComponent.h"
 
 //==============================================================================
-PresetTaggerComponent::PresetTaggerComponent (Preset inPreset)
-:   mPreset (inPreset)
+PresetTaggerComponent::PresetTaggerComponent (Preset inPreset, bool inIsInAssignableTag)
+:   mPreset (inPreset),
+    mIsInAssignableTag (inIsInAssignableTag)
 {
     mPresetLabel.addMouseListener (this, false);
     mPresetLabel.setText (mPreset.fileName, dontSendNotification);
@@ -10,7 +11,7 @@ PresetTaggerComponent::PresetTaggerComponent (Preset inPreset)
     mPresetLabel.setJustificationType (Justification::centred);
 
     mCheckButton.addMouseListener (this, false);
-    mImages.setDrawableButtonImages (mCheckButton, "CheckEmpty.svg");
+    mImages.setDrawableButtonImages (mCheckButton, mIsInAssignableTag ? "CheckFull.svg" : "CheckEmpty.svg");
 
     addAndMakeVisible (mPresetLabel);
     addAndMakeVisible (mCheckButton);
@@ -23,7 +24,7 @@ PresetTaggerComponent::~PresetTaggerComponent()
 //==============================================================================
 void PresetTaggerComponent::paint (Graphics& inGraphics)
 {
-    inGraphics.setColour (COLOR_DARK);
+    inGraphics.setColour (mIsInAssignableTag ? COLOR_GREY : COLOR_DARK);
     float cornerSize = getHeight() * CORNER_SIZE_RATIO;
     inGraphics.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }

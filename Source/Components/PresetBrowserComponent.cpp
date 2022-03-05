@@ -38,9 +38,12 @@ void PresetBrowserComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kPresetFileSaved): { hardRefresh(); } break;
         case (MessageCode::kPresetFileLoaded): { hardRefresh(); } break;
         case (MessageCode::kPresetFileDeleted): { hardRefresh(); } break;
+        case (MessageCode::kToggleTagSelector): { refreshBrowser(); } break;
+        case (MessageCode::kClickPresetTagger): { refreshBrowser(); } break;
+        case (MessageCode::kClickSelectableTag): { refreshBrowser(); } break;
+        case (MessageCode::kClickAssignableTag): { refreshBrowser(); } break;
         case (MessageCode::kPresetFileFavorited): { refreshBrowser(); } break;
         case (MessageCode::kPresetFilterTextChanged): { refreshBrowser(); } break;
-        case (MessageCode::kToggleTagSelector): { refreshBrowser(); } break;
         case (MessageCode::kToggleFavorites): { refreshBrowser(); } break;
         default: { } break;
     };
@@ -70,12 +73,13 @@ void PresetBrowserComponent::refreshBrowser()
 
         if (mBrowserState.isTagSelectorOn())
         {
-            auto* presetTaggerComponent = new PresetTaggerComponent (preset);
+            bool isInAssignableTag = mBrowserState.isInAssignableTag (index);
+            auto* presetTaggerComponent = new PresetTaggerComponent (preset, isInAssignableTag);
             presetTaggerComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
 
             presetTaggerComponent->onClick = [this](const int indexValue)
             {
-                // do stuff
+                mBrowserState.handleClickPresetTagger (indexValue);
             };
 
             addAndMakeVisible (presetTaggerComponent);
