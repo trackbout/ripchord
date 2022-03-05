@@ -19,10 +19,6 @@ public:
     void resized() override;
 
     //==============================================================================
-    void triggerLeftArrow();
-    void triggerRightArrow();
-
-    //==============================================================================
     void handleNewMessage (const DataMessage* message) override;
 
 private:

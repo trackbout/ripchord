@@ -136,18 +136,25 @@ void KeyboardViewComponent::resized()
 //==============================================================================
 bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
 {
-    if (mGlobalState.isPresetView() || mGlobalState.isEditMode()) { return false; }
-
     auto keyCode = inKey.getKeyCode();
+    bool isLeftArrow = keyCode == KeyPress::leftKey || keyCode == KeyPress::upKey;
+    bool isRightArrow = keyCode == KeyPress::rightKey || keyCode == KeyPress::downKey;
+    if (!isLeftArrow && !isRightArrow) { return false; }
 
-    if (keyCode == KeyPress::leftKey || keyCode == KeyPress::upKey)
+    mSkipKeypress = !mSkipKeypress;
+
+    if (mGlobalState.isPresetView() || mGlobalState.isEditMode() || mSkipKeypress) { return false; }
+
+    if (isLeftArrow)
     {
-        mPresetName.triggerLeftArrow();
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return false; }
+        mBrowserState.handleClickLeftArrow (mPresetState.getName());
     }
 
-    if (keyCode == KeyPress::rightKey || keyCode == KeyPress::downKey)
+    if (isRightArrow)
     {
-        mPresetName.triggerRightArrow();
+        if (mMidiState.getCurrentlyOnInputNotes().size() > 0) { return false; }
+        mBrowserState.handleClickRightArrow (mPresetState.getName());
     }
 
     return false;

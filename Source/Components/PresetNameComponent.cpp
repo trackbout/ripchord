@@ -72,17 +72,6 @@ void PresetNameComponent::resized()
 }
 
 //==============================================================================
-void PresetNameComponent::triggerLeftArrow()
-{
-    mLeftArrowButton.triggerClick();
-}
-
-void PresetNameComponent::triggerRightArrow()
-{
-    mRightArrowButton.triggerClick();
-}
-
-//==============================================================================
 void PresetNameComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
