@@ -18,10 +18,10 @@ PresetViewComponent::PresetViewComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mSearchBarBg, "SearchBarBg.svg");
     mImages.setDrawableButtonImages (mPresetBrowserBg, "PresetBrowserBg.svg");
     mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
-    mImages.setDrawableButtonImages (mPowerButton, "PowerON.svg");
+    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
     mImages.setDrawableButtonImages (mTagManagerButton, "TagManager.svg");
-    mImages.setDrawableButtonImages (mTagSelectorButton, "TagSelector.svg");
-    mImages.setDrawableButtonImages (mFavoritesButton, "Favorites.svg");
+    mImages.setDrawableButtonImages (mTagSelectorButton, mBrowserState.isTagSelectorOn() ? "TagSelectorON.svg" : "TagSelector.svg");
+    mImages.setDrawableButtonImages (mFavoritesButton, mBrowserState.isFavoritesOn() ? "FavoritesON.svg" : "Favorites.svg");
     mImages.setDrawableButtonImages (mKeyboardsButton, "Keyboards.svg");
 
     mMenuButton.setTriggeredOnMouseDown (true);

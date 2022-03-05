@@ -21,13 +21,10 @@ KeyboardViewComponent::KeyboardViewComponent (MainProcess& inMainProcess)
 
     setWantsKeyboardFocus (true);
 
-    bool isOn = mGlobalState.isPowerOn();
-    bool isFav = mBrowserState.isFavorite (mPresetState.getName());
-
-    mImages.setDrawableButtonImages (mQuickFav, isFav ? "QuickFavON.svg" : "QuickFav.svg");
+    mImages.setDrawableButtonImages (mQuickFav, mBrowserState.isFavorite (mPresetState.getName()) ? "QuickFavON.svg" : "QuickFav.svg");
     mImages.setDrawableButtonImages (mMenuButton, "GearCircle.svg");
-    mImages.setDrawableButtonImages (mPowerButton, isOn ? "PowerON.svg" : "Power.svg");
-    mImages.setDrawableButtonImages (mModeButton, "ModePLAY.svg");
+    mImages.setDrawableButtonImages (mPowerButton, mGlobalState.isPowerOn() ? "PowerON.svg" : "Power.svg");
+    mImages.setDrawableButtonImages (mModeButton, mGlobalState.isEditMode() ? "ModeEDIT.svg" : "ModePLAY.svg");
     mImages.setDrawableButtonImages (mPresetsButton, "Presets.svg");
     mImages.setDrawableButtonImages (mInputKeyboardBg, "KeyboardBg.svg");
     mImages.setDrawableButtonImages (mOutputKeyboardBg, "KeyboardBg.svg");

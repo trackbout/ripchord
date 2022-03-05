@@ -71,8 +71,7 @@ void RightClickComponent::paintWithCoordinates()
     mCopyButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 39, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
     mPasteButton.setBounds (Styles::getRelativeBounds (mainArea, mouseDownX + 10, mouseDownY + 69, RIGHT_CLICK_ITEM_WIDTH, RIGHT_CLICK_ITEM_HEIGHT));
 
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, mGlobalState.isDarkTheme() ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
 }
 
 //==============================================================================
@@ -96,6 +95,5 @@ void RightClickComponent::handleToggleRightClick (const DataMessage* inMessage)
 
 void RightClickComponent::handleToggleTheme (const DataMessage* inMessage)
 {
-    bool isDark = mGlobalState.isDarkTheme();
-    mImages.setDrawableButtonImages (mRightClickBg, isDark ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
+    mImages.setDrawableButtonImages (mRightClickBg, mGlobalState.isDarkTheme() ? "RightClickBgDARK.svg" : "RightClickBgLIGHT.svg");
 }
