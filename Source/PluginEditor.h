@@ -30,5 +30,7 @@ private:
     RipchordPluginProcessor& mPluginProcessor;
     MainComponent mMainComponent;
 
+    PropertiesFile mConfigFile { System::createPluginPropertiesOptions ("config") };
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RipchordPluginEditor)
 };

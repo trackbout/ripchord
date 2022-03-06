@@ -14,8 +14,18 @@ RipchordPluginEditor::RipchordPluginEditor (RipchordPluginProcessor& inRipchordP
         boundsConstrainer->setMaximumSize (EDITOR_WIDTH * 2.0f, EDITOR_HEIGHT * 2.0f);
     }
 
+    int lastWidth = mPluginProcessor.getLastEditorWidth();
+    int lastHeight = mPluginProcessor.getLastEditorHeight();
+
+    int savedWidth = mConfigFile.getValue ("width").getIntValue();
+    int savedHeight = mConfigFile.getValue ("height").getIntValue();
+
+    int useWidth = savedWidth > 0 ? savedWidth : lastWidth;
+    int useHeight = savedHeight > 0 ? savedHeight : lastHeight;
+
     setResizable (true, true);
-    setSize (mPluginProcessor.getLastEditorWidth(), mPluginProcessor.getLastEditorHeight());
+
+    setSize (useWidth, useHeight);
 
     addAndMakeVisible (mMainComponent);
 }
@@ -29,6 +39,13 @@ void RipchordPluginEditor::resized()
 {
     auto area = getLocalBounds();
     mMainComponent.setBounds (area);
-    mPluginProcessor.setLastEditorWidth (getWidth());
-    mPluginProcessor.setLastEditorHeight (getHeight());
+
+    int width = getWidth();
+    int height = getHeight();
+
+    mConfigFile.setValue ("width", width);
+    mConfigFile.setValue ("height", height);
+
+    mPluginProcessor.setLastEditorWidth (width);
+    mPluginProcessor.setLastEditorHeight (height);
 }
