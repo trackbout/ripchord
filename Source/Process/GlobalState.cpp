@@ -165,7 +165,14 @@ void GlobalState::setMouseDownKey (int inNoteNumber)
 }
 
 //==============================================================================
-void GlobalState::readConfigFile()
+void GlobalState::resetSizeInConfig()
+{
+    mConfigFile.setValue ("width", EDITOR_WIDTH);
+    mConfigFile.setValue ("height", EDITOR_HEIGHT);
+    mConfigFile.saveIfNeeded();
+}
+
+void GlobalState::setThemeFromConfig()
 {
     bool isDarkTheme = mConfigFile.getValue ("theme") == "0";
     mTheme = isDarkTheme ? Theme::Dark : Theme::Light;

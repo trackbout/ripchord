@@ -13,7 +13,7 @@ MainComponent::MainComponent (MainProcess& inMainProcess)
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
     mPresetState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mGlobalState.readConfigFile();
+    mGlobalState.setThemeFromConfig();
 
     setOpaque (true);
     mTitleLabel.setFont (Font().boldened());
@@ -64,19 +64,14 @@ void MainComponent::handleNewMessage (const DataMessage* inMessage)
 {
     switch (inMessage->messageCode)
     {
-        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         case (MessageCode::kToggleView): { handleToggleView (inMessage); } break;
         case (MessageCode::kToggleMenu): { handleToggleMenu (inMessage); } break;
+        case (MessageCode::kToggleTheme): { handleToggleTheme (inMessage); } break;
         case (MessageCode::kToggleRight): { handleToggleRightClick (inMessage); } break;
         case (MessageCode::kPresetFileNew): { handlePresetFileNew (inMessage); } break;
         case (MessageCode::kPresetFileLoaded): { handlePresetFileLoaded (inMessage); } break;
         default: { } break;
     };
-}
-
-void MainComponent::handleToggleTheme (const DataMessage* inMessage)
-{
-    repaint();
 }
 
 void MainComponent::handleToggleView (const DataMessage* inMessage)
@@ -88,6 +83,11 @@ void MainComponent::handleToggleView (const DataMessage* inMessage)
 void MainComponent::handleToggleMenu (const DataMessage* inMessage)
 {
     mMenuComponent.setVisible (mGlobalState.isMenuVisible());
+}
+
+void MainComponent::handleToggleTheme (const DataMessage* inMessage)
+{
+    repaint();
 }
 
 void MainComponent::handleToggleRightClick (const DataMessage* inMessage)

@@ -38,9 +38,9 @@ private:
 
     Label mTitleLabel { "", "ripchord" };
 
-    void handleToggleTheme (const DataMessage* message);
     void handleToggleView (const DataMessage* message);
     void handleToggleMenu (const DataMessage* message);
+    void handleToggleTheme (const DataMessage* message);
     void handleToggleRightClick (const DataMessage* message);
     void handlePresetFileNew (const DataMessage* message);
     void handlePresetFileLoaded (const DataMessage* message);

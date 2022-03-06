@@ -36,6 +36,7 @@ private:
     Label mCreditsLabel { "", "we support producers" };
 
     DrawableButton mThemeButton { "", DrawableButton::ImageStretched };
+    DrawableButton mResetButton { "", DrawableButton::ImageStretched };
     DrawableButton mCreditsButton { "", DrawableButton::ImageStretched };
 
     DrawableButton mBackground { "", DrawableButton::ImageStretched };

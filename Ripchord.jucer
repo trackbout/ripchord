@@ -85,6 +85,9 @@
         <FILE id="RrUSM3" name="RecordedON.svg" compile="0" resource="1" file="Source/Assets/RecordedON.svg"/>
         <FILE id="z9MVe5" name="RecordIN.svg" compile="0" resource="1" file="Source/Assets/RecordIN.svg"/>
         <FILE id="xVNQHi" name="RecordON.svg" compile="0" resource="1" file="Source/Assets/RecordON.svg"/>
+        <FILE id="POfMuw" name="ResetSizeOFF.svg" compile="0" resource="1"
+              file="Source/Assets/ResetSizeOFF.svg"/>
+        <FILE id="fGfohB" name="ResetSizeON.svg" compile="0" resource="1" file="Source/Assets/ResetSizeON.svg"/>
         <FILE id="qEy7BM" name="RightClickBgDARK.svg" compile="0" resource="1"
               file="Source/Assets/RightClickBgDARK.svg"/>
         <FILE id="ulIEyP" name="RightClickBgLIGHT.svg" compile="0" resource="1"

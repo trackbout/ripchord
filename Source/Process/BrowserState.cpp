@@ -255,6 +255,7 @@ void BrowserState::handleClickCreateTag()
     if (!System::isValidFileName (mNewTagText) || mTagsFile.containsKey (mNewTagText)) { return; }
 
     mTagsFile.setValue (mNewTagText, "");
+    mTagsFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTagCreated;

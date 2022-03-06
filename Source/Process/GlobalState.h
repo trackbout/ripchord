@@ -2,6 +2,7 @@
 
 #include "JuceHeader.h"
 #include "System.h"
+#include "Styles.h"
 #include "DataMessage.h"
 #include "DataMessageBroadcaster.h"
 
@@ -54,7 +55,8 @@ public:
     void setMouseDownKey (int noteNumber);
 
     //==============================================================================
-    void readConfigFile();
+    void resetSizeInConfig();
+    void setThemeFromConfig();
 
 private:
     //==============================================================================
