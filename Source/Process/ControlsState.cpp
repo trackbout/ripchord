@@ -136,6 +136,8 @@ void ControlsState::cycleDelayDirection()
     else if (mDelayDirection == "LTR_RTL") { mDelayDirection = "RTL_LTR"; }
     else if (mDelayDirection == "RTL_LTR") { mDelayDirection = "LTR"; }
 
+    mLastDelayNote = 0;
+
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kDelayDirection;
     sendMessage (message, ListenerType::kSync);
@@ -181,6 +183,8 @@ void ControlsState::cycleVelocityDirection()
     else if (mVelocityDirection == "STH") { mVelocityDirection = "HTS_STH"; }
     else if (mVelocityDirection == "HTS_STH") { mVelocityDirection = "STH_HTS"; }
     else if (mVelocityDirection == "STH_HTS") { mVelocityDirection = "HTS"; }
+
+    mLastVelocityNote = 0;
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kVelocityDirection;
