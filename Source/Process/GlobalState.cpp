@@ -167,9 +167,9 @@ void GlobalState::setMouseDownKey (int inNoteNumber)
 //==============================================================================
 void GlobalState::resetSizeInConfig()
 {
-    mConfigFile.setValue ("width", EDITOR_WIDTH);
-    mConfigFile.setValue ("height", EDITOR_HEIGHT);
-    mConfigFile.saveIfNeeded();
+    mConfigFile.setValue ("width", (int) EDITOR_WIDTH);
+    mConfigFile.setValue ("height", (int) EDITOR_HEIGHT);
+    mConfigFile.save();
 }
 
 void GlobalState::setThemeFromConfig()

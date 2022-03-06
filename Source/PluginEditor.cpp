@@ -45,7 +45,6 @@ void RipchordPluginEditor::resized()
 
     mConfigFile.setValue ("width", width);
     mConfigFile.setValue ("height", height);
-    mConfigFile.saveIfNeeded();
 
     mPluginProcessor.setLastEditorWidth (width);
     mPluginProcessor.setLastEditorHeight (height);
