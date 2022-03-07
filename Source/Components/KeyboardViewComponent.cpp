@@ -139,11 +139,9 @@ bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
     auto keyCode = inKey.getKeyCode();
     bool isLeftArrow = keyCode == KeyPress::leftKey || keyCode == KeyPress::upKey;
     bool isRightArrow = keyCode == KeyPress::rightKey || keyCode == KeyPress::downKey;
-    if (!isLeftArrow && !isRightArrow) { return false; }
+    bool isTargetKey = isLeftArrow || isRightArrow;
 
-    mSkipKeypress = !mSkipKeypress;
-
-    if (mGlobalState.isPresetView() || mGlobalState.isEditMode() || mSkipKeypress) { return false; }
+    if (!isTargetKey || mGlobalState.isPresetView() || mGlobalState.isEditMode()) { return false; }
 
     if (isLeftArrow)
     {
@@ -157,7 +155,7 @@ bool KeyboardViewComponent::keyPressed (const KeyPress& inKey)
         mBrowserState.handleClickRightArrow (mPresetState.getName());
     }
 
-    return false;
+    return true;
 }
 
 //==============================================================================

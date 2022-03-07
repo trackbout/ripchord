@@ -58,8 +58,6 @@ private:
     PresetNameComponent mPresetName;
     ChordNameComponent mChordName;
 
-    bool mSkipKeypress = true;
-
     void handleToggleMode (const DataMessage* message);
     void handleTogglePower (const DataMessage* message);
     void handleToggleFavorite (const DataMessage* message);
