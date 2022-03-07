@@ -73,7 +73,7 @@ void PresetBrowserComponent::refreshBrowser()
 
         if (mBrowserState.isTagSelectorOn())
         {
-            bool isInAssignableTag = mBrowserState.isInAssignableTag (index);
+            bool isInAssignableTag = mBrowserState.isInAssignableTag (preset.fileName);
             auto* presetTaggerComponent = new PresetTaggerComponent (preset, isInAssignableTag);
             presetTaggerComponent->setBounds (x, y, mPresetWidth, mPresetHeight);
 

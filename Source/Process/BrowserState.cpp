@@ -167,19 +167,20 @@ bool BrowserState::isInSelectedTags (const int inIndexValue)
     {
         const String tagName = mSelectedTags[index];
         StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (tagName), ";", "");
-        if (taggedFileNames.contains(file.getFileName())) { matches += 1; }
+        if (taggedFileNames.contains(file.getFileNameWithoutExtension())) { matches += 1; }
     }
 
     return matches > 0;
 }
 
-bool BrowserState::isInAssignableTag (const int inIndexValue)
+bool BrowserState::isInAssignableTag (const String inPresetName)
 {
-    File file = mAllPresetFiles[inIndexValue];
+    int indexValue = getUnfilteredIndex (inPresetName);
+    File file = mAllPresetFiles[indexValue];
     if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return false; }
 
     StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
-    return taggedFileNames.contains(file.getFileName());
+    return taggedFileNames.contains(file.getFileNameWithoutExtension());
 }
 
 //==============================================================================
@@ -358,13 +359,13 @@ void BrowserState::handleClickPresetTagger (const int inIndexValue)
 
     StringArray taggedPathNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
 
-    if (taggedPathNames.contains (file.getFileName()))
+    if (taggedPathNames.contains (file.getFileNameWithoutExtension()))
     {
-        taggedPathNames.removeString (file.getFileName());
+        taggedPathNames.removeString (file.getFileNameWithoutExtension());
     }
     else
     {
-        taggedPathNames.addIfNotAlreadyThere (file.getFileName());
+        taggedPathNames.addIfNotAlreadyThere (file.getFileNameWithoutExtension());
     }
 
     mTagsFile.setValue (mAssignableTag, taggedPathNames.joinIntoString (";"));

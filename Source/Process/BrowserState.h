@@ -28,7 +28,7 @@ public:
 
     //==============================================================================
     bool isInSelectedTags (const int indexValue);
-    bool isInAssignableTag (const int indexValue);
+    bool isInAssignableTag (const String presetName);
 
     //==============================================================================
     bool isFavorite (const String presetName);
