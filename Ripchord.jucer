@@ -29,6 +29,7 @@
         <FILE id="IWgHHA" name="DirectionBA.svg" compile="0" resource="1" file="Source/Assets/DirectionBA.svg"/>
         <FILE id="hYM33w" name="DirectionBAAB.svg" compile="0" resource="1"
               file="Source/Assets/DirectionBAAB.svg"/>
+        <FILE id="rQd5aX" name="Down.svg" compile="0" resource="1" file="Source/Assets/Down.svg"/>
         <FILE id="rJ5OV7" name="Favorites.svg" compile="0" resource="1" file="Source/Assets/Favorites.svg"/>
         <FILE id="ij7tFk" name="FavoritesON.svg" compile="0" resource="1" file="Source/Assets/FavoritesON.svg"/>
         <FILE id="eksyyG" name="GearCircle.svg" compile="0" resource="1" file="Source/Assets/GearCircle.svg"/>
@@ -120,6 +121,7 @@
         <FILE id="QExcvS" name="Transpose.svg" compile="0" resource="1" file="Source/Assets/Transpose.svg"/>
         <FILE id="sFpF0o" name="TransposeON.svg" compile="0" resource="1" file="Source/Assets/TransposeON.svg"/>
         <FILE id="RR0aEu" name="Trash.svg" compile="0" resource="1" file="Source/Assets/Trash.svg"/>
+        <FILE id="eQ4pVJ" name="Up.svg" compile="0" resource="1" file="Source/Assets/Up.svg"/>
         <FILE id="yVz3Tz" name="Variance.svg" compile="0" resource="1" file="Source/Assets/Variance.svg"/>
         <FILE id="yd6gXG" name="VarianceON.svg" compile="0" resource="1" file="Source/Assets/VarianceON.svg"/>
         <FILE id="NFOL4K" name="Velocity.svg" compile="0" resource="1" file="Source/Assets/Velocity.svg"/>

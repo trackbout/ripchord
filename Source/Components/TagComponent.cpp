@@ -14,14 +14,25 @@ TagComponent::TagComponent (String inName, String inType, bool inIsSelected, boo
     mTagLabel.setJustificationType (Justification::centred);
 
     addAndMakeVisible (mTagLabel);
-    addAndMakeVisible (mTrashButton);
 
     if (mType == "browser")
     {
+        mImages.setDrawableButtonImages (mUpButton, "Up.svg");
+        mImages.setDrawableButtonImages (mDownButton, "Down.svg");
         mImages.setDrawableButtonImages (mTrashButton, "Trash.svg");
+
+        mUpButton.setTriggeredOnMouseDown (true);
+        mDownButton.setTriggeredOnMouseDown (true);
         mTrashButton.setTriggeredOnMouseDown (true);
+
+        mUpButton.onClick = [this]() { DBG ("UP"); };
+        mDownButton.onClick = [this]() { DBG ("DOWN"); };
         mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
         mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mName); } };
+
+        addAndMakeVisible (mUpButton);
+        addAndMakeVisible (mDownButton);
+        addAndMakeVisible (mTrashButton);
         addChildComponent (mDeleteComponent);
     }
 }
@@ -55,9 +66,17 @@ void TagComponent::resized()
         mDeleteComponent.setBounds (area);
         mTagLabel.setBounds (area.reduced ((area.getHeight() * 0.7f), 0));
 
+        juce::Rectangle<float> upAreaProportion (SHIFT_TAG_X / PRESET_WIDTH, SHIFT_UP_TAG_Y / ITEM_HEIGHT,
+                                                 SHIFT_TAG_WIDTH / PRESET_WIDTH, SHIFT_TAG_HEIGHT / ITEM_HEIGHT);
+
+        juce::Rectangle<float> downAreaProportion (SHIFT_TAG_X / PRESET_WIDTH, SHIFT_DOWN_TAG_Y / ITEM_HEIGHT,
+                                                   SHIFT_TAG_WIDTH / PRESET_WIDTH, SHIFT_TAG_HEIGHT / ITEM_HEIGHT);
+
         juce::Rectangle<float> trashAreaProportion (TRASH_TAG_X / PRESET_WIDTH, TRASH_TAG_Y / ITEM_HEIGHT,
                                                     TRASH_WIDTH / PRESET_WIDTH, TRASH_HEIGHT / ITEM_HEIGHT);
 
+        mUpButton.setBounds (area.getProportion (upAreaProportion));
+        mDownButton.setBounds (area.getProportion (downAreaProportion));
         mTrashButton.setBounds (area.getProportion (trashAreaProportion));
     }
 }

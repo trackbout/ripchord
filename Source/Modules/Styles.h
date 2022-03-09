@@ -125,6 +125,12 @@ const float STAR_HEIGHT = 20.f;
 const float STAR_X = PRESET_PAD_X;
 const float STAR_Y = PRESET_PAD_Y - 0.5;
 
+const float SHIFT_TAG_WIDTH = 18.f;
+const float SHIFT_TAG_HEIGHT = 8.f;
+const float SHIFT_TAG_X = PRESET_PAD_X;
+const float SHIFT_UP_TAG_Y = PRESET_PAD_Y + 1;
+const float SHIFT_DOWN_TAG_Y = SHIFT_UP_TAG_Y + SHIFT_TAG_HEIGHT + 4;
+
 const float TRASH_WIDTH = 16.f;
 const float TRASH_HEIGHT = 20.f;
 const float TRASH_PRESET_X = PRESET_WIDTH - TRASH_WIDTH - PRESET_PAD_X;

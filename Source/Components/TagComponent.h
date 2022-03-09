@@ -36,6 +36,9 @@ private:
     Label mTagLabel;
     DeleteComponent mDeleteComponent;
 
+    DrawableButton mUpButton { "", DrawableButton::ImageStretched };
+    DrawableButton mDownButton { "", DrawableButton::ImageStretched };
+
     DrawableButton mTrashButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
