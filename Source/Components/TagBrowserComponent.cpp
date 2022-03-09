@@ -35,6 +35,7 @@ void TagBrowserComponent::handleNewMessage (const DataMessage* inMessage)
         case (MessageCode::kToggleView): { refreshBrowser(); } break;
         case (MessageCode::kTagCreated): { refreshBrowser(); } break;
         case (MessageCode::kTagDeleted): { refreshBrowser(); } break;
+        case (MessageCode::kTagShifted): { refreshBrowser(); } break;
         default: { } break;
     };
 }
@@ -55,6 +56,16 @@ void TagBrowserComponent::refreshBrowser()
 
         auto* tagComponent = new TagComponent (tagName, "browser", false, false);
         tagComponent->setBounds (x, y, mTagWidth, mTagHeight);
+
+        tagComponent->onUpShift = [this](const String name)
+        {
+            mBrowserState.handleClickShiftTag (name, "UP");
+        };
+
+        tagComponent->onDownShift = [this](const String name)
+        {
+            mBrowserState.handleClickShiftTag (name, "DOWN");
+        };
 
         tagComponent->onDelete = [this](const String name)
         {

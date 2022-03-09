@@ -37,6 +37,7 @@ void TagBarComponent::handleNewMessage (const DataMessage* inMessage)
     {
         case (MessageCode::kTagCreated): { hardRefresh(); } break;
         case (MessageCode::kTagDeleted): { hardRefresh(); } break;
+        case (MessageCode::kTagShifted): { hardRefresh(); } break;
         case (MessageCode::kToggleView): { refreshBrowser(); } break;
         case (MessageCode::kToggleTagSelector): { refreshBrowser(); } break;
         case (MessageCode::kClickSelectableTag): { refreshBrowser(); } break;

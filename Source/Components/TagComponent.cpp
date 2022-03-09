@@ -25,8 +25,8 @@ TagComponent::TagComponent (String inName, String inType, bool inIsSelected, boo
         mDownButton.setTriggeredOnMouseDown (true);
         mTrashButton.setTriggeredOnMouseDown (true);
 
-        mUpButton.onClick = [this]() { DBG ("UP"); };
-        mDownButton.onClick = [this]() { DBG ("DOWN"); };
+        mUpButton.onClick = [this]() { if (onUpShift) { onUpShift (mName); } };
+        mDownButton.onClick = [this]() { if (onDownShift) { onDownShift (mName); } };
         mTrashButton.onClick = [this]() { mDeleteComponent.setVisible (true); };
         mDeleteComponent.onClick = [this]() { if (onDelete) { onDelete (mName); } };
 

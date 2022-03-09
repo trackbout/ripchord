@@ -32,7 +32,7 @@ public:
 
     //==============================================================================
     bool isFavorite (const String presetName);
-    int getUnfilteredIndex (const String presetName);
+    int getUnfilteredPresetIndex (const String presetName);
 
     //==============================================================================
     void toggleFavorites();
@@ -48,11 +48,12 @@ public:
 
     //==============================================================================
     void handleClickCreateTag();
-    void handleClickDeleteTag (const String name);
+    void handleClickDeleteTag (const String tagName);
+    void handleClickShiftTag (const String tagName, const String direction);
 
     //==============================================================================
-    void handleClickAssignableTag (const String name);
-    void handleClickSelectableTag (const String name);
+    void handleClickAssignableTag (const String tagName);
+    void handleClickSelectableTag (const String tagName);
 
     //==============================================================================
     void handleClickFavorite (const int indexValue);
@@ -60,12 +61,12 @@ public:
     void handleClickPresetTagger (const int indexValue);
 
     //==============================================================================
-    void handleNewTagTextChanged (String newTagText);
-    void handlePresetFilterTextChanged (String filterText);
+    void handleNewTagTextChanged (const String newTagText);
+    void handlePresetFilterTextChanged (const String filterText);
 
     //==============================================================================
-    void handleClickLeftArrow (String presetName);
-    void handleClickRightArrow (String presetName);
+    void handleClickLeftArrow (const String presetName);
+    void handleClickRightArrow (const String presetName);
 
 private:
     //==============================================================================
@@ -84,7 +85,7 @@ private:
     bool mIsTagSelectorOn = false;
     bool mIsTagManagerVisible = false;
 
-    int getFilteredIndex (String presetName);
+    int getFilteredPresetIndex (const String presetName);
 
     PropertiesFile mTagsFile { System::createPluginPropertiesOptions ("tags") };
     PropertiesFile mFavoritesFile { System::createPluginPropertiesOptions ("favorites") };

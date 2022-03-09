@@ -175,7 +175,7 @@ bool BrowserState::isInSelectedTags (const int inIndexValue)
 
 bool BrowserState::isInAssignableTag (const String inPresetName)
 {
-    int indexValue = getUnfilteredIndex (inPresetName);
+    int indexValue = getUnfilteredPresetIndex (inPresetName);
     File file = mAllPresetFiles[indexValue];
     if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return false; }
 
@@ -186,11 +186,11 @@ bool BrowserState::isInAssignableTag (const String inPresetName)
 //==============================================================================
 bool BrowserState::isFavorite (const String inPresetName)
 {
-    int indexValue = getUnfilteredIndex (inPresetName);
+    int indexValue = getUnfilteredPresetIndex (inPresetName);
     return mAllPresets[indexValue].isFavorite;
 }
 
-int BrowserState::getUnfilteredIndex (const String inPresetName)
+int BrowserState::getUnfilteredPresetIndex (const String inPresetName)
 {
     int unfilteredIndex = -1;
 
@@ -263,9 +263,9 @@ void BrowserState::handleClickCreateTag()
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleClickDeleteTag (const String inName)
+void BrowserState::handleClickDeleteTag (const String inTagName)
 {
-    mTagsFile.removeValue (inName);
+    mTagsFile.removeValue (inTagName);
 
     DataMessage* message = new DataMessage();
     message->messageCode = MessageCode::kTagDeleted;
@@ -273,15 +273,46 @@ void BrowserState::handleClickDeleteTag (const String inName)
 }
 
 //==============================================================================
-void BrowserState::handleClickAssignableTag (const String inName)
+void BrowserState::handleClickShiftTag (const String inTagName, const String inDirection)
 {
-    if (mAssignableTag == inName)
+    StringPairArray allTags = mTagsFile.getAllProperties();
+    StringArray allTagNames = allTags.getAllKeys();
+
+    int nextIndex;
+    int count = allTagNames.size();
+    int currentIndex = allTagNames.indexOf (inTagName);
+    if (count == 1 || (inDirection != "UP" && inDirection != "DOWN")) { return; }
+
+    if (inDirection == "UP") { nextIndex = (currentIndex - 1) == -1 ? (count - 1) : currentIndex - 1; }
+    if (inDirection == "DOWN") { nextIndex = (currentIndex + 1) == count ? 0 : currentIndex + 1; }
+
+    allTagNames.removeString (inTagName);
+    allTagNames.insert (nextIndex, inTagName);
+
+    mTagsFile.clear();
+
+    for (int index = 0; index < count; index++)
+    {
+        const String tagName = allTagNames[index];
+        const String tagValue = allTags.getValue (tagName, "");
+        mTagsFile.setValue (tagName, tagValue);
+    }
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kTagShifted;
+    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+void BrowserState::handleClickAssignableTag (const String inTagName)
+{
+    if (mAssignableTag == inTagName)
     {
         mAssignableTag.clear();
     }
     else
     {
-        mAssignableTag = inName;
+        mAssignableTag = inTagName;
     }
 
     DataMessage* message = new DataMessage();
@@ -289,15 +320,15 @@ void BrowserState::handleClickAssignableTag (const String inName)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleClickSelectableTag (const String inName)
+void BrowserState::handleClickSelectableTag (const String inTagName)
 {
-    if (mSelectedTags.contains (inName))
+    if (mSelectedTags.contains (inTagName))
     {
-        mSelectedTags.removeString (inName);
+        mSelectedTags.removeString (inTagName);
     }
     else
     {
-        mSelectedTags.addIfNotAlreadyThere (inName);
+        mSelectedTags.addIfNotAlreadyThere (inTagName);
     }
 
     DataMessage* message = new DataMessage();
@@ -377,12 +408,12 @@ void BrowserState::handleClickPresetTagger (const int inIndexValue)
 }
 
 //==============================================================================
-void BrowserState::handleNewTagTextChanged (String inNewTagText)
+void BrowserState::handleNewTagTextChanged (const String inNewTagText)
 {
     mNewTagText = inNewTagText;
 }
 
-void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
+void BrowserState::handlePresetFilterTextChanged (const String inPresetFilterText)
 {
     mPresetFilterText = inPresetFilterText;
 
@@ -393,9 +424,9 @@ void BrowserState::handlePresetFilterTextChanged (String inPresetFilterText)
 }
 
 //==============================================================================
-void BrowserState::handleClickLeftArrow (String inPresetName)
+void BrowserState::handleClickLeftArrow (const String inPresetName)
 {
-    int index = getFilteredIndex (inPresetName);
+    int index = getFilteredPresetIndex (inPresetName);
 
     if (index > 0) { index = index - 1; }
     else if (index == 0) { index = mFilteredPresets.size() - 1; }
@@ -409,9 +440,9 @@ void BrowserState::handleClickLeftArrow (String inPresetName)
     sendMessage (message, ListenerType::kSync);
 }
 
-void BrowserState::handleClickRightArrow (String inPresetName)
+void BrowserState::handleClickRightArrow (const String inPresetName)
 {
-    int index = getFilteredIndex (inPresetName);
+    int index = getFilteredPresetIndex (inPresetName);
 
     if (index >= 0 && index < (mFilteredPresets.size() - 1)) { index = index + 1; }
     else if (index == (mFilteredPresets.size() - 1)) { index = 0; }
@@ -426,7 +457,7 @@ void BrowserState::handleClickRightArrow (String inPresetName)
 }
 
 //==============================================================================
-int BrowserState::getFilteredIndex (String inPresetName)
+int BrowserState::getFilteredPresetIndex (const String inPresetName)
 {
     int filteredIndex = -1;
 

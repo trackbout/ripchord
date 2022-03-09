@@ -37,6 +37,7 @@ enum MessageCode
     // Messages from BrowserState
     kTagCreated,
     kTagDeleted,
+    kTagShifted,
     kToggleTagManager,
     kToggleTagSelector,
     kClickPresetTagger,

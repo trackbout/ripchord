@@ -24,6 +24,10 @@ public:
     std::function<void (const String name)> onClick;
     std::function<void (const String name)> onDelete;
 
+    //==============================================================================
+    std::function<void (const String name)> onUpShift;
+    std::function<void (const String name)> onDownShift;
+
 private:
     //==============================================================================
     String mName;
