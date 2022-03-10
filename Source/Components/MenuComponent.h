@@ -31,8 +31,7 @@ private:
     PresetState& mPresetState;
 
     Images mImages;
-    Label mTitleLabel { "", "ripchord 2.5.0" };
-    Label mThemeLabel { "", "color mode" };
+    Label mTitleLabel { "", "version 2.6.0" };
     Label mCreditsLabel { "", "we support producers" };
 
     DrawableButton mThemeButton { "", DrawableButton::ImageStretched };

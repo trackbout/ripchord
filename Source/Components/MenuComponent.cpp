@@ -10,8 +10,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mTitleLabel.setFont (Font().boldened());
     mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
-    mThemeLabel.setFont (Font().boldened());
-    mThemeLabel.setColour (Label::textColourId, COLOR_GREY);
     mCreditsLabel.setColour (Label::textColourId, COLOR_GREY);
 
     mImages.setDrawableButtonImages (mBackground, "ModalBgLIGHT.svg");
@@ -103,7 +101,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     addAndMakeVisible (mBackground);
     addAndMakeVisible (mTitleLabel);
-    addAndMakeVisible (mThemeLabel);
     addAndMakeVisible (mResetButton);
     addAndMakeVisible (mThemeButton);
     addAndMakeVisible (mCreditsLabel);
@@ -133,21 +130,17 @@ void MenuComponent::resized()
     auto mainArea = getLocalBounds();
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X, MODAL_Y, MODAL_WIDTH, MODAL_HEIGHT));
 
-    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 44, MENU_ACTION_Y_01 + 2, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 4);
+    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 55, MENU_ACTION_Y_01 + 5, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
     mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
     mTitleLabel.setBounds (titleLabelArea);
 
-    auto themeLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 64, MENU_ACTION_Y_03 - 20, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
-    mThemeLabel.setFont (Font ((float) themeLabelArea.getHeight()).boldened());
-    mThemeLabel.setBounds (themeLabelArea);
-
-    auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 46, MENU_ACTION_Y_07 + 12, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
+    auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 46, MENU_ACTION_Y_07 + 14, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
     mCreditsLabel.setFont (Font ((float) creditsLabelArea.getHeight()));
     mCreditsLabel.setBounds (creditsLabelArea);
 
-    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_03 + 10, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
+    mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_03, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
     mResetButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_05, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
-    mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_07 - 4, 120, 12));
+    mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_07 - 2, 120, 12));
 
     mNewPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_01, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mDuplicateButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_02, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
