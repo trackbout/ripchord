@@ -20,7 +20,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mExportMidiButton, "MenuExportMidi.svg");
     mImages.setDrawableButtonImages (mImportPresetButton, "MenuImportPreset.svg");
     mImages.setDrawableButtonImages (mExportPresetButton, "MenuExportPreset.svg");
-    mImages.setDrawableButtonImages (mSourceCodeButton, "MenuSourceCode.svg");
+    mImages.setDrawableButtonImages (mImportMPCButton, "MenuImportMPC.svg");
 
     mThemeButton.setTriggeredOnMouseDown (true);
     mResetButton.setTriggeredOnMouseDown (true);
@@ -31,7 +31,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mExportMidiButton.setTriggeredOnMouseDown (true);
     mImportPresetButton.setTriggeredOnMouseDown (true);
     mExportPresetButton.setTriggeredOnMouseDown (true);
-    mSourceCodeButton.setTriggeredOnMouseDown (true);
+    mImportMPCButton.setTriggeredOnMouseDown (true);
 
     mThemeButton.onClick = [this]()
     {
@@ -90,11 +90,9 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
         mGlobalState.toggleMenu();
     };
 
-    mSourceCodeButton.onClick = [this]()
+    mImportMPCButton.onClick = [this]()
     {
-        URL url { "https://github.com/trackbout/ripchord" };
-        url.launchInDefaultBrowser();
-        mGlobalState.toggleMenu();
+        // do stuff
     };
 
     addAndMakeVisible (mBackground);
@@ -108,7 +106,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     addAndMakeVisible (mExportMidiButton);
     addAndMakeVisible (mImportPresetButton);
     addAndMakeVisible (mExportPresetButton);
-    addAndMakeVisible (mSourceCodeButton);
+    addAndMakeVisible (mImportMPCButton);
 }
 
 MenuComponent::~MenuComponent()
@@ -141,7 +139,7 @@ void MenuComponent::resized()
     mExportMidiButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_04, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mImportPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_05, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
     mExportPresetButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_06, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
-    mSourceCodeButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_07, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
+    mImportMPCButton.setBounds (Styles::getRelativeBounds (mainArea, MENU_ACTION_X, MENU_ACTION_Y_07, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT));
 }
 
 //==============================================================================

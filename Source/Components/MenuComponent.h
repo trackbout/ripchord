@@ -44,7 +44,7 @@ private:
     DrawableButton mExportMidiButton { "", DrawableButton::ImageStretched };
     DrawableButton mImportPresetButton { "", DrawableButton::ImageStretched };
     DrawableButton mExportPresetButton { "", DrawableButton::ImageStretched };
-    DrawableButton mSourceCodeButton { "", DrawableButton::ImageStretched };
+    DrawableButton mImportMPCButton { "", DrawableButton::ImageStretched };
 
     //==============================================================================
     void handleToggleMenu (const DataMessage* message);

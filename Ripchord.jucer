@@ -49,12 +49,12 @@
               file="Source/Assets/MenuExportPresetOFF.svg"/>
         <FILE id="RrB3j6" name="MenuImportMidi.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportMidi.svg"/>
+        <FILE id="mvNzAD" name="MenuImportMPC.svg" compile="0" resource="1"
+              file="Source/Assets/MenuImportMPC.svg"/>
         <FILE id="G0bEtN" name="MenuImportPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuImportPreset.svg"/>
         <FILE id="fmqB89" name="MenuNewPreset.svg" compile="0" resource="1"
               file="Source/Assets/MenuNewPreset.svg"/>
-        <FILE id="r7vVT5" name="MenuSourceCode.svg" compile="0" resource="1"
-              file="Source/Assets/MenuSourceCode.svg"/>
         <FILE id="Cd5zV7" name="MenuThemeDARK.svg" compile="0" resource="1"
               file="Source/Assets/MenuThemeDARK.svg"/>
         <FILE id="MNTxFc" name="MenuThemeLIGHT.svg" compile="0" resource="1"
