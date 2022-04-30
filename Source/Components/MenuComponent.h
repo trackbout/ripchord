@@ -31,7 +31,6 @@ private:
     PresetState& mPresetState;
 
     Images mImages;
-    Label mTitleLabel { "", "version 2.6.0" };
     Label mCreditsLabel { "", "we support producers" };
 
     DrawableButton mThemeButton { "", DrawableButton::ImageStretched };

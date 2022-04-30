@@ -8,8 +8,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 {
     mGlobalState.DataMessageBroadcaster::addListener (this, ListenerType::kSync);
 
-    mTitleLabel.setFont (Font().boldened());
-    mTitleLabel.setColour (Label::textColourId, COLOR_PURPLE);
     mCreditsLabel.setColour (Label::textColourId, COLOR_GREY);
 
     mImages.setDrawableButtonImages (mBackground, "ModalBgLIGHT.svg");
@@ -100,7 +98,6 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     };
 
     addAndMakeVisible (mBackground);
-    addAndMakeVisible (mTitleLabel);
     addAndMakeVisible (mResetButton);
     addAndMakeVisible (mThemeButton);
     addAndMakeVisible (mCreditsLabel);
@@ -129,10 +126,6 @@ void MenuComponent::resized()
 {
     auto mainArea = getLocalBounds();
     mBackground.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X, MODAL_Y, MODAL_WIDTH, MODAL_HEIGHT));
-
-    auto titleLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 55, MENU_ACTION_Y_01 + 5, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 6);
-    mTitleLabel.setFont (Font ((float) titleLabelArea.getHeight()).boldened());
-    mTitleLabel.setBounds (titleLabelArea);
 
     auto creditsLabelArea = Styles::getRelativeBounds (mainArea, MODAL_X + 46, MENU_ACTION_Y_07 + 14, MENU_ACTION_WIDTH, MENU_ITEM_HEIGHT - 12);
     mCreditsLabel.setFont (Font ((float) creditsLabelArea.getHeight()));
