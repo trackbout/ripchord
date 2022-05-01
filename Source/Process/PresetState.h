@@ -47,6 +47,7 @@ public:
     void handleClickExportMidi();
     void handleClickImportPreset();
     void handleClickExportPreset();
+    void handleClickImportMPC();
     void handleClickDuplicate();
     void handleClickEditLeft();
     void handleClickEditRight();
@@ -72,13 +73,15 @@ private:
 
     Chord getChord (const int inputNote);
     void setChord (const int inputNote, Chord chord);
-
     void resetPresetState (bool keepChords);
-    void loadMidiFile (File midiFile);
-    void loadPresetFile (File presetFile);
 
-    std::map<int, Chord> saveMidiFile (File midiFile);
+    void loadPresetFile (File presetFile);
+    void loadMidiFile (File midiFile);
+    void loadMPCFile (File mpcFile);
+
     std::map<int, Chord> savePresetFile (File presetFile);
+    std::map<int, Chord> saveMidiFile (File midiFile);
+    std::map<int, Chord> saveMPCFile (File mpcFile);
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetState)

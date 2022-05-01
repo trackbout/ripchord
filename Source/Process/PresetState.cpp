@@ -307,6 +307,11 @@ void PresetState::handleClickExportPreset()
     }
 }
 
+void PresetState::handleClickImportMPC()
+{
+    // do stuff
+}
+
 void PresetState::handleClickDuplicate()
 {
     resetPresetState (true);
@@ -474,6 +479,21 @@ void PresetState::resetPresetState (bool inKeepChords)
     mEditModeInputNote = 0;
 }
 
+//==============================================================================
+void PresetState::loadPresetFile (File inPresetFile)
+{
+    resetPresetState (false);
+    mName = inPresetFile.getFileNameWithoutExtension();
+    mPresetFileName = mName + PRESET_EXTENSION;
+    mChords = savePresetFile (inPresetFile);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileLoaded;
+    message->messageVar1 = mName;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
+}
+
 void PresetState::loadMidiFile (File inMidiFile)
 {
     resetPresetState (false);
@@ -488,18 +508,27 @@ void PresetState::loadMidiFile (File inMidiFile)
     sendMessage (message, ListenerType::kSync);
 }
 
-void PresetState::loadPresetFile (File inPresetFile)
+void PresetState::loadMPCFile (File inMPCFile)
 {
-    resetPresetState (false);
-    mName = inPresetFile.getFileNameWithoutExtension();
-    mPresetFileName = mName + PRESET_EXTENSION;
-    mChords = savePresetFile (inPresetFile);
 
-    DataMessage* message = new DataMessage();
-    message->messageCode = MessageCode::kPresetFileLoaded;
-    message->messageVar1 = mName;
-    message->messageArray1 = getPresetInputNotes();
-    sendMessage (message, ListenerType::kSync);
+}
+
+//==============================================================================
+std::map<int, Chord> PresetState::savePresetFile (File inPresetFile)
+{
+    String presetFileName = inPresetFile.getFileName();
+    std::unique_ptr<XmlElement> inRootXml = parseXML (inPresetFile);
+    XmlElement* presetXml = inRootXml->getFirstChildElement();
+    std::map<int, Chord> chords = Presets::getChordsFromPresetXml (presetXml);
+
+    File prevPresetFile = PRESET_FOLDER.getChildFile (presetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (chords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (presetFileName));
+
+    return chords;
 }
 
 std::map<int, Chord> PresetState::saveMidiFile (File inMidiFile)
@@ -517,20 +546,9 @@ std::map<int, Chord> PresetState::saveMidiFile (File inMidiFile)
     return chords;
 }
 
-std::map<int, Chord> PresetState::savePresetFile (File inPresetFile)
+std::map<int, Chord> PresetState::saveMPCFile (File inMPCFile)
 {
-    String presetFileName = inPresetFile.getFileName();
-    std::unique_ptr<XmlElement> inRootXml = parseXML (inPresetFile);
-    XmlElement* presetXml = inRootXml->getFirstChildElement();
-    std::map<int, Chord> chords = Presets::getChordsFromPresetXml (presetXml);
-
-    File prevPresetFile = PRESET_FOLDER.getChildFile (presetFileName);
-    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
-
-    XmlElement rootXml ("ripchord");
-    rootXml.addChildElement (Presets::getPresetXmlFromChords (chords));
-    rootXml.writeTo (PRESET_FOLDER.getChildFile (presetFileName));
-
+    std::map<int, Chord> chords = Presets::getChordsFromMPCFile (inMPCFile);
     return chords;
 }
 

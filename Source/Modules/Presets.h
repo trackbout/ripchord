@@ -112,13 +112,19 @@ namespace Presets
         {
             Chord chord;
             juce::Array<int> notes;
+
             int note = inputXml->getIntAttribute ("note");
             XmlElement* chordXml = inputXml->getChildByName ("chord");
-            String notesString = chordXml->getStringAttribute ("notes");
-            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
 
             String name = chordXml->getStringAttribute ("name");
-            for (String& note : notesSA) { notes.add (note.getIntValue()); }
+            String notesString = chordXml->getStringAttribute ("notes");
+
+            StringArray notesSA = StringArray::fromTokens (notesString, ";", "");
+
+            for (String& note : notesSA)
+            {
+                notes.add (note.getIntValue());
+            }
 
             if (notes.size() > 0)
             {
@@ -195,6 +201,12 @@ namespace Presets
             }
         }
 
+        return chords;
+    }
+
+    static inline std::map<int, Chord> getChordsFromMPCFile (File inMPCFile)
+    {
+        std::map<int, Chord> chords;
         return chords;
     }
 }

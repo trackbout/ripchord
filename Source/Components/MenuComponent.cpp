@@ -101,7 +101,8 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mImportMPCButton.onClick = [this]()
     {
-        // do stuff
+        mPresetState.handleClickImportMPC();
+        mGlobalState.toggleMenu();
     };
 
     addAndMakeVisible (mBackground);
