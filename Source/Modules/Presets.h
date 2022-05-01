@@ -206,7 +206,40 @@ namespace Presets
 
     static inline std::map<int, Chord> getChordsFromMPCFile (File inMPCFile)
     {
+        int noteNumber = 60;
         std::map<int, Chord> chords;
+        var json = JSON::parse (inMPCFile);
+
+        auto jsonChords = json["progression"]["chords"].getArray();
+        int chordCount = jsonChords->size();
+
+        if (chordCount > 40) { noteNumber = 48; }
+        if (chordCount > 52) { noteNumber = 36; }
+        if (chordCount > 64) { noteNumber = 24; }
+
+        for (auto jsonChord : *jsonChords)
+        {
+            if (noteNumber > 108) { return chords; }
+
+            Chord chord;
+            juce::Array<int> notes;
+            String name = jsonChord["name"].toString();
+
+            for (auto note : *jsonChord["notes"].getArray())
+            {
+                notes.add (note.toString().getIntValue());
+            }
+
+            if (notes.size() > 0)
+            {
+                notes.sort();
+                chord.name = name;
+                chord.notes = notes;
+                chords[noteNumber] = chord;
+                noteNumber = noteNumber + 1;
+            }
+        }
+
         return chords;
     }
 }
