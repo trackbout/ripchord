@@ -529,7 +529,16 @@ void PresetState::loadMidiFile (File inMidiFile)
 
 void PresetState::loadMPCFile (File inMPCFile)
 {
-    saveMPCFile (inMPCFile);
+    resetPresetState (false);
+    mName = inMPCFile.getFileNameWithoutExtension();
+    mPresetFileName = mName + PRESET_EXTENSION;
+    mChords = saveMPCFile (inMPCFile);
+
+    DataMessage* message = new DataMessage();
+    message->messageCode = MessageCode::kPresetFileLoaded;
+    message->messageVar1 = mName;
+    message->messageArray1 = getPresetInputNotes();
+    sendMessage (message, ListenerType::kSync);
 }
 
 //==============================================================================
@@ -567,7 +576,16 @@ std::map<int, Chord> PresetState::saveMidiFile (File inMidiFile)
 
 std::map<int, Chord> PresetState::saveMPCFile (File inMPCFile)
 {
+    String presetFileName = inMPCFile.getFileNameWithoutExtension() + PRESET_EXTENSION;
     std::map<int, Chord> chords = Presets::getChordsFromMPCFile (inMPCFile);
+
+    File prevPresetFile = PRESET_FOLDER.getChildFile (presetFileName);
+    if (prevPresetFile.existsAsFile()) { prevPresetFile.deleteFile(); }
+
+    XmlElement rootXml ("ripchord");
+    rootXml.addChildElement (Presets::getPresetXmlFromChords (chords));
+    rootXml.writeTo (PRESET_FOLDER.getChildFile (presetFileName));
+
     return chords;
 }
 
