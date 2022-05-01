@@ -309,7 +309,26 @@ void PresetState::handleClickExportPreset()
 
 void PresetState::handleClickImportMPC()
 {
-    // do stuff
+    FileChooser chooser ("Select a MPC file(s)...", DESKTOP_FOLDER, "*.progression");
+
+    if (chooser.browseForMultipleFilesToOpen())
+    {
+        juce::Array<File> chosenFiles = chooser.getResults();
+
+        for (int index = 0; index < chosenFiles.size(); index++)
+        {
+            File chosenFile = chosenFiles.getUnchecked (index);
+
+            if (index + 1 == chosenFiles.size())
+            {
+                loadMPCFile (chosenFile);
+            }
+            else
+            {
+                saveMPCFile (chosenFile);
+            }
+        }
+    }
 }
 
 void PresetState::handleClickDuplicate()
@@ -510,7 +529,7 @@ void PresetState::loadMidiFile (File inMidiFile)
 
 void PresetState::loadMPCFile (File inMPCFile)
 {
-
+    saveMPCFile (inMPCFile);
 }
 
 //==============================================================================
