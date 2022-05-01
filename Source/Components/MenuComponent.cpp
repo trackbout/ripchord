@@ -12,6 +12,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
 
     mImages.setDrawableButtonImages (mBackground, "ModalBgLIGHT.svg");
     mImages.setDrawableButtonImages (mThemeButton, "MenuThemeLIGHT.svg");
+    mImages.setDrawableButtonImages (mVersionButton, "Version.svg");
     mImages.setDrawableButtonImages (mResetButton, "ResetSizeOFF.svg");
     mImages.setDrawableButtonImages (mCreditsButton, "Trackbout.svg");
     mImages.setDrawableButtonImages (mNewPresetButton, "MenuNewPreset.svg");
@@ -23,6 +24,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mImages.setDrawableButtonImages (mImportMPCButton, "MenuImportMPC.svg");
 
     mThemeButton.setTriggeredOnMouseDown (true);
+    mVersionButton.setTriggeredOnMouseDown (true);
     mResetButton.setTriggeredOnMouseDown (true);
     mCreditsButton.setTriggeredOnMouseDown (true);
     mNewPresetButton.setTriggeredOnMouseDown (true);
@@ -36,6 +38,13 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     mThemeButton.onClick = [this]()
     {
         mGlobalState.toggleTheme();
+    };
+
+    mVersionButton.onClick = [this]()
+    {
+        URL url { "https://github.com/trackbout/ripchord" };
+        url.launchInDefaultBrowser();
+        mGlobalState.toggleMenu();
     };
 
     mResetButton.onClick = [this]()
@@ -96,6 +105,7 @@ MenuComponent::MenuComponent (MainProcess& inMainProcess)
     };
 
     addAndMakeVisible (mBackground);
+    addAndMakeVisible (mVersionButton);
     addAndMakeVisible (mResetButton);
     addAndMakeVisible (mThemeButton);
     addAndMakeVisible (mCreditsLabel);
@@ -129,6 +139,7 @@ void MenuComponent::resized()
     mCreditsLabel.setFont (Font ((float) creditsLabelArea.getHeight()));
     mCreditsLabel.setBounds (creditsLabelArea);
 
+    mVersionButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 73, MENU_ACTION_Y_01 + 8, 105, 14));
     mThemeButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_03, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
     mResetButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_05, MENU_TOGGLE_WIDTH, MENU_ITEM_HEIGHT));
     mCreditsButton.setBounds (Styles::getRelativeBounds (mainArea, MODAL_X + 67, MENU_ACTION_Y_07 - 2, 120, 12));
