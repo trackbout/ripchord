@@ -76,7 +76,7 @@ private:
 
     String mAssignableTag;
     StringArray mSelectedTags;
-    StringArray mFavPathNames;
+    StringArray mFavPresetNames;
 
     String mNewTagText = "";
     String mPresetFilterText = "";
@@ -85,6 +85,7 @@ private:
     bool mIsTagSelectorOn = false;
     bool mIsTagManagerVisible = false;
 
+    void scrubFavs();
     int getFilteredPresetIndex (const String presetName);
 
     PropertiesFile mTagsFile { System::createPluginPropertiesOptions ("tags") };

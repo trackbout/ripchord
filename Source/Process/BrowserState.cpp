@@ -3,6 +3,7 @@
 //==============================================================================
 BrowserState::BrowserState()
 {
+    scrubFavs();
     refreshData();
     mFilteredPresets = mAllPresets;
     PRESET_FOLDER.createDirectory();
@@ -18,14 +19,14 @@ void BrowserState::refreshData()
     mAllPresets.clear();
     mAllPresetFiles.clear();
     mAllPresetFiles = Presets::getSortedPresetFiles();
-    mFavPathNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
+    mFavPresetNames = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
 
     for (int index = 0; index < mAllPresetFiles.size(); index++)
     {
         Preset preset;
         preset.indexValue = index;
         preset.fileName = mAllPresetFiles[index].getFileNameWithoutExtension();
-        preset.isFavorite = mFavPathNames.contains (mAllPresetFiles[index].getFullPathName());
+        preset.isFavorite = mFavPresetNames.contains (preset.fileName);
         mAllPresets.add (preset);
     }
 }
@@ -346,16 +347,16 @@ void BrowserState::handleClickFavorite (const int inIndexValue)
     if (preset.isFavorite)
     {
         preset.isFavorite = false;
-        mFavPathNames.removeString (file.getFullPathName());
+        mFavPresetNames.removeString (file.getFileNameWithoutExtension());
     }
     else
     {
         preset.isFavorite = true;
-        mFavPathNames.addIfNotAlreadyThere (file.getFullPathName());
+        mFavPresetNames.addIfNotAlreadyThere (file.getFileNameWithoutExtension());
     }
 
     mAllPresets.set (inIndexValue, preset);
-    mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+    mFavoritesFile.setValue ("favorites", mFavPresetNames.joinIntoString (";"));
     mFavoritesFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();
@@ -368,10 +369,10 @@ void BrowserState::handleClickDeletePreset (const int inIndexValue)
     File file = mAllPresetFiles[inIndexValue];
     if (!file.existsAsFile()) { return; }
 
-    if (mFavPathNames.contains (file.getFullPathName()))
+    if (mFavPresetNames.contains (file.getFileNameWithoutExtension()))
     {
-        mFavPathNames.removeString (file.getFullPathName());
-        mFavoritesFile.setValue ("favorites", mFavPathNames.joinIntoString (";"));
+        mFavPresetNames.removeString (file.getFileNameWithoutExtension());
+        mFavoritesFile.setValue ("favorites", mFavPresetNames.joinIntoString (";"));
         mFavoritesFile.saveIfNeeded();
     }
 
@@ -457,6 +458,33 @@ void BrowserState::handleClickRightArrow (const String inPresetName)
 }
 
 //==============================================================================
+void BrowserState::scrubFavs()
+{
+    StringArray favPresetNames;
+    StringArray favs = StringArray::fromTokens (mFavoritesFile.getValue ("favorites"), ";", "");
+
+    for (String& fav : favs)
+    {
+        String favPresetName;
+        int index = fav.lastIndexOf ("/");
+
+        if (index > 0)
+        {
+            favPresetName = fav.substring((index + 1), (fav.length() - 4));
+        }
+        else
+        {
+            favPresetName = fav;
+        }
+
+        const File favPresetFile = PRESET_FOLDER.getChildFile (favPresetName + PRESET_EXTENSION);
+        if (favPresetFile.existsAsFile()) { favPresetNames.add (favPresetName); }
+    }
+
+    mFavoritesFile.setValue ("favorites", favPresetNames.joinIntoString (";"));
+    mFavoritesFile.saveIfNeeded();
+}
+
 int BrowserState::getFilteredPresetIndex (const String inPresetName)
 {
     int filteredIndex = -1;
