@@ -86,6 +86,7 @@ private:
     bool mIsTagManagerVisible = false;
 
     void scrubFavs();
+    void scrubTags();
     int getFilteredPresetIndex (const String presetName);
 
     PropertiesFile mTagsFile { System::createPluginPropertiesOptions ("tags") };

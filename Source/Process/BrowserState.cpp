@@ -4,6 +4,7 @@
 BrowserState::BrowserState()
 {
     scrubFavs();
+    scrubTags();
     refreshData();
     mFilteredPresets = mAllPresets;
     PRESET_FOLDER.createDirectory();
@@ -167,8 +168,8 @@ bool BrowserState::isInSelectedTags (const int inIndexValue)
     for (int index = 0; index < mSelectedTags.size(); index++)
     {
         const String tagName = mSelectedTags[index];
-        StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (tagName), ";", "");
-        if (taggedFileNames.contains(file.getFileNameWithoutExtension())) { matches += 1; }
+        StringArray taggedPresetNames = StringArray::fromTokens (mTagsFile.getValue (tagName), ";", "");
+        if (taggedPresetNames.contains (file.getFileNameWithoutExtension())) { matches += 1; }
     }
 
     return matches > 0;
@@ -180,8 +181,8 @@ bool BrowserState::isInAssignableTag (const String inPresetName)
     File file = mAllPresetFiles[indexValue];
     if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return false; }
 
-    StringArray taggedFileNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
-    return taggedFileNames.contains(file.getFileNameWithoutExtension());
+    StringArray taggedPresetNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
+    return taggedPresetNames.contains (file.getFileNameWithoutExtension());
 }
 
 //==============================================================================
@@ -389,18 +390,18 @@ void BrowserState::handleClickPresetTagger (const int inIndexValue)
     File file = mAllPresetFiles[inIndexValue];
     if (!file.existsAsFile() || mAssignableTag.isEmpty()) { return; }
 
-    StringArray taggedPathNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
+    StringArray taggedPresetNames = StringArray::fromTokens (mTagsFile.getValue (mAssignableTag), ";", "");
 
-    if (taggedPathNames.contains (file.getFileNameWithoutExtension()))
+    if (taggedPresetNames.contains (file.getFileNameWithoutExtension()))
     {
-        taggedPathNames.removeString (file.getFileNameWithoutExtension());
+        taggedPresetNames.removeString (file.getFileNameWithoutExtension());
     }
     else
     {
-        taggedPathNames.addIfNotAlreadyThere (file.getFileNameWithoutExtension());
+        taggedPresetNames.addIfNotAlreadyThere (file.getFileNameWithoutExtension());
     }
 
-    mTagsFile.setValue (mAssignableTag, taggedPathNames.joinIntoString (";"));
+    mTagsFile.setValue (mAssignableTag, taggedPresetNames.joinIntoString (";"));
     mTagsFile.saveIfNeeded();
 
     DataMessage* message = new DataMessage();
@@ -483,6 +484,26 @@ void BrowserState::scrubFavs()
 
     mFavoritesFile.setValue ("favorites", favPresetNames.joinIntoString (";"));
     mFavoritesFile.saveIfNeeded();
+}
+
+void BrowserState::scrubTags()
+{
+    StringArray tagNames = getAllTagNames();
+
+    for (String& tagName : tagNames)
+    {
+        StringArray taggedPresetNames;
+        StringArray tags = StringArray::fromTokens (mTagsFile.getValue (tagName), ";", "");
+
+        for (String& taggedPresetName : tags)
+        {
+            const File taggedPresetFile = PRESET_FOLDER.getChildFile (taggedPresetName + PRESET_EXTENSION);
+            if (taggedPresetFile.existsAsFile()) { taggedPresetNames.add (taggedPresetName); }
+        }
+
+        mTagsFile.setValue (tagName, taggedPresetNames.joinIntoString (";"));
+        mTagsFile.saveIfNeeded();
+    }
 }
 
 int BrowserState::getFilteredPresetIndex (const String inPresetName)
